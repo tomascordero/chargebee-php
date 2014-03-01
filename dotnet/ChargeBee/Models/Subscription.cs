@@ -1,0 +1,889 @@
+using System;
+using System.IO;
+using System.ComponentModel;
+using System.Collections.Generic;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using ChargeBee.Internal;
+using ChargeBee.Api;
+using ChargeBee.Models.Enums;
+
+namespace ChargeBee.Models
+{
+
+    public class Subscription : Resource 
+    {
+    
+
+        #region Methods
+        public static CreateRequest Create()
+        {
+            string url = ApiUtil.BuildUrl("subscriptions");
+            return new CreateRequest(url, HttpMethod.POST);
+        }
+        public static CreateForCustomerRequest CreateForCustomer(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
+            return new CreateForCustomerRequest(url, HttpMethod.POST);
+        }
+        public static ListRequest List()
+        {
+            string url = ApiUtil.BuildUrl("subscriptions");
+            return new ListRequest(url);
+        }
+        public static ListRequest SubscriptionsForCustomer(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
+            return new ListRequest(url);
+        }
+        public static EntityRequest Retrieve(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
+            return new EntityRequest(url, HttpMethod.GET);
+        }
+        public static UpdateRequest Update(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
+            return new UpdateRequest(url, HttpMethod.POST);
+        }
+        public static ChangeTermEndRequest ChangeTermEnd(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "change_term_end");
+            return new ChangeTermEndRequest(url, HttpMethod.POST);
+        }
+        public static CancelRequest Cancel(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "cancel");
+            return new CancelRequest(url, HttpMethod.POST);
+        }
+        public static ReactivateRequest Reactivate(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "reactivate");
+            return new ReactivateRequest(url, HttpMethod.POST);
+        }
+        public static AddCreditRequest AddCredit(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "add_credit");
+            return new AddCreditRequest(url, HttpMethod.POST);
+        }
+        #endregion
+        
+        #region Properties
+        public string Id 
+        {
+            get { return GetValue<string>("id", true); }
+        }
+        public string PlanId 
+        {
+            get { return GetValue<string>("plan_id", true); }
+        }
+        public int PlanQuantity 
+        {
+            get { return GetValue<int>("plan_quantity", true); }
+        }
+        public StatusEnum Status 
+        {
+            get { return GetEnum<StatusEnum>("status", true); }
+        }
+        public DateTime? StartDate 
+        {
+            get { return GetDateTime("start_date", false); }
+        }
+        public DateTime? TrialStart 
+        {
+            get { return GetDateTime("trial_start", false); }
+        }
+        public DateTime? TrialEnd 
+        {
+            get { return GetDateTime("trial_end", false); }
+        }
+        public DateTime? CurrentTermStart 
+        {
+            get { return GetDateTime("current_term_start", false); }
+        }
+        public DateTime? CurrentTermEnd 
+        {
+            get { return GetDateTime("current_term_end", false); }
+        }
+        public int? RemainingBillingCycles 
+        {
+            get { return GetValue<int?>("remaining_billing_cycles", false); }
+        }
+        public DateTime? CreatedAt 
+        {
+            get { return GetDateTime("created_at", false); }
+        }
+        public DateTime? StartedAt 
+        {
+            get { return GetDateTime("started_at", false); }
+        }
+        public DateTime? ActivatedAt 
+        {
+            get { return GetDateTime("activated_at", false); }
+        }
+        public DateTime? CancelledAt 
+        {
+            get { return GetDateTime("cancelled_at", false); }
+        }
+        public CancelReasonEnum? CancelReason 
+        {
+            get { return GetEnum<CancelReasonEnum>("cancel_reason", false); }
+        }
+        public int? DueInvoicesCount 
+        {
+            get { return GetValue<int?>("due_invoices_count", false); }
+        }
+        public DateTime? DueSince 
+        {
+            get { return GetDateTime("due_since", false); }
+        }
+        public int? TotalDues 
+        {
+            get { return GetValue<int?>("total_dues", false); }
+        }
+        public List<SubscriptionAddon> Addons 
+        {
+            get { return GetResourceList<SubscriptionAddon>("addons"); }
+        }
+        [Obsolete]
+        public string Coupon 
+        {
+            get { return GetValue<string>("coupon", false); }
+        }
+        public List<SubscriptionCoupon> Coupons 
+        {
+            get { return GetResourceList<SubscriptionCoupon>("coupons"); }
+        }
+        
+        #endregion
+        
+        #region Requests
+        public class CreateRequest : EntityRequest 
+        {
+            public CreateRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CreateRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public CreateRequest PlanId(string planId) 
+            {
+                m_params.Add("plan_id", planId);
+                return this;
+            }
+            public CreateRequest PlanQuantity(int planQuantity) 
+            {
+                m_params.AddOpt("plan_quantity", planQuantity);
+                return this;
+            }
+            public CreateRequest StartDate(long startDate) 
+            {
+                m_params.AddOpt("start_date", startDate);
+                return this;
+            }
+            public CreateRequest TrialEnd(long trialEnd) 
+            {
+                m_params.AddOpt("trial_end", trialEnd);
+                return this;
+            }
+            public CreateRequest BillingCycles(int billingCycles) 
+            {
+                m_params.AddOpt("billing_cycles", billingCycles);
+                return this;
+            }
+            public CreateRequest Coupon(string coupon) 
+            {
+                m_params.AddOpt("coupon", coupon);
+                return this;
+            }
+            public CreateRequest CustomerId(string customerId) 
+            {
+                m_params.AddOpt("customer[id]", customerId);
+                return this;
+            }
+            public CreateRequest CustomerEmail(string customerEmail) 
+            {
+                m_params.AddOpt("customer[email]", customerEmail);
+                return this;
+            }
+            public CreateRequest CustomerFirstName(string customerFirstName) 
+            {
+                m_params.AddOpt("customer[first_name]", customerFirstName);
+                return this;
+            }
+            public CreateRequest CustomerLastName(string customerLastName) 
+            {
+                m_params.AddOpt("customer[last_name]", customerLastName);
+                return this;
+            }
+            public CreateRequest CustomerCompany(string customerCompany) 
+            {
+                m_params.AddOpt("customer[company]", customerCompany);
+                return this;
+            }
+            public CreateRequest CustomerPhone(string customerPhone) 
+            {
+                m_params.AddOpt("customer[phone]", customerPhone);
+                return this;
+            }
+            public CreateRequest CustomerAutoCollection(AutoCollectionEnum customerAutoCollection) 
+            {
+                m_params.AddOpt("customer[auto_collection]", customerAutoCollection);
+                return this;
+            }
+            public CreateRequest CardGateway(GatewayEnum cardGateway) 
+            {
+                m_params.AddOpt("card[gateway]", cardGateway);
+                return this;
+            }
+            public CreateRequest CardTmpToken(string cardTmpToken) 
+            {
+                m_params.AddOpt("card[tmp_token]", cardTmpToken);
+                return this;
+            }
+            public CreateRequest CardFirstName(string cardFirstName) 
+            {
+                m_params.AddOpt("card[first_name]", cardFirstName);
+                return this;
+            }
+            public CreateRequest CardLastName(string cardLastName) 
+            {
+                m_params.AddOpt("card[last_name]", cardLastName);
+                return this;
+            }
+            public CreateRequest CardNumber(string cardNumber) 
+            {
+                m_params.AddOpt("card[number]", cardNumber);
+                return this;
+            }
+            public CreateRequest CardExpiryMonth(int cardExpiryMonth) 
+            {
+                m_params.AddOpt("card[expiry_month]", cardExpiryMonth);
+                return this;
+            }
+            public CreateRequest CardExpiryYear(int cardExpiryYear) 
+            {
+                m_params.AddOpt("card[expiry_year]", cardExpiryYear);
+                return this;
+            }
+            public CreateRequest CardCvv(string cardCvv) 
+            {
+                m_params.AddOpt("card[cvv]", cardCvv);
+                return this;
+            }
+            public CreateRequest CardBillingAddr1(string cardBillingAddr1) 
+            {
+                m_params.AddOpt("card[billing_addr1]", cardBillingAddr1);
+                return this;
+            }
+            public CreateRequest CardBillingAddr2(string cardBillingAddr2) 
+            {
+                m_params.AddOpt("card[billing_addr2]", cardBillingAddr2);
+                return this;
+            }
+            public CreateRequest CardBillingCity(string cardBillingCity) 
+            {
+                m_params.AddOpt("card[billing_city]", cardBillingCity);
+                return this;
+            }
+            public CreateRequest CardBillingState(string cardBillingState) 
+            {
+                m_params.AddOpt("card[billing_state]", cardBillingState);
+                return this;
+            }
+            public CreateRequest CardBillingZip(string cardBillingZip) 
+            {
+                m_params.AddOpt("card[billing_zip]", cardBillingZip);
+                return this;
+            }
+            public CreateRequest CardBillingCountry(string cardBillingCountry) 
+            {
+                m_params.AddOpt("card[billing_country]", cardBillingCountry);
+                return this;
+            }
+            public CreateRequest BillingAddressFirstName(string billingAddressFirstName) 
+            {
+                m_params.AddOpt("billing_address[first_name]", billingAddressFirstName);
+                return this;
+            }
+            public CreateRequest BillingAddressLastName(string billingAddressLastName) 
+            {
+                m_params.AddOpt("billing_address[last_name]", billingAddressLastName);
+                return this;
+            }
+            public CreateRequest BillingAddressEmail(string billingAddressEmail) 
+            {
+                m_params.AddOpt("billing_address[email]", billingAddressEmail);
+                return this;
+            }
+            public CreateRequest BillingAddressCompany(string billingAddressCompany) 
+            {
+                m_params.AddOpt("billing_address[company]", billingAddressCompany);
+                return this;
+            }
+            public CreateRequest BillingAddressPhone(string billingAddressPhone) 
+            {
+                m_params.AddOpt("billing_address[phone]", billingAddressPhone);
+                return this;
+            }
+            public CreateRequest BillingAddressLine1(string billingAddressLine1) 
+            {
+                m_params.AddOpt("billing_address[line1]", billingAddressLine1);
+                return this;
+            }
+            public CreateRequest BillingAddressLine2(string billingAddressLine2) 
+            {
+                m_params.AddOpt("billing_address[line2]", billingAddressLine2);
+                return this;
+            }
+            public CreateRequest BillingAddressLine3(string billingAddressLine3) 
+            {
+                m_params.AddOpt("billing_address[line3]", billingAddressLine3);
+                return this;
+            }
+            public CreateRequest BillingAddressCity(string billingAddressCity) 
+            {
+                m_params.AddOpt("billing_address[city]", billingAddressCity);
+                return this;
+            }
+            public CreateRequest BillingAddressState(string billingAddressState) 
+            {
+                m_params.AddOpt("billing_address[state]", billingAddressState);
+                return this;
+            }
+            public CreateRequest BillingAddressZip(string billingAddressZip) 
+            {
+                m_params.AddOpt("billing_address[zip]", billingAddressZip);
+                return this;
+            }
+            public CreateRequest BillingAddressCountry(string billingAddressCountry) 
+            {
+                m_params.AddOpt("billing_address[country]", billingAddressCountry);
+                return this;
+            }
+            public CreateRequest ShippingAddressFirstName(string shippingAddressFirstName) 
+            {
+                m_params.AddOpt("shipping_address[first_name]", shippingAddressFirstName);
+                return this;
+            }
+            public CreateRequest ShippingAddressLastName(string shippingAddressLastName) 
+            {
+                m_params.AddOpt("shipping_address[last_name]", shippingAddressLastName);
+                return this;
+            }
+            public CreateRequest ShippingAddressEmail(string shippingAddressEmail) 
+            {
+                m_params.AddOpt("shipping_address[email]", shippingAddressEmail);
+                return this;
+            }
+            public CreateRequest ShippingAddressCompany(string shippingAddressCompany) 
+            {
+                m_params.AddOpt("shipping_address[company]", shippingAddressCompany);
+                return this;
+            }
+            public CreateRequest ShippingAddressPhone(string shippingAddressPhone) 
+            {
+                m_params.AddOpt("shipping_address[phone]", shippingAddressPhone);
+                return this;
+            }
+            public CreateRequest ShippingAddressLine1(string shippingAddressLine1) 
+            {
+                m_params.AddOpt("shipping_address[line1]", shippingAddressLine1);
+                return this;
+            }
+            public CreateRequest ShippingAddressLine2(string shippingAddressLine2) 
+            {
+                m_params.AddOpt("shipping_address[line2]", shippingAddressLine2);
+                return this;
+            }
+            public CreateRequest ShippingAddressLine3(string shippingAddressLine3) 
+            {
+                m_params.AddOpt("shipping_address[line3]", shippingAddressLine3);
+                return this;
+            }
+            public CreateRequest ShippingAddressCity(string shippingAddressCity) 
+            {
+                m_params.AddOpt("shipping_address[city]", shippingAddressCity);
+                return this;
+            }
+            public CreateRequest ShippingAddressState(string shippingAddressState) 
+            {
+                m_params.AddOpt("shipping_address[state]", shippingAddressState);
+                return this;
+            }
+            public CreateRequest ShippingAddressZip(string shippingAddressZip) 
+            {
+                m_params.AddOpt("shipping_address[zip]", shippingAddressZip);
+                return this;
+            }
+            public CreateRequest ShippingAddressCountry(string shippingAddressCountry) 
+            {
+                m_params.AddOpt("shipping_address[country]", shippingAddressCountry);
+                return this;
+            }
+            public CreateRequest CustomerVatNumber(string customerVatNumber) 
+            {
+                m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+            public CreateRequest AddonId(int index, string addonId) 
+            {
+                m_params.AddOpt("addons[id][" + index + "]", addonId);
+                return this;
+            }
+            public CreateRequest AddonQuantity(int index, int addonQuantity) 
+            {
+                m_params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+                return this;
+            }
+        }
+        public class CreateForCustomerRequest : EntityRequest 
+        {
+            public CreateForCustomerRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CreateForCustomerRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public CreateForCustomerRequest PlanId(string planId) 
+            {
+                m_params.Add("plan_id", planId);
+                return this;
+            }
+            public CreateForCustomerRequest PlanQuantity(int planQuantity) 
+            {
+                m_params.AddOpt("plan_quantity", planQuantity);
+                return this;
+            }
+            public CreateForCustomerRequest StartDate(long startDate) 
+            {
+                m_params.AddOpt("start_date", startDate);
+                return this;
+            }
+            public CreateForCustomerRequest TrialEnd(long trialEnd) 
+            {
+                m_params.AddOpt("trial_end", trialEnd);
+                return this;
+            }
+            public CreateForCustomerRequest BillingCycles(int billingCycles) 
+            {
+                m_params.AddOpt("billing_cycles", billingCycles);
+                return this;
+            }
+            public CreateForCustomerRequest Coupon(string coupon) 
+            {
+                m_params.AddOpt("coupon", coupon);
+                return this;
+            }
+            public CreateForCustomerRequest AddonId(int index, string addonId) 
+            {
+                m_params.AddOpt("addons[id][" + index + "]", addonId);
+                return this;
+            }
+            public CreateForCustomerRequest AddonQuantity(int index, int addonQuantity) 
+            {
+                m_params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+                return this;
+            }
+        }
+        public class UpdateRequest : EntityRequest 
+        {
+            public UpdateRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public UpdateRequest PlanId(string planId) 
+            {
+                m_params.AddOpt("plan_id", planId);
+                return this;
+            }
+            public UpdateRequest PlanQuantity(int planQuantity) 
+            {
+                m_params.AddOpt("plan_quantity", planQuantity);
+                return this;
+            }
+            public UpdateRequest StartDate(long startDate) 
+            {
+                m_params.AddOpt("start_date", startDate);
+                return this;
+            }
+            public UpdateRequest TrialEnd(long trialEnd) 
+            {
+                m_params.AddOpt("trial_end", trialEnd);
+                return this;
+            }
+            public UpdateRequest BillingCycles(int billingCycles) 
+            {
+                m_params.AddOpt("billing_cycles", billingCycles);
+                return this;
+            }
+            public UpdateRequest ReplaceAddonList(bool replaceAddonList) 
+            {
+                m_params.AddOpt("replace_addon_list", replaceAddonList);
+                return this;
+            }
+            public UpdateRequest Coupon(string coupon) 
+            {
+                m_params.AddOpt("coupon", coupon);
+                return this;
+            }
+            public UpdateRequest Prorate(bool prorate) 
+            {
+                m_params.AddOpt("prorate", prorate);
+                return this;
+            }
+            public UpdateRequest EndOfTerm(bool endOfTerm) 
+            {
+                m_params.AddOpt("end_of_term", endOfTerm);
+                return this;
+            }
+            public UpdateRequest CardGateway(GatewayEnum cardGateway) 
+            {
+                m_params.AddOpt("card[gateway]", cardGateway);
+                return this;
+            }
+            public UpdateRequest CardTmpToken(string cardTmpToken) 
+            {
+                m_params.AddOpt("card[tmp_token]", cardTmpToken);
+                return this;
+            }
+            public UpdateRequest CardFirstName(string cardFirstName) 
+            {
+                m_params.AddOpt("card[first_name]", cardFirstName);
+                return this;
+            }
+            public UpdateRequest CardLastName(string cardLastName) 
+            {
+                m_params.AddOpt("card[last_name]", cardLastName);
+                return this;
+            }
+            public UpdateRequest CardNumber(string cardNumber) 
+            {
+                m_params.AddOpt("card[number]", cardNumber);
+                return this;
+            }
+            public UpdateRequest CardExpiryMonth(int cardExpiryMonth) 
+            {
+                m_params.AddOpt("card[expiry_month]", cardExpiryMonth);
+                return this;
+            }
+            public UpdateRequest CardExpiryYear(int cardExpiryYear) 
+            {
+                m_params.AddOpt("card[expiry_year]", cardExpiryYear);
+                return this;
+            }
+            public UpdateRequest CardCvv(string cardCvv) 
+            {
+                m_params.AddOpt("card[cvv]", cardCvv);
+                return this;
+            }
+            public UpdateRequest CardBillingAddr1(string cardBillingAddr1) 
+            {
+                m_params.AddOpt("card[billing_addr1]", cardBillingAddr1);
+                return this;
+            }
+            public UpdateRequest CardBillingAddr2(string cardBillingAddr2) 
+            {
+                m_params.AddOpt("card[billing_addr2]", cardBillingAddr2);
+                return this;
+            }
+            public UpdateRequest CardBillingCity(string cardBillingCity) 
+            {
+                m_params.AddOpt("card[billing_city]", cardBillingCity);
+                return this;
+            }
+            public UpdateRequest CardBillingState(string cardBillingState) 
+            {
+                m_params.AddOpt("card[billing_state]", cardBillingState);
+                return this;
+            }
+            public UpdateRequest CardBillingZip(string cardBillingZip) 
+            {
+                m_params.AddOpt("card[billing_zip]", cardBillingZip);
+                return this;
+            }
+            public UpdateRequest CardBillingCountry(string cardBillingCountry) 
+            {
+                m_params.AddOpt("card[billing_country]", cardBillingCountry);
+                return this;
+            }
+            public UpdateRequest BillingAddressFirstName(string billingAddressFirstName) 
+            {
+                m_params.AddOpt("billing_address[first_name]", billingAddressFirstName);
+                return this;
+            }
+            public UpdateRequest BillingAddressLastName(string billingAddressLastName) 
+            {
+                m_params.AddOpt("billing_address[last_name]", billingAddressLastName);
+                return this;
+            }
+            public UpdateRequest BillingAddressEmail(string billingAddressEmail) 
+            {
+                m_params.AddOpt("billing_address[email]", billingAddressEmail);
+                return this;
+            }
+            public UpdateRequest BillingAddressCompany(string billingAddressCompany) 
+            {
+                m_params.AddOpt("billing_address[company]", billingAddressCompany);
+                return this;
+            }
+            public UpdateRequest BillingAddressPhone(string billingAddressPhone) 
+            {
+                m_params.AddOpt("billing_address[phone]", billingAddressPhone);
+                return this;
+            }
+            public UpdateRequest BillingAddressLine1(string billingAddressLine1) 
+            {
+                m_params.AddOpt("billing_address[line1]", billingAddressLine1);
+                return this;
+            }
+            public UpdateRequest BillingAddressLine2(string billingAddressLine2) 
+            {
+                m_params.AddOpt("billing_address[line2]", billingAddressLine2);
+                return this;
+            }
+            public UpdateRequest BillingAddressLine3(string billingAddressLine3) 
+            {
+                m_params.AddOpt("billing_address[line3]", billingAddressLine3);
+                return this;
+            }
+            public UpdateRequest BillingAddressCity(string billingAddressCity) 
+            {
+                m_params.AddOpt("billing_address[city]", billingAddressCity);
+                return this;
+            }
+            public UpdateRequest BillingAddressState(string billingAddressState) 
+            {
+                m_params.AddOpt("billing_address[state]", billingAddressState);
+                return this;
+            }
+            public UpdateRequest BillingAddressZip(string billingAddressZip) 
+            {
+                m_params.AddOpt("billing_address[zip]", billingAddressZip);
+                return this;
+            }
+            public UpdateRequest BillingAddressCountry(string billingAddressCountry) 
+            {
+                m_params.AddOpt("billing_address[country]", billingAddressCountry);
+                return this;
+            }
+            public UpdateRequest ShippingAddressFirstName(string shippingAddressFirstName) 
+            {
+                m_params.AddOpt("shipping_address[first_name]", shippingAddressFirstName);
+                return this;
+            }
+            public UpdateRequest ShippingAddressLastName(string shippingAddressLastName) 
+            {
+                m_params.AddOpt("shipping_address[last_name]", shippingAddressLastName);
+                return this;
+            }
+            public UpdateRequest ShippingAddressEmail(string shippingAddressEmail) 
+            {
+                m_params.AddOpt("shipping_address[email]", shippingAddressEmail);
+                return this;
+            }
+            public UpdateRequest ShippingAddressCompany(string shippingAddressCompany) 
+            {
+                m_params.AddOpt("shipping_address[company]", shippingAddressCompany);
+                return this;
+            }
+            public UpdateRequest ShippingAddressPhone(string shippingAddressPhone) 
+            {
+                m_params.AddOpt("shipping_address[phone]", shippingAddressPhone);
+                return this;
+            }
+            public UpdateRequest ShippingAddressLine1(string shippingAddressLine1) 
+            {
+                m_params.AddOpt("shipping_address[line1]", shippingAddressLine1);
+                return this;
+            }
+            public UpdateRequest ShippingAddressLine2(string shippingAddressLine2) 
+            {
+                m_params.AddOpt("shipping_address[line2]", shippingAddressLine2);
+                return this;
+            }
+            public UpdateRequest ShippingAddressLine3(string shippingAddressLine3) 
+            {
+                m_params.AddOpt("shipping_address[line3]", shippingAddressLine3);
+                return this;
+            }
+            public UpdateRequest ShippingAddressCity(string shippingAddressCity) 
+            {
+                m_params.AddOpt("shipping_address[city]", shippingAddressCity);
+                return this;
+            }
+            public UpdateRequest ShippingAddressState(string shippingAddressState) 
+            {
+                m_params.AddOpt("shipping_address[state]", shippingAddressState);
+                return this;
+            }
+            public UpdateRequest ShippingAddressZip(string shippingAddressZip) 
+            {
+                m_params.AddOpt("shipping_address[zip]", shippingAddressZip);
+                return this;
+            }
+            public UpdateRequest ShippingAddressCountry(string shippingAddressCountry) 
+            {
+                m_params.AddOpt("shipping_address[country]", shippingAddressCountry);
+                return this;
+            }
+            public UpdateRequest CustomerVatNumber(string customerVatNumber) 
+            {
+                m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+            public UpdateRequest AddonId(int index, string addonId) 
+            {
+                m_params.AddOpt("addons[id][" + index + "]", addonId);
+                return this;
+            }
+            public UpdateRequest AddonQuantity(int index, int addonQuantity) 
+            {
+                m_params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+                return this;
+            }
+        }
+        public class ChangeTermEndRequest : EntityRequest 
+        {
+            public ChangeTermEndRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public ChangeTermEndRequest TermEndsAt(long termEndsAt) 
+            {
+                m_params.Add("term_ends_at", termEndsAt);
+                return this;
+            }
+        }
+        public class CancelRequest : EntityRequest 
+        {
+            public CancelRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CancelRequest EndOfTerm(bool endOfTerm) 
+            {
+                m_params.AddOpt("end_of_term", endOfTerm);
+                return this;
+            }
+        }
+        public class ReactivateRequest : EntityRequest 
+        {
+            public ReactivateRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public ReactivateRequest TrialEnd(long trialEnd) 
+            {
+                m_params.AddOpt("trial_end", trialEnd);
+                return this;
+            }
+            [Obsolete]
+            public ReactivateRequest TrialPeriodDays(int trialPeriodDays) 
+            {
+                m_params.AddOpt("trial_period_days", trialPeriodDays);
+                return this;
+            }
+        }
+        public class AddCreditRequest : EntityRequest 
+        {
+            public AddCreditRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public AddCreditRequest Amount(int amount) 
+            {
+                m_params.Add("amount", amount);
+                return this;
+            }
+            public AddCreditRequest Description(string description) 
+            {
+                m_params.Add("description", description);
+                return this;
+            }
+        }
+        #endregion
+
+        public enum StatusEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("future")]
+            Future,
+            [Description("in_trial")]
+            InTrial,
+            [Description("active")]
+            Active,
+            [Description("non_renewing")]
+            NonRenewing,
+            [Description("cancelled")]
+            Cancelled,
+
+        }
+        public enum CancelReasonEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("not_paid")]
+            NotPaid,
+            [Description("no_card")]
+            NoCard,
+            [Description("fraud_review_failed")]
+            FraudReviewFailed,
+
+        }
+
+        #region Subclasses
+        public class SubscriptionAddon : Resource
+        {
+
+            public string Id() {
+                return GetValue<string>("id", true);
+            }
+
+            public int? Quantity() {
+                return GetValue<int?>("quantity", false);
+            }
+
+        }
+        public class SubscriptionCoupon : Resource
+        {
+
+            public string CouponId() {
+                return GetValue<string>("coupon_id", true);
+            }
+
+            public DateTime? ApplyTill() {
+                return GetDateTime("apply_till", false);
+            }
+
+            public int AppliedCount() {
+                return GetValue<int>("applied_count", true);
+            }
+
+            public string CouponCode() {
+                return GetValue<string>("coupon_code", false);
+            }
+
+        }
+
+        #endregion
+    }
+}
