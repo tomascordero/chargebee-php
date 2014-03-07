@@ -58,6 +58,7 @@ public class Coupon extends Resource<Coupon> {
         NONE,
         ALL,
         SPECIFIC,
+        NOT_APPLICABLE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -66,6 +67,7 @@ public class Coupon extends Resource<Coupon> {
         NONE,
         ALL,
         SPECIFIC,
+        NOT_APPLICABLE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -202,48 +204,78 @@ public class Coupon extends Resource<Coupon> {
             return this;
         }
 
+
         public CreateRequest id(String id) {
             params.add("id", id);
             return this;
         }
+
 
         public CreateRequest invoiceName(String invoiceName) {
             params.addOpt("invoice_name", invoiceName);
             return this;
         }
 
+
         public CreateRequest discountType(DiscountType discountType) {
             params.add("discount_type", discountType);
             return this;
         }
+
 
         public CreateRequest discountAmount(Integer discountAmount) {
             params.addOpt("discount_amount", discountAmount);
             return this;
         }
 
+
         public CreateRequest discountPercentage(Double discountPercentage) {
             params.addOpt("discount_percentage", discountPercentage);
             return this;
         }
+
 
         public CreateRequest discountQuantity(Integer discountQuantity) {
             params.addOpt("discount_quantity", discountQuantity);
             return this;
         }
 
+
         public CreateRequest applyOn(ApplyOn applyOn) {
             params.add("apply_on", applyOn);
             return this;
         }
+
 
         public CreateRequest applicablePlans(ApplicablePlans applicablePlans) {
             params.addOpt("applicable_plans", applicablePlans);
             return this;
         }
 
+
         public CreateRequest applicableAddons(ApplicableAddons applicableAddons) {
             params.addOpt("applicable_addons", applicableAddons);
+            return this;
+        }
+
+
+        public CreateRequest planIds(List<String> planIds) {
+            params.addOpt("plan_ids", planIds);
+            return this;
+        }
+
+        public CreateRequest planIds(String...planIds) {
+            params.addOpt("plan_ids", planIds);
+            return this;
+        }
+
+        public CreateRequest addonIds(List<String> addonIds) {
+            params.addOpt("addon_ids", addonIds);
+            return this;
+        }
+
+        public CreateRequest addonIds(String...addonIds) {
+            params.addOpt("addon_ids", addonIds);
             return this;
         }
 
@@ -252,30 +284,24 @@ public class Coupon extends Resource<Coupon> {
             return this;
         }
 
+
         public CreateRequest durationMonth(Integer durationMonth) {
             params.addOpt("duration_month", durationMonth);
             return this;
         }
+
 
         public CreateRequest validTill(Timestamp validTill) {
             params.addOpt("valid_till", validTill);
             return this;
         }
 
+
         public CreateRequest maxRedemptions(Integer maxRedemptions) {
             params.addOpt("max_redemptions", maxRedemptions);
             return this;
         }
 
-        public CreateRequest planId(int index, String planId) {
-            params.addOpt("plans[id][" + index + "]", planId);
-            return this;
-        }
-
-        public CreateRequest addonId(int index, String addonId) {
-            params.addOpt("addons[id][" + index + "]", addonId);
-            return this;
-        }
 
         @Override
         public Params params() {

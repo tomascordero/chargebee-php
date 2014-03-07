@@ -140,65 +140,78 @@ public class Plan extends Resource<Plan> {
             return this;
         }
 
+
         public CreateRequest name(String name) {
             params.add("name", name);
             return this;
         }
+
 
         public CreateRequest invoiceName(String invoiceName) {
             params.addOpt("invoice_name", invoiceName);
             return this;
         }
 
+
         public CreateRequest trialPeriod(Integer trialPeriod) {
             params.addOpt("trial_period", trialPeriod);
             return this;
         }
+
 
         public CreateRequest trialPeriodUnit(TrialPeriodUnit trialPeriodUnit) {
             params.addOpt("trial_period_unit", trialPeriodUnit);
             return this;
         }
 
+
         public CreateRequest period(Integer period) {
             params.addOpt("period", period);
             return this;
         }
+
 
         public CreateRequest periodUnit(PeriodUnit periodUnit) {
             params.addOpt("period_unit", periodUnit);
             return this;
         }
 
+
         public CreateRequest setupCost(Integer setupCost) {
             params.addOpt("setup_cost", setupCost);
             return this;
         }
+
 
         public CreateRequest price(Integer price) {
             params.addOpt("price", price);
             return this;
         }
 
+
         public CreateRequest billingCycles(Integer billingCycles) {
             params.addOpt("billing_cycles", billingCycles);
             return this;
         }
+
 
         public CreateRequest freeQuantity(Integer freeQuantity) {
             params.addOpt("free_quantity", freeQuantity);
             return this;
         }
 
+
         public CreateRequest downgradePenalty(Double downgradePenalty) {
             params.addOpt("downgrade_penalty", downgradePenalty);
             return this;
         }
 
+
         public CreateRequest redirectUrl(String redirectUrl) {
             params.addOpt("redirect_url", redirectUrl);
             return this;
         }
+
 
         @Override
         public Params params() {

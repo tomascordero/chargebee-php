@@ -8,6 +8,7 @@ class ChargeBee_UtilTest extends UnitTestCase
 	      "id" => "sub_KyVq7DNSNM7CSD",
 	      "planId" => "free",
 	       "addons" => array(array("id" => "monitor", "quantity" => 2), array("id" => "ssl")),
+           "addonIds" => array("addonOne","addonTwo"),
 	       "card" => array(
 	         "firstName" => "Rajaraman",
 	         "lastName" => "Santhanam",
@@ -22,12 +23,14 @@ class ChargeBee_UtilTest extends UnitTestCase
 	      "addons[id][0]"=>"monitor", 
 	      "addons[quantity][0]"=>2, 
 	      "addons[id][1]"=>"ssl", 
+          "addonIds[0]"=>"addonOne",
+          "addonIds[1]"=>"addonTwo",
 	      "card[first_name]"=>"Rajaraman", 
 	      "card[last_name]"=>"Santhanam", 
 	      "card[number]"=>"4111111111111111", 
 	      "card[expiry_month]"=>"1", 
 	      "card[expiry_year]"=>"2024", 
-	      "card[cvv]"=>"007");
+	      "card[cvv]"=>"007");         
 				$this->assertEqual($after, ChargeBee_Util::serialize($before));
 	  }
 	

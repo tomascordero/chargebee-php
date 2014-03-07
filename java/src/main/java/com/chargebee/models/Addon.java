@@ -132,45 +132,54 @@ public class Addon extends Resource<Addon> {
             return this;
         }
 
+
         public CreateRequest id(String id) {
             params.add("id", id);
             return this;
         }
+
 
         public CreateRequest invoiceName(String invoiceName) {
             params.addOpt("invoice_name", invoiceName);
             return this;
         }
 
+
         public CreateRequest chargeType(ChargeType chargeType) {
             params.add("charge_type", chargeType);
             return this;
         }
+
 
         public CreateRequest price(Integer price) {
             params.addOpt("price", price);
             return this;
         }
 
+
         public CreateRequest period(Integer period) {
             params.addOpt("period", period);
             return this;
         }
+
 
         public CreateRequest periodUnit(PeriodUnit periodUnit) {
             params.addOpt("period_unit", periodUnit);
             return this;
         }
 
+
         public CreateRequest type(Type type) {
             params.add("type", type);
             return this;
         }
 
+
         public CreateRequest unit(String unit) {
             params.addOpt("unit", unit);
             return this;
         }
+
 
         @Override
         public Params params() {

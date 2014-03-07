@@ -161,6 +161,18 @@ Comment out the methods you don't want to run.
 #create_addon();
 #refundInvoice();
 #refundTransaction();
-retrieveCoupon();
+#retrieveCoupon();
 
 
+print serialize({
+                "id" : "test_addon2",
+                "name":"test Addon2",
+                "invoice_name":"test addon",
+		"charge_type":"non_recurring",
+		#"period":2,
+		"period_unit":"not_applicable",
+                "type":"quantity",
+		"unit":"Agent",
+                "price":4000,
+         "addons":["one","two"]
+        });

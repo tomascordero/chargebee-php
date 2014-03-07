@@ -439,7 +439,7 @@ function createCoupon()
 	"apply_on" => "each_specified_item",
         "applicable_plans" => "none",
         "applicable_addons" => "specific",
-        "addons[id][0]" => "sms_credits" ,
+        "addonIds" => array("sms_credits","sms_credits"),
 	"discount_type" => "fixed_amount",
         "discount_amount" =>100,
         "duration_type" => "one_time",
@@ -456,6 +456,25 @@ $coupon = $result->coupon();
 print_r($coupon->planIds);
 }
 
+
+function testSerialize()
+{
+		  $before = array(
+	      "id" => "sub_KyVq7DNSNM7CSD",
+	      "planId" => "free",
+	       "addons" => array(array("id" => "monitor", "quantity" => 2), array("id" => "ssl")),
+           "addonIds" => array("addonOne","addonTwo"),
+	       "card" => array(
+	         "firstName" => "Rajaraman",
+	         "lastName" => "Santhanam",
+	         "number" => "4111111111111111",
+	         "expiryMonth" => "1",
+	         "expiryYear" => "2024",
+	         "cvv" => "007"));
+			
+  print_r (ChargeBee_Util::serialize($before));
+
+}
 /**
  * You define the functions above and call the ones you would like to test here. 
  */
@@ -488,4 +507,6 @@ print_r($coupon->planIds);
 //refundInvoice();
 //refundTransaction();
 //createCoupon();
-retriveCoupon();
+//retriveCoupon();
+
+testSerialize();

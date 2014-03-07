@@ -267,5 +267,18 @@ end
 #refundInvoice()
 #refundTransaction()
 
-retrieveCoupon
+#retrieveCoupon
+
+puts ChargeBee::Util.serialize({
+  :id => "rub_addon2",
+  :name => "Rub Addon2",
+  :invoice_name => "invoice name",
+  :charge_type => "recurring",
+  :addon_ids=>["one","two"],
+  :period => 5,
+  :period_unit => "week",
+  :price => 2000,
+  :type => "quantity"
+ 
+});
 
