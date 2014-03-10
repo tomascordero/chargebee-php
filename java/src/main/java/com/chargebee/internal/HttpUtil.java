@@ -68,7 +68,8 @@ public class HttpUtil {
             if(value instanceof List){
                List<String> l = (List<String>)value;
                 for (int i = 0; i < l.size(); i++) {
-                    String keyValPair = enc(entry.getKey() + "[" + i + "]") + "=" + enc(l.get(i));
+                    String val = l.get(i);
+                    String keyValPair = enc(entry.getKey() + "[" + i + "]") + "=" + enc(val != null?val:"");
                     buf.add(keyValPair);
                 }
             }else{
