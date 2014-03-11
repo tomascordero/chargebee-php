@@ -226,6 +226,7 @@ public class Card extends Resource<Card> {
         }
 
 
+        @Deprecated
         public UpdateCardForCustomerRequest customerVatNumber(String customerVatNumber) {
             params.addOpt("customer[vat_number]", customerVatNumber);
             return this;

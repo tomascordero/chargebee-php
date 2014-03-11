@@ -1,10 +1,10 @@
 """
-Contains sample codes & functions to work with our php library. 
+Contains sample codes & functions to work with our php library.
 """
 import os,sys
 
 """
-Require the chargebee-php library from the code base that is relative to the chargebee-app directory 
+Require the chargebee-python library from the code base that is relative to the chargebee-app directory
 """
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),"../../python"))
 
@@ -29,14 +29,14 @@ Use the below code to connect to the production server.
 # chargebee.configure("YlRMjamvRnwhK8sDYN8miacuJSpSH3EfK", "rrcb-test")
 
 """
-Following are methods to test with sample code for specific functionality. You define the methods here 
+Following are methods to test with sample code for specific functionality. You define the methods here
 and call the required method at the end to test.
 """
 def new_checkout():
     result = chargebee.HostedPage.checkout_new({
             "subscription" : {
                 "plan_id" : "basic"
-            }, 
+            },
             "embed":"false"
         })
     hosted_page = result.hosted_page
@@ -59,7 +59,7 @@ def list_subscriptions():
             card = entry.card
         list = chargebee.Subscription.list({"limit" : 10, "offset":list.next_offset})
         print("length is %s", len(list))
-        
+
 def retrieve_subscription():
     result = chargebee.Subscription.retrieve("__dev__8avRoOSpoUX6b")
     print(result.subscription)
@@ -76,7 +76,7 @@ def create_estimate():
             "subscription" : {
                 "plan_id" : "basic"
         }})
-    print(result.estimate)    
+    print(result.estimate)
 
 def list_events():
     i = 0;
@@ -108,7 +108,7 @@ def create_plan():
 		"free_quantity":10,
 		"downgrade_penalty":0.5,
 		"trial_period":2,
-		"trial_period_unit":"day"	    
+		"trial_period_unit":"day"
         })
     print(result.plan)
 
@@ -148,7 +148,7 @@ def retrieveCoupon():
 
 """
 Comment out the methods you don't want to run.
-"""            
+"""
 #retrieve_subscription()
 #list_subscriptions()
 #create_estimate()

@@ -302,6 +302,13 @@ var _endpoints = {
       false
     ],
     [
+      "update",
+      "POST",
+      "/plans",
+      null,
+      true
+    ],
+    [
       "list",
       "GET",
       "/plans",
@@ -323,6 +330,13 @@ var _endpoints = {
       "/addons",
       null,
       false
+    ],
+    [
+      "update",
+      "POST",
+      "/addons",
+      null,
+      true
     ],
     [
       "list",

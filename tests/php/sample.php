@@ -1,26 +1,26 @@
 <?php
 /**
- * Contains sample codes & functions to work with our php library. 
+ * Contains sample codes & functions to work with our php library.
  */
 
 /**
  * Require the chargebee-php library from the code base that is relative to the
- * chargebee-app directory 
+ * chargebee-app directory
  */
 require('../../php/lib/ChargeBee.php');
 
 /**
- * Below are the setting to be used if you are testing with the local server. 
+ * Below are the setting to be used if you are testing with the local server.
  */
-ChargeBee_Environment::$scheme = "http";
-ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
+// ChargeBee_Environment::$scheme = "http";
+// ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
 
 /**
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
 //ChargeBee_Environment::configure("mannar-test", "asmbHDtNLNS17eXQJNic6AJquLOgoZDm");
-ChargeBee_Environment::configure("mannar-test", "test___dev__gowhPcVPJyj1HrDjaLM8EEbD1XsQQK0B");
+ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
  * Below are the functions to demonstrate the API access. There are few utility functions towards the end for reuse.
@@ -60,15 +60,15 @@ function createSubscription()
 	//echo $result->customer()->cfSecurityNon;
 }
 
-function createSubscriptionWithAddons() 
+function createSubscriptionWithAddons()
 {
   $result = ChargeBee_Subscription::create(array(
-    "planId" => "bc1", 
+    "planId" => "bc1",
     "customer" => array(
-      "email" => "john@user.com", 
-      "firstName" => "John", 
+      "email" => "john@user.com",
+      "firstName" => "John",
       "lastName" => "Wayne"
-    ), 
+    ),
     "addons" => array(array(
       "id" => "ssl"
     ))));
@@ -81,7 +81,7 @@ function createSubscriptionWithAddons()
 function updateSubscriptionWithAddons()
 {
   $result = ChargeBee_Subscription::update("3msf5ct37h6qcb91r6", array(
-    "planId" => "basic", 
+    "planId" => "basic",
     "addons" => array(array(
       "id" => "ssl"
     ))));
@@ -111,13 +111,13 @@ function updateCard()
 {
   $result = ChargeBee_Subscription::retrieve("trial");
   $result = ChargeBee_Card::updateCardForCustomer("trial", array(
-		"gateway" => "chargebee", 
-		"firstName" => "fName", 
-		"lastName" => 'lName', 
-		#"number" => '4111111111111111', 
-		"expiryMonth" => 12, 
-		"expiryYear" => 2013, 
-		"cvv" => "121")); 
+		"gateway" => "chargebee",
+		"firstName" => "fName",
+		"lastName" => 'lName',
+		#"number" => '4111111111111111',
+		"expiryMonth" => 12,
+		"expiryYear" => 2013,
+		"cvv" => "121"));
 	  print_r($result->card());
 }
 
@@ -125,9 +125,9 @@ function checkoutExistingSubscription()
 {
   $result = ChargeBee_HostedPage::checkoutExisting(array(
     "subscription" => array(
-      "id" => "374CRBOWmlqmv7", 
+      "id" => "374CRBOWmlqmv7",
       "planId" => "basic"
-    ), 
+    ),
     "card" => array(
       "gateway" => "chargebee"
     )));
@@ -176,7 +176,7 @@ function printSubscription($result)
 	echo "customer object is ";
 	print_r($result->customer());
 	echo "subscription object is ";
-	print_r($subscription);	
+	print_r($subscription);
 	$addons = $subscription->addons;
 	if(!is_null($addons))
 	{
@@ -230,15 +230,15 @@ function printHostedPage($result)
 	echo $hostedPage->state."\n";
 }
 
-function address() 
+function address()
 {
   $result = ChargeBee_Address::update(array(
-    "subscriptionId" => "trial", 
-    "label" => "shipping_address", 
-    "addr" => "340 S LEMON AVE #1537", 
-    "city" => "Walnut", 
-    "state" => "CA", 
-    "zip" => "91789", 
+    "subscriptionId" => "trial",
+    "label" => "shipping_address",
+    "addr" => "340 S LEMON AVE #1537",
+    "city" => "Walnut",
+    "state" => "CA",
+    "zip" => "91789",
     "country" => "United States"));
     $address = $result->address();
   	print_r($address);
@@ -302,24 +302,24 @@ function createAddon()
     print_r($addon);
 }
 
-function schoolpage() 
+function schoolpage()
 {
-  ChargeBee_Environment::configure('rrcb-test','jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd');    
+  ChargeBee_Environment::configure('rrcb-test','jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd');
   print("configured");
   // $result = ChargeBee_HostedPage::checkoutNew(array(
   //   "subscription" => array(
-  //     "id" => "2222", 
+  //     "id" => "2222",
   //     "planId" => "BASIC"
-  //   ), 
+  //   ),
   //   "addons" => array(array(
   //    "id" => "G-KUWAIT",
   //  "quantity" => 2
   //   )),
   //   "customer" => array(
-  //     "email" => "riyaz291990@gmail.com", 
-  //     "firstName" => "Riyaz", 
+  //     "email" => "riyaz291990@gmail.com",
+  //     "firstName" => "Riyaz",
   //     "lastName" => "Riyaz"
-  //   ), 
+  //   ),
   //   "card" => array(
   //     "gateway" => "chargebee"
   //   )));
@@ -336,12 +336,12 @@ function invoiceTransactions()
     $transaction = $entry->transaction();
     print_r($transaction);
   }
-  
+
 }
 
 function deleteCard()
 {
-  $result = ChargeBee_Card::deleteCardForCustomer("1mejvOgODLwVUI4c");  
+  $result = ChargeBee_Card::deleteCardForCustomer("1mejvOgODLwVUI4c");
 }
 
 
@@ -451,9 +451,11 @@ function createCoupon()
 
 function retriveCoupon()
 {
-$result = ChargeBee_Coupon::retrieve("test");
+$result = ChargeBee_Coupon::retrieve("test_coupon");
 $coupon = $result->coupon();
-print_r($coupon->planIds);
+//print_r($coupon->planIds);
+foreach ($coupon->planIds as $val)
+    print_r($val);
 }
 
 
@@ -471,12 +473,12 @@ function testSerialize()
 	         "expiryMonth" => "1",
 	         "expiryYear" => "2024",
 	         "cvv" => "007"));
-			
+
   print_r (ChargeBee_Util::serialize($before));
 
 }
 /**
- * You define the functions above and call the ones you would like to test here. 
+ * You define the functions above and call the ones you would like to test here.
  */
 // retrieveSubscription();
 // plans();
@@ -507,6 +509,6 @@ function testSerialize()
 //refundInvoice();
 //refundTransaction();
 //createCoupon();
-//retriveCoupon();
+retriveCoupon();
 
-testSerialize();
+//testSerialize();

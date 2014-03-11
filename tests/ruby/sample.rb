@@ -7,10 +7,10 @@ require 'json'
 
 #Use the below settings code to connect the library with the
 #local server
-$CHARGEBEE_DOMAIN = "localcb.in:8080"
+# $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
-    :site=> 'mannar-test', #'rrcb-test',
-    :api_key => 'test___dev__gowhPcVPJyj1HrDjaLM8EEbD1XsQQK0B'
+    :site=> 'rrcb-test', #'rrcb-test',
+    :api_key => 'jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd'
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -35,7 +35,7 @@ end
 
 def reactivate_subscription
   result = ChargeBee::Subscription.reactivate("canceled_nocard", {
-    :trial_period_days => "10", 
+    :trial_period_days => "10",
   })
 end
 
@@ -58,12 +58,12 @@ end
 
 def update_address(handle)
   result = ChargeBee::Address.update({
-    :subscription_id => handle, 
-    :label => "shipping_address", 
-    :addr => "340 S LEMON AVE #1537", 
-    :city => "Walnut", 
-    :state => "CA", 
-    :zip => "91789", 
+    :subscription_id => handle,
+    :label => "shipping_address",
+    :addr => "340 S LEMON AVE #1537",
+    :city => "Walnut",
+    :state => "CA",
+    :zip => "91789",
     :country => "United States"
   })
   address = result.address
@@ -75,7 +75,7 @@ end
 
 def retrieve_address(handle, label)
   result = ChargeBee::Address.retrieve({
-    :subscription_id => handle, 
+    :subscription_id => handle,
     :label => label
   })
   address = result.address
@@ -84,12 +84,12 @@ end
 
 def create_subscription
   result = ChargeBee::Subscription.create({
-    :plan_id => "no_trial", 
+    :plan_id => "no_trial",
     :customer => {
-      :email => "john@user.com", 
-      :first_name => "John", 
+      :email => "john@user.com",
+      :first_name => "John",
       :last_name => "Wayne",
-    }, 
+    },
     :card => {
       :first_name => "John",
       :last_name => "Wayne",
@@ -107,13 +107,13 @@ end
 def estimate_create_subscription
   result = ChargeBee::Estimate.create_subscription({
     :subscription => {
-      :plan_id => "basic", 
+      :plan_id => "basic",
     },
     :customer => {
-      :email => "john@user.com", 
-      :first_name => "John", 
+      :email => "john@user.com",
+      :first_name => "John",
       :last_name => "Wayne"
-    }, 
+    },
     :addons => [
     ]
   })
@@ -150,15 +150,15 @@ def list_sub_for_cust
 end
 
 def create_sub_for_customer
-  result = ChargeBee::Subscription.create_for_customer("active_direct", 
-							{ :plan_id => "professional", 
+  result = ChargeBee::Subscription.create_for_customer("active_direct",
+							{ :plan_id => "professional",
 							  :coupon =>"plan_only_coupon",
 							  :addons => [{ :id=>"sms_credits" , :quantity => 2 }] } )
   puts result.to_s
 end
 
 def list_comments
-  params = Array.new  
+  params = Array.new
   list = ChargeBee::Comment.list(:limit => 2)
   list.each do |entry|
     puts entry.comment
@@ -177,8 +177,8 @@ end
 
 def create_comment
 result = ChargeBee::Comment.create({
-  :entity_type => "subscription", 
-  :entity_id => "trial_ends_in_two_days", 
+  :entity_type => "subscription",
+  :entity_id => "trial_ends_in_two_days",
   :notes => "This is my test comment from ruby"
 })
 puts result.comment
@@ -211,7 +211,7 @@ result = ChargeBee::Addon.create({
   :period_unit => "week",
   :price => 2000,
   :type => "quantity"
- 
+
 })
 puts result.addon
 end
@@ -220,7 +220,7 @@ def refundInvoice
 result = ChargeBee::Invoice.refund("__demo_inv__1",{
   #:refund_amount => 200,
   :memo => "just a test refund"
- 
+
 })
 puts result
 end
@@ -229,21 +229,23 @@ def refundTransaction
 result = ChargeBee::Transaction.refund("txn___dev__8avZiOUUwxFC5",{
   #:refund_amount => 1100,
   :memo => "refund transaction test"
- 
+
 })
 puts result
 end
 
 def retrieveCoupon
-result = ChargeBee::Coupon.retrieve("test")
-coupon = result.coupon
-puts coupon.plan_ids;
+  result = ChargeBee::Coupon.retrieve("test_coupon")
+  coupon = result.coupon
+  coupon.plan_ids.each do | plan_id |
+    puts plan_id
+  end
 end
 
 
 def deserialize_event
   evt = ChargeBee::Event.deserialize('{"id":"ev_HstHxZvOMPJm2eK2k","occurred_at":1383734697,"source":"api","object":"event","content":{"subscription":{"id":"41609","plan_id":"blossom_monthly","plan_quantity":8,"status":"active","trial_start":1372946940,"trial_end":1372947702,"current_term_start":1383574902,"current_term_end":1386166902,"created_at":1369412964,"started_at":1369412964,"activated_at":1381392277,"cancel_reason":"not_paid","due_invoices_count":0,"object":"subscription"},"customer":{"id":"41609","first_name":"Staffan","last_name":"Einarsson","email":"staffan.einarsson@muchdifferent.com","company":"Pikkotekk AB","auto_collection":"on","created_at":1369412964,"object":"customer","card_status":"valid","billing_address":{"line1":"PikkoTekk AB","line2":"Övre Slottsgatan 22C","city":"Uppsala","state":"Uppsala Län","country":"Sweden","zip":"75312","object":"billing_address"}},"card":{"customer_id":"41609","status":"valid","gateway":"braintree","first_name":"Staffan","last_name":"Einarsson","iin":"407513","last4":"1173","card_type":"visa","expiry_month":8,"expiry_year":2015,"billing_addr1":"PikkoTekk AB","billing_addr2":"Övre Slottsgatan 22C","billing_city":"Uppsala","billing_state":"Uppsala Län","billing_country":"Sweden","billing_zip":"75312","object":"card","masked_number":"************1173"}},"event_type":"subscription_changed","webhook_status":"scheduled"}')
-end  
+end
 
 # Comment the methods you don't want to run.
 
@@ -267,18 +269,18 @@ end
 #refundInvoice()
 #refundTransaction()
 
-#retrieveCoupon
+retrieveCoupon()
 
-puts ChargeBee::Util.serialize({
-  :id => "rub_addon2",
-  :name => "Rub Addon2",
-  :invoice_name => "invoice name",
-  :charge_type => "recurring",
-  :addon_ids=>["one","two"],
-  :period => 5,
-  :period_unit => "week",
-  :price => 2000,
-  :type => "quantity"
- 
-});
+# puts ChargeBee::Util.serialize({
+#   :id => "rub_addon2",
+#   :name => "Rub Addon2",
+#   :invoice_name => "invoice name",
+#   :charge_type => "recurring",
+#   :addon_ids=>["one","two"],
+#   :period => 5,
+#   :period_unit => "week",
+#   :price => 2000,
+#   :type => "quantity"
+#
+# });
 

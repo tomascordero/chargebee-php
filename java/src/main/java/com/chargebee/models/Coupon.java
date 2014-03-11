@@ -54,7 +54,7 @@ public class Coupon extends Resource<Coupon> {
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
-    public enum ApplicablePlans {
+    public enum PlanConstraint {
         NONE,
         ALL,
         SPECIFIC,
@@ -63,7 +63,7 @@ public class Coupon extends Resource<Coupon> {
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
-    public enum ApplicableAddons {
+    public enum AddonConstraint {
         NONE,
         ALL,
         SPECIFIC,
@@ -147,12 +147,12 @@ public class Coupon extends Resource<Coupon> {
         return reqEnum("apply_on", ApplyOn.class);
     }
 
-    public ApplicablePlans applicablePlans() {
-        return reqEnum("applicable_plans", ApplicablePlans.class);
+    public PlanConstraint planConstraint() {
+        return reqEnum("plan_constraint", PlanConstraint.class);
     }
 
-    public ApplicableAddons applicableAddons() {
-        return reqEnum("applicable_addons", ApplicableAddons.class);
+    public AddonConstraint addonConstraint() {
+        return reqEnum("addon_constraint", AddonConstraint.class);
     }
 
     public Timestamp createdAt() {
@@ -199,14 +199,14 @@ public class Coupon extends Resource<Coupon> {
             super(httpMeth, uri);
         }
     
-        public CreateRequest name(String name) {
-            params.add("name", name);
+        public CreateRequest id(String id) {
+            params.add("id", id);
             return this;
         }
 
 
-        public CreateRequest id(String id) {
-            params.add("id", id);
+        public CreateRequest name(String name) {
+            params.add("name", name);
             return this;
         }
 
@@ -247,14 +247,14 @@ public class Coupon extends Resource<Coupon> {
         }
 
 
-        public CreateRequest applicablePlans(ApplicablePlans applicablePlans) {
-            params.addOpt("applicable_plans", applicablePlans);
+        public CreateRequest planConstraint(PlanConstraint planConstraint) {
+            params.addOpt("plan_constraint", planConstraint);
             return this;
         }
 
 
-        public CreateRequest applicableAddons(ApplicableAddons applicableAddons) {
-            params.addOpt("applicable_addons", applicableAddons);
+        public CreateRequest addonConstraint(AddonConstraint addonConstraint) {
+            params.addOpt("addon_constraint", addonConstraint);
             return this;
         }
 
@@ -264,7 +264,7 @@ public class Coupon extends Resource<Coupon> {
             return this;
         }
 
-        public CreateRequest planIds(String...planIds) {
+        public CreateRequest planIds(String... planIds) {
             params.addOpt("plan_ids", planIds);
             return this;
         }
@@ -274,7 +274,7 @@ public class Coupon extends Resource<Coupon> {
             return this;
         }
 
-        public CreateRequest addonIds(String...addonIds) {
+        public CreateRequest addonIds(String... addonIds) {
             params.addOpt("addon_ids", addonIds);
             return this;
         }

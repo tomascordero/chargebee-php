@@ -28,10 +28,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("coupons");
             return new ListRequest(url);
         }
-        public static EntityRequest Retrieve(string id)
+        public static EntityRequest<Type> Retrieve(string id)
         {
             string url = ApiUtil.BuildUrl("coupons", CheckNull(id));
-            return new EntityRequest(url, HttpMethod.GET);
+            return new EntityRequest<Type>(url, HttpMethod.GET);
         }
         #endregion
         
@@ -97,13 +97,13 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<ApplyOnEnum>("apply_on", true); }
         }
-        public ApplicablePlansEnum ApplicablePlans 
+        public PlanConstraintEnum PlanConstraint 
         {
-            get { return GetEnum<ApplicablePlansEnum>("applicable_plans", true); }
+            get { return GetEnum<PlanConstraintEnum>("plan_constraint", true); }
         }
-        public ApplicableAddonsEnum ApplicableAddons 
+        public AddonConstraintEnum AddonConstraint 
         {
-            get { return GetEnum<ApplicableAddonsEnum>("applicable_addons", true); }
+            get { return GetEnum<AddonConstraintEnum>("addon_constraint", true); }
         }
         public DateTime CreatedAt 
         {
@@ -125,21 +125,21 @@ namespace ChargeBee.Models
         #endregion
         
         #region Requests
-        public class CreateRequest : EntityRequest 
+        public class CreateRequest : EntityRequest<CreateRequest> 
         {
             public CreateRequest(string url, HttpMethod method) 
                     : base(url, method)
             {
             }
 
-            public CreateRequest Name(string name) 
-            {
-                m_params.Add("name", name);
-                return this;
-            }
             public CreateRequest Id(string id) 
             {
                 m_params.Add("id", id);
+                return this;
+            }
+            public CreateRequest Name(string name) 
+            {
+                m_params.Add("name", name);
                 return this;
             }
             public CreateRequest InvoiceName(string invoiceName) 
@@ -172,14 +172,24 @@ namespace ChargeBee.Models
                 m_params.Add("apply_on", applyOn);
                 return this;
             }
-            public CreateRequest ApplicablePlans(ApplicablePlansEnum applicablePlans) 
+            public CreateRequest PlanConstraint(PlanConstraintEnum planConstraint) 
             {
-                m_params.AddOpt("applicable_plans", applicablePlans);
+                m_params.AddOpt("plan_constraint", planConstraint);
                 return this;
             }
-            public CreateRequest ApplicableAddons(ApplicableAddonsEnum applicableAddons) 
+            public CreateRequest AddonConstraint(AddonConstraintEnum addonConstraint) 
             {
-                m_params.AddOpt("applicable_addons", applicableAddons);
+                m_params.AddOpt("addon_constraint", addonConstraint);
+                return this;
+            }
+            public CreateRequest PlanIds(List<string> planIds) 
+            {
+                m_params.AddOpt("plan_ids", planIds);
+                return this;
+            }
+            public CreateRequest AddonIds(List<string> addonIds) 
+            {
+                m_params.AddOpt("addon_ids", addonIds);
                 return this;
             }
             public CreateRequest DurationType(DurationTypeEnum durationType) 
@@ -200,16 +210,6 @@ namespace ChargeBee.Models
             public CreateRequest MaxRedemptions(int maxRedemptions) 
             {
                 m_params.AddOpt("max_redemptions", maxRedemptions);
-                return this;
-            }
-            public CreateRequest PlanId(int index, string planId) 
-            {
-                m_params.AddOpt("plans[id][" + index + "]", planId);
-                return this;
-            }
-            public CreateRequest AddonId(int index, string addonId) 
-            {
-                m_params.AddOpt("addons[id][" + index + "]", addonId);
                 return this;
             }
         }
@@ -284,7 +284,7 @@ namespace ChargeBee.Models
             EachUnitOfSpecifiedItems,
 
         }
-        public enum ApplicablePlansEnum
+        public enum PlanConstraintEnum
         {
 
             UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
@@ -295,9 +295,11 @@ namespace ChargeBee.Models
             All,
             [Description("specific")]
             Specific,
+            [Description("not_applicable")]
+            NotApplicable,
 
         }
-        public enum ApplicableAddonsEnum
+        public enum AddonConstraintEnum
         {
 
             UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
@@ -308,6 +310,8 @@ namespace ChargeBee.Models
             All,
             [Description("specific")]
             Specific,
+            [Description("not_applicable")]
+            NotApplicable,
 
         }
 

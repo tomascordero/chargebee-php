@@ -2,7 +2,7 @@
 
 class ChargeBee_UtilTest extends UnitTestCase
 {
-	
+
 	function testSerialize() {
 		  $before = array(
 	      "id" => "sub_KyVq7DNSNM7CSD",
@@ -16,24 +16,24 @@ class ChargeBee_UtilTest extends UnitTestCase
 	         "expiryMonth" => "1",
 	         "expiryYear" => "2024",
 	         "cvv" => "007"));
-	
+
 	    $after = array(
-	      "id"=>"sub_KyVq7DNSNM7CSD", 
-	      "plan_id"=>"free", 
-	      "addons[id][0]"=>"monitor", 
-	      "addons[quantity][0]"=>2, 
-	      "addons[id][1]"=>"ssl", 
-          "addonIds[0]"=>"addonOne",
-          "addonIds[1]"=>"addonTwo",
-	      "card[first_name]"=>"Rajaraman", 
-	      "card[last_name]"=>"Santhanam", 
-	      "card[number]"=>"4111111111111111", 
-	      "card[expiry_month]"=>"1", 
-	      "card[expiry_year]"=>"2024", 
-	      "card[cvv]"=>"007");         
-				$this->assertEqual($after, ChargeBee_Util::serialize($before));
+	      "id"=>"sub_KyVq7DNSNM7CSD",
+	      "plan_id"=>"free",
+	      "addons[id][0]"=>"monitor",
+	      "addons[quantity][0]"=>2,
+	      "addons[id][1]"=>"ssl",
+          "addon_ids[0]"=>"addonOne",
+          "addon_ids[1]"=>"addonTwo",
+	      "card[first_name]"=>"Rajaraman",
+	      "card[last_name]"=>"Santhanam",
+	      "card[number]"=>"4111111111111111",
+	      "card[expiry_month]"=>"1",
+	      "card[expiry_year]"=>"2024",
+	      "card[cvv]"=>"007");
+          $this->assertEqual($after, ChargeBee_Util::serialize($before));
 	  }
-	
+
 	function testToCamelCaseFromUnderscore()
 	{
 		$before = "test_string";
@@ -47,7 +47,7 @@ class ChargeBee_UtilTest extends UnitTestCase
 		$after = "test_string";
 		$this->assertEqual($after, ChargeBee_Util::toUnderscoreFromCamelCase($before));
 	}
-	
+
 }
 
 ?>
