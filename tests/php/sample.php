@@ -463,6 +463,7 @@ function testSerialize()
 {
 		  $before = array(
 	      "id" => "sub_KyVq7DNSNM7CSD",
+          "prorate" => False,
 	      "planId" => "free",
 	       "addons" => array(array("id" => "monitor", "quantity" => 2), array("id" => "ssl")),
            "addonIds" => array("addonOne","addonTwo"),
@@ -509,6 +510,6 @@ function testSerialize()
 //refundInvoice();
 //refundTransaction();
 //createCoupon();
-retriveCoupon();
+// retriveCoupon();
 
-//testSerialize();
+testSerialize();

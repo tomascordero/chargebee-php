@@ -21,7 +21,7 @@ Use the below settings to configure the api endpoint with specific domain.
 """
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
-chargebee.configure("test___dev__gowhPcVPJyj1HrDjaLM8EEbD1XsQQK0B", "mannar-test")
+chargebee.configure("test___dev__k80L73PSKiQhnFJK32qCYiVZuSOHoxcdcd", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -41,6 +41,12 @@ def new_checkout():
         })
     hosted_page = result.hosted_page
     print(hosted_page)
+
+def update_subscription():
+    result = chargebee.Subscription.update("active_direct", {
+        "plan_id" : "professional",
+        "prorate" : False
+    })
 
 def retrive_hostedpage():
     result = chargebee.HostedPage.retrieve("__dev__cugdoVdqOQqJm6rEhtcuEjdSOS0wEAoEHS")
@@ -150,11 +156,12 @@ def retrieveCoupon():
 Comment out the methods you don't want to run.
 """
 #retrieve_subscription()
+# update_subscription()
 #list_subscriptions()
 #create_estimate()
 # list_events()
 # create_estimate()
-#new_checkout()
+new_checkout()
 #retrive_hostedpage()
 #test_serialize()
 #create_plan();
@@ -164,15 +171,15 @@ Comment out the methods you don't want to run.
 #retrieveCoupon();
 
 
-print serialize({
-                "id" : "test_addon2",
-                "name":"test Addon2",
-                "invoice_name":"test addon",
-		"charge_type":"non_recurring",
-		#"period":2,
-		"period_unit":"not_applicable",
-                "type":"quantity",
-		"unit":"Agent",
-                "price":4000,
-         "addons":["one","two"]
-        });
+# print serialize({
+#     "id" : "test_addon2",
+#     "name":"test Addon2",
+#     "invoice_name":"test addon",
+#     "charge_type":"non_recurring",
+#     "prorate":True,
+#     "period_unit":"not_applicable",
+#     "type":"quantity",
+#     "unit":"Agent",
+#     "price":4000,
+#     "addons":["one","two"]
+#     });

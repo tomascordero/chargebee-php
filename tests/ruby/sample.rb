@@ -7,10 +7,10 @@ require 'json'
 
 #Use the below settings code to connect the library with the
 #local server
-# $CHARGEBEE_DOMAIN = "localcb.in:8080"
+$CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
-    :site=> 'rrcb-test', #'rrcb-test',
-    :api_key => 'jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd'
+    :site=> 'mannar-test', #'rrcb-test',
+    :api_key => 'test___dev__k80L73PSKiQhnFJK32qCYiVZuSOHoxcdcd'
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -31,6 +31,13 @@ def list_subscriptions
   puts "#{list.next_offset}"
   list = ChargeBee::Subscription.list(:limit => 2, :offset => list.next_offset.to_s)
   puts "#{list.next_offset}"
+end
+
+def update_subscription
+  result = ChargeBee::Subscription.update("active_direct", {
+    :plan_id => "basic",
+    :prorate => "true"
+  })
 end
 
 def reactivate_subscription
@@ -250,6 +257,7 @@ end
 # Comment the methods you don't want to run.
 
 #create_subscription
+# update_subscription
 #delete_card
 #invoice_transactions
 # update_address("1qBnWmGOIiLbkP1j")
@@ -269,18 +277,18 @@ end
 #refundInvoice()
 #refundTransaction()
 
-retrieveCoupon()
+# retrieveCoupon()
 
-# puts ChargeBee::Util.serialize({
-#   :id => "rub_addon2",
-#   :name => "Rub Addon2",
-#   :invoice_name => "invoice name",
-#   :charge_type => "recurring",
-#   :addon_ids=>["one","two"],
-#   :period => 5,
-#   :period_unit => "week",
-#   :price => 2000,
-#   :type => "quantity"
-#
-# });
+puts ChargeBee::Util.serialize({
+  :id => "rub_addon2",
+  :name => "Rub Addon2",
+  :invoice_name => "invoice name",
+  :charge_type => "recurring",
+  :addon_ids=>["one","two"],
+  :period => 5,
+  :period_unit => "week",
+  :price => 2000,
+  :type => "quantity",
+  :prorate => true
+});
 
