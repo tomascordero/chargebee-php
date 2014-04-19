@@ -1,3 +1,7 @@
+### v1.3.8  (2014-04-17)
+* * *
+Issue fixes.
+
 ### v1.3.7  (2014-03-26)
 * * *
 * Now the [Transaction attributes](https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes "Transaction attributes") contains the details about the linked invoices.
