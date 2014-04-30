@@ -1,3 +1,7 @@
+### v1.3.9  (2014-04-22)
+* * *
+Support for returning shipping address as part of create/update subscription API.
+
 ### v1.3.8  (2014-03-26)
 * * *
 * Now the [Transaction attributes](https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes "Transaction attributes") contains the details about the linked invoices.
