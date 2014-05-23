@@ -4,14 +4,14 @@ set_include_path ('.:/Users/rr');
 // require_once(dirname(__FILE__) . 'chargebee/lib/ChargeBee.php');
 require('lib/ChargeBee.php');
 
-ChargeBee_Environment::$scheme = "http";
-ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
-ChargeBee_Environment::configure("mannar-test", "test___dev__JtPnhGricucdRRBnI2Vi0NVtoCbbrvg7c");
+// ChargeBee_Environment::$scheme = "http";
+// ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
+// ChargeBee_Environment::configure("mannar-test", "test___dev__JtPnhGricucdRRBnI2Vi0NVtoCbbrvg7c");
 
 // ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
 // ChargeBee_Environment::configure("mannar-test", "asmbHDtNLNS17eXQJNic6AJquLOgoZDm");
 
-// ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
+ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 // ChargeBee_Environment::configure("self-test", "4P0YLcdxIxAB1k736JI7XqmSrmF88BKEX");
 
 function retrieveSubscription()
@@ -301,6 +301,11 @@ function deleteCard()
   $result = ChargeBee_Card::deleteCardForCustomer("1mejvOgODLwVUI4c");  
 }
 
+function retrieveCoupon()
+{
+    $result = ChargeBee_Coupon::retrieve("BETA20%OFF");
+    print_r($result);
+}
 // retrieveSubscription();
 // plans();
 // createSubscription();
@@ -313,10 +318,11 @@ function deleteCard()
 // address();
 // webhook();
 //schoolpage();
-createSubscriptionWithAddons();
+// createSubscriptionWithAddons();
 // updateSubscriptionWithAddons();
 //createSubscriptionEstimate();
 // testDiacritics();
 // invoiceTransactions();
-deleteCard();
+// deleteCard();
+retrieveCoupon();
 ?>
