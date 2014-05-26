@@ -73,7 +73,7 @@ def list_events():
         offset = result.next_offset
 
 def retrieve_coupon():
-    result = chargebee.Coupon.retrieve("BETA20%OFF")
+    result = chargebee.Coupon.retrieve("beta20%*/off")
     print(result.coupon)
     
 def test_serialize():
