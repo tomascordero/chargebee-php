@@ -12,15 +12,15 @@ require('../../php/lib/ChargeBee.php');
 /**
  * Below are the setting to be used if you are testing with the local server.
  */
-// ChargeBee_Environment::$scheme = "http";
-// ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
+ChargeBee_Environment::$scheme = "http";
+ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
 
 /**
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-//ChargeBee_Environment::configure("mannar-test", "asmbHDtNLNS17eXQJNic6AJquLOgoZDm");
-ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
+ChargeBee_Environment::configure("mannar-test", "test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67");
+// ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
  * Below are the functions to demonstrate the API access. There are few utility functions towards the end for reuse.
@@ -478,6 +478,28 @@ function testSerialize()
   print_r (ChargeBee_Util::serialize($before));
 
 }
+
+function createPortalSession() 
+{
+    $result = ChargeBee_PortalSession::create(array(
+      "redirectUrl" => "https://www.chargebee.com/thanks.html", 
+      "customer" => array(
+        "id" => "future_billing"
+      )));
+    print_r($result->portalSession());
+}
+
+function retrievePortalSession($sessionId)
+{
+    $result = ChargeBee_PortalSession::retrieve($sessionId);
+    print_r($result->portalSession());
+}
+
+function logoutPortalSession($sessionId)
+{
+    $result = ChargeBee_PortalSession::logout($sessionId);
+    print_r($result->portalSession());
+}
 /**
  * You define the functions above and call the ones you would like to test here.
  */
@@ -499,17 +521,21 @@ function testSerialize()
 // testDiacritics();
 // invoiceTransactions();
 // retrieveSubscriptionsForCust();
-//deleteCard();
-//createForSub();
-//listSubForCust();
-//createComment();
-//listComment();
-//delComment();
-//createPlan();
-//createAddon();
-//refundInvoice();
-//refundTransaction();
-//createCoupon();
+// deleteCard();
+// createForSub();
+// listSubForCust();
+// createComment();
+// listComment();
+// delComment();
+// createPlan();
+// createAddon();
+// refundInvoice();
+// refundTransaction();
+// createCoupon();
 // retriveCoupon();
 
-testSerialize();
+// testSerialize();
+
+// createPortalSession();
+// retrievePortalSession('__dev__VzcdKAcdsHqNaKLWuRHiWPEduD2BoPQU3G');
+// logoutPortalSession('__dev__s32W2W1OkbWFwIk3vxtNaJSFiJfcylTy');

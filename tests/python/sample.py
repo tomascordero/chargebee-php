@@ -21,7 +21,7 @@ Use the below settings to configure the api endpoint with specific domain.
 """
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
-chargebee.configure("test___dev__k80L73PSKiQhnFJK32qCYiVZuSOHoxcdcd", "mannar-test")
+chargebee.configure("test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -142,34 +142,53 @@ def refundInvoice():
 def refundTransaction():
     result = chargebee.Transaction.refund("txn___dev__8avZiOUV24vV1c",{
 		"refund_amount":900,
-                "memo":"Just to refund"
+        "memo":"Just to refund"
         })
     print(result)
 
 def retrieveCoupon():
-  result = chargebee.Coupon.retrieve("test")
-  coupon = result.coupon
-  print(coupon.plan_ids);
+    result = chargebee.Coupon.retrieve("test")
+    coupon = result.coupon
+    print(coupon.plan_ids);
+
+def create_portal_session():
+    result = chargebee.PortalSession.create({
+        "redirect_url" : "https://yourdomain.com/users/3490343", 
+        "customer" : {
+            "id" : "future_billing"
+        }
+    })
+    print(result.portal_session)
+
+def retrieve_portal_session(session_id):
+    result = chargebee.PortalSession.retrieve(session_id)
+    print(result.portal_session)
+
+def logout_portal_session(session_id):
+    result = chargebee.PortalSession.logout(session_id)
+    print(result.portal_session)
 
 
 """
 Comment out the methods you don't want to run.
 """
-#retrieve_subscription()
+# retrieve_subscription()
 # update_subscription()
-#list_subscriptions()
-#create_estimate()
+# list_subscriptions()
+# create_estimate()
 # list_events()
 # create_estimate()
 # new_checkout()
-#retrive_hostedpage()
-#test_serialize()
-#create_plan();
-#create_addon();
-#refundInvoice();
-#refundTransaction();
-#retrieveCoupon();
-
+# retrive_hostedpage()
+# test_serialize()
+# create_plan()
+# create_addon()
+# refundInvoice()
+# refundTransaction()
+# retrieveCoupon()
+# create_portal_session()
+# retrieve_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
+# logout_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
 
 # print serialize({
 #     "id" : "test_addon2",

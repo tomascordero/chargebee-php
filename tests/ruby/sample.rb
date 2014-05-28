@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => 'test___dev__k80L73PSKiQhnFJK32qCYiVZuSOHoxcdcd'
+    :api_key => "test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -223,7 +223,7 @@ result = ChargeBee::Addon.create({
 puts result.addon
 end
 
-def refundInvoice
+def refund_invoice
 result = ChargeBee::Invoice.refund("__demo_inv__1",{
   #:refund_amount => 200,
   :memo => "just a test refund"
@@ -232,7 +232,7 @@ result = ChargeBee::Invoice.refund("__demo_inv__1",{
 puts result
 end
 
-def refundTransaction
+def refund_transaction
 result = ChargeBee::Transaction.refund("txn___dev__8avZiOUUwxFC5",{
   #:refund_amount => 1100,
   :memo => "refund transaction test"
@@ -241,7 +241,7 @@ result = ChargeBee::Transaction.refund("txn___dev__8avZiOUUwxFC5",{
 puts result
 end
 
-def retrieveCoupon
+def retrieve_coupon
   result = ChargeBee::Coupon.retrieve("test_coupon")
   coupon = result.coupon
   coupon.plan_ids.each do | plan_id |
@@ -254,41 +254,64 @@ def deserialize_event
   evt = ChargeBee::Event.deserialize('{"id":"ev_HstHxZvOMPJm2eK2k","occurred_at":1383734697,"source":"api","object":"event","content":{"subscription":{"id":"41609","plan_id":"blossom_monthly","plan_quantity":8,"status":"active","trial_start":1372946940,"trial_end":1372947702,"current_term_start":1383574902,"current_term_end":1386166902,"created_at":1369412964,"started_at":1369412964,"activated_at":1381392277,"cancel_reason":"not_paid","due_invoices_count":0,"object":"subscription"},"customer":{"id":"41609","first_name":"Staffan","last_name":"Einarsson","email":"staffan.einarsson@muchdifferent.com","company":"Pikkotekk AB","auto_collection":"on","created_at":1369412964,"object":"customer","card_status":"valid","billing_address":{"line1":"PikkoTekk AB","line2":"Övre Slottsgatan 22C","city":"Uppsala","state":"Uppsala Län","country":"Sweden","zip":"75312","object":"billing_address"}},"card":{"customer_id":"41609","status":"valid","gateway":"braintree","first_name":"Staffan","last_name":"Einarsson","iin":"407513","last4":"1173","card_type":"visa","expiry_month":8,"expiry_year":2015,"billing_addr1":"PikkoTekk AB","billing_addr2":"Övre Slottsgatan 22C","billing_city":"Uppsala","billing_state":"Uppsala Län","billing_country":"Sweden","billing_zip":"75312","object":"card","masked_number":"************1173"}},"event_type":"subscription_changed","webhook_status":"scheduled"}')
 end
 
+def create_portal_session
+  result = ChargeBee::PortalSession.create({
+    :customer => {
+      :id => "future_billing"
+    },
+    :redirect_url => "https://www.chargebee.com/thanks.html", 
+  })
+  puts result.portal_session
+end
+
+def retrieve_portal_session(session_id)
+  result = ChargeBee::PortalSession.retrieve(session_id)
+  puts result.portal_session
+end
+
+def logout_portal_session(session_id)
+  result = ChargeBee::PortalSession.logout(session_id)
+  puts result.portal_session
+end
+
 # Comment the methods you don't want to run.
 
 #create_subscription
 # update_subscription
-#delete_card
-#invoice_transactions
+# delete_card
+# invoice_transactions
 # update_address("1qBnWmGOIiLbkP1j")
 # retrieve_address("1qBnWmGOIiLbkP1j", "shipping_address")
-#deserialize_event()
+# deserialize_event()
 # estimate_create_subscription
-#list_subscriptions
-#retrieve_subscription
+# list_subscriptions
+# retrieve_subscription
 # charge_addon
-#list_comments
-#create_comment
-#create_plan
-#create_addon
-#retrieve_comment
-#list_sub_for_cust
-#create_sub_for_customer
-#refundInvoice()
-#refundTransaction()
+# list_comments
+# create_comment
+# create_plan
+# create_addon
+# retrieve_comment
+# list_sub_for_cust
+# create_sub_for_customer
+# refund_invoice()
+# refund_transaction()
+# retrieve_coupon()
 
-# retrieveCoupon()
+# create_portal_session()
+# retrieve_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
+# logout_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
 
-puts ChargeBee::Util.serialize({
-  :id => "rub_addon2",
-  :name => "Rub Addon2",
-  :invoice_name => "invoice name",
-  :charge_type => "recurring",
-  :addon_ids=>["one","two"],
-  :period => 5,
-  :period_unit => "week",
-  :price => 2000,
-  :type => "quantity",
-  :prorate => true
-});
+# puts ChargeBee::Util.serialize({
+#   :id => "rub_addon2",
+#   :name => "Rub Addon2",
+#   :invoice_name => "invoice name",
+#   :charge_type => "recurring",
+#   :addon_ids=>["one","two"],
+#   :period => 5,
+#   :period_unit => "week",
+#   :price => 2000,
+#   :type => "quantity",
+#   :prorate => true
+# });
 
