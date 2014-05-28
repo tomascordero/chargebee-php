@@ -161,7 +161,7 @@ Comment out the methods you don't want to run.
 #create_estimate()
 # list_events()
 # create_estimate()
-new_checkout()
+# new_checkout()
 #retrive_hostedpage()
 #test_serialize()
 #create_plan();

@@ -1,4 +1,5 @@
 ### v1.2.9 (2014-05-28)
+* * *
 New API to support Single Sign-on (SSO) to access the customer portal, if you already have your own authentication for your website. See https://apidocs.chargebee.com/docs/api/portal_sessions?lang=python.
 
 ### v1.2.8 (2014-05-23)
