@@ -74,6 +74,10 @@ class Result(object):
     def download(self):
         return self._get('download', Download);
 
+    @property
+    def portal_session(self):
+        return self._get('portal_session', PortalSession);
+
 
     def _get(self, type, cls, sub_types=None):
         if not type in self._response:
