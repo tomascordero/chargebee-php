@@ -10,7 +10,7 @@ using ChargeBee.Models.Enums;
 namespace Examples
 {
 
-	public class Snippets
+	public class Sample
 	{
 
 		public void Configure()
@@ -213,17 +213,17 @@ namespace Examples
 
 		public static void Main(string[] args) 
 		{
-			Snippets s = new Snippets();
+			Sample s = new Sample();
 			s.Configure ();
-//			s.TestRetrieveSubscriptions();
-			//s.TestRetrieveInvoice();
-			//s.TestCustomFields();
-			//s.TestListSubscriptions();
-			//s.TestListEvents();
-			s.TestSerializeEvent();
-			//s.TestRetrieveEvent();
-			//s.TestHostedPageCheckout();
-			//s.TestDiacritics();
+            // s.TestRetrieveSubscriptions();
+			// s.TestRetrieveInvoice();
+            // s.TestCustomFields();
+            // s.TestListSubscriptions();
+            // s.TestListEvents();
+            // s.TestSerializeEvent();
+            // s.TestRetrieveEvent();
+            // s.TestHostedPageCheckout();
+            // s.TestDiacritics();
 		}
 		
 
