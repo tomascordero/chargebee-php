@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67"
+    :api_key => "test___dev__udqq7yNGCWIuwmYTdYHZPYXWcugsiRN8g"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -274,6 +274,37 @@ def logout_portal_session(session_id)
   puts result.portal_session
 end
 
+def list_txn_for_customer
+  list = ChargeBee::Transaction.transactions_for_customer("__dev__KyVqjAOhW0JXU1", {
+    :limit => 10
+  })
+  list.each do |entry|
+    puts "#{entry.transaction}"
+  end
+end
+
+def create_invoice
+result = ChargeBee::Invoice.charge({
+  :customer_id => "future_billing",
+  #:subscription_id => "future_billing",
+  :amount => 1200,
+  :description => "testasdfasf" ,
+  :coupon => "acme26259inc"
+})
+puts result.invoice
+end
+
+def create_invoice_addon
+result = ChargeBee::Invoice.charge_addon({
+  #:customer_id => "future_billing",
+  :subscription_id => "future_billing",
+  :addon_id => "day_pass",
+  :addon_quantity => 2,
+  :coupon => "acme26259inc"
+})
+puts result.invoice
+end
+
 # Comment the methods you don't want to run.
 
 #create_subscription
@@ -297,7 +328,9 @@ end
 # refund_invoice()
 # refund_transaction()
 # retrieve_coupon()
-
+list_txn_for_customer()
+#create_invoice()
+#create_invoice_addon()
 # create_portal_session()
 # retrieve_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
 # logout_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
