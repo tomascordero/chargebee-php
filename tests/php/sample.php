@@ -19,7 +19,7 @@ ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("mannar-test", "test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67");
+ChargeBee_Environment::configure("mannar-test", "test___dev__OcdKdLPuT9mQFkgjQcdjIvG7RssIkzGsKX");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -242,6 +242,26 @@ function address()
     "country" => "United States"));
     $address = $result->address();
   	print_r($address);
+}
+
+function createInvForCharge(){
+	$result = ChargeBee_Invoice::charge(array(
+	  "customerId" => "future_billing", 
+	  "amount" => 1000, 
+	  "description" => "Support charge",
+	  "coupon" => "beta"));
+	$invoice = $result->invoice();
+	print_r($invoice);
+}
+
+function createInvForAddon(){
+	$result = ChargeBee_Invoice::chargeAddon(array(
+	  "customerId" => "trial1", 	  
+	  "addonId" => "day_pass",
+	  "addonQuantity" => 2,
+	  "coupon" => "web_0018"));
+	$invoice = $result->invoice();
+	print_r($invoice);
 }
 
 function webhook()
@@ -535,7 +555,8 @@ function logoutPortalSession($sessionId)
 // retriveCoupon();
 
 // testSerialize();
-
+// createInvForCharge();
+createInvForAddon();
 // createPortalSession();
 // retrievePortalSession('__dev__VzcdKAcdsHqNaKLWuRHiWPEduD2BoPQU3G');
 // logoutPortalSession('__dev__s32W2W1OkbWFwIk3vxtNaJSFiJfcylTy');
