@@ -21,7 +21,7 @@ Use the below settings to configure the api endpoint with specific domain.
 """
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
-chargebee.configure("test___dev__jxZfUdzLkEQDso1wJvUM5TzwMfi91H67", "mannar-test")
+chargebee.configure("test___dev__hacuBsccuuR5SZ1jFdVIqjJHyodRd80G5f", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -169,9 +169,34 @@ def logout_portal_session(session_id):
     print(result.portal_session)
 
 
+def list_txn_for_customer():
+    result = chargebee.Transaction.transactions_for_customer("__dev__3Nl8GtNOhW3bslC");
+    for entry in result:
+       transaction = entry.transaction
+       print(transaction)
+
+def create_invoice_for_charge():
+    result = chargebee.Invoice.charge({ "customer_id" : "1",
+                                        "amount" : 1000,
+                                        "coupon" : "one_time_coupon",
+                                        "description" : "support charge" });
+    print(result)
+
+
+def create_invoice_for_addon():
+   result = chargebee.Invoice.charge_addon({"subscription_id": "002",
+                                            "addon_id" : "addon" })
+                                           # "addon_quantity" : 3})
+   print result
+
+
 """
 Comment out the methods you don't want to run.
 """
+
+create_invoice_for_addon()
+#create_invoice_for_charge()
+#list_txn_for_customer()
 # retrieve_subscription()
 # update_subscription()
 # list_subscriptions()
