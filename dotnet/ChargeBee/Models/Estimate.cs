@@ -174,9 +174,9 @@ namespace ChargeBee.Models
                 m_params.AddOpt("end_of_term", endOfTerm);
                 return this;
             }
-            public UpdateSubscriptionRequest IncludeAdditionalCharges(bool includeAdditionalCharges) 
+            public UpdateSubscriptionRequest IncludeDelayedCharges(bool includeDelayedCharges) 
             {
-                m_params.AddOpt("include_additional_charges", includeAdditionalCharges);
+                m_params.AddOpt("include_delayed_charges", includeDelayedCharges);
                 return this;
             }
             public UpdateSubscriptionRequest SubscriptionId(string subscriptionId) 
@@ -237,9 +237,9 @@ namespace ChargeBee.Models
             {
             }
 
-            public RenewalEstimateRequest IncludeAdditionalCharges(bool includeAdditionalCharges) 
+            public RenewalEstimateRequest IncludeDelayedCharges(bool includeDelayedCharges) 
             {
-                m_params.AddOpt("include_additional_charges", includeAdditionalCharges);
+                m_params.AddOpt("include_delayed_charges", includeDelayedCharges);
                 return this;
             }
         }

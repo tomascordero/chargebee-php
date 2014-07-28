@@ -290,8 +290,8 @@ public class Estimate extends Resource<Estimate> {
         }
 
 
-        public UpdateSubscriptionRequest includeAdditionalCharges(Boolean includeAdditionalCharges) {
-            params.addOpt("include_additional_charges", includeAdditionalCharges);
+        public UpdateSubscriptionRequest includeDelayedCharges(Boolean includeDelayedCharges) {
+            params.addOpt("include_delayed_charges", includeDelayedCharges);
             return this;
         }
 
@@ -358,8 +358,8 @@ public class Estimate extends Resource<Estimate> {
             super(httpMeth, uri);
         }
     
-        public RenewalEstimateRequest includeAdditionalCharges(Boolean includeAdditionalCharges) {
-            params.addOpt("include_additional_charges", includeAdditionalCharges);
+        public RenewalEstimateRequest includeDelayedCharges(Boolean includeDelayedCharges) {
+            params.addOpt("include_delayed_charges", includeDelayedCharges);
             return this;
         }
 

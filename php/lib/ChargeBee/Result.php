@@ -32,7 +32,7 @@ class ChargeBee_Result
     function invoice() 
     {
         return $this->_get('invoice', 'ChargeBee_Invoice', 
-        array('line_items' => 'ChargeBee_InvoiceLineItem', 'discounts' => 'ChargeBee_InvoiceDiscount', 'taxes' => 'ChargeBee_InvoiceTax', 'invoice_transactions' => 'ChargeBee_InvoiceLinkedTransaction'));
+        array('line_items' => 'ChargeBee_InvoiceLineItem', 'discounts' => 'ChargeBee_InvoiceDiscount', 'taxes' => 'ChargeBee_InvoiceTax', 'invoice_transactions' => 'ChargeBee_InvoiceLinkedTransaction', 'line_items' => 'ChargeBee_InvoiceEstimatedLineItem'));
     }
 
     function transaction() 
