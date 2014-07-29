@@ -91,13 +91,18 @@ def test_addons():
 
 def test_plan():
   result = chargebee.Plan.create({
-             "id" : "silver4", 
-             "name" : "Silver4", 
-             "invoice_name" : "silver4", 
+             "id" : "silver6", 
+             "name" : "Silver6", 
+             "invoice_name" : "silver6", 
              "price" : 5000,
+             "charge_model" : "per_unit",
+             "free_quantity" : 3,
+             "plan_quantity" : 5,
              "enabled_in_hosted_pages":"true" 
   })
   plan = result.plan
+  print plan.charge_model
+  print plan.enabled_in_hosted_pages
   print plan
 
 def sub_add_charge_term_end():
@@ -139,10 +144,10 @@ def list_coupon():
 
 # list_coupon()
 #create_coupon()
-sub_renewal_estimate()
+# sub_renewal_estimate()
 #sub_add_addon_term_end()
 #sub_add_charge_term_end()
-#test_plan()
+test_plan()
 #test_addons()
 #list_comments()
 #create_comment()
