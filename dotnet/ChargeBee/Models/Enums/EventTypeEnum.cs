@@ -48,15 +48,6 @@ namespace ChargeBee.Models.Enums
         [Description("invoice_created")]
         InvoiceCreated,
 
-        [Description("sub_trial_ending_reminder")]
-        SubTrialEndingReminder,
-
-        [Description("sub_renewal_reminder")]
-        SubRenewalReminder,
-
-        [Description("sub_cancelling_reminder")]
-        SubCancellingReminder,
-
         [Description("payment_succeeded")]
         PaymentSucceeded,
 
