@@ -19,7 +19,7 @@ ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("mannar-test", "test___dev__OcdKdLPuT9mQFkgjQcdjIvG7RssIkzGsKX");
+ChargeBee_Environment::configure("mannar-test", "test_5edlrhPT2etqWqNFEdfrehjypcuTAIpBo");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -264,6 +264,33 @@ function createInvForAddon(){
 	print_r($invoice);
 }
 
+function estimateRenewal()
+{
+	$result = ChargeBee_Estimate::renewalEstimate("HvQquIyObCHxeP1vi" , array(
+		"includeDelayedCharges" => "false"
+	));
+	$estimate = $result->estimate();
+	print_r($estimate);
+}
+
+
+function addAddonAtTermEnd()
+{
+	$result = ChargeBee_Subscription::chargeAddonAtTermEnd("HvQquIyObCHxeP1vi", array(
+	  "addonId" => "one-off_consulting_support", 
+	  "addonQuantity" => 10));
+	$estimate = $result->estimate();
+	print_r($estimate);
+}
+
+function addChargeAtTermEnd()
+{
+	$result = ChargeBee_Subscription::addChargeAtTermEnd("HvQquIyObCHxeP1vi", array(
+	  "amount" => 1020, 
+	  "description" => "Support charge"));
+	$estimate = $result->estimate();
+	print_r($estimate);
+}
 function webhook()
 {
   $event = ChargeBee_Event::deserialize('{ "content": { "card": { "card_type": "american_express", "customer_id": "nonrenewing_today", "expiry_month": 10, "expiry_year": 2013, "gateway": "chargebee", "iin": "378282", "last4": "0005", "masked_number": "378282*****0005", "object": "credit_card", "status": "valid" }, "customer": { "card_status": "valid", "created_at": 1333631454, "email": "nonrenewing_today@test.com", "first_name": "nonrenewing_today", "id": "nonrenewing_today", "object": "customer" }, "subscription": { "activated_at": 1336223455, "cancelled_at": 1338901865, "created_at": 1333631454, "current_term_end": 1338901865, "current_term_start": 1336223454, "due_invoices_count": 0, "id": "nonrenewing_today", "object": "subscription", "plan_id": "basic", "plan_quantity": 1, "status": "cancelled", "trial_end": 1336223454, "trial_start": 1333631454 } }, "email_status": "not_applicable", "event_type": "subscription_canceled", "id": "ev___dev__KyVq6jNZTDmKA2", "object": "event", "occurred_at": 1338901865, "webhook_status": "scheduled" }');
@@ -299,11 +326,29 @@ function createPlan()
         "downgrade_penalty" => 12.2,
         "setup_cost" => 1200,
         "billing_cycles" => 10,
-        "free_quantity" => 5,
         "trial_period" => "2",
-        "trial_period_unit" => "month"));
+        "trial_period_unit" => "month",
+		"enabledInHostedPages" => FALSE));
     $plan = $result->plan();
     print_r($plan);
+}
+
+function updPlan()
+{
+	$result = ChargeBee_Plan::update("my_plan", array(
+	  "invoiceName" => "my sample plan",
+	  "enabledInHostedPages" => TRUE,
+	  "setupCost" => 1500));
+	$plan = $result->plan();
+	print_r($plan);
+}
+
+function retrievePlan()
+{
+	$result = ChargeBee_Plan::retrieve("basic");
+	$plan = $result->plan();
+	print_r($plan);
+	// echo $plan->enabledInHostedPages;
 }
 
 function createAddon()
@@ -471,11 +516,12 @@ function createCoupon()
 
 function retriveCoupon()
 {
-$result = ChargeBee_Coupon::retrieve("test_coupon");
+$result = ChargeBee_Coupon::retrieve("early_bird_offer");
 $coupon = $result->coupon();
-//print_r($coupon->planIds);
-foreach ($coupon->planIds as $val)
-    print_r($val);
+print_r($coupon);
+// print_r($coupon->planIds);
+// foreach ($coupon->planIds as $val)
+//     print_r($val);
 }
 
 
@@ -548,15 +594,21 @@ function logoutPortalSession($sessionId)
 // listComment();
 // delComment();
 // createPlan();
+// updPlan();
+// retrievePlan();
 // createAddon();
 // refundInvoice();
 // refundTransaction();
 // createCoupon();
 // retriveCoupon();
 
+// estimateRenewal();
+// addChargeAtTermEnd();
+addAddonAtTermEnd();
+
 // testSerialize();
 // createInvForCharge();
-createInvForAddon();
+// createInvForAddon();
 // createPortalSession();
 // retrievePortalSession('__dev__VzcdKAcdsHqNaKLWuRHiWPEduD2BoPQU3G');
 // logoutPortalSession('__dev__s32W2W1OkbWFwIk3vxtNaJSFiJfcylTy');
