@@ -16,13 +16,10 @@ class Invoice(Model):
     class LinkedTransaction(Model):
       fields = ["txn_id", "applied_amount", "txn_type", "txn_status", "txn_date", "txn_amount"]
       pass
-    class EstimatedLineItem(Model):
-      fields = ["date_from", "date_to", "unit_amount", "quantity", "tax", "tax_rate", "amount", "description", "type", "entity_type", "entity_id"]
-      pass
 
     fields = ["id", "customer_id", "subscription_id", "recurring", "status", "vat_number", \
     "start_date", "end_date", "amount", "paid_on", "next_retry", "sub_total", "tax", "line_items", \
-    "discounts", "taxes", "linked_transactions", "estimated_line_items"]
+    "discounts", "taxes", "linked_transactions"]
 
 
     @staticmethod

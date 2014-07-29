@@ -144,10 +144,6 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<InvoiceLinkedTransaction>("linked_transactions"); }
         }
-        public List<InvoiceEstimatedLineItem> EstimatedLineItems 
-        {
-            get { return GetResourceList<InvoiceEstimatedLineItem>("estimated_line_items"); }
-        }
         
         #endregion
         
@@ -427,76 +423,6 @@ namespace ChargeBee.Models
 
             public int? TxnAmount() {
                 return GetValue<int?>("txn_amount", false);
-            }
-
-        }
-        public class InvoiceEstimatedLineItem : Resource
-        {
-            public enum TypeEnum
-            {
-                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("charge")]
-                Charge,
-                [Description("prorated_charge")]
-                ProratedCharge,
-                [Description("setup_charge")]
-                SetupCharge,
-            }
-            public enum EntityTypeEnum
-            {
-                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("plan")]
-                Plan,
-                [Description("addon")]
-                Addon,
-                [Description("adhoc")]
-                Adhoc,
-            }
-
-            public DateTime DateFrom() {
-                return (DateTime)GetDateTime("date_from", true);
-            }
-
-            public DateTime DateTo() {
-                return (DateTime)GetDateTime("date_to", true);
-            }
-
-            public int UnitAmount() {
-                return GetValue<int>("unit_amount", true);
-            }
-
-            public int? Quantity() {
-                return GetValue<int?>("quantity", false);
-            }
-
-            public int? Tax() {
-                return GetValue<int?>("tax", false);
-            }
-
-            public double? TaxRate() {
-                return GetValue<double?>("tax_rate", false);
-            }
-
-            public int Amount() {
-                return GetValue<int>("amount", true);
-            }
-
-            public string Description() {
-                return GetValue<string>("description", true);
-            }
-
-            public TypeEnum EstimatedLineItemType() {
-                return GetEnum<TypeEnum>("type", true);
-            }
-
-            public EntityTypeEnum EntityType() {
-                return GetEnum<EntityTypeEnum>("entity_type", true);
-            }
-
-            public string EntityId() {
-                return GetValue<string>("entity_id", false);
             }
 
         }

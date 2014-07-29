@@ -17,13 +17,9 @@ module ChargeBee
       attr_accessor :txn_id, :applied_amount, :txn_type, :txn_status, :txn_date, :txn_amount
     end
 
-    class EstimatedLineItem < Model
-      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :tax, :tax_rate, :amount, :description, :type, :entity_type, :entity_id
-    end
-
   attr_accessor :id, :customer_id, :subscription_id, :recurring, :status, :vat_number, :start_date,
   :end_date, :amount, :paid_on, :next_retry, :sub_total, :tax, :line_items, :discounts, :taxes,
-  :linked_transactions, :estimated_line_items
+  :linked_transactions
 
   # OPERATIONS
   #-----------

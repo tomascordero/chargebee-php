@@ -152,65 +152,6 @@ public class Invoice extends Resource<Invoice> {
 
     }
 
-    public static class EstimatedLineItem extends Resource<EstimatedLineItem> {
-        public enum Type {
-            CHARGE, PRORATED_CHARGE, SETUP_CHARGE;
-        }
-
-        public enum EntityType {
-            PLAN, ADDON, ADHOC;
-        }
-
-        public EstimatedLineItem(JSONObject jsonObj) {
-            super(jsonObj);
-        }
-
-        public Timestamp dateFrom() {
-            return reqTimestamp("date_from");
-        }
-
-        public Timestamp dateTo() {
-            return reqTimestamp("date_to");
-        }
-
-        public Integer unitAmount() {
-            return reqInteger("unit_amount");
-        }
-
-        public Integer quantity() {
-            return optInteger("quantity");
-        }
-
-        public Integer tax() {
-            return optInteger("tax");
-        }
-
-        public Double taxRate() {
-            return optDouble("tax_rate");
-        }
-
-        public Integer amount() {
-            return reqInteger("amount");
-        }
-
-        public String description() {
-            return reqString("description");
-        }
-
-        public Type type() {
-            return reqEnum("type", Type.class);
-        }
-
-        public EntityType entityType() {
-            return reqEnum("entity_type", EntityType.class);
-        }
-
-        public String entityId() {
-            return optString("entity_id");
-        }
-
-    }
-
     //Constructors
     //============
 
@@ -291,10 +232,6 @@ public class Invoice extends Resource<Invoice> {
 
     public List<Invoice.LinkedTransaction> linkedTransactions() {
         return optList("linked_transactions", Invoice.LinkedTransaction.class);
-    }
-
-    public List<Invoice.EstimatedLineItem> estimatedLineItems() {
-        return optList("estimated_line_items", Invoice.EstimatedLineItem.class);
     }
 
     // Operations

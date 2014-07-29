@@ -21,7 +21,7 @@ module ChargeBee
 
     def invoice() 
         get(:invoice, Invoice, 
-        {:line_items => Invoice::LineItem, :discounts => Invoice::Discount, :taxes => Invoice::Tax, :invoice_transactions => Invoice::LinkedTransaction, :line_items => Invoice::EstimatedLineItem});
+        {:line_items => Invoice::LineItem, :discounts => Invoice::Discount, :taxes => Invoice::Tax, :invoice_transactions => Invoice::LinkedTransaction});
     end
 
     def transaction() 
