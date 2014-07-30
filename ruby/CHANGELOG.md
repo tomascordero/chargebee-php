@@ -7,6 +7,7 @@ APIs added:
 
 APIs updated:
 * Now plans supports charge model to specify how the subscription plan charges should be calculated. See https://apidocs.chargebee.com/docs/api/plans#plan_attributes
+* Include delayed charges while calculating the Estimate.
 
 ### v1.4.2 (2014-06-19)
 * * *

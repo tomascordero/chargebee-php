@@ -1,4 +1,4 @@
-### v1.2.9 (2014-07-29)
+### v1.2.9 (2014-07-30)
 * * *
 APIs added:
 * Add a one time charged to the subscription which will be added to the invoice generated at the end of the current term. See https://apidocs.chargebee.com/docs/api/subscriptions#add_charge_at_term_end.
@@ -7,8 +7,9 @@ APIs added:
 
 APIs updated:
 * Now plans supports charge model to specify how the subscription plan charges should be calculated. See https://apidocs.chargebee.com/docs/api/plans#plan_attributes
+* Include delayed charges while calculating the Estimate.
 
-### v1.2.7 (2014-06-19)
+### v1.2.8 (2014-06-27)
 APIs added:
 * Retrieve invoices for a customer. See https://apidocs.chargebee.com/docs/api/invoices?lang=dotnet#list_invoices_for_a_customer.
 * Retrieve transactions for a customer. See https://apidocs.chargebee.com/docs/api/transactions?lang=dotnet#list_transactions_for_a_customer.
