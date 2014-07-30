@@ -7,7 +7,7 @@ Environment.chargebee_domain="localcb.in:8080"
 chargebee.ChargeBee.verify_ca_certs=False
 
 ##Copy code from api docs
-chargebee.configure("test___dev__a1FbWdZkU6USWLb7NnIETx4CMVsPXrX8","mannar-test")
+chargebee.configure("test___dev__5k3ITyBHNxKqG2KoFuOo1Agb7UZhrZMq","mannar-test")
 #result = chargebee.Customer.update_billing_info("cbdemo_263B4XOLF2wUq9", {
 #    "billing_address" : {
 #        "address_line1" : "340 S LEMON AVE #1537", 
@@ -75,11 +75,84 @@ def create_subscription():
    result = chargebee.Subscription.create(params)
    print(result.subscription)
     
+def test_addons():
+   result = chargebee.Addon.create({
+    "id" : "test_addon_2", 
+    "name" : "test addon 2", 
+    "invoice_name" : "testing addon 1 desc", 
+    "charge_type" : "recurring", 
+    "price" : 200, 
+    "period" : 1,
+    "description" : "Description about testing 1 addons will come here", 
+    "period_unit" : "month", 
+    "type" : "on_off"
+   })
+   print result.addon
 
+def test_plan():
+  result = chargebee.Plan.create({
+             "id" : "silver6", 
+             "name" : "Silver6", 
+             "invoice_name" : "silver6", 
+             "price" : 5000,
+             "charge_model" : "per_unit",
+             "free_quantity" : 3,
+             "plan_quantity" : 5,
+             "enabled_in_hosted_pages":"true" 
+  })
+  plan = result.plan
+  print plan.charge_model
+  print plan.enabled_in_hosted_pages
+  print plan
+
+def sub_add_charge_term_end():
+  result = chargebee.Subscription.add_charge_at_term_end("__dev__KyVpQIOlJofLpB", {
+    "amount" : 2000, 
+    "description" : "Support charge"
+  })
+  print result.estimate
+
+def sub_add_addon_term_end():
+ result = chargebee.Subscription.charge_addon_at_term_end("__dev__KyVpQIOlJofLpB", {
+    "addon_id" : "non_recurring_addon_quantity",
+    "addon_quantity" : 2 
+ })
+ print result.estimate
+
+def sub_renewal_estimate():
+ result = chargebee.Estimate.renewal_estimate("__dev__KyVpQIOlJofLpB")
+ print result.estimate.amount
+ print result.estimate
+
+def create_coupon():
+ result = chargebee.Coupon.create({
+    "id" : "sample_offer", 
+    "name" : "Sample Offer", 
+    "discount_type" : "fixed_amount", 
+    "discount_amount" : 500, 
+    "apply_on" : "invoice_amount", 
+    "duration_type" : "forever"
+ })
+ print result.coupon
+
+def list_coupon():
+ list = chargebee.Coupon.list({"limit" : 5})
+ for entry in list:
+    coupon = entry.coupon
+    print coupon.redemptions
+    print coupon
+
+# list_coupon()
+#create_coupon()
+# sub_renewal_estimate()
+#sub_add_addon_term_end()
+#sub_add_charge_term_end()
+test_plan()
+#test_addons()
 #list_comments()
 #create_comment()
 #delete_comment()
 #retrieve_comment()
 #list_sub_for_cust()
 #create_sub_for_customer()
-create_subscription()
+#create_subscription()

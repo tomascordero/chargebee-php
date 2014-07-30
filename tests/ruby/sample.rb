@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__udqq7yNGCWIuwmYTdYHZPYXWcugsiRN8g"
+    :api_key => "test___dev__5k3ITyBHNxKqG2KoFuOo1Agb7UZhrZMq"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -193,18 +193,33 @@ end
 
 def create_plan
 result = ChargeBee::Plan.create({
-  :id => "rub_plan",
-  :name => "Rub Plan",
-  :invoice_name => "invoice name",
+  :id => "rub_plan_1",
+  :name => "Rub Plan 1",
+  :invoice_name => "invoice name 1",
   :trial_period => 5,
   :trial_period_unit => "day",
   :price => 2000,
   :setup_cost => 300,
-  :free_quantity => 2,
+  :charge_model => "flat_fee",
   :billing_cycles => 10,
   :downgrade_penalty => 5.9,
-  :redirect_url => "http://apidocs.localcb.in:8080/docs/api/comments?lang=ruby#create_a_comment"
+  :redirect_url => "http://apidocs.localcb.in:8080/docs/api/comments?lang=ruby#create_a_comment",
+  :enabled_in_hosted_pages => "true"
 })
+puts result.plan
+end
+
+def retrieve_plan
+ result = ChargeBee::Plan.retrieve("rub_plan_1")
+ print result
+ print result.plan.charge_model
+ print result.plan.period
+ print result.plan.period_unit
+ print result.plan.enabled_in_hosted_pages
+end
+
+def update_plan
+result = ChargeBee::Plan.update("rub_plan", :enabled_in_hosted_pages=>"false")
 puts result.plan
 end
 
@@ -246,6 +261,15 @@ def retrieve_coupon
   coupon = result.coupon
   coupon.plan_ids.each do | plan_id |
     puts plan_id
+  end
+end
+
+def list_coupon
+  list = ChargeBee::Coupon.list(:limit => 5)
+  list.each do |entry|
+     coupon = entry.coupon
+     print coupon.redemptions
+     print coupon
   end
 end
 
@@ -305,6 +329,30 @@ result = ChargeBee::Invoice.charge_addon({
 puts result.invoice
 end
 
+def add_charge_at_term_end
+  result = ChargeBee::Subscription.add_charge_at_term_end("__dev__XpbGBGYOlOtWQPN", {
+     :amount => 1000, 
+     :description => "Support charge"
+  })
+  print result.estimate.amount
+  print result.estimate
+end
+
+def add_non_rec_addon_at_term_end
+  result = ChargeBee::Subscription.charge_addon_at_term_end("__dev__XpbGBGYOlOtWQPN", {
+    :addon_id => "non_recurring_addon_quantity", 
+    :addon_quantity => 2
+  })
+  print result.estimate.amount
+  print result.estimate
+end
+
+def sub_renewal_estimate
+  result = ChargeBee::Estimate.renewal_estimate("__dev__XpbGBGYOlOtWQPN");
+  print result.estimate.amount
+  print result.estimate
+end
+
 # Comment the methods you don't want to run.
 
 #create_subscription
@@ -321,6 +369,8 @@ end
 # list_comments
 # create_comment
 # create_plan
+retrieve_plan
+# update_plan
 # create_addon
 # retrieve_comment
 # list_sub_for_cust
@@ -328,13 +378,16 @@ end
 # refund_invoice()
 # refund_transaction()
 # retrieve_coupon()
-list_txn_for_customer()
+# list_coupon()
+# list_txn_for_customer()
 #create_invoice()
 #create_invoice_addon()
 # create_portal_session()
 # retrieve_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
 # logout_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
-
+# add_charge_at_term_end()
+# add_non_rec_addon_at_term_end()
+# sub_renewal_estimate()
 # puts ChargeBee::Util.serialize({
 #   :id => "rub_addon2",
 #   :name => "Rub Addon2",
