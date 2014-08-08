@@ -16,7 +16,7 @@ module ChargeBee
   attr_accessor :id, :plan_id, :plan_quantity, :status, :start_date, :trial_start, :trial_end,
   :current_term_start, :current_term_end, :remaining_billing_cycles, :created_at, :started_at,
   :activated_at, :cancelled_at, :cancel_reason, :due_invoices_count, :due_since, :total_dues,
-  :addons, :coupon, :coupons, :shipping_address
+  :addons, :coupon, :coupons, :shipping_address, :has_scheduled_changes
 
   # OPERATIONS
   #-----------
@@ -39,6 +39,14 @@ module ChargeBee
 
   def self.retrieve(id, env=nil)
     Request.send('get', uri_path("subscriptions",id.to_s), {}, env)
+  end
+
+  def self.retrieve_with_scheduled_changes(id, env=nil)
+    Request.send('get', uri_path("subscriptions",id.to_s,"retrieve_with_scheduled_changes"), {}, env)
+  end
+
+  def self.remove_scheduled_changes(id, env=nil)
+    Request.send('post', uri_path("subscriptions",id.to_s,"remove_scheduled_changes"), {}, env)
   end
 
   def self.update(id, params={}, env=nil)

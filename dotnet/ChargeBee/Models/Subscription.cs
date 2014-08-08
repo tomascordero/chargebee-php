@@ -43,6 +43,16 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
             return new EntityRequest<Type>(url, HttpMethod.GET);
         }
+        public static EntityRequest<Type> RetrieveWithScheduledChanges(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "retrieve_with_scheduled_changes");
+            return new EntityRequest<Type>(url, HttpMethod.GET);
+        }
+        public static EntityRequest<Type> RemoveScheduledChanges(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_changes");
+            return new EntityRequest<Type>(url, HttpMethod.POST);
+        }
         public static UpdateRequest Update(string id)
         {
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
@@ -169,6 +179,10 @@ namespace ChargeBee.Models
         public SubscriptionShippingAddress ShippingAddress 
         {
             get { return GetSubResource<SubscriptionShippingAddress>("shipping_address"); }
+        }
+        public bool? HasScheduledChanges 
+        {
+            get { return GetValue<bool?>("has_scheduled_changes", false); }
         }
         
         #endregion

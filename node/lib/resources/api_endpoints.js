@@ -36,6 +36,20 @@ var _endpoints = {
       true
     ],
     [
+      "retrieve_with_scheduled_changes",
+      "GET",
+      "/subscriptions",
+      "/retrieve_with_scheduled_changes",
+      true
+    ],
+    [
+      "remove_scheduled_changes",
+      "POST",
+      "/subscriptions",
+      "/remove_scheduled_changes",
+      true
+    ],
+    [
       "update",
       "POST",
       "/subscriptions",

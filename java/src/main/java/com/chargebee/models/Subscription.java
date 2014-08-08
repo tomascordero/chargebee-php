@@ -225,6 +225,10 @@ public class Subscription extends Resource<Subscription> {
         return optSubResource("shipping_address", Subscription.ShippingAddress.class);
     }
 
+    public Boolean hasScheduledChanges() {
+        return optBoolean("has_scheduled_changes");
+    }
+
     // Operations
     //===========
 
@@ -251,6 +255,16 @@ public class Subscription extends Resource<Subscription> {
     public static Request retrieve(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id));
         return new Request(Method.GET, uri);
+    }
+
+    public static Request retrieveWithScheduledChanges(String id) throws IOException {
+        String uri = uri("subscriptions", nullCheck(id), "retrieve_with_scheduled_changes");
+        return new Request(Method.GET, uri);
+    }
+
+    public static Request removeScheduledChanges(String id) throws IOException {
+        String uri = uri("subscriptions", nullCheck(id), "remove_scheduled_changes");
+        return new Request(Method.POST, uri);
     }
 
     public static UpdateRequest update(String id) throws IOException {
