@@ -76,11 +76,6 @@ class ChargeBee_Subscription extends ChargeBee_Model
     return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("subscriptions",$id,"charge_addon_at_term_end"), $params, $env);
   }
 
-  public static function addCredit($id, $params, $env = null)
-  {
-    return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("subscriptions",$id,"add_credit"), $params, $env);
-  }
-
  }
 
 ?>

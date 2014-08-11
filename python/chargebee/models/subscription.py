@@ -71,7 +71,3 @@ class Subscription(Model):
     @staticmethod
     def charge_addon_at_term_end(id, params, env=None):
         return request.send('post', request.uri_path("subscriptions",id,"charge_addon_at_term_end"), params, env)
-
-    @staticmethod
-    def add_credit(id, params, env=None):
-        return request.send('post', request.uri_path("subscriptions",id,"add_credit"), params, env)

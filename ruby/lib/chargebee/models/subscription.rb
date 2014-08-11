@@ -73,9 +73,5 @@ module ChargeBee
     Request.send('post', uri_path("subscriptions",id.to_s,"charge_addon_at_term_end"), params, env)
   end
 
-  def self.add_credit(id, params, env=nil)
-    Request.send('post', uri_path("subscriptions",id.to_s,"add_credit"), params, env)
-  end
-
   end # ~Subscription
 end # ~ChargeBee

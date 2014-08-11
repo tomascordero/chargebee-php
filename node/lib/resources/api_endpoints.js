@@ -90,13 +90,6 @@ var _endpoints = {
       "/subscriptions",
       "/charge_addon_at_term_end",
       true
-    ],
-    [
-      "add_credit",
-      "POST",
-      "/subscriptions",
-      "/add_credit",
-      true
     ]
   ],
   "customer": [
@@ -279,13 +272,6 @@ var _endpoints = {
       "POST",
       "/invoices",
       "/record_payment",
-      true
-    ],
-    [
-      "refund",
-      "POST",
-      "/transactions",
-      "/refund",
       true
     ]
   ],
