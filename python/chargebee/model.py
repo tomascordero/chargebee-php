@@ -33,6 +33,11 @@ class Model(object):
             if k not in ('content',):  # Skipping models properties
                 setattr(self, k, set_val)
 
+    def __getattr__(self,name):
+        if( name[0:3] == "cf_"): 
+            return None
+        raise AttributeError("Attribute %s not found " % name) 
+
     @classmethod
     def construct(cls, values, sub_types=None):
         obj = cls(values, sub_types)

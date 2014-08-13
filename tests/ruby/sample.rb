@@ -51,6 +51,12 @@ def retrieve_subscription
   puts result.subscription
 end
 
+def retrieve_custom_field
+  result = ChargeBee::Subscription.retrieve('active_direct')
+  puts result.customer.cf_gender
+  puts result.customer.cf_social_security_no
+end
+
 def retrive_scheduled_changes
   result = ChargeBee::Subscription.retrieve_with_scheduled_changes('active_direct')
   puts result
@@ -386,7 +392,8 @@ end
 # create_plan
 #retrieve_plan
 # update_plan
- create_addon
+# create_addon
+retrieve_custom_field
 # retrieve_comment
 # list_sub_for_cust
 # create_sub_for_customer

@@ -19,7 +19,7 @@ ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("mannar-test", "test_5edlrhPT2etqWqNFEdfrehjypcuTAIpBo");
+ChargeBee_Environment::configure("mannar-test", "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -74,6 +74,13 @@ function createSubscription()
 	printSubscription($result);
 	echo $result->customer()->param("cf_security_no_");
 	//echo $result->customer()->cfSecurityNon;
+}
+
+function retrievCustomField(){
+ $result = ChargeBee_Subscription::retrieve("active_direct");
+ $customer = $result->customer();
+ print_r($customer->cfSocialSecurityNo);
+ print_r($customer->cfGender);
 }
 
 function createSubscriptionWithAddons()
@@ -626,6 +633,7 @@ function logoutPortalSession($sessionId)
 // allSubscription();
 // updateCard();
 // retrieveEvent();
+retrievCustomField();
 // allEvents();
 // reactivateSubscription();
 // address();

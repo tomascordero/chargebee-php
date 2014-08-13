@@ -76,6 +76,11 @@ def retrieve_subscription():
     if(result.subscription.trial_start == None):
         print("never been in trial")
 
+def retrieve_custom_field():
+    result = chargebee.Subscription.retrieve("active_direct")
+    print result.customer.cf_gender
+    print result.customer.cf_social_security_no
+
 def retrieve_scheduled_changes():
     result = chargebee.Subscription.retrieve_with_scheduled_changes("active_upgraded")
     print result.subscription
@@ -319,7 +324,8 @@ Comment out the methods you don't want to run.
 # create_invoice_for_addon()
 #create_invoice_for_charge()
 #list_txn_for_customer()
-retrieve_subscription()
+#retrieve_subscription()
+retrieve_custom_field()
 # update_subscription()
 #list_subscriptions()
 #create_estimate()
