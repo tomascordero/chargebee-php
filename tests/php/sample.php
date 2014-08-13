@@ -27,10 +27,26 @@ ChargeBee_Environment::configure("mannar-test", "test_5edlrhPT2etqWqNFEdfrehjypc
  */
 function retrieveSubscription()
 {
-	$result = ChargeBee_Subscription::retrieve('1qBnWmGOIiLbkP1j');
+	$result = ChargeBee_Subscription::retrieve('HvQquIyObCHxeP1vi');
   printResult($result);
+
+  // echo $result->subscription()->hasScheduledChanges;
   // echo $result->subscription()->totalDues;
   // echo $result->subscription()->status;
+}
+
+function retrieveSubWithScheduledChanges()
+{
+	$result = ChargeBee_Subscription::retrieveWithScheduledChanges("HvQquIyObCHxeP1vi");
+	printSubscription($result);
+	// printResult($result);
+}
+
+function removeScheduledChanges()
+{
+	$result = ChargeBee_Subscription::removeScheduledChanges("HvQquIyObCHxeP1vi");
+	printSubscription($result);
+	// printResult($result);
 }
 
 function testDiacritics()
@@ -320,6 +336,7 @@ function createPlan()
         "id" => "my_plan",
         "name" => "My Plan",
         "invoice_name" => "my plan",
+		"description" => "<script>alert('Hello')</script>",
         "period" => 12,
         "period_unit" => "month",
         "price" => 5000,
@@ -343,6 +360,13 @@ function updPlan()
 	print_r($plan);
 }
 
+function delPlan()
+{
+	$result = ChargeBee_Plan::delete("my_plan");
+	$plan = $result->plan();
+	print_r($plan);	
+}
+
 function retrievePlan()
 {
 	$result = ChargeBee_Plan::retrieve("basic");
@@ -357,6 +381,7 @@ function createAddon()
         "id" => "my_addon",
         "name" => "My Addon",
         "invoice_name" => "my addon",
+		"description" => "You can let prospects or buyers try out your product or service for a limited period before switching them over to a paid subscription. Trials are independent of the normal billing cycle and plan price.",
 	"charge_type" => "recurring",
 	"period" => 12,
 	"period_unit" => "month",
@@ -367,6 +392,29 @@ function createAddon()
     print_r($addon);
 }
 
+function retrieveAddon()
+{
+	$result = ChargeBee_Addon::retrieve("my_addon");
+	$addon = $result->addon();
+	print_r($addon);
+}
+
+function delAddon()
+{
+	$result = ChargeBee_Addon::delete("my_addon");
+	$addon = $result->addon();
+	print_r($addon);
+}
+
+function updAddon()
+{
+	$result = ChargeBee_Addon::update("my_addon", array(
+	  "invoiceName" => "sample data pack",
+	  "description" => "subscriptions can use this addon but subscriptions already on it will continue to renew. Once an addon has been archived, it cannot be edited or used again and the addon cannot be un-archived. "));
+	$addon = $result->addon();
+	print_r($addon);
+}
+	
 function schoolpage()
 {
   ChargeBee_Environment::configure('rrcb-test','jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd');
@@ -489,7 +537,7 @@ function refundInvoice()
 
 function refundTransaction()
 {
-    $result = ChargeBee_Transaction::refund("txn___dev__8avUuOUUYvgrE",array(
+    $result = ChargeBee_Transaction::refund("txn_HvQquEiOlOfXntcK",array(
 //        "refund_amount" => 12,
 	"memo" => "just a test"));
     print_r($result);
@@ -570,6 +618,8 @@ function logoutPortalSession($sessionId)
  * You define the functions above and call the ones you would like to test here.
  */
 // retrieveSubscription();
+// retrieveSubWithScheduledChanges();
+// removeScheduledChanges();
 // plans();
 // createSubscription();
 // checkoutExistingSubscription();
@@ -593,10 +643,14 @@ function logoutPortalSession($sessionId)
 // createComment();
 // listComment();
 // delComment();
+// delPlan();
 // createPlan();
 // updPlan();
 // retrievePlan();
+// delAddon();
 // createAddon();
+// retrieveAddon();
+// updAddon();
 // refundInvoice();
 // refundTransaction();
 // createCoupon();
@@ -604,7 +658,7 @@ function logoutPortalSession($sessionId)
 
 // estimateRenewal();
 // addChargeAtTermEnd();
-addAddonAtTermEnd();
+// addAddonAtTermEnd();
 
 // testSerialize();
 // createInvForCharge();
