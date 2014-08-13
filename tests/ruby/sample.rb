@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__5k3ITyBHNxKqG2KoFuOo1Agb7UZhrZMq"
+    :api_key => "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -47,8 +47,18 @@ def reactivate_subscription
 end
 
 def retrieve_subscription
-  result = ChargeBee::Subscription.retrieve('__dev__8avRoOSpXRWML')
+  result = ChargeBee::Subscription.retrieve('active_direct')
   puts result.subscription
+end
+
+def retrive_scheduled_changes
+  result = ChargeBee::Subscription.retrieve_with_scheduled_changes('active_direct')
+  puts result
+end
+
+def delete_scheduled_changes
+  result = ChargeBee::Subscription.remove_scheduled_changes('active_direct')
+  puts result
 end
 
 def charge_addon
@@ -196,6 +206,7 @@ result = ChargeBee::Plan.create({
   :id => "rub_plan_1",
   :name => "Rub Plan 1",
   :invoice_name => "invoice name 1",
+  :description => "ruby plan for testing purpose",
   :trial_period => 5,
   :trial_period_unit => "day",
   :price => 2000,
@@ -225,9 +236,10 @@ end
 
 def create_addon
 result = ChargeBee::Addon.create({
-  :id => "rub_addon2",
-  :name => "Rub Addon2",
+  :id => "rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2",
+  :name => "Rub Addon2 Rub Addon2",
   :invoice_name => "invoice name",
+  :description => "rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_rub_addon2_",
   :charge_type => "recurring",
   :period => 5,
   :period_unit => "week",
@@ -353,6 +365,7 @@ def sub_renewal_estimate
   print result.estimate
 end
 
+
 # Comment the methods you don't want to run.
 
 #create_subscription
@@ -365,13 +378,15 @@ end
 # estimate_create_subscription
 # list_subscriptions
 # retrieve_subscription
+# retrive_scheduled_changes
+# delete_scheduled_changes
 # charge_addon
 # list_comments
 # create_comment
 # create_plan
-retrieve_plan
+#retrieve_plan
 # update_plan
-# create_addon
+ create_addon
 # retrieve_comment
 # list_sub_for_cust
 # create_sub_for_customer

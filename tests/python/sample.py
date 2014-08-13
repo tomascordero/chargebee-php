@@ -21,7 +21,7 @@ Use the below settings to configure the api endpoint with specific domain.
 """
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
-chargebee.configure("test___dev__hacuBsccuuR5SZ1jFdVIqjJHyodRd80G5f", "mannar-test")
+chargebee.configure("test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -67,7 +67,7 @@ def list_subscriptions():
         print("length is %s", len(list))
 
 def retrieve_subscription():
-    result = chargebee.Subscription.retrieve("__dev__8avRoOSpoUX6b")
+    result = chargebee.Subscription.retrieve("active_upgraded")
     print(result.subscription)
     if(result.subscription.coupons != None):
         for c in result.subscription.coupons:
@@ -76,6 +76,14 @@ def retrieve_subscription():
     if(result.subscription.trial_start == None):
         print("never been in trial")
 
+def retrieve_scheduled_changes():
+    result = chargebee.Subscription.retrieve_with_scheduled_changes("active_upgraded")
+    print result.subscription
+    print result.subscription.current_term_end
+
+def delete_scheduled_changes():
+    result = chargebee.Subscription.remove_scheduled_changes("active_upgraded")
+    print result.subscription
 
 def create_estimate():
     result = chargebee.Estimate.create_subscription({
@@ -105,17 +113,19 @@ def test_serialize():
 def create_plan():
     result = chargebee.Plan.create({
                	"id" : "nested_plan1",
-		"name":"Nested Plan1",
-		"invoice_name":"nested plan",
-		"period":5,
-		"price":4000,
-		"setup_cost":200,
-		"billing_cycles":1,
-		"free_quantity":10,
-		"downgrade_penalty":0.5,
-		"trial_period":2,
-		"trial_period_unit":"day"
-        })
+		        "name":"Nested Plan1",
+		        "invoice_name":"nested plan",
+                "description":"this is test plan created from py lib",
+		        "period":5,
+		        "price":4000,
+		        "setup_cost":200,
+		        "billing_cycles":1,
+                "charge_model":"per_unit",
+		        "free_quantity":10,
+		        "downgrade_penalty":0.5,
+		        "trial_period":2,
+		        "trial_period_unit":"day"
+            })
     print(result.plan)
 
 def create_addon():
@@ -123,13 +133,14 @@ def create_addon():
                 "id" : "test_addon2",
                 "name":"test Addon2",
                 "invoice_name":"test addon",
-		"charge_type":"non_recurring",
-		#"period":2,
-		"period_unit":"not_applicable",
+		        "charge_type":"non_recurring",
+                "description":"test addon 2 test addon 2 test addon 2 test addon 2 test addon 2 test addon 2",
+		        #"period":2,
+		        "period_unit":"not_applicable",
                 "type":"quantity",
-		"unit":"Agent",
+		        "unit":"Agent",
                 "price":4000
-        })
+            })
     print(result.addon)
 
 def refundInvoice():
@@ -139,12 +150,6 @@ def refundInvoice():
         })
     print(result)
 
-def refundTransaction():
-    result = chargebee.Transaction.refund("txn___dev__8avZiOUV24vV1c",{
-		"refund_amount":900,
-        "memo":"Just to refund"
-        })
-    print(result)
 
 def retrieveCoupon():
     result = chargebee.Coupon.retrieve("test")
@@ -189,32 +194,164 @@ def create_invoice_for_addon():
                                            # "addon_quantity" : 3})
    print result
 
+def list_comments():
+ #list = chargebee.Comment.list({"limit":5,"entity_type":"plan" , "entity_id" : "professional"})
+ list = chargebee.Comment.list({"limit":5})
+ # print list
+ for entry in list:
+            comment = entry.comment
+            print (comment)
+
+def create_comment():
+    result = chargebee.Comment.create({
+     "entity_type" : "subscription", 
+     "entity_id" : "active_upgraded", 
+     "notes" : "This is python test asdlhbasdfb; asdfjlbsakfd   as;fhas;fhdaskjhsdafj asfdljhsdalkjfh asflkjlaskjf alkjsfbkjasla alksbfkjbsdf alskjf kajbsfsdaf",
+     "added_by" : "unkown"
+    })
+    print(result)
+
+def delete_comment():
+    result = chargebee.Comment.delete("cmt___dev__8avRoOSpbLynT")
+    print(result.comment)
+
+def retrieve_comment():
+    result = chargebee.Comment.retrieve("cmt___dev__8avRoOSpbLynT")
+    print(result.comment)
+
+def list_sub_for_cust():
+   list = chargebee.Subscription.subscriptions_for_customer("trial", {
+     "limit" : 5
+   })
+   for entry in list:
+     print(entry.subscription)
+     print(entry.customer)
+     print(entry.card)
+     print(entry.invoice)
+
+def create_sub_for_customer():
+   result = chargebee.Subscription.create_for_customer("trial", {
+    "plan_id" : "basic",
+    "coupon" : "plan_only_coupon",
+    "addons" : [ { "id" : "sms_credits", "quantity" : "2" } ]
+   })
+   print(result)
+
+def create_subscription():
+   sub_id = u"a\xac\u1234\u20ac"
+   params = {"plan_id" : "basic", "id" : sub_id}
+   print(params)
+   result = chargebee.Subscription.create(params)
+   print(result.subscription)
+    
+def test_addons():
+   result = chargebee.Addon.create({
+    "id" : "test_addon_2", 
+    "name" : "test addon 2", 
+    "invoice_name" : "testing addon 1 desc", 
+    "charge_type" : "recurring", 
+    "price" : 200, 
+    "period" : 1,
+    "description" : "Description about testing 1 addons will come here", 
+    "period_unit" : "month", 
+    "type" : "on_off"
+   })
+   print result.addon
+
+def test_plan():
+  result = chargebee.Plan.create({
+             "id" : "silver6", 
+             "name" : "Silver6", 
+             "invoice_name" : "silver6", 
+             "price" : 5000,
+             "charge_model" : "per_unit",
+             "free_quantity" : 3,
+             "plan_quantity" : 5,
+             "enabled_in_hosted_pages":"true" 
+  })
+  plan = result.plan
+  print plan.charge_model
+  print plan.enabled_in_hosted_pages
+  print plan
+
+def sub_add_charge_term_end():
+  result = chargebee.Subscription.add_charge_at_term_end("__dev__KyVpQIOlJofLpB", {
+    "amount" : 2000, 
+    "description" : "Support charge"
+  })
+  print result.estimate
+
+def sub_add_addon_term_end():
+ result = chargebee.Subscription.charge_addon_at_term_end("__dev__KyVpQIOlJofLpB", {
+    "addon_id" : "non_recurring_addon_quantity",
+    "addon_quantity" : 2 
+ })
+ print result.estimate
+
+def sub_renewal_estimate():
+ result = chargebee.Estimate.renewal_estimate("__dev__KyVpQIOlJofLpB")
+ print result.estimate.amount
+ print result.estimate
+
+def create_coupon():
+ result = chargebee.Coupon.create({
+    "id" : "sample_offer", 
+    "name" : "Sample Offer", 
+    "discount_type" : "fixed_amount", 
+    "discount_amount" : 500, 
+    "apply_on" : "invoice_amount", 
+    "duration_type" : "forever"
+ })
+ print result.coupon
+
+def list_coupon():
+ list = chargebee.Coupon.list({"limit" : 5})
+ for entry in list:
+    coupon = entry.coupon
+    print coupon.redemptions
+    print coupon
+    
 
 """
 Comment out the methods you don't want to run.
 """
 
-create_invoice_for_addon()
+# create_invoice_for_addon()
 #create_invoice_for_charge()
 #list_txn_for_customer()
-# retrieve_subscription()
+retrieve_subscription()
 # update_subscription()
-# list_subscriptions()
-# create_estimate()
-# list_events()
-# create_estimate()
-# new_checkout()
-# retrive_hostedpage()
-# test_serialize()
-# create_plan()
-# create_addon()
-# refundInvoice()
-# refundTransaction()
-# retrieveCoupon()
-# create_portal_session()
-# retrieve_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
-# logout_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
+#list_subscriptions()
+#create_estimate()
+#list_events()
+#create_estimate()
+#new_checkout()
+#retrive_hostedpage()
+#test_serialize()
+#create_plan()
+#delete_scheduled_changes()
+#retrieve_scheduled_changes()
+#create_addon()
+#refundInvoice()
+#retrieveCoupon()
+#create_portal_session()
+#retrieve_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
+#logout_portal_session('__dev__qZIGuC6SuOX1RTA75A1nraSVsXtSURLY')
 
+# list_coupon()
+#create_coupon()
+# sub_renewal_estimate()
+#sub_add_addon_term_end()
+#sub_add_charge_term_end()
+#test_plan()
+#test_addons()
+#list_comments()
+#create_comment()
+#delete_comment()
+#retrieve_comment()
+#list_sub_for_cust()
+#create_sub_for_customer()
+#create_subscription()
 # print serialize({
 #     "id" : "test_addon2",
 #     "name":"test Addon2",
