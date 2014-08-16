@@ -40,7 +40,7 @@ module ChargeBee
     def method_missing(m, *args, &block)
       if(@values.has_key?(m))
           return @values[m]
-      elsif(m[0,3] == "cf_")
+      elsif(m[0,3] == "cf_") # All the custom fields start with prefix cf_. 
           return nil
       end
       puts "There's no method called #{m} #{args} here -- please try again."

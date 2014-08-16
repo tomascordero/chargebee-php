@@ -33,7 +33,8 @@ class Model(object):
             if k not in ('content',):  # Skipping models properties
                 setattr(self, k, set_val)
 
-    def __getattr__(self,name):
+    # Returns null for any attribute that starts with cf_ to access the custom fields.
+    def __getattr__(self, name):
         if( name[0:3] == "cf_"): 
             return None
         raise AttributeError("Attribute %s not found " % name) 
