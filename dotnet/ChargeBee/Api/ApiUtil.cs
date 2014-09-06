@@ -59,7 +59,7 @@ namespace ChargeBee.Api
             }
             catch (WebException ex)
             {
-				Console.WriteLine("exception is {0}", ex); 
+                if (ex.Response == null) throw ex;
                 using (HttpWebResponse response = ex.Response as HttpWebResponse)
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
@@ -67,6 +67,7 @@ namespace ChargeBee.Api
                     string json = reader.ReadToEnd();
                     ApiException apiEx = JsonConvert.DeserializeObject<ApiException>(json);
                     apiEx.HttpCode = response.StatusCode;
+                    apiEx.HttpStatusCode = response.StatusCode;
                     throw apiEx;
                 }
             }

@@ -38,7 +38,7 @@ RequestWrapper.prototype.request = function(callBack, envOptions) {
     var urlIdParam = this.apiCall.hasIdInUrl ? this.args[0] : null;
     var params = this.apiCall.hasIdInUrl ? this.args[1] : this.args[0];
     if (!ChargeBee._util.isFunction(callBack)) {
-        throw new Error(('The callback parameter passed is incorrect.'));
+        throw new Error('The callback parameter passed is incorrect.');
     }
     return ChargeBee._core.makeApiRequest(env, callBack, this.apiCall.httpMethod, this.apiCall.urlPrefix, this.apiCall.urlSuffix, urlIdParam, params);
 };
@@ -60,8 +60,9 @@ ChargeBee._core = (function() {
         return function() {
             req._isAborted = true;
             req.abort();
-            throwError(callBack, 504, 'timeout', 'request aborted due to timeout.');
+            throwError(callBack,'io_error', 504, 'timeout', 'request aborted due to timeout.');
         };
+
     };
 
     coreRef.responseHandler = function(req, callBack) {
@@ -75,7 +76,7 @@ ChargeBee._core = (function() {
                 try {
                     response = JSON.parse(response);
                 } catch (e) {
-                    throwError(callBack, 500, 'invalid_json', 'invalid json from chargebee Api', e);
+                    throwError(callBack,'client_error', 500, 'invalid_json', 'invalid json from chargebee Api', e);
                 }
                 if (response.error_code) {
                     callBack(response, null);
@@ -90,7 +91,7 @@ ChargeBee._core = (function() {
         return function(error) {
             if (req._isAborted)
                 return;
-            throwError(callBack, 503, 'connection_error', 'connection error while making request.', error);
+            throwError(callBack,'io_error', 503, 'connection_error', 'connection error while making request.', error);
         };
     };
 
@@ -175,8 +176,13 @@ ChargeBee._core = (function() {
         
         return serialized.join('&').replace(/%20/g, '+');
     };
-    var throwError = function(callBack, httpStatusCode, errorCode, message, detail) {
+    var throwError = function(callBack,type,httpStatusCode, errorCode, message, detail) {
         var error = {
+            'type':type,
+            'code':errorCode,
+            'msg':message,
+            'http_status_code':httpStatusCode,
+
             'http_code': httpStatusCode,
             'error_code': errorCode,
             'message': message
