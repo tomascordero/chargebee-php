@@ -11,7 +11,7 @@ def _basic_auth_str(username):
 
 def request(method, url, env, params=None):
     if not env:
-        raise APIError('No environment configured.')
+        raise Exception('No environment configured.')
 
     headers = {}
 
@@ -48,18 +48,12 @@ def request(method, url, env, params=None):
             data = data.decode('utf-8')
 
         return process_response(data, response.status)
-    except compat.HTTPException:
-        raise APIError('Error while connecting to chargebee. If you see this repeatedly, contact us at support@chargebee.com')
     finally:
         connection.close()
 
 
 def process_response(response, http_code):
-    try:
-        resp_json = compat.json.loads(response)
-    except ValueError:
-        raise APIError('Invalid response object from API', http_code, response)
-
+    resp_json = compat.json.loads(response)
     if http_code < 200 or http_code > 299:
         handle_api_resp_error(http_code, resp_json)
 
@@ -70,8 +64,14 @@ def handle_api_resp_error(http_code, resp_json):
     message = ''
 
     if 'error_param' in resp_json:
-        message = 'param %s ' % resp_json['error_param']
+        message = 'param %s : ' % resp_json['error_param']
 
-    message += resp_json['error_msg']
+    message += resp_json['msg']
+    if 'payment' == resp_json['type']:
+        raise PaymentException(message, http_code, resp_json)
+    elif 'runtime' == resp_json['type']:
+        raise RuntimeException(message, http_code, resp_json)
+    else
+        raise RequestException(message, http_code, resp_json)
 
-    raise APIError(message, http_code, 0, resp_json)
+
