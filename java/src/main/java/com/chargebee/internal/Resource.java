@@ -206,6 +206,14 @@ public class Resource<T> {
             return null;
         }
         if(!type.isAssignableFrom(val.getClass())){
+            //JSON returns Integer values if the string format is without decimal points
+            // Like 10  instead of 10.0 
+            if(Double.class == type && val instanceof Number){
+                return (T) new Double(((Number)val).doubleValue());
+            }
+            if(Float.class == type && val instanceof Number){
+                return (T) new Float(((Number)val).floatValue());
+            }
             throw new RuntimeException("Type mismatch for property " + key
                     + " . Expected " + type.getName() + " but contains " + val.getClass().getName());
         }

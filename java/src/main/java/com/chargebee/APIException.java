@@ -4,24 +4,43 @@ import org.json.*;
 
 public class APIException extends RuntimeException {
 
-    private JSONObject jsonObj;
+    public final JSONObject jsonObj;
+    
+    /**
+     * Use httpStatusCode instead.
+     * @deprecated
+     */
+    @Deprecated
     public final int httpCode;
+    
+    public final int httpStatusCode;
+    public final String type;
     public final String code;
-    public final String message;
+    public final String msg;
     public final String param;
+    
 
-    public APIException(JSONObject jsonObj) {
+    public APIException(int httpStatusCode,JSONObject jsonObj) {
+        super(constructMessage(jsonObj));
         this.jsonObj = jsonObj;
-        try {
-            this.httpCode = jsonObj.getInt("http_status_code");
-            this.message = jsonObj.getString("error_msg");
-            this.code = jsonObj.optString("error_code");
-            this.param = jsonObj.optString("error_param");
-        } catch(JSONException exp) {
-            throw new RuntimeException(exp);
-        }
+        this.httpCode = httpStatusCode;
+        this.httpStatusCode = httpStatusCode;
+        this.msg = jsonObj.optString("msg","");
+        this.code = jsonObj.optString("code","invalid_request");
+        this.type = jsonObj.optString("type","request");
+        this.param = jsonObj.optString("param");
     }
 
+    private static String constructMessage(JSONObject jsonObj){
+        String message = jsonObj.optString("msg","");
+        String param = jsonObj.optString("param");
+        if(param != null){
+             message = param + " : " + message;
+        }
+        return message;
+    }
+    
+    
     public boolean isParamErr() {
         return param != null;
     }

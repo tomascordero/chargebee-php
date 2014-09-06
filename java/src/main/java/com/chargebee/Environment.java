@@ -53,7 +53,7 @@ public class Environment {
 
     public static Environment defaultConfig() {
         if(defaultEnv == null) {
-            throw new RuntimeException("Not yet configured");
+            throw new RuntimeException("The default environment has not been configured");
         }
         return defaultEnv;
     }

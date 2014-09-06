@@ -1,12 +1,13 @@
 package com.chargebee.internal;
 
 import com.chargebee.*;
-import org.apache.commons.codec.binary.Base64;
-import org.json.*;
+import com.chargebee.exceptions.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
+import org.apache.commons.codec.binary.Base64;
+import org.json.*;
 
 public class HttpUtil {
 
@@ -129,7 +130,14 @@ public class HttpUtil {
         boolean error = httpRespCode < 200 || httpRespCode > 299;
         JSONObject jsonResp = getContentAsJSON(conn, error);
         if(error) {
-            throw new APIException(jsonResp);
+            String type = jsonResp.optString("type");
+            if("payment".equals(type)){
+                throw new CBPaymentException(httpRespCode,jsonResp);
+            }else if("runtime".equals(type)){
+                throw new CBRuntimeException(httpRespCode,jsonResp);                
+            }else{ 
+                throw new CBRequestException(httpRespCode,jsonResp);
+            }
         }
         return new Resp(httpRespCode, jsonResp);
     }
@@ -167,9 +175,8 @@ public class HttpUtil {
         try {
             obj = new JSONObject(content);
         } catch (JSONException exp) {
-            throw new RuntimeException(exp.getMessage());
+            throw new RuntimeException("Not in JSON format \n " + content,exp);
         }
-        checkRequiredJSONResp(obj);
         return obj;
     }
 
@@ -197,9 +204,4 @@ public class HttpUtil {
         }
     }
 
-    private static void checkRequiredJSONResp(JSONObject respObj) {
-        if (respObj == null) {
-            throw new RuntimeException("Expected json formatted content in response");
-        }
-    }
 }

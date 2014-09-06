@@ -38,7 +38,7 @@ class ChargeBee_Curl
 		} 
 		else 
 		{
-			throw new ChargeBee_APIError("Invalid http method $meth");
+			throw new Exception("Invalid http method $meth");
 		}
 		$url = self::utf8($env->apiUrl($url));
 		$opts[CURLOPT_URL] = $url;
@@ -64,9 +64,10 @@ class ChargeBee_Curl
 		if ($response === false) 
 		{
 			$errno = curl_errno($curl);
-			$message = curl_error($curl);
+			$curlMsg = curl_error($curl);
+            $message = "IO exception occurred when trying to connect to " . $url . " . Reason : " .$curlError;
 			curl_close($curl);
-			throw new ChargeBee_APIError($message, 0, $errno);
+			throw new ChargeBee_IOException($message,$errno,$curlMsg);
 		}
 		
 		$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -86,13 +87,26 @@ class ChargeBee_Curl
 
   public static function handleAPIRespError($httpCode, $respJson)
   {
-		$message = null;
+		$message = "";
 		if(array_key_exists('error_param', $respJson))
 		{
-			$message = "param ".$respJson['error_param']." ";
+			$message = $respJson['error_param']." : ";
 		}
 		$message .= $respJson['error_msg'];
-		throw new ChargeBee_APIError($message, $httpCode, 0, $respJson);
+        $type = $respJson['error_msg'];
+        if ($type == "payment")
+        {
+		   throw new ChargeBee_PaymentException($httpCode,$message,$respJson);
+        }
+        elseif($type == "runtime")
+        {
+		   throw new ChargeBee_RuntimeException($httpCode,$message,$respJson);
+        }
+        else
+        {
+		   throw new ChargeBee_RequestException($httpCode,$message,$respJson);
+        }
+
   }
 
 }
