@@ -8,12 +8,13 @@ namespace ChargeBee.Api
     public class ApiException : ApplicationException
     {
 
+		private string ErrorType = "";
 		private string ErrorParam = "";
 
 		public ApiException(HttpStatusCode httpStatusCode, Dictionary<string, string> errorResp)
         {
 			this.HttpStatusCode = httpStatusCode;
-			this.Type = errorResp ["type"];
+			errorResp.TryGetValue ("type", out ErrorType);
 			this.Code = errorResp ["code"];
 			this.ApiCode = errorResp ["error_code"];
 			this.ApiMessage = errorResp ["error_msg"];
@@ -23,7 +24,11 @@ namespace ChargeBee.Api
 
         public HttpStatusCode HttpStatusCode { get; set; }
 
-		public string Type { get; set; }
+		public string Type { 
+			get {
+				return this.ErrorType;
+			}
+		}
 
         public string Code { get; set; }
 

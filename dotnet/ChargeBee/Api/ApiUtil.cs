@@ -69,7 +69,8 @@ namespace ChargeBee.Api
                     code = response.StatusCode;
                     string json = reader.ReadToEnd();
 					Dictionary<string, string> errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>> (json);
-					string type = errorJson["type"];
+					string type = "";
+					errorJson.TryGetValue ("type", out type);
 					if ("payment".Equals (type)) {
 						throw new PaymentException (response.StatusCode, errorJson);
 					} else if ("operation_failed".Equals (type)) {
