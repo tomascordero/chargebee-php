@@ -1,5 +1,5 @@
 <?php
-class ChargeBee_RuntimeException extends ChargeBee_APIError
+class ChargeBee_InvalidRequestException extends ChargeBee_APIError
 {
 	function __construct($httpStatusCode,$message,$jsonObject)
 	{

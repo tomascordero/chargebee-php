@@ -23,11 +23,11 @@ class PaymentException(APIError):
     def __init__(self, message, http_code,json_obj):
         APIError.__init__(self, message, http_code,json_obj)
 
-class RequestException(APIError):
+class InvalidRequestException(APIError):
     def __init__(self, message, http_code,json_obj):
         APIError.__init__(self, message, http_code,json_obj)
 
-class RuntimeException(APIError):
+class OperationFailedException(APIError):
     def __init__(self, message, http_code,json_obj):
         APIError.__init__(self, message, http_code,json_obj)
 

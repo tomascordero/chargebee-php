@@ -100,11 +100,11 @@ class ChargeBee_Curl
         }
         elseif($type == "operation_failed")
         {
-		   throw new ChargeBee_RuntimeException($httpCode,$message,$respJson);
+		   throw new ChargeBee_OperationFailedException($httpCode,$message,$respJson);
         }
         else
         {
-		   throw new ChargeBee_RequestException($httpCode,$message,$respJson);
+		   throw new ChargeBee_InvalidRequestException($httpCode,$message,$respJson);
         }
 
   }
