@@ -132,11 +132,11 @@ public class HttpUtil {
         if(error) {
             String type = jsonResp.optString("type");
             if("payment".equals(type)){
-                throw new CBPaymentException(httpRespCode,jsonResp);
+                throw new PaymentException(httpRespCode,jsonResp);
             }else if("runtime".equals(type)){
-                throw new CBRuntimeException(httpRespCode,jsonResp);                
+                throw new OperationFailedException(httpRespCode,jsonResp);                
             }else{ 
-                throw new CBRequestException(httpRespCode,jsonResp);
+                throw new InvalidRequestException(httpRespCode,jsonResp);
             }
         }
         return new Resp(httpRespCode, jsonResp);

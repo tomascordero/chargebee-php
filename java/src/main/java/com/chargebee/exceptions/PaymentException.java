@@ -9,10 +9,10 @@ import com.chargebee.APIException;
 import org.json.*;
 
 
-public class CBRuntimeException extends APIException{
+public class PaymentException extends APIException{
 
-    public CBRuntimeException(int httpStatusCode,JSONObject jsonObj) {
+    public PaymentException(int httpStatusCode,JSONObject jsonObj) {
         super(httpStatusCode,jsonObj);
     }
-
+    
 }
