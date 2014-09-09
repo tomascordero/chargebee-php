@@ -27,7 +27,7 @@ public class APIException extends RuntimeException {
         this.httpStatusCode = httpStatusCode;
         this.msg = jsonObj.optString("msg","");
         this.code = jsonObj.optString("code","invalid_request");
-        this.type = jsonObj.optString("type","request");
+        this.type = jsonObj.optString("type","invalid_request");
         this.param = jsonObj.optString("param");
     }
 

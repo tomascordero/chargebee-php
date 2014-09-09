@@ -98,7 +98,7 @@ class ChargeBee_Curl
         {
 		   throw new ChargeBee_PaymentException($httpCode,$message,$respJson);
         }
-        elseif($type == "runtime")
+        elseif($type == "operation_failed")
         {
 		   throw new ChargeBee_RuntimeException($httpCode,$message,$respJson);
         }

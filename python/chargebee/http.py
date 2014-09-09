@@ -69,7 +69,7 @@ def handle_api_resp_error(http_code, resp_json):
     message += resp_json['msg']
     if 'payment' == resp_json['type']:
         raise PaymentException(message, http_code, resp_json)
-    elif 'runtime' == resp_json['type']:
+    elif 'operation_failed' == resp_json['type']:
         raise RuntimeException(message, http_code, resp_json)
     else
         raise RequestException(message, http_code, resp_json)
