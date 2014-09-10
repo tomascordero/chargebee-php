@@ -5,21 +5,28 @@ import org.json.*;
 public class APIException extends RuntimeException {
 
     public final JSONObject jsonObj;
+
+    public final int httpStatusCode;
+    public final String type;
+    public final String param;
+    public final String apiErrorCode;
+
     
     /**
-     * Use httpStatusCode instead.
+     * Use {@link #httpStatusCode} instead.
      * @deprecated
      */
     @Deprecated
     public final int httpCode;
     
-    public final int httpStatusCode;
-    public final String type;
-    public final String code;
-    public final String param;
-
     /**
-     * Use getMessage instead.
+     * Use {@link #apiErrorCode} instead.
+     * @deprecated
+     */
+    @Deprecated
+    public final String code;
+    /**
+     * Use {@link #getMessage()} instead.
      * @deprecated
      */
     @Deprecated
@@ -29,12 +36,13 @@ public class APIException extends RuntimeException {
     public APIException(int httpStatusCode,JSONObject jsonObj) throws Exception {
         super(jsonObj.getString("message"));
         this.jsonObj = jsonObj;
-        this.httpCode = httpStatusCode;
         this.httpStatusCode = httpStatusCode;
-        this.code = jsonObj.getString("code");
+        this.apiErrorCode = jsonObj.getString("api_error_code");
         this.type = jsonObj.optString("type");
         this.param = jsonObj.optString("param");
 
+        this.httpCode = httpStatusCode;
+        this.code = jsonObj.getString("error_code");
         this.message = jsonObj.getString("error_msg");
     }
     

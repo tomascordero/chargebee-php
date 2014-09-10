@@ -131,8 +131,9 @@ public class HttpUtil {
         String content = getContentAsString(conn, error);
         JSONObject jsonResp = getContentAsJSON(content);
         if(error) {
-            String type = jsonResp.optString("type");
             try {
+                jsonResp.getString("api_error_code");
+                String type = jsonResp.optString("type");
                 if ("payment".equals(type)) {
                     throw new PaymentException(httpRespCode, jsonResp);
                 } else if ("operation_failed".equals(type)) {
@@ -143,7 +144,7 @@ public class HttpUtil {
                     throw new APIException(httpRespCode, jsonResp);
                 }
             } catch (Exception ex) {
-                throw new RuntimeException("Error when parsing the error response \n " + content, ex);
+                throw new RuntimeException("Error when parsing the error response. Probably not ChargeBee' error response. The content is \n " + content, ex);
             }
         }
         return new Resp(httpRespCode, jsonResp);
