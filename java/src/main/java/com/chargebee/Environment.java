@@ -28,7 +28,7 @@ public class Environment {
      */
     public  int readTimeout = Integer.getInteger("com.chargebee.api.http.timeout.read", 60000);
 
-    public static String CHARSET = "UTF-8";
+    public static final String CHARSET = "UTF-8";
 
     public static final String API_VERSION = "v1";
     

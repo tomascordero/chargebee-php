@@ -1,8 +1,7 @@
 package com.chargebee.internal;
 
-import com.chargebee.Environment;
+import com.chargebee.gdata.PercentEscaper;
 import java.io.*;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.logging.Level;
@@ -258,13 +257,13 @@ public class Resource<T> {
         StringBuilder strBuf = new StringBuilder();
         for (String path : paths) {
             try {//Using URLEncoder is wrong as it encodes for form. Replace it with Google's CharEscapers.java
-                strBuf.append('/').append(URLEncoder.encode(path, Environment.CHARSET));
-            } catch (UnsupportedEncodingException ex) {
+                strBuf.append('/').append(new PercentEscaper(PercentEscaper.SAFEPATHCHARS_URLENCODER, false) .escape(path));
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
         return strBuf.toString();
-    }
-
+    }   
+    
 
 }
