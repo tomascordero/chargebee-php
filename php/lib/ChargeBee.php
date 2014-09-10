@@ -37,8 +37,8 @@ require(dirname(__FILE__) . '/ChargeBee/Util.php');
 require(dirname(__FILE__) . '/ChargeBee/Exceptions/IOException.php');
 require(dirname(__FILE__) . '/ChargeBee/Exceptions/APIError.php');
 require(dirname(__FILE__) . '/ChargeBee/Exceptions/PaymentException.php');
-require(dirname(__FILE__) . '/ChargeBee/Exceptions/RuntimeException.php');
-require(dirname(__FILE__) . '/ChargeBee/Exceptions/RequestException.php');
+require(dirname(__FILE__) . '/ChargeBee/Exceptions/OperationFailedException.php');
+require(dirname(__FILE__) . '/ChargeBee/Exceptions/InvalidRequestException.php');
 
 require(dirname(__FILE__) . '/ChargeBee/Request.php');
 require(dirname(__FILE__) . '/ChargeBee/Curl.php');

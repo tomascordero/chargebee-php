@@ -67,7 +67,7 @@ class ChargeBee_Curl
 			$curlMsg = curl_error($curl);
             $message = "IO exception occurred when trying to connect to " . $url . " . Reason : " .$curlMsg;
 			curl_close($curl);
-			throw new ChargeBee_IOException($message,$errno,$curlMsg);
+			throw new ChargeBee_IOException($message,$errno);
 		}
 		
 		$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -87,26 +87,23 @@ class ChargeBee_Curl
 
   public static function handleAPIRespError($httpCode, $respJson)
   {
-		$message = "";
-		if(array_key_exists('error_param', $respJson))
-		{
-			$message = $respJson['error_param']." : ";
-		}
-		$message .= $respJson['error_msg'];
-        $type = $respJson['error_msg'];
+        $type = $respJson['type'];
         if ($type == "payment")
         {
-		   throw new ChargeBee_PaymentException($httpCode,$message,$respJson);
+		   throw new ChargeBee_PaymentException($httpCode,$respJson);
         }
         elseif($type == "operation_failed")
         {
-		   throw new ChargeBee_OperationFailedException($httpCode,$message,$respJson);
+		   throw new ChargeBee_OperationFailedException($httpCode,$respJson);
         }
-        else
+        elseif($type == "invalid_request")
         {
-		   throw new ChargeBee_InvalidRequestException($httpCode,$message,$respJson);
+		   throw new ChargeBee_InvalidRequestException($httpCode,$respJson);
         }
-
+        elseif($type == "")
+        {
+           throw new ChargeBee_APIError($httpCode,$respJson);
+        }
   }
 
 }

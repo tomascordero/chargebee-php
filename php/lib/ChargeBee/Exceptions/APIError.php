@@ -12,17 +12,14 @@ class ChargeBee_APIError extends Exception
 
     private $code;
 	
-    private $msg;
-
     private $param;
 
-	function __construct($httpStatusCode,$message,$jsonObject)
+	function __construct($httpStatusCode,$jsonObject)
 	{
-		parent::__construct($message);
+		parent::__construct($respJson['message']);
         $this->jsonObject = $jsonObject;
         $this->type = $jsonObject['type'];
         $this->code = $jsonObject['code'];
-        $this->msg = $jsonObject['msg'];  
         $this->param = $jsonObject['param'];  
         $this->httpStatusCode = $httpStatusCode;  
 	}
@@ -37,10 +34,6 @@ class ChargeBee_APIError extends Exception
 
     public function getCode(){
         return $this->code;
-    }
-
-    public function getMsg(){
-        return $this->msg;
     }
 
     public function getParam(){
