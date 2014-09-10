@@ -11,7 +11,7 @@ import org.json.*;
 
 public class OperationFailedException extends APIException{
 
-    public OperationFailedException(int httpStatusCode,JSONObject jsonObj) {
+    public OperationFailedException(int httpStatusCode,JSONObject jsonObj) throws Exception {
         super(httpStatusCode,jsonObj);
     }
 

@@ -16,28 +16,26 @@ public class APIException extends RuntimeException {
     public final int httpStatusCode;
     public final String type;
     public final String code;
-    public final String msg;
     public final String param;
+
+    /**
+     * Use getMessage instead.
+     * @deprecated
+     */
+    @Deprecated
+    public final String message;
     
 
-    public APIException(int httpStatusCode,JSONObject jsonObj) {
-        super(constructMessage(jsonObj));
+    public APIException(int httpStatusCode,JSONObject jsonObj) throws Exception {
+        super(jsonObj.getString("message"));
         this.jsonObj = jsonObj;
         this.httpCode = httpStatusCode;
         this.httpStatusCode = httpStatusCode;
-        this.msg = jsonObj.optString("msg","");
-        this.code = jsonObj.optString("code","invalid_request");
-        this.type = jsonObj.optString("type","invalid_request");
+        this.code = jsonObj.getString("code");
+        this.type = jsonObj.optString("type");
         this.param = jsonObj.optString("param");
-    }
 
-    private static String constructMessage(JSONObject jsonObj){
-        String message = jsonObj.optString("msg","");
-        String param = jsonObj.optString("param");
-        if(param != null){
-             message = param + " : " + message;
-        }
-        return message;
+        this.message = jsonObj.getString("error_msg");
     }
     
     

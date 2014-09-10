@@ -11,7 +11,7 @@ import org.json.*;
 
 public class InvalidRequestException extends APIException{
 
-    public InvalidRequestException(int httpStatusCode,JSONObject jsonObj) {
+    public InvalidRequestException(int httpStatusCode,JSONObject jsonObj) throws Exception {
         super(httpStatusCode,jsonObj);
     }
     

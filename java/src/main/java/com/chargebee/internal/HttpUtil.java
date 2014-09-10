@@ -128,15 +128,22 @@ public class HttpUtil {
             throw new RuntimeException("Got http_no_content response");
         }
         boolean error = httpRespCode < 200 || httpRespCode > 299;
-        JSONObject jsonResp = getContentAsJSON(conn, error);
+        String content = getContentAsString(conn, error);
+        JSONObject jsonResp = getContentAsJSON(content);
         if(error) {
             String type = jsonResp.optString("type");
-            if("payment".equals(type)){
-                throw new PaymentException(httpRespCode,jsonResp);
-            }else if("operation_failed".equals(type)){
-                throw new OperationFailedException(httpRespCode,jsonResp);                
-            }else{ 
-                throw new InvalidRequestException(httpRespCode,jsonResp);
+            try {
+                if ("payment".equals(type)) {
+                    throw new PaymentException(httpRespCode, jsonResp);
+                } else if ("operation_failed".equals(type)) {
+                    throw new OperationFailedException(httpRespCode, jsonResp);
+                } else if ("invalid_request".equals(type)) {
+                    throw new InvalidRequestException(httpRespCode, jsonResp);
+                } else{
+                    throw new APIException(httpRespCode, jsonResp);
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException("Error when parsing the error response \n " + content, ex);
             }
         }
         return new Resp(httpRespCode, jsonResp);
@@ -169,8 +176,7 @@ public class HttpUtil {
                 .replaceAll("\r?", "").replaceAll("\n?", "");
     }
 
-    private static JSONObject getContentAsJSON(HttpURLConnection conn, boolean error) throws IOException {
-        String content = getContentAsString(conn, error);
+    private static JSONObject getContentAsJSON(String content) throws IOException {
         JSONObject obj;
         try {
             obj = new JSONObject(content);

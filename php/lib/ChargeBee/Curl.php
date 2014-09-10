@@ -65,7 +65,7 @@ class ChargeBee_Curl
 		{
 			$errno = curl_errno($curl);
 			$curlMsg = curl_error($curl);
-            $message = "IO exception occurred when trying to connect to " . $url . " . Reason : " .$curlError;
+            $message = "IO exception occurred when trying to connect to " . $url . " . Reason : " .$curlMsg;
 			curl_close($curl);
 			throw new ChargeBee_IOException($message,$errno,$curlMsg);
 		}
