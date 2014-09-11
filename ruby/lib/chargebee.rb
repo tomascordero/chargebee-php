@@ -5,10 +5,7 @@ require File.dirname(__FILE__) + '/chargebee/request'
 require File.dirname(__FILE__) + '/chargebee/result'
 require File.dirname(__FILE__) + '/chargebee/list_result'
 
-require File.dirname(__FILE__) + '/chargebee/errors/api_error'
-require File.dirname(__FILE__) + '/chargebee/errors/invalid_request_error'
-require File.dirname(__FILE__) + '/chargebee/errors/operation_failed_error'
-require File.dirname(__FILE__) + '/chargebee/errors/payment_error'
+require File.dirname(__FILE__) + '/chargebee/errors'
 
 require File.dirname(__FILE__) + '/chargebee/models/model'
 require File.dirname(__FILE__) + '/chargebee/models/subscription'

@@ -5,7 +5,7 @@ module ChargeBee
   module Rest
     
     def self.request(method, url, env, params=nil)
-      raise APIError.new('No environment configured.') unless env
+      raise Error.new('No environment configured.') unless env
       api_key = env.api_key
       headers = {}
       
@@ -44,22 +44,21 @@ module ChargeBee
         
       begin
         response = RestClient::Request.execute(opts)
-      rescue Exception => e
-        case(e)
-        when RestClient::ExceptionWithResponse
-          if rcode = e.http_code and rbody = e.http_body
+      rescue RestClient::ExceptionWithResponse => e
+        if rcode = e.http_code and rbody = e.http_body
             raise handle_for_error(e, rcode, rbody)
-          end
         else
-          raise e
+            raise IOError.new("IO Exception when trying to connect to chargebee with url #{opts[:url]} . Reason #{e}",e)
         end
+      rescue Exception => e
+            raise IOError.new("IO Exception when trying to connect to chargebee with url #{opts[:url]} . Reason #{e}",e)        
       end
       rbody = response.body
       rcode = response.code
       begin
         resp = JSON.parse(rbody)
-      rescue JSON::ParserError
-        raise APIError.new("Invalid response object from API", rcode, rbody)
+      rescue Exception => e
+        raise Error.new("Response not in JSON format. Probably not a ChargeBee response \n #{rbody.inspect}",e)
       end
       resp = Util.symbolize_keys(resp)
       resp
@@ -67,23 +66,23 @@ module ChargeBee
     
     def self.handle_for_error(e, rcode=nil, rbody=nil)
       if(rcode == 204)
-        raise APIError.new("No response returned by the chargebee api", rcode)
+        raise Error.new("No response returned by the chargebee api. The http status code is #{rcode}")
       end
       begin
         error_obj = JSON.parse(rbody)
         error_obj = Util.symbolize_keys(error_obj)
-      rescue JSON::ParseError
-        raise APIError.new("Invalid JSON response #{rbody.inspect} received with HTTP response code #{rcode}", rcode, rbody)
+      rescue Exception => e
+        raise Error.new("Error response not in JSON format. The http status code is #{rcode} \n #{rbody.inspect}",e)
       end
       type = error_obj[:type]
       if("payment" == type)
-        raise PaymentError.new(error_obj.to_s, rcode, rbody, error_obj)
+        raise PaymentError.new(rcode, error_obj)
       elsif("operation_failed" == type)
-        raise OperationFailedError.new(error_obj.to_s, rcode, rbody, error_obj)
+        raise OperationFailedError.new(rcode, error_obj)
       elsif("invalid_request" == type)
-        raise InvalidRequestError.new(error_obj.to_s, rcode, rbody, error_obj)
+        raise InvalidRequestError.new(rcode, error_obj)
       else
-        raise APIError.new(error_obj.to_s, rcode, rbody, error_obj)
+        raise APIError.new(rcode, error_obj)
       end
       
     end
