@@ -76,7 +76,6 @@ module ChargeBee
         raise APIError.new("Invalid JSON response #{rbody.inspect} received with HTTP response code #{rcode}", rcode, rbody)
       end
       type = error_obj[:type]
-      puts "type is #{type} - #{error_obj}"
       if("payment" == type)
         raise PaymentError.new(error_obj.to_s, rcode, rbody, error_obj)
       elsif("operation_failed" == type)
