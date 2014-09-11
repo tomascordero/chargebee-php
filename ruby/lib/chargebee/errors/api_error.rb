@@ -1,7 +1,7 @@
 module ChargeBee
   class APIError < StandardError
 
-    attr_reader :message, :http_code, :http_body, :json_obj, :error_code, :param
+    attr_reader :type, :message, :http_code, :http_body, :json_obj, :error_code, :api_error_code, :param
     
     def initialize(message=nil, http_code=nil, http_body=nil, json_obj = nil)
       @message = message
@@ -10,7 +10,8 @@ module ChargeBee
       @json_obj = json_obj
       if(json_obj != nil)
         @error_code = json_obj[:error_code]
-        @param = json_obj[:param]
+        @api_error_code = json_obj[:api_error_code]
+        @param = json_obj[:error_param]
       end
     end
     

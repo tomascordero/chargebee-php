@@ -46,18 +46,12 @@ module ChargeBee
         response = RestClient::Request.execute(opts)
       rescue Exception => e
         case(e)
-        when SocketError
-          raise APIError.new("Error while connecting to chargebee. If you see this repeatedly, contact us at support@chargebee.com")
         when RestClient::ExceptionWithResponse
           if rcode = e.http_code and rbody = e.http_body
             raise handle_for_error(e, rcode, rbody)
-          else
-            raise APIError.new(e.message)
           end
-        when RestClient::Exception
-          raise APIError.new("Unexpected error received: #{e.message}", e.http_code, e.http_body)
         else
-          raise APIError.new(e.message)
+          raise e
         end
       end
       rbody = response.body
@@ -67,7 +61,6 @@ module ChargeBee
       rescue JSON::ParserError
         raise APIError.new("Invalid response object from API", rcode, rbody)
       end
-
       resp = Util.symbolize_keys(resp)
       resp
     end
@@ -82,7 +75,18 @@ module ChargeBee
       rescue JSON::ParseError
         raise APIError.new("Invalid JSON response #{rbody.inspect} received with HTTP response code #{rcode}", rcode, rbody)
       end
-      raise APIError.new(error_obj.to_s, rcode, rbody, error_obj)
+      type = error_obj[:type]
+      puts "type is #{type} - #{error_obj}"
+      if("payment" == type)
+        raise PaymentError.new(error_obj.to_s, rcode, rbody, error_obj)
+      elsif("operation_failed" == type)
+        raise OperationFailedError.new(error_obj.to_s, rcode, rbody, error_obj)
+      elsif("invalid_request" == type)
+        raise InvalidRequestError.new(error_obj.to_s, rcode, rbody, error_obj)
+      else
+        raise APIError.new(error_obj.to_s, rcode, rbody, error_obj)
+      end
+      
     end
     
   end
