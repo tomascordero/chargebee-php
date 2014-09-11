@@ -1,6 +1,6 @@
 import base64
 
-from chargebee import APIError, compat
+from chargebee import APIError,PaymentError,InvalidRequestError,OperationFailedError, compat
 from chargebee.main import ChargeBee
 from chargebee.main import Environment
 from chargebee.version import VERSION
@@ -61,17 +61,16 @@ def process_response(response, http_code):
 
 
 def handle_api_resp_error(http_code, resp_json):
-    message = ''
+    if 'api_error_code' not in resp_json:
+        raise Exception("The api_error_code is not present. Probably not a chargebee error. Content is \n " + str(resp_json))
 
-    if 'error_param' in resp_json:
-        message = 'param %s : ' % resp_json['error_param']
-
-    message += resp_json['msg']
-    if 'payment' == resp_json['type']:
-        raise PaymentException(message, http_code, resp_json)
-    elif 'operation_failed' == resp_json['type']:
-        raise RuntimeException(message, http_code, resp_json)
-    else
-        raise RequestException(message, http_code, resp_json)
+    if 'payment' == resp_json.get('type'):
+        raise PaymentError(http_code, resp_json)
+    elif 'operation_failed' == resp_json.get('type'):
+        raise OperationFailedError(http_code, resp_json)
+    elif 'invalid_request' == resp_json.get('type'):
+        raise InvalidRequestError(http_code, resp_json)
+    else:
+        raise APIError(http_code, resp_json)
 
 
