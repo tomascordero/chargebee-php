@@ -143,6 +143,8 @@ public class HttpUtil {
                 } else{
                     throw new APIException(httpRespCode, jsonResp);
                 }
+            }catch(APIException ex){
+                throw ex;            
             } catch (Exception ex) {
                 throw new RuntimeException("Error when parsing the error response. Probably not ChargeBee' error response. The content is \n " + content, ex);
             }
@@ -182,7 +184,7 @@ public class HttpUtil {
         try {
             obj = new JSONObject(content);
         } catch (JSONException exp) {
-            throw new RuntimeException("Not in JSON format \n " + content,exp);
+            throw new RuntimeException("Not in JSON format. Probably not a ChargeBee response. \n " + content,exp);
         }
         return obj;
     }
