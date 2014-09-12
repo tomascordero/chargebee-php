@@ -11,14 +11,17 @@ namespace ChargeBee.Api
 		private string ErrorType = "";
 		private string ErrorParam = "";
 
-		public ApiException(HttpStatusCode httpStatusCode, Dictionary<string, string> errorResp)
+		public ApiException (HttpStatusCode httpStatusCode, Dictionary<string, string> errorResp)
+			: base (errorResp ["message"])
         {
 			this.HttpStatusCode = httpStatusCode;
 			errorResp.TryGetValue ("type", out ErrorType);
-			this.Code = errorResp ["code"];
+			this.Code = errorResp ["api_error_code"];
+
+			//Deprecated fields.
 			this.ApiCode = errorResp ["error_code"];
 			this.ApiMessage = errorResp ["error_msg"];
-			this.Msg = errorResp ["msg"];
+
 			errorResp.TryGetValue("param", out ErrorParam);
         }
 
@@ -38,8 +41,6 @@ namespace ChargeBee.Api
 			}
 		}
 
-        public string Msg { get; set; }
-
         [System.Obsolete("Use HttpStatusCode")]
         public HttpStatusCode HttpCode { 
 			get {
@@ -57,15 +58,8 @@ namespace ChargeBee.Api
 			} 
 		}
 
-        [System.Obsolete("Use Msg")]
+        [System.Obsolete("Use Messsge")]
         public string ApiMessage { get; set; }
 
-        public override string Message
-        {
-            get
-            {
-                return ApiMessage;
-            }
-        }
     }
 }

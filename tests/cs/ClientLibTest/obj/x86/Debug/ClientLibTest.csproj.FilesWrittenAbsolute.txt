@@ -1,0 +1,7 @@
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/bin/Debug/ClientLibTest.exe.mdb
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/bin/Debug/ClientLibTest.exe
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/obj/x86/Debug/ClientLibTest.exe
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/obj/x86/Debug/ClientLibTest.exe.mdb
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/bin/Debug/ChargeBee.dll
+/Users/rr/source/client-libs/tests/cs/ClientLibTest/bin/Debug/Newtonsoft.Json.dll
