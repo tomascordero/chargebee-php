@@ -16,13 +16,13 @@ namespace ChargeBee.Api
         {
 			this.HttpStatusCode = httpStatusCode;
 			errorResp.TryGetValue ("type", out ErrorType);
-			this.Code = errorResp ["api_error_code"];
+			this.ApiErrorCode = errorResp ["api_error_code"];
+
+			errorResp.TryGetValue("param", out ErrorParam);
 
 			//Deprecated fields.
 			this.ApiCode = errorResp ["error_code"];
 			this.ApiMessage = errorResp ["error_msg"];
-
-			errorResp.TryGetValue("param", out ErrorParam);
         }
 
         public HttpStatusCode HttpStatusCode { get; set; }
@@ -33,7 +33,7 @@ namespace ChargeBee.Api
 			}
 		}
 
-        public string Code { get; set; }
+		public string ApiErrorCode { get; set; }
 
         public string Param { 
 			get {
