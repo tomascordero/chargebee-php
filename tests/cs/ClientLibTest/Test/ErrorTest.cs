@@ -16,7 +16,7 @@ public class ErrorTest {
 		ApiConfig.Proto = "http";
 		ApiConfig.DomainSuffix = "localcb.in:8080";
 		//"freshdesk.com";
-		ApiConfig.Configure("mannar-test", "test___dev__n5XdbThZvggjaINjwyaR8lX0sTbU4gSF");
+		ApiConfig.Configure("mannar-test", "test___dev__LSVEP3okSgHheqsbNXIgfTlUh27YfdEF");
 	}
 
 	private void DoTest() {
@@ -59,7 +59,7 @@ public class ErrorTest {
 				//}else if(<other card parameters> ...){
 				// ...
 			} else {
-				Console.WriteLine("Inside other payment errors " + e.Code + " " + e.Param);
+				Console.WriteLine("Inside other payment errors " + e.ApiErrorCode + " " + e.Param);
 				//Provide a standard message to your user to recheck his card details or provide a different card.
 				// Like  'Sorry,there was a problem when processing your card, please check the details and try again'.
 			}
@@ -69,12 +69,12 @@ public class ErrorTest {
 			// For coupons you could decide to provide specific messages by using
 			// the 'code' attribute in the error.
 			if ("coupon".Equals (e.Param)) {
-				if ("resource_not_found".Equals (e.Code)) {
+				if ("resource_not_found".Equals (e.ApiErrorCode)) {
 					Console.WriteLine ("Coupon not found");
 					// Inform user to recheck his coupon code.
-				} else if ("resource_limit_exhausted".Equals (e.Code)) {
+				} else if ("resource_limit_exhausted".Equals (e.ApiErrorCode)) {
 					// Inform user that the coupon code has expired.
-				} else if ("invalid_request".Equals (e.Code)) {
+				} else if ("invalid_request".Equals (e.ApiErrorCode)) {
 					// Inform user that the coupon code is not applicable for his plan(/addons).
 				} else {
 					// Inform user to recheck his coupon code.
@@ -88,7 +88,7 @@ public class ErrorTest {
 			// These should occur very rarely and mostly be of temporary nature.
 			// You could ask your user to retry after some time.
 		} catch(ApiException e){
-			Console.WriteLine("Inside APIException " + e.Code);
+			Console.WriteLine("Inside APIException " + e.ApiErrorCode);
 			Console.WriteLine(e);
 			// Handle the other ChargeBee API errors. Mostly would be setup related
 			// exceptions such as authentication failure.
