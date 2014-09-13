@@ -21,7 +21,8 @@ Use the below settings to configure the api endpoint with specific domain.
 """
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
-chargebee.configure("test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT", "mannar-test")
+Environment.protocol = "http"
+chargebee.configure("test___dev__nT9OODXcYvFqWpVkcd5n01J3RaE52fkhf", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -35,7 +36,11 @@ and call the required method at the end to test.
 def new_checkout():
     result = chargebee.HostedPage.checkout_new({
             "subscription" : {
-                "plan_id" : "basic"
+              #  "id" : "42310",
+                "plan_id" : "no_trial"
+            },
+            "customer" : {
+               "id" : "03241"
             },
             "embed":"false"
         })
@@ -243,8 +248,9 @@ def create_sub_for_customer():
    print(result)
 
 def create_subscription():
-   sub_id = u"a\xac\u1234\u20ac"
-   params = {"plan_id" : "basic", "id" : sub_id}
+   sub_id = "12345"
+   params = {"plan_id" : "no_trial", "id" : sub_id, "affiliate_token" : "3241", "created_from_ip" : "34:213:11:1",
+             "customer" : {"auto_collection": "off"} }
    print(params)
    result = chargebee.Subscription.create(params)
    print(result.subscription)
@@ -325,7 +331,7 @@ Comment out the methods you don't want to run.
 #create_invoice_for_charge()
 #list_txn_for_customer()
 #retrieve_subscription()
-retrieve_custom_field()
+#retrieve_custom_field()
 # update_subscription()
 #list_subscriptions()
 #create_estimate()
@@ -357,7 +363,7 @@ retrieve_custom_field()
 #retrieve_comment()
 #list_sub_for_cust()
 #create_sub_for_customer()
-#create_subscription()
+create_subscription()
 # print serialize({
 #     "id" : "test_addon2",
 #     "name":"test Addon2",

@@ -34,35 +34,37 @@ def request(method, url, env, params=None):
         connection = compat.VerifiedHTTPSConnection(meta.netloc)
         connection.set_cert(ca_certs=ChargeBee.ca_cert_path)
     else:
-        if Environment.chargebee_domain is None:
+        if Environment.protocol == "https":
             connection = compat.HTTPSConnection(meta.netloc)
         else:
             connection = compat.HTTPConnection(meta.netloc)    
         
     connection.request(method.upper(), meta.path + '?' + meta.query, payload, headers)
-
     try:
         response = connection.getresponse()
         data = response.read()
         if compat.is_py3:
             data = data.decode('utf-8')
 
-        return process_response(data, response.status)
+        return process_response(url,data, response.status)
     finally:
         connection.close()
 
 
-def process_response(response, http_code):
-    resp_json = compat.json.loads(response)
+def process_response(url,response, http_code):
+    try:
+        resp_json = compat.json.loads(response)
+    except Exception, ex:     
+        raise Exception("Response not in JSON format. Probably not a chargebee error. \n URL is " + url + "\n Content is \n" + response)
     if http_code < 200 or http_code > 299:
-        handle_api_resp_error(http_code, resp_json)
+        handle_api_resp_error(url,http_code, resp_json)
 
     return resp_json
 
 
-def handle_api_resp_error(http_code, resp_json):
+def handle_api_resp_error(url,http_code, resp_json):
     if 'api_error_code' not in resp_json:
-        raise Exception("The api_error_code is not present. Probably not a chargebee error. Content is \n " + str(resp_json))
+        raise Exception("The api_error_code is not present. Probably not a chargebee error. \n URL is " + url + "\nContent is \n " + str(resp_json))
 
     if 'payment' == resp_json.get('type'):
         raise PaymentError(http_code, resp_json)

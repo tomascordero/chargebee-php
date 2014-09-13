@@ -67,8 +67,13 @@ namespace ChargeBee.Api
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
                     code = response.StatusCode;
-                    string json = reader.ReadToEnd();
-					Dictionary<string, string> errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>> (json);
+                    string content = reader.ReadToEnd();
+					Dictionary<string, string> errorJson = null;
+					try {
+						errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>> (content);
+					} catch(JsonException e) {
+						throw new SystemException("Not in JSON format. Probably not a ChargeBee response. \n " + content, e);
+					}
 					string type = "";
 					errorJson.TryGetValue ("type", out type);
 					if ("payment".Equals (type)) {
