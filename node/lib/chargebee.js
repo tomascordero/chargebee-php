@@ -79,6 +79,7 @@ ChargeBee._core = (function() {
                     throwError(callBack,'client_error', 500, 'invalid_json', 'invalid json in response. Probably not a ChargeBee response', e);
                 }
                 if (res.statusCode < 200 || res.statusCode > 299) {
+                    response.http_status_code = res.statusCode;
                     callBack(response, null);
                 } else {
                     callBack(null, response);
@@ -178,14 +179,13 @@ ChargeBee._core = (function() {
     };
     var throwError = function(callBack,type,httpStatusCode, errorCode, message, detail) {
         var error = {
+            'message': message,
             'type':type,
             'api_error_code':errorCode,
-            'msg':message,
             'http_status_code':httpStatusCode,
 
             'http_code': httpStatusCode,
             'error_code': errorCode,
-            'message': message
         };
         if (typeof detail !== "undefined") {
             error['detail'] = detail;

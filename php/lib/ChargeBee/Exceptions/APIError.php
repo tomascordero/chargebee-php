@@ -38,7 +38,7 @@ class ChargeBee_APIError extends Exception {
      * @deprecated
      */
     public function getHttpCode() {
-        return $this->httpCode;
+        return $this->httpStatusCode;
     }
 
     /**
