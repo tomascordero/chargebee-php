@@ -58,7 +58,7 @@ namespace ChargeBee.Api
 			} 
 		}
 
-        [System.Obsolete("Use Messsge")]
+        [System.Obsolete("Use Message")]
         public string ApiMessage { get; set; }
 
     }
