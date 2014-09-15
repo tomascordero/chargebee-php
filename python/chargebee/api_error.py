@@ -13,11 +13,6 @@ class APIError(Exception):
         self.http_code = http_code
         self.http_body = None
 
-
-    def __str__(self):
-        hc = '' if not self.http_code else '(Http Code %s)' % self.http_code
-        return ' '.join([hc, self.message])
-
 class PaymentError(APIError):
     def __init__(self, http_code,json_obj):
         APIError.__init__(self, http_code,json_obj)
