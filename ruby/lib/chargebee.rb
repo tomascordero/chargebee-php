@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/chargebee/request'
 require File.dirname(__FILE__) + '/chargebee/result'
 require File.dirname(__FILE__) + '/chargebee/list_result'
 
-require File.dirname(__FILE__) + '/chargebee/api_error'
+require File.dirname(__FILE__) + '/chargebee/errors'
 
 require File.dirname(__FILE__) + '/chargebee/models/model'
 require File.dirname(__FILE__) + '/chargebee/models/subscription'

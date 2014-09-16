@@ -4,13 +4,17 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT")
+  :api_key => "test___dev__nT9OODXcYvFqWpVkcd5n01J3RaE52fkhf")
 
-result = ChargeBee::Subscription.retrieve("active_direct")
+result = result = ChargeBee::Subscription.create({ :plan_id => "no_trial",
+                                                   :affiliate_token => "1234",
+                                                   :created_from_ip =>"192.168.1.1" });
+
+
 subscription = result.subscription
 customer = result.customer
 card = result.card
 
-print customer.cf_about_yourself
-print customer.asdas
+print subscription
+print customer
 

@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT"
+    :api_key => "test___dev__nT9OODXcYvFqWpVkcd5n01J3RaE52fkhf"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -107,7 +107,9 @@ end
 
 def create_subscription
   result = ChargeBee::Subscription.create({
-    :plan_id => "no_trial",
+    :plan_id => "professional",
+    :affiliate_token => "123",
+    :created_from_ip => "66.123.87.9",
     :customer => {
       :email => "john@user.com",
       :first_name => "John",
@@ -118,12 +120,13 @@ def create_subscription
       :last_name => "Wayne",
       :number => "4111111111111111",
       :expiry_month => 4,
-      :expiry_year => 2014,
+      :expiry_year => 2015,
       :cvv => "411",
       :billing_country => "IN"
     }
   })
   puts result.subscription
+  puts result
 #  puts result.subscription.current_term_start==nil ? 'true' : 'false'
 end
 
@@ -371,10 +374,17 @@ def sub_renewal_estimate
   print result.estimate
 end
 
+def checkout_new
+   result = ChargeBee::HostedPage.checkout_new({ :subscription => { :id => "4321", :plan_id => "professional" },
+    #                                             :customer => { :id => "123" }, 
+						 :addons => [{:id => "ssl"}] })
+   print result.hosted_page
+end
 
 # Comment the methods you don't want to run.
 
-#create_subscription
+checkout_new
+# create_subscription
 # update_subscription
 # delete_card
 # invoice_transactions
@@ -390,10 +400,10 @@ end
 # list_comments
 # create_comment
 # create_plan
-#retrieve_plan
+# retrieve_plan
 # update_plan
 # create_addon
-retrieve_custom_field
+# retrieve_custom_field
 # retrieve_comment
 # list_sub_for_cust
 # create_sub_for_customer
