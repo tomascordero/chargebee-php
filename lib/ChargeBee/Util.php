@@ -58,11 +58,14 @@ class ChargeBee_Util
     
     static function encodeURIPath()
     {
-        $uriPaths = array_map(function($v){return rawurlencode($v);}, func_get_args());
+        $uriPaths = array();
+        foreach(func_get_args() as $v)
+        {
+            $uriPaths[] = rawurlencode($v);
+        }
         return "/" . implode("/", $uriPaths);
     }
 	
-
 }
 
 ?>
