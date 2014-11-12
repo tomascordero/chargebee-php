@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__nT9OODXcYvFqWpVkcd5n01J3RaE52fkhf", "mannar-test")
+chargebee.configure("test___dev__wCtrbqobYhU4ZAbkMPKKz3aWoR6mNSLT", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -249,11 +249,14 @@ def create_sub_for_customer():
 
 def create_subscription():
    sub_id = "12345"
-   params = {"plan_id" : "no_trial", "id" : sub_id, "affiliate_token" : "3241", "created_from_ip" : "34:213:11:1",
-             "customer" : {"auto_collection": "off"} }
+   first_name = raw_input("first Name").decode("utf-8")
+   print type(first_name)
+   params = {"plan_id" : "basic", "affiliate_token" : "3241", "created_from_ip" : "34:213:11:1",
+             "customer" : {"first_name": first_name, "auto_collection": "off"} }
    print(params)
    result = chargebee.Subscription.create(params)
    print(result.subscription)
+   print(result.customer.first_name)
     
 def test_addons():
    result = chargebee.Addon.create({

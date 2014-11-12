@@ -3,6 +3,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using System.Globalization;
+using ClientLibTest;
 
 using ChargeBee.Api;
 using ChargeBee.Models;
@@ -13,12 +14,13 @@ public class ErrorTest {
 
 	private void Configure()
 	{
+
 		ApiConfig.Proto = "http";
 		ApiConfig.DomainSuffix = "localcb.in:8080";
 		//"freshdesk.com";
 		ApiConfig.Configure("mannar-test", "test___dev__LSVEP3okSgHheqsbNXIgfTlUh27YfdEF");
 	}
-
+		
 	private void DoTest() {
 
 		try {
@@ -107,9 +109,17 @@ public class ErrorTest {
 	}
 
 	public static void Main(string[] args){
-		ErrorTest et = new ErrorTest ();
-		et.Configure ();
-		et.DoTest ();
+//		ErrorTest et = new ErrorTest ();
+//		et.Configure ();
+//		et.DoTest ();
+		ApiConfig.Proto = "https";
+		ApiConfig.DomainSuffix = "stagingcb.com";
+		ChargeBee.Api.ApiConfig.Configure ("stagingtesting-2-test", "test_b8Zsv1ZhzEIbumcdrijvPC1Nj4q1ZREoq");
+		TestPaymentMethod test = new TestPaymentMethod ();
+		//test.testRetrieveCustomer ();
+		//test.testRetrieveCard ();
+		test.updateAmazonPaymentWithCard ();
+		//test.testTxn ();
 	}
 
 }

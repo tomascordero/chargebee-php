@@ -13,8 +13,8 @@ require('../../php/lib/ChargeBee.php');
  * Below are the setting to be used if you are testing with the local server.
  */
 ChargeBee_Environment::$scheme = "http";
-//ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
-ChargeBee_Environment::$chargebeeDomain = "freshdesk.com";
+ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
+//ChargeBee_Environment::$chargebeeDomain = "freshdesk.com";
 
 
 /**
@@ -23,13 +23,12 @@ ChargeBee_Environment::$chargebeeDomain = "freshdesk.com";
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
 //ChargeBee_Environment::configure("mannar-test", "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFA");
 
-ChargeBee_Environment::configure("mannar-test", "test___dev__QFEb5bUtAHYudl124Lcu7tYrEm3NZWonN");
+ChargeBee_Environment::configure("mannar-test", "test___dev__ymEVZqV0RoZvUnLGd8mleGKocuqoj9DSX");
 
 try {
-    print(" Here ");
     $result = ChargeBee_Subscription::create(array(
                 "planId" => "no_trial",
-                "coupon" => "fsfs",
+                //"coupon" => "fsfs",
                 "customer" => array(
                     "email" => "john@user.com",
                     "firstName" => "John",
@@ -64,6 +63,7 @@ try {
 } catch (ChargeBee_InvalidRequestException $ex) {
     // For coupons you could decide to provide specific messages by using 
     //the 'code' attribute in the  error.
+	echo json_encode($ex->getJsonObject());
     if ("coupon" == $ex->getParam()) {
         if ("resource_not_found" == $ex->getApiErrorCode()) {
             print("Inside coupon cool ");
@@ -99,7 +99,7 @@ try {
     // please take a look at http://curl.haxx.se/libcurl/c/libcurl-errors.html
     print("Curl Error Code is: " . $ex->getCurlErrorCode());
 } catch (Exception $ex) {
-    print("1323" . $ex->getMessage());
+    print($ex->getMessage());
     // These are unhandled exceptions (Could be due to a bug in your code or very rarely 
     // in client library). You could ask users contact your support.
 }

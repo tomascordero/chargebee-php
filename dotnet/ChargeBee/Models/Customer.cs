@@ -90,6 +90,10 @@ namespace ChargeBee.Models
         {
             get { return GetSubResource<CustomerBillingAddress>("billing_address"); }
         }
+        public CustomerPaymentMethod PaymentMethod 
+        {
+            get { return GetSubResource<CustomerPaymentMethod>("payment_method"); }
+        }
         
         #endregion
         
@@ -304,6 +308,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("company", company);
                 return this;
             }
+            public UpdateRequest AutoCollection(AutoCollectionEnum autoCollection) 
+            {
+                m_params.AddOpt("auto_collection", autoCollection);
+                return this;
+            }
         }
         public class UpdateBillingInfoRequest : EntityRequest<UpdateBillingInfoRequest> 
         {
@@ -446,6 +455,44 @@ namespace ChargeBee.Models
 
             public string Zip() {
                 return GetValue<string>("zip", false);
+            }
+
+        }
+        public class CustomerPaymentMethod : Resource
+        {
+            public enum TypeEnum
+            {
+                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("card")]
+                Card,
+                [Description("amazon_payments")]
+                AmazonPayments,
+            }
+            public enum StatusEnum
+            {
+                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("valid")]
+                Valid,
+                [Description("expiring")]
+                Expiring,
+                [Description("expired")]
+                Expired,
+                [Description("invalid")]
+                Invalid,
+            }
+
+            public TypeEnum? PaymentMethodType() {
+                return GetEnum<TypeEnum>("type", false);
+            }
+
+            public StatusEnum Status() {
+                return GetEnum<StatusEnum>("status", true);
+            }
+
+            public string ReferenceId() {
+                return GetValue<string>("reference_id", false);
             }
 
         }

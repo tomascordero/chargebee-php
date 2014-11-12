@@ -35,6 +35,7 @@
     <Compile Include="Test\ErrorTest.cs" />
     <Compile Include="Test\Sample.cs" />
     <Compile Include="Test\WebhookParser.cs" />
+    <Compile Include="Test\TestPaymentMethod.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
