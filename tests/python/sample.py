@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__wCtrbqobYhU4ZAbkMPKKz3aWoR6mNSLT", "mannar-test")
+chargebee.configure("test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -326,6 +326,33 @@ def list_coupon():
     print coupon
     
 
+def create_order():
+    result = chargebee.Order.create({
+        "invoice_id" : "__demo_inv__8",
+        "status" : "new",
+        "fulfillment_status" : "Shipped"
+    })
+    print result.order
+
+def retrieve_order(order_id):
+    result = chargebee.Order.retrieve(order_id)
+    print result.order
+
+def update_order(order_id):
+    result = chargebee.Order.update(order_id, {"status" : "processing"})
+    print result.order
+    
+def list_orders():
+    list_result = chargebee.Order.list({"limit" : 5}) 
+    for entry in list_result:
+        print entry.order
+        
+def list_inv_orders():
+    list_result = chargebee.Order.orders_for_invoice("__demo_inv__8", {"limit" : 5})
+    for entry in list_result:
+        print entry.order
+        
+
 """
 Comment out the methods you don't want to run.
 """
@@ -366,7 +393,12 @@ Comment out the methods you don't want to run.
 #retrieve_comment()
 #list_sub_for_cust()
 #create_sub_for_customer()
-create_subscription()
+# create_subscription()
+# create_order()
+# retrieve_order("__dev__XpbGU7pOxD8GPd1")
+# update_order("__dev__XpbGU7pOxD8GPd1")
+# list_orders()
+list_inv_orders()
 # print serialize({
 #     "id" : "test_addon2",
 #     "name":"test Addon2",

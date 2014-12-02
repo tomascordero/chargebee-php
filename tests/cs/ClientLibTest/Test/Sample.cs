@@ -15,10 +15,9 @@ namespace Examples
 
 		public void Configure()
 		{
-			//ApiConfig.Configure("cbprod3-test", "7xXe3SGFHq4SlqEUKOA7adHEcuERvGcu3a");
-			//ApiConfig.Proto = "http";
-			//ApiConfig.DomainSuffix = "localcb.com:8080";
-			ApiConfig.Configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7");
 		}
 
 		public void TestSerializeEvent()
@@ -211,6 +210,43 @@ namespace Examples
 			//Console.WriteLine(subs2.PlanId);
 		}
 
+		public void CreateOrder(string InvoiceId) 
+		{
+			EntityResult result = Order.Create ()
+				.InvoiceId (InvoiceId)
+				.Status (Order.StatusEnum.New)
+				.FulfillmentStatus ("Shipping")
+				.Request ();
+			Console.WriteLine (result.Order.Id);
+		}
+
+		public void RetrieveOrder(string OrderId)
+		{
+			EntityResult result = Order.Retrieve (OrderId).Request ();
+			Console.WriteLine (result.Order.Id);
+		}
+
+		public void UpdateOrder(string OrderId)
+		{
+			EntityResult result = Order.Update (OrderId).Status (Order.StatusEnum.Processing).Request ();
+			Console.WriteLine(result.Order.Id);
+			Console.WriteLine(result.Order.Status);
+		}
+
+		public void ListAllOrders()
+		{
+			ListResult result = Order.List ().Request ();
+			Console.WriteLine (result);
+			Console.WriteLine (result.List.Capacity);
+		}
+
+		public void ListInvoiceOrders(string InvoiceId)
+		{
+			ListResult result = Order.OrdersForInvoice (InvoiceId).Request ();
+			Console.WriteLine (result);
+			Console.WriteLine (result.List.Capacity);
+		}
+
 		public static void Main(string[] args) 
 		{
 			Sample s = new Sample();
@@ -224,6 +260,11 @@ namespace Examples
             // s.TestRetrieveEvent();
             // s.TestHostedPageCheckout();
             // s.TestDiacritics();
+			//s.CreateOrder ("__demo_inv__24");
+			//s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
+			//s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
+			s.ListAllOrders ();
+			//s.ListInvoiceOrders ("__demo_inv__24");
 		}
 		
 

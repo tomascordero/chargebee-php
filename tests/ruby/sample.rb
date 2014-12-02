@@ -10,7 +10,7 @@ require 'json'
 $CHARGEBEE_DOMAIN = "localcb.in:8080"
 ChargeBee.configure({
     :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__nT9OODXcYvFqWpVkcd5n01J3RaE52fkhf"
+    :api_key => "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7"
 })
 ChargeBee.verify_ca_certs=(false)
 
@@ -381,9 +381,35 @@ def checkout_new
    print result.hosted_page
 end
 
-# Comment the methods you don't want to run.
+def create_order(inv_id)
+  result = ChargeBee::Order.create({:invoice_id => inv_id, :status => "new", :fulfillment_status => "Shipped"})
+  print result.order
+end
 
-checkout_new
+def retrieve_order(order_id)
+  result = ChargeBee::Order.retrieve(order_id)
+  print result.order
+end
+
+def update_order(order_id)
+  result = ChargeBee::Order.update(order_id, {:status => "processing"})
+  print result.order
+end
+
+def list_orders()
+  result = ChargeBee::Order.list()
+  print result.inspect
+end
+
+def list_orders_for_invoice(inv_id)
+  result = ChargeBee::Order.orders_for_invoice(inv_id)
+  print result.inspect
+end
+
+
+# Comment the methods you don't want to run.
+begin
+# checkout_new
 # create_subscription
 # update_subscription
 # delete_card
@@ -432,4 +458,11 @@ checkout_new
 #   :type => "quantity",
 #   :prorate => true
 # });
-
+# create_order("__demo_inv__21")
+# retrieve_order("__dev__XpbGU6hOxIel9p6")
+# update_order("__dev__XpbGU6hOxIel9p6")
+# list_orders()
+list_orders_for_invoice("__demo_inv__21")
+rescue ChargeBee::APIError => e
+  puts e
+end

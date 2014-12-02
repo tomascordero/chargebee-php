@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ClientLibTest</RootNamespace>
     <AssemblyName>ClientLibTest</AssemblyName>
-    <StartupObject>ErrorTest</StartupObject>
+    <StartupObject>Examples.Sample</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

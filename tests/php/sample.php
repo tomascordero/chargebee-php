@@ -19,7 +19,7 @@ ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("mannar-test", "test___dev__dJIiuf4qr6gcuTiPLiBSY1Zm40o4vcdFAT");
+ChargeBee_Environment::configure("mannar-test", "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -186,9 +186,10 @@ Utility functions.
 */
 function printResult($result)
 {
-	printSubscription($result);
-  printTransaction($result);
-  printEvent($result);
+    printSubscription($result);
+    printTransaction($result);
+    printEvent($result);
+    printOrder($result);
 }
 
 function printSubscription($result)
@@ -225,6 +226,8 @@ function printTransaction($result)
 function printEvent($result)
 {
 	$event = $result->event();
+    if(is_null($event)) 
+        return;
 	// print_r($event);
 	echo "event attributes are \n";
 	echo $event->id()."\n";
@@ -239,6 +242,8 @@ function printEvent($result)
 function printEstimate($result)
 {
 	$estimate = $result->estimate();
+    if(is_null($estimate))
+        return;
 	echo "Estimate attributes are \n";
 	print_r($estimate);
 }
@@ -246,11 +251,21 @@ function printEstimate($result)
 function printHostedPage($result)
 {
 	$hostedPage = $result->hostedPage();
+    if(is_null($hostedPage))
+        return;
 	echo "hostedPage attributes are \n";
 	echo $hostedPage->id."\n";
 	echo $hostedPage->type."\n";
 	echo $hostedPage->url."\n";
 	echo $hostedPage->state."\n";
+}
+
+function printOrder($result)
+{
+    $order = $result->order();
+    if(is_null($order))
+        return;
+    print_r($order);
 }
 
 function address()
@@ -621,6 +636,45 @@ function logoutPortalSession($sessionId)
     $result = ChargeBee_PortalSession::logout($sessionId);
     print_r($result->portalSession());
 }
+
+function createOrder($invId)
+{
+    $result = ChargeBee_Order::create(array(
+        "invoiceId" => $invId,
+        "status" => "new",
+        "fulfillmentStatus" => "Shipped"
+    ));
+    print_r($result -> order());
+}
+
+function retrieveOrder($orderId)
+{
+    $result = ChargeBee_Order::retrieve($orderId);
+    printResult($result);
+}
+
+function updateOrder($orderId)
+{
+    $result = ChargeBee_Order::update($orderId, array(
+        "status" => "processing"
+    ));
+    printResult($result);
+}
+
+function listOrders()
+{
+    $result = ChargeBee_Order::all(array(
+        "limit" => "5"
+    ));
+    print_r($result);
+}
+
+function listOrdersForInvoice($invId)
+{
+    $result = ChargeBee_Order::ordersForInvoice($invId, array("limit" => 5));
+    print_r($result);
+}
+
 /**
  * You define the functions above and call the ones you would like to test here.
  */
@@ -633,7 +687,7 @@ function logoutPortalSession($sessionId)
 // allSubscription();
 // updateCard();
 // retrieveEvent();
-retrievCustomField();
+// retrievCustomField();
 // allEvents();
 // reactivateSubscription();
 // address();
@@ -674,3 +728,9 @@ retrievCustomField();
 // createPortalSession();
 // retrievePortalSession('__dev__VzcdKAcdsHqNaKLWuRHiWPEduD2BoPQU3G');
 // logoutPortalSession('__dev__s32W2W1OkbWFwIk3vxtNaJSFiJfcylTy');
+
+// createOrder("__demo_inv__23");
+// retrieveOrder("__dev__XpbGU6hOxIRurN4");
+// updateOrder("__dev__XpbGU6hOxIRurN4");
+// listOrders();
+listOrdersForInvoice("__demo_inv__23");
