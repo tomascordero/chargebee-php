@@ -77,7 +77,7 @@ public class Customer extends Resource<Customer> {
 
     public static class PaymentMethod extends Resource<PaymentMethod> {
         public enum Type {
-            CARD, AMAZON_PAYMENTS;
+            CARD, PAYPAL_EXPRESS_CHECKOUT, AMAZON_PAYMENTS;
         }
 
         public enum Status {
