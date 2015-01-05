@@ -23,5 +23,5 @@ def uri_path(*paths):
     if compat.is_py3: 
        return "/" + "/".join([urllib.parse.quote(str(path)) for path in paths]) 
     else:
-       return "/" + "/".join(map(lambda path : urllib.quote(str(path)), paths))
+       return "/" + "/".join(map(lambda path : urllib.quote(str(util.get_val(path))), paths))
        
