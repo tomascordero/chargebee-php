@@ -25,39 +25,41 @@ chargebee.configure("test___dev__NgweVXGDQfsY10iCdmcuXkjwgK16QpUja", "mannar-tes
 
 def create_sub():
     fn = raw_input().decode(sys.stdin.encoding or locale.getpreferredencoding(True)) 
+    #fn = input()
     #print fn
     #print type(fn)
-    print fn
-    print type(fn)
+    print(fn.encode("utf-16"))
+    print(type(fn))
     #fn = fn.encode("UTF-8")
-    print fn
+    print(fn)
     d = {  "plan_id" : "flat-fee-trial",
            "id" : fn
           #"customer" : {"first_name" : fn.encode("utf-8")}
           # "customer" : {"id" : fn}
         }
-    #result = chargebee.Subscription.create(d)
-    #print result.subscription
-    #print result.customer
-    #print result.customer
-    result = chargebee.Subscription.retrieve(fn)
+    result = chargebee.Subscription.create(d)
     print result.subscription
-    print result.subscription.id
     print result.customer
+    print result.customer
+    result = chargebee.Subscription.retrieve(fn)
+    print(result.subscription)
+    print(result.subscription.id)
+    print(result.customer)
 
 def create_sub2(): 
-    fn = u'абвгд'
-    print type(fn)
-    fn = fn.decode("ascii")
-    print type(fn)
+    #fn = u'абвгд'
+    fn = raw_input().decode(sys.stdin.encoding or locale.getpreferredencoding(True))
+    print(type(fn))
+ #   fn = fn.decode("ascii")
+    print(type(fn))
     result = chargebee.Subscription.create({
                 "plan_id" : "flat-fee-trial",
                 #"customer" : {"first_name" : fn.encode("utf-8")}
                 "customer" : {"first_name" : fn}
              })
-    print result.subscription
-    print result.customer
-    print result.customer.first_name
+    print(result.subscription)
+    print(result.customer)
+    print(result.customer.first_name)
 
-#create_sub2()
-create_sub()
+create_sub2()
+#create_sub()
