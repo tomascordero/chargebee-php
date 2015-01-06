@@ -365,6 +365,12 @@ namespace ChargeBee.Models
                 m_params.Add("customer[id]", customerId);
                 return this;
             }
+            [Obsolete]
+            public UpdatePaymentMethodRequest CustomerVatNumber(string customerVatNumber) 
+            {
+                m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
             public UpdatePaymentMethodRequest CardGateway(GatewayEnum cardGateway) 
             {
                 m_params.AddOpt("card[gateway]", cardGateway);

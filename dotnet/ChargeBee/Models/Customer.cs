@@ -82,6 +82,10 @@ namespace ChargeBee.Models
         {
             get { return (DateTime)GetDateTime("created_at", true); }
         }
+        public string CreatedFromIp 
+        {
+            get { return GetValue<string>("created_from_ip", false); }
+        }
         public CardStatusEnum? CardStatus 
         {
             get { return GetEnum<CardStatusEnum>("card_status", false); }
@@ -143,6 +147,11 @@ namespace ChargeBee.Models
             public CreateRequest VatNumber(string vatNumber) 
             {
                 m_params.AddOpt("vat_number", vatNumber);
+                return this;
+            }
+            public CreateRequest CreatedFromIp(string createdFromIp) 
+            {
+                m_params.AddOpt("created_from_ip", createdFromIp);
                 return this;
             }
             public CreateRequest CardGateway(GatewayEnum cardGateway) 

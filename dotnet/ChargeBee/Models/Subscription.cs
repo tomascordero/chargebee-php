@@ -966,6 +966,8 @@ namespace ChargeBee.Models
             NoCard,
             [Description("fraud_review_failed")]
             FraudReviewFailed,
+            [Description("non_compliant_eu_customer")]
+            NonCompliantEuCustomer,
 
         }
 
