@@ -429,6 +429,12 @@ public class HostedPage extends Resource<HostedPage> {
             return this;
         }
 
+        @Deprecated
+        public UpdatePaymentMethodRequest customerVatNumber(String customerVatNumber) {
+            params.addOpt("customer[vat_number]", customerVatNumber);
+            return this;
+        }
+
         public UpdatePaymentMethodRequest cardGateway(Gateway cardGateway) {
             params.addOpt("card[gateway]", cardGateway);
             return this;
