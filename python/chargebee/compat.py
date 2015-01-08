@@ -10,8 +10,12 @@ try:
 except ImportError:
     import json
 
-is_py2 = sys.version_info[0] == 2
-is_py3 = sys.version_info[0] == 3
+py_major_v = sys.version_info[0]
+py_minor_v = sys.version_info[1]
+
+is_py2 = py_major_v == 2
+is_py3 = py_major_v == 3
+
 
 if is_py2:
     from urllib import urlencode
