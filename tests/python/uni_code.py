@@ -24,8 +24,10 @@ Environment.protocol = "http"
 chargebee.configure("test___dev__NgweVXGDQfsY10iCdmcuXkjwgK16QpUja", "mannar-test")
 
 def create_sub():
-    fn = raw_input().decode(sys.stdin.encoding or locale.getpreferredencoding(True)) 
-    #fn = input()
+    if sys.version_info[0] == 2:
+      fn = raw_input().decode(sys.stdin.encoding or locale.getpreferredencoding(True)) 
+    else: 
+      fn = input()
     #print fn
     #print type(fn)
     print(fn.encode("utf-16"))
@@ -38,9 +40,9 @@ def create_sub():
           # "customer" : {"id" : fn}
         }
     result = chargebee.Subscription.create(d)
-    print result.subscription
-    print result.customer
-    print result.customer
+    print(result.subscription)
+    print(result.customer)
+    print(result.customer)
     result = chargebee.Subscription.retrieve(fn)
     print(result.subscription)
     print(result.subscription.id)
@@ -61,5 +63,5 @@ def create_sub2():
     print(result.customer)
     print(result.customer.first_name)
 
-create_sub2()
-#create_sub()
+#create_sub2()
+create_sub()
