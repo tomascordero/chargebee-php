@@ -43,7 +43,7 @@ def request(method, url, env, params=None):
     try:
         response = connection.getresponse()
         data = response.read()
-        if compat.is_py3:
+        if compat.py_major_v >= 3:
             data = data.decode('utf-8')
 
         return process_response(url,data, response.status)
@@ -54,7 +54,7 @@ def request(method, url, env, params=None):
 def process_response(url,response, http_code):
     try:
         resp_json = compat.json.loads(response)
-    except Exception, ex:     
+    except Exception as ex:     
         raise Exception("Response not in JSON format. Probably not a chargebee error. \n URL is " + url + "\n Content is \n" + response)
     if http_code < 200 or http_code > 299:
         handle_api_resp_error(url,http_code, resp_json)
