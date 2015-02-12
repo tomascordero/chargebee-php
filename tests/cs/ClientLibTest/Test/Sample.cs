@@ -1,11 +1,18 @@
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
+using System.Net;
+using System.Web;
+using System.Reflection;
 
 using ChargeBee.Api;
 using ChargeBee.Models;
 using ChargeBee.Models.Enums;
+
+using Newtonsoft.Json;
 
 namespace Examples
 {
@@ -249,22 +256,40 @@ namespace Examples
 
 		public static void Main(string[] args) 
 		{
-			Sample s = new Sample();
-			s.Configure ();
-            // s.TestRetrieveSubscriptions();
-			// s.TestRetrieveInvoice();
-            // s.TestCustomFields();
-            // s.TestListSubscriptions();
-            // s.TestListEvents();
-            // s.TestSerializeEvent();
-            // s.TestRetrieveEvent();
-            // s.TestHostedPageCheckout();
-            // s.TestDiacritics();
-			//s.CreateOrder ("__demo_inv__24");
-			//s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
-			//s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
-			s.ListAllOrders ();
-			//s.ListInvoiceOrders ("__demo_inv__24");
+			//DateTime dt = DateTime.Now;
+			DateTime m_unixTime = new DateTime (1970, 1, 1);
+			Console.WriteLine ("Constant variable m_unixTime" + m_unixTime);
+			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
+			Console.WriteLine("For local time from utc" + 
+				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
+				
+
+			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
+			Console.WriteLine (dt.ToString());
+			//Console.WriteLine ( dt.ToUniversalTime ());
+			//dt = dt.AddHours (5).AddMinutes(30);
+			//Console.WriteLine ("After adding 5:30 " + dt.ToUniversalTime ());
+			if (dt.Equals(m_unixTime)) {
+				Console.WriteLine ("It is less than Jan 1, 1970");
+			}
+			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
+			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
+//			Sample s = new Sample();
+//			s.Configure ();
+//            // s.TestRetrieveSubscriptions();
+//			// s.TestRetrieveInvoice();
+//            // s.TestCustomFields();
+//            // s.TestListSubscriptions();
+//            // s.TestListEvents();
+//            // s.TestSerializeEvent();
+//            // s.TestRetrieveEvent();
+//            // s.TestHostedPageCheckout();
+//            // s.TestDiacritics();
+//			//s.CreateOrder ("__demo_inv__24");
+//			//s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
+//			//s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
+//			s.ListAllOrders ();
+//			//s.ListInvoiceOrders ("__demo_inv__24");
 		}
 		
 

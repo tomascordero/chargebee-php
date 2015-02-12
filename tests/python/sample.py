@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7", "mannar-test")
+chargebee.configure("test___dev__NgweVXGDQfsY10iCdmcuXkjwgK16QpUja", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -65,7 +65,7 @@ def list_subscriptions():
         print(list.next_offset)
         for entry in list:
             subscription = entry.subscription
-            print (subscription)
+            print(subscription)
             customer = entry.customer
             card = entry.card
         list = chargebee.Subscription.list({"limit" : 10, "offset":list.next_offset})
@@ -363,7 +363,7 @@ Comment out the methods you don't want to run.
 #retrieve_subscription()
 #retrieve_custom_field()
 # update_subscription()
-#list_subscriptions()
+list_subscriptions()
 #create_estimate()
 #list_events()
 #create_estimate()
@@ -398,7 +398,7 @@ Comment out the methods you don't want to run.
 # retrieve_order("__dev__XpbGU7pOxD8GPd1")
 # update_order("__dev__XpbGU7pOxD8GPd1")
 # list_orders()
-list_inv_orders()
+#list_inv_orders()
 # print serialize({
 #     "id" : "test_addon2",
 #     "name":"test Addon2",
