@@ -65,6 +65,10 @@ public class Address extends Resource<Address> {
         return optString("city");
     }
 
+    public String stateCode() {
+        return optString("state_code");
+    }
+
     public String state() {
         return optString("state");
     }
@@ -192,6 +196,8 @@ public class Address extends Resource<Address> {
             params.addOpt("city", city);
             return this;
         }
+
+
 
 
         public UpdateRequest state(String state) {

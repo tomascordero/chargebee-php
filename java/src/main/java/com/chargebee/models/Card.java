@@ -98,6 +98,10 @@ public class Card extends Resource<Card> {
         return optString("billing_city");
     }
 
+    public String billingStateCode() {
+        return optString("billing_state_code");
+    }
+
     public String billingState() {
         return optString("billing_state");
     }
@@ -206,6 +210,8 @@ public class Card extends Resource<Card> {
             params.addOpt("billing_city", billingCity);
             return this;
         }
+
+
 
 
         public UpdateCardForCustomerRequest billingState(String billingState) {

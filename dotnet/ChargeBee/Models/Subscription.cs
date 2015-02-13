@@ -53,6 +53,11 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_changes");
             return new EntityRequest<Type>(url, HttpMethod.POST);
         }
+        public static RemoveScheduledCancellationRequest RemoveScheduledCancellation(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_cancellation");
+            return new RemoveScheduledCancellationRequest(url, HttpMethod.POST);
+        }
         public static UpdateRequest Update(string id)
         {
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
@@ -597,6 +602,19 @@ namespace ChargeBee.Models
                 return this;
             }
         }
+        public class RemoveScheduledCancellationRequest : EntityRequest<RemoveScheduledCancellationRequest> 
+        {
+            public RemoveScheduledCancellationRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public RemoveScheduledCancellationRequest BillingCycles(int billingCycles) 
+            {
+                m_params.AddOpt("billing_cycles", billingCycles);
+                return this;
+            }
+        }
         public class UpdateRequest : EntityRequest<UpdateRequest> 
         {
             public UpdateRequest(string url, HttpMethod method) 
@@ -893,6 +911,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("trial_end", trialEnd);
                 return this;
             }
+            public ReactivateRequest BillingCycles(int billingCycles) 
+            {
+                m_params.AddOpt("billing_cycles", billingCycles);
+                return this;
+            }
             [Obsolete]
             public ReactivateRequest TrialPeriodDays(int trialPeriodDays) 
             {
@@ -1041,6 +1064,10 @@ namespace ChargeBee.Models
 
             public string City() {
                 return GetValue<string>("city", false);
+            }
+
+            public string StateCode() {
+                return GetValue<string>("state_code", false);
             }
 
             public string State() {

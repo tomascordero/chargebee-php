@@ -454,6 +454,10 @@ namespace ChargeBee.Models
                 return GetValue<string>("city", false);
             }
 
+            public string StateCode() {
+                return GetValue<string>("state_code", false);
+            }
+
             public string State() {
                 return GetValue<string>("state", false);
             }

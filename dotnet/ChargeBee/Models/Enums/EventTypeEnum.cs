@@ -30,6 +30,9 @@ namespace ChargeBee.Models.Enums
         [Description("subscription_changed")]
         SubscriptionChanged,
 
+        [Description("subscription_cancellation_scheduled")]
+        SubscriptionCancellationScheduled,
+
         [Description("subscription_cancelling")]
         SubscriptionCancelling,
 
@@ -41,6 +44,9 @@ namespace ChargeBee.Models.Enums
 
         [Description("subscription_renewed")]
         SubscriptionRenewed,
+
+        [Description("subscription_scheduled_cancellation_removed")]
+        SubscriptionScheduledCancellationRemoved,
 
         [Description("invoice_receipt")]
         InvoiceReceipt,

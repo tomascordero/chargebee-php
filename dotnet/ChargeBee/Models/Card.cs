@@ -88,6 +88,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("billing_city", false); }
         }
+        public string BillingStateCode 
+        {
+            get { return GetValue<string>("billing_state_code", false); }
+        }
         public string BillingState 
         {
             get { return GetValue<string>("billing_state", false); }

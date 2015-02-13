@@ -61,6 +61,10 @@ public class Customer extends Resource<Customer> {
             return optString("city");
         }
 
+        public String stateCode() {
+            return optString("state_code");
+        }
+
         public String state() {
             return optString("state");
         }

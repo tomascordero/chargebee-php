@@ -109,6 +109,10 @@ public class Subscription extends Resource<Subscription> {
             return optString("city");
         }
 
+        public String stateCode() {
+            return optString("state_code");
+        }
+
         public String state() {
             return optString("state");
         }
@@ -274,6 +278,11 @@ public class Subscription extends Resource<Subscription> {
     public static Request removeScheduledChanges(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id), "remove_scheduled_changes");
         return new Request(Method.POST, uri);
+    }
+
+    public static RemoveScheduledCancellationRequest removeScheduledCancellation(String id) throws IOException {
+        String uri = uri("subscriptions", nullCheck(id), "remove_scheduled_cancellation");
+        return new RemoveScheduledCancellationRequest(Method.POST, uri);
     }
 
     public static UpdateRequest update(String id) throws IOException {
@@ -740,6 +749,24 @@ public class Subscription extends Resource<Subscription> {
         }
     }
 
+    public static class RemoveScheduledCancellationRequest extends Request<RemoveScheduledCancellationRequest> {
+
+        private RemoveScheduledCancellationRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public RemoveScheduledCancellationRequest billingCycles(Integer billingCycles) {
+            params.addOpt("billing_cycles", billingCycles);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
     public static class UpdateRequest extends Request<UpdateRequest> {
 
         private UpdateRequest(Method httpMeth, String uri) {
@@ -1055,6 +1082,12 @@ public class Subscription extends Resource<Subscription> {
     
         public ReactivateRequest trialEnd(Timestamp trialEnd) {
             params.addOpt("trial_end", trialEnd);
+            return this;
+        }
+
+
+        public ReactivateRequest billingCycles(Integer billingCycles) {
+            params.addOpt("billing_cycles", billingCycles);
             return this;
         }
 
