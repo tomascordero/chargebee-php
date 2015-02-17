@@ -1,12 +1,13 @@
 require '../../ruby/lib/chargebee.rb';
-#$CHARGEBEE_DOMAIN = "localcb.in:8080"
-$CHARGEBEE_DOMAIN = "stagingcb.com"
-$ENV_PROTOCOL = "https"
+$CHARGEBEE_DOMAIN = "localcb.in:8080"
+#$CHARGEBEE_DOMAIN = "stagingcb.com"
+ChargeBee.verify_ca_certs=(false)
+#$ENV_PROTOCOL = "http"
 #ChargeBee.verify_ca_certs=(true)
 
 #Code from apidocs
-ChargeBee.configure(:site => "stagingtesting-2-test", 
-  :api_key => "test_b8Zsv1ZhzEIbumcdrijvPC1Nj4q1ZREoq")
+ChargeBee.configure(:site => "mannar-test", 
+  :api_key => "test___dev__ZULS5m2AJ2GTJgQJIcd4OecuDcddpFv4tTt")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -67,7 +68,106 @@ def update_card_for_amazon
  puts result.customer.payment_method
 end
 
-update_card_for_amazon
+def test_state_code_shipping_add
+  result = ChargeBee::Address.update({:subscription_id => "__dev__3Nl8FFOP4SU5mlB", 
+              :label => "shipping_address",
+              :first_name => "Benjamin",
+              :last_name => "Ross",
+              :addr => "PO BOX 999",
+              :city => "chennai",
+#              :state_code => "asdas",
+              :state => "Tamil Nadu",
+              :zip => "600059",
+              :country => "IN"
+   })
+   puts result
+end
+
+def test_remove_schedule_cancelation
+  result = ChargeBee::Subscription.remove_scheduled_cancellation("__dev__3Nl8FFOP4SU5mlB")
+  puts result.subscription
+  puts result.customer
+  puts result.card  
+end
+
+def test_schedule_cancelation_event
+   result = ChargeBee::Event.retrieve("ev___dev__3Nl8F4QP4WKmxY3")
+   puts result.event
+   puts result.event.event_type
+   puts result.event.content
+  
+   result =  ChargeBee::Event.retrieve("ev___dev__3Nl8F4QP4WLLMO4")
+   puts result.event
+   puts result.event.event_type
+   puts result.event.content
+end
+
+def test_billing_cycle_in_reactivate
+  result = ChargeBee::Subscription.reactivate("__dev__3Nl8F4QP4WNeAf9", {"billing_cycles" => 0})
+  puts result.subscription 
+end
+
+def test_state_code_billing_addr
+   result = ChargeBee::Customer.update_billing_info("__dev__3Nl8FFOP4SU5mlB", {
+       :billing_address => {
+         :first_name => "John", 
+         :last_name => "Doe", 
+         :line1 => "PO Box 9999", 
+         :city => "Walnut", 
+         :state_code => "CA",
+         #:state => "California", 
+         #:zip => "91789", 
+         #:country => "US"
+    }
+  })
+  puts result.customer
+  puts result.customer.billing_address
+end
+
+def test_state_code_card_addr
+  result = ChargeBee::Card.update_card_for_customer("__dev__3Nl8F4QP4WQHnfZ", {
+  :gateway => "chargebee", 
+  :first_name => "Richard", 
+  :last_name => "Fox", 
+  :number => "4012888888881881", 
+  :expiry_month => 10, 
+  :expiry_year => 2015, 
+  :cvv => "999",
+  :billing_addr1 => "Line 1",
+  :billing_state_code => "CA",
+  :billing_country => "US"
+})
+puts result.customer
+puts result.card
+end
+
+def test_linked_order
+   begin
+   result = ChargeBee::Order.create(:invoice_id => "__demo_inv__31", 
+				    :status => "processing",
+ 				    :reference_id => "reference id",
+				    :fulfillment_status => "Shipping", 
+ 				    :tracking_id => "tracking id",
+ 				    :note=>"It is a note", 
+				    :batch_id => "batch id")
+   puts result
+   rescue Exception => e
+      puts e
+   end
+   puts "Invoice"
+   result = ChargeBee::Invoice.retrieve("__demo_inv__31")
+   puts result 
+   
+end
+
+test_linked_order()
+#test_state_code_card_addr()
+#test_state_code_billing_addr()
+#test_billing_cycle_in_reactivate()
+#test_schedule_cancelation_event()
+#test_remove_schedule_cancelation()
+#test_state_code_shipping_add()
+#update_card_for_amazon
 #retrieve_txn_amazon
 #retrieve_customer_card
 #retrieve_customer_amazon_payment
