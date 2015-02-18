@@ -209,6 +209,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("card[billing_city]", cardBillingCity);
                 return this;
             }
+            public CreateRequest CardBillingStateCode(string cardBillingStateCode) 
+            {
+                m_params.AddOpt("card[billing_state_code]", cardBillingStateCode);
+                return this;
+            }
             public CreateRequest CardBillingState(string cardBillingState) 
             {
                 m_params.AddOpt("card[billing_state]", cardBillingState);
@@ -267,6 +272,11 @@ namespace ChargeBee.Models
             public CreateRequest BillingAddressCity(string billingAddressCity) 
             {
                 m_params.AddOpt("billing_address[city]", billingAddressCity);
+                return this;
+            }
+            public CreateRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
                 return this;
             }
             public CreateRequest BillingAddressState(string billingAddressState) 
@@ -378,6 +388,11 @@ namespace ChargeBee.Models
             public UpdateBillingInfoRequest BillingAddressCity(string billingAddressCity) 
             {
                 m_params.AddOpt("billing_address[city]", billingAddressCity);
+                return this;
+            }
+            public UpdateBillingInfoRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
                 return this;
             }
             public UpdateBillingInfoRequest BillingAddressState(string billingAddressState) 

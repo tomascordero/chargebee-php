@@ -212,6 +212,10 @@ public class Card extends Resource<Card> {
         }
 
 
+        public UpdateCardForCustomerRequest billingStateCode(String billingStateCode) {
+            params.addOpt("billing_state_code", billingStateCode);
+            return this;
+        }
 
 
         public UpdateCardForCustomerRequest billingState(String billingState) {

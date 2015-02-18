@@ -174,6 +174,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_city", billingCity);
                 return this;
             }
+            public UpdateCardForCustomerRequest BillingStateCode(string billingStateCode) 
+            {
+                m_params.AddOpt("billing_state_code", billingStateCode);
+                return this;
+            }
             public UpdateCardForCustomerRequest BillingState(string billingState) 
             {
                 m_params.AddOpt("billing_state", billingState);

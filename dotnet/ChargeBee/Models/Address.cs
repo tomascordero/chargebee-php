@@ -175,6 +175,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("city", city);
                 return this;
             }
+            public UpdateRequest StateCode(string stateCode) 
+            {
+                m_params.AddOpt("state_code", stateCode);
+                return this;
+            }
             public UpdateRequest State(string state) 
             {
                 m_params.AddOpt("state", state);

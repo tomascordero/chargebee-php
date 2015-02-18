@@ -338,6 +338,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("card[billing_city]", cardBillingCity);
                 return this;
             }
+            public CreateRequest CardBillingStateCode(string cardBillingStateCode) 
+            {
+                m_params.AddOpt("card[billing_state_code]", cardBillingStateCode);
+                return this;
+            }
             public CreateRequest CardBillingState(string cardBillingState) 
             {
                 m_params.AddOpt("card[billing_state]", cardBillingState);
@@ -398,6 +403,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_address[city]", billingAddressCity);
                 return this;
             }
+            public CreateRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+                return this;
+            }
             public CreateRequest BillingAddressState(string billingAddressState) 
             {
                 m_params.AddOpt("billing_address[state]", billingAddressState);
@@ -456,6 +466,11 @@ namespace ChargeBee.Models
             public CreateRequest ShippingAddressCity(string shippingAddressCity) 
             {
                 m_params.AddOpt("shipping_address[city]", shippingAddressCity);
+                return this;
+            }
+            public CreateRequest ShippingAddressStateCode(string shippingAddressStateCode) 
+            {
+                m_params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
                 return this;
             }
             public CreateRequest ShippingAddressState(string shippingAddressState) 
@@ -574,6 +589,11 @@ namespace ChargeBee.Models
             public CreateForCustomerRequest ShippingAddressCity(string shippingAddressCity) 
             {
                 m_params.AddOpt("shipping_address[city]", shippingAddressCity);
+                return this;
+            }
+            public CreateForCustomerRequest ShippingAddressStateCode(string shippingAddressStateCode) 
+            {
+                m_params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
                 return this;
             }
             public CreateForCustomerRequest ShippingAddressState(string shippingAddressState) 
@@ -722,6 +742,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("card[billing_city]", cardBillingCity);
                 return this;
             }
+            public UpdateRequest CardBillingStateCode(string cardBillingStateCode) 
+            {
+                m_params.AddOpt("card[billing_state_code]", cardBillingStateCode);
+                return this;
+            }
             public UpdateRequest CardBillingState(string cardBillingState) 
             {
                 m_params.AddOpt("card[billing_state]", cardBillingState);
@@ -782,6 +807,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_address[city]", billingAddressCity);
                 return this;
             }
+            public UpdateRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+                return this;
+            }
             public UpdateRequest BillingAddressState(string billingAddressState) 
             {
                 m_params.AddOpt("billing_address[state]", billingAddressState);
@@ -840,6 +870,11 @@ namespace ChargeBee.Models
             public UpdateRequest ShippingAddressCity(string shippingAddressCity) 
             {
                 m_params.AddOpt("shipping_address[city]", shippingAddressCity);
+                return this;
+            }
+            public UpdateRequest ShippingAddressStateCode(string shippingAddressStateCode) 
+            {
+                m_params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
                 return this;
             }
             public UpdateRequest ShippingAddressState(string shippingAddressState) 

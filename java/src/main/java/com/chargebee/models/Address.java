@@ -198,6 +198,10 @@ public class Address extends Resource<Address> {
         }
 
 
+        public UpdateRequest stateCode(String stateCode) {
+            params.addOpt("state_code", stateCode);
+            return this;
+        }
 
 
         public UpdateRequest state(String state) {
