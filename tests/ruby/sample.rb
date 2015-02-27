@@ -47,7 +47,7 @@ def reactivate_subscription
 end
 
 def retrieve_subscription
-  result = ChargeBee::Subscription.retrieve('active_direct')
+  result = ChargeBee::Subscription.retrieve('2slhRVVBP4RyYhYTHp')
   puts result.subscription
 end
 
@@ -302,7 +302,7 @@ end
 def create_portal_session
   result = ChargeBee::PortalSession.create({
     :customer => {
-      :id => "future_billing"
+      :id => "2slhRVVBP4RyYhYTHp"
     },
     :redirect_url => "https://www.chargebee.com/thanks.html", 
   })
@@ -316,6 +316,13 @@ end
 
 def logout_portal_session(session_id)
   result = ChargeBee::PortalSession.logout(session_id)
+  puts result.portal_session
+end
+
+def activate_portal_session()
+  result = ChargeBee::PortalSession.activate("portal_2uENY2zdP5Tllqa8f3", {
+    :token => "5SYIXQJdVLWQCObgtIXR4vlMUnXRoyEq"
+  })
   puts result.portal_session
 end
 
@@ -406,6 +413,38 @@ def list_orders_for_invoice(inv_id)
   print result.inspect
 end
 
+def create_invoice()
+  result = ChargeBee::Invoice.create({
+    :customer_id => "2slhRVVBP4RyYhYTHp", 
+    :coupon => "one_time",
+    :addons => [{
+      :id => "non_rec_on_off"
+    },
+    {
+      :id => "one-off_consulting_support", 
+      :quantity => 2
+    }], 
+    :charges => [{
+      :amount => 2030, 
+      :description => "Support charge"
+    }],
+    :shipping_address => {
+      :first_name => "fName",
+      :last_name => "lName",
+      :email => "email@test.com",
+      :company => "company",
+      :phone => "phone",
+      :line1 => "line1",
+      :line2 => "line2",
+      :line3 => "line3",
+      :city => "city",
+      :state_code => "NY",
+      :zip => "56768",
+      :country => "US"
+    }
+  })
+  puts result.invoice
+end
 
 # Comment the methods you don't want to run.
 begin
@@ -441,7 +480,8 @@ begin
 #create_invoice()
 #create_invoice_addon()
 # create_portal_session()
-# retrieve_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
+# retrieve_portal_session('portal_2uENY2zdP5Tllqa8f3')
+activate_portal_session()
 # logout_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
 # add_charge_at_term_end()
 # add_non_rec_addon_at_term_end()
@@ -462,7 +502,8 @@ begin
 # retrieve_order("__dev__XpbGU6hOxIel9p6")
 # update_order("__dev__XpbGU6hOxIel9p6")
 # list_orders()
-list_orders_for_invoice("__demo_inv__21")
+# list_orders_for_invoice("__demo_inv__21")
+# create_invoice()
 rescue ChargeBee::APIError => e
   puts e
 end
