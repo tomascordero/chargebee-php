@@ -254,6 +254,104 @@ namespace Examples
 			Console.WriteLine (result.List.Capacity);
 		}
 
+		public void createInvoice(){
+			EntityResult result = Invoice.Create()
+				.CustomerId("2slhRVVBP4RyYhYTHp")
+				.AddonId(1, "one-off_consulting_support")
+				.AddonQuantity(1, 10)
+				.AddonId(2, "non_rec_on_off")
+				.ChargeAmount(1,1000)
+				.ChargeDescription(1,"Support charge")
+				.Coupon("one_time")
+				.ShippingAddressLine1("AddrLine1")
+				.ShippingAddressLine2("AddrLine2")
+				.ShippingAddressCity("City")
+				.ShippingAddressStateCode("WI")
+				.ShippingAddressCountry("US")
+				.ShippingAddressZip("55234")
+				.Request();
+
+			printInvoice (result.Invoice);
+		}
+
+		public void cretaePortalSession(){
+			EntityResult result = PortalSession.Create()
+				.RedirectUrl("https://cbdemo.com/users/3490343")
+				.CustomerId("2slhRVVBP4RyYhYTHp").Request();
+			printPortal(result.PortalSession);
+		}
+
+		public void retrievePortalSession(string portalId){
+			EntityResult result = PortalSession.Retrieve(portalId).Request();
+			printPortal(result.PortalSession);
+		}
+
+		public void activatePortalSession(){
+			EntityResult result = PortalSession.Activate ("portal_2slhRVXAP5Tbt9N73K")
+				.Token ("lt9cu3W1cu09RZwj9JeNS4XcWsTsmqjgyN").Request ();
+			printPortal(result.PortalSession);
+		}
+
+		public void printPortal(PortalSession portal){
+			foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(portal))
+			{
+				string name=descriptor.Name;
+				object value=descriptor.GetValue(portal);
+				Console.WriteLine("{0} = {1}",name,value);
+			}
+			foreach(PortalSession.PortalSessionLinkedCustomer custs in portal.LinkedCustomers){
+				printFields (custs, typeof(PortalSession.PortalSessionLinkedCustomer));
+			}
+		}
+		public void retrieveInv(string invId){
+			EntityResult result = Invoice.Retrieve (invId).Request ();
+			printInvoice (result.Invoice);
+		}
+		public void printInvoice(Invoice inv){
+			foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(inv))
+			{
+				string name=descriptor.Name;
+				object value=descriptor.GetValue(inv);
+				Console.WriteLine("{0} = {1}",name,value);
+			}
+			foreach(Invoice.InvoiceLineItem li in inv.LineItems){
+				printFields (li, typeof(Invoice.InvoiceLineItem));
+			}
+			foreach(Invoice.InvoiceDiscount dis in inv.Discounts){
+				printFields (dis, typeof(Invoice.InvoiceDiscount));
+			}
+			if (inv.Taxes != null) {
+				foreach (Invoice.InvoiceTax tax in inv.Taxes) {
+					printFields (tax, typeof(Invoice.InvoiceTax));
+				}
+			}
+			foreach(Invoice.InvoiceLinkedTransaction txn in inv.LinkedTransactions){
+				printFields (txn, typeof(Invoice.InvoiceLinkedTransaction));
+			}
+			foreach(Invoice.InvoiceLinkedOrder ord in inv.LinkedOrders){
+				printFields (ord, typeof(Invoice.InvoiceLinkedOrder));
+			}
+			printFields (inv.BillingAddress, typeof(Invoice.InvoiceBillingAddress));
+			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
+		}
+
+		public void printFields(object obj, Type type){
+			if (obj == null) {
+				return;
+			}
+			Console.WriteLine(type.Name);
+			MethodInfo[] methods = type.GetMethods();
+			foreach (MethodInfo info in methods)
+			{
+				string name = info.Name;
+				try{
+					object val = info.Invoke (obj, null);
+					Console.WriteLine("{0} = {1}",name,val);
+				}catch(Exception exp){
+				}
+			}
+		}
+
 		public static void Main(string[] args) 
 		{
 			//DateTime dt = DateTime.Now;
@@ -262,7 +360,7 @@ namespace Examples
 			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
 			Console.WriteLine("For local time from utc" + 
 				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
-				
+
 
 			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
 			Console.WriteLine (dt.ToString());
@@ -274,22 +372,26 @@ namespace Examples
 			}
 			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
 			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
-//			Sample s = new Sample();
-//			s.Configure ();
-//            // s.TestRetrieveSubscriptions();
-//			// s.TestRetrieveInvoice();
-//            // s.TestCustomFields();
-//            // s.TestListSubscriptions();
-//            // s.TestListEvents();
-//            // s.TestSerializeEvent();
-//            // s.TestRetrieveEvent();
-//            // s.TestHostedPageCheckout();
-//            // s.TestDiacritics();
-//			//s.CreateOrder ("__demo_inv__24");
-//			//s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
-//			//s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
+			Sample s = new Sample();
+			s.Configure ();
+//			s.TestRetrieveSubscriptions();
+//			s.TestRetrieveInvoice();
+//			s.TestCustomFields();
+//			s.TestListSubscriptions();
+//			s.TestListEvents();
+//			s.TestSerializeEvent();
+//		    s.TestRetrieveEvent();
+//		    s.TestHostedPageCheckout();
+//		    s.TestDiacritics();
+//			s.CreateOrder ("__demo_inv__24");
+//			s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
+//			s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
 //			s.ListAllOrders ();
-//			//s.ListInvoiceOrders ("__demo_inv__24");
+//			s.ListInvoiceOrders ("__demo_inv__24");
+//			s.retrieveInv("38");s.createInvoice();
+//			s.cretaePortalSession ();
+//			s.retrievePortalSession ("portal_2slhRVXAP5TdWAv74L");
+//			s.activatePortalSession ();
 		}
 		
 
