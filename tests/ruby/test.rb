@@ -160,7 +160,17 @@ def test_linked_order
    
 end
 
-test_linked_order()
+def delete_invoice
+  begin
+   result = ChargeBee::Invoice.delete("7016")
+ rescue Exception => e
+     puts e
+ end
+ puts result
+end
+
+#delete_invoice
+#test_linked_order()
 #test_state_code_card_addr()
 #test_state_code_billing_addr()
 #test_billing_cycle_in_reactivate()
