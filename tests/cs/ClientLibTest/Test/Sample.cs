@@ -108,13 +108,22 @@ namespace Examples
 			EntityResult result = Subscription.Create()
 				.PlanId(planId)
 					.CustomerEmail("john@user.com")
-					.CustomerFirstName("John")
-					.CustomerLastName("Wayne")
-					.AddonId(1, "on_call_support").Request();
-			
-			Subscription subs = result.Subscription;
+					.CustomerFirstName("Ronald")
+					.CustomerLastName("Simpson")
+					.AddonId(1, "on_call_support")
+//				.CreatedFromIp("354.8.9.0")
+//				.CardGateway(GatewayEnum.Chargebee)
+//				.CardNumber("4111111111111111")
+//				.CardCvv("123")
+//				.CardExpiryMonth(9)
+//				.CardExpiryYear(2018)
+//				.CardIpAddress("182.67.9.9")
+				.Request();
+			printFields (result.Customer, typeof(Customer));
+			printFields (result.Card, typeof(Card));
+			printFields (result.Subscription, typeof(Subscription));
 		}
-		
+
 		public void TestListSubscriptions()
 		{
 			ListResult result = Subscription.List().Request();
@@ -131,21 +140,11 @@ namespace Examples
 			Subscription subs1 = result.Subscription;
 			Console.WriteLine ("new sub is " + subs1.Id);*/
 
-			EntityResult result = Subscription.Retrieve("HuBHde1OCOADMts0").Request();
-			Subscription subs2 = result.Subscription;
-			if(result.Customer.BillingAddress != null)
-			{
-				Console.WriteLine(result.Customer.BillingAddress.Country());
-			}
-			if(result.Subscription.Coupons != null)
-			{
-				foreach(var cpn in result.Subscription.Coupons)
-				{
-					Console.WriteLine(cpn.CouponId());
-					//Console.WriteLine(cpn);
-				}
-			}
-			Console.WriteLine(subs2.PlanId);
+			EntityResult result = Subscription.Retrieve("1mqYqp8P7vZ82LA3Z").Request();
+			printFields (result.Customer, typeof(Customer));
+			printFields (result.Customer.BillingAddress, typeof(Customer.CustomerBillingAddress));
+			printFields (result.Card, typeof(Card));
+			printFields (result.Subscription, typeof(Subscription));
 		}
 
 		public void TestRetrieveInvoice()
@@ -307,6 +306,28 @@ namespace Examples
 			EntityResult result = Invoice.Retrieve (invId).Request ();
 			printInvoice (result.Invoice);
 		}
+
+		public void deleteInv(string invId){
+			EntityResult result = Invoice.Delete(invId).Request();
+			printInvoice (result.Invoice);
+		}
+
+		public void updCardForCust(string custId){
+			EntityResult result = Card.UpdateCardForCustomer(custId)
+				.Gateway(GatewayEnum.Chargebee)
+				.FirstName("Richard")
+				.LastName("Fox")
+				.Number("4111111111111111")
+				.Cvv("777")
+				.ExpiryMonth(10)
+				.ExpiryYear(2018)
+				.IpAddress("145.78.2.3")
+				.Request();
+			printFields (result.Customer, typeof(Customer));
+			printFields (result.Card, typeof(Card));
+		}
+
+
 		public void printInvoice(Invoice inv){
 			foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(inv))
 			{
@@ -374,26 +395,26 @@ namespace Examples
 			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
 			Sample s = new Sample();
 			s.Configure ();
-//			s.TestRetrieveSubscriptions();
-//			s.TestRetrieveInvoice();
-//			s.TestCustomFields();
-//			s.TestListSubscriptions();
-//			s.TestListEvents();
-//			s.TestSerializeEvent();
-//		    s.TestRetrieveEvent();
-//		    s.TestHostedPageCheckout();
-//		    s.TestDiacritics();
-//			s.CreateOrder ("__demo_inv__24");
-//			s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
-//			s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
-//			s.ListAllOrders ();
-//			s.ListInvoiceOrders ("__demo_inv__24");
-//			s.retrieveInv("38");s.createInvoice();
-//			s.cretaePortalSession ();
-//			s.retrievePortalSession ("portal_2slhRVXAP5TdWAv74L");
-//			s.activatePortalSession ();
+			//			s.TestRetrieveSubscriptions();
+			//			s.TestRetrieveInvoice();
+			//			s.TestCustomFields();
+			//			s.TestListSubscriptions();
+			//			s.TestListEvents();
+			//			s.TestSerializeEvent();
+			//		    s.TestRetrieveEvent();
+			//		    s.TestHostedPageCheckout();
+			//		    s.TestDiacritics();
+			//			s.CreateOrder ("__demo_inv__24");
+			//			s.RetrieveOrder ("__dev__XpbGU6hOxIoCOO8");
+			//			s.UpdateOrder ("__dev__XpbGU6hOxIoCOO8");
+			//			s.ListAllOrders ();
+			//			s.ListInvoiceOrders ("__demo_inv__24");
+			//			s.retrieveInv("38");s.createInvoice();
+			//			s.cretaePortalSession ();
+			//			s.retrievePortalSession ("portal_2slhRVXAP5TdWAv74L");
+			//			s.activatePortalSession ();
 		}
-		
+		 
 
 	}
 }
