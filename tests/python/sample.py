@@ -58,6 +58,18 @@ def retrive_hostedpage():
     hosted_page = result.hosted_page
     print(hosted_page)
 
+def list_events():
+     result = chargebee.Event.retrieve("ev___dev__KyVqSSP7wTqQNB")
+     print result.event
+
+def retrieve_card():
+     result = chargebee.Card.retrieve("__dev__KyVqS6P80yW763")
+     print result.card
+
+def invoice_delete():
+     result = chargebee.Invoice.delete("__demo_inv_6")
+     print result.invoice
+
 
 def list_subscriptions():
     list = chargebee.Subscription.list({"limit" : 10})
