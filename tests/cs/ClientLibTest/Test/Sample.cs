@@ -373,28 +373,155 @@ namespace Examples
 			}
 		}
 
+
+		public static void testPoNoCreateSub(){
+			EntityResult result = Subscription.Create ().PlanId ("basic")
+				.PoNumber("23232")
+				.InvoiceNotes("Invoice notes")
+				.CustomerEmail ("email@email.com").Request();
+				
+			Console.WriteLine (result.Subscription.Id);
+			Console.WriteLine (result.Subscription.InvoiceNotes);
+			Console.WriteLine (result.Subscription.PoNumber);
+
+		}
+
+		public static void testPoNoCreateSubForCust(){
+			EntityResult result = Subscription.CreateForCustomer ("__dev__KyVpYtP9kOEmD5")
+				.PlanId ("basic").PoNumber("#4321")
+				.InvoiceNotes("Notes for the sub create for customer")
+				.Request();
+			Console.WriteLine (result.Subscription.Id);
+			Console.WriteLine (result.Subscription.PoNumber);
+			Console.WriteLine (result.Subscription.InvoiceNotes);
+
+		}
+
+		public static void hostedPageRedirectUrl(){
+			EntityResult result = HostedPage.CheckoutNew ()
+				.SubscriptionPlanId("silver")
+				.AddonId(0, "sms_pack")
+				.RedirectUrl("http://www.redirecturl.com")
+				.CancelUrl("http://www.cancelurl.com")
+				.Request();
+
+			Console.WriteLine (result.HostedPage.Url);
+		}
+
+		public static void checkoutExistingRedirectNCancelUrl() {
+			EntityResult result = HostedPage.CheckoutExisting()
+				.SubscriptionId("__dev__KyVpYtP9kOVgE9")
+				.RedirectUrl("http://www.redirecturl.com")
+				.CancelUrl("http://www.cancelurl.com")
+				.Request();
+
+			Console.WriteLine(result.HostedPage.Url);
+		}
+
+		public static void updateCardRedirectNCancelUrl() {
+			EntityResult result = HostedPage.UpdateCard ()
+								.CustomerId ("__dev__KyVpYtP9kcEQfR")
+				.RedirectUrl("http://www.asdsc.com")
+				.CancelUrl("http://asds.com")
+				.Request ();
+
+			Console.WriteLine(result.HostedPage.Url);
+		}
+
+		public static void planNotes() {
+			EntityResult result = Plan.Create()
+				.Id("silver")
+				.Name("Silver")
+				.InvoiceName("sample plan")
+				.Price(5000)
+				.InvoiceNotes("This is the invoice notes for the plan")
+				.Request();
+
+			EntityResult result1 = Plan.Retrieve ("silver").Request ();
+			Console.WriteLine ( result1.Plan.InvoiceNotes);
+		}
+
+		public static void addonNotes() {
+			EntityResult result = Addon.Create()
+				.Id("sms_pack")
+				.Name("Sms Pack")
+				.InvoiceName("sample data pack")
+				.ChargeType(Addon.ChargeTypeEnum.Recurring)
+				.Price(200)
+				.Period(1)
+				.PeriodUnit(Addon.PeriodUnitEnum.Month)
+				.InvoiceNotes("Invoice Notes for addon")
+				.Type(Addon.TypeEnum.OnOff).Request();
+
+			EntityResult result1 = Addon.Retrieve("sms_pack").Request();
+			Console.WriteLine (result1.Addon.Id);
+			Console.WriteLine (result1.Addon.InvoiceNotes);
+		}
+			
+		public static void createInvoiceForCharge() {
+			EntityResult result = Invoice.Create()
+				.CustomerId("__dev__KyVpYtP9kcEQfR")
+				.ChargeAmount(1,1000)
+				.PoNumber("%$121212")
+				.ChargeDescription(1,"Support charge").Request();
+			Console.WriteLine (result.Invoice.Id);
+
+			EntityResult result1 = Invoice.Charge()
+				.SubscriptionId("__dev__KyVpYtP9kcEQfR")
+				.Amount(1000)
+				.Description("Support charge")
+				.PoNumber("1232131asdsad").Request();
+			Console.WriteLine (result1.Invoice.Id);
+
+			EntityResult result2 = Invoice.ChargeAddon()
+				.SubscriptionId("__dev__KyVpYtP9kcEQfR")
+				.AddonId("day-pass")
+				.AddonQuantity(2)
+				.PoNumber("Poa asdsadasd")
+				.Request();
+			Console.WriteLine (result2.Invoice.Id);
+		}
+		public static void amountdue() {
+
+			EntityResult result = Invoice.Retrieve("__demo_inv__19").Request();
+			Invoice invoice = result.Invoice;
+			Console.WriteLine (invoice.AmountDue);
+			Console.WriteLine (invoice.Amount);
+		}
 		public static void Main(string[] args) 
 		{
 			//DateTime dt = DateTime.Now;
-			DateTime m_unixTime = new DateTime (1970, 1, 1);
-			Console.WriteLine ("Constant variable m_unixTime" + m_unixTime);
-			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
-			Console.WriteLine("For local time from utc" + 
-				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
-
-
-			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
-			Console.WriteLine (dt.ToString());
+//			DateTime m_unixTime = new DateTime (1970, 1, 1);
+//			Console.WriteLine ("Constant variable m_unixTime" + m_unixTime);
+//			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
+//			Console.WriteLine("For local time from utc" + 
+//				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
+//
+//
+//			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
+//			Console.WriteLine (dt.ToString());
 			//Console.WriteLine ( dt.ToUniversalTime ());
 			//dt = dt.AddHours (5).AddMinutes(30);
 			//Console.WriteLine ("After adding 5:30 " + dt.ToUniversalTime ());
-			if (dt.Equals(m_unixTime)) {
-				Console.WriteLine ("It is less than Jan 1, 1970");
-			}
-			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
+//			if (dt.Equals(m_unixTime)) {
+//				Console.WriteLine ("It is less than Jan 1, 1970");
+//			}
+//			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
 			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
-			Sample s = new Sample();
-			s.Configure ();
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__7hmYvfC0XvHccu2BEFXGUmcdURdaRdbKxL");
+			//testPoNoCreateSub ();
+			//testPoNoCreateSubForCust ();
+			//planNotes ();
+			//addonNotes();
+			//hostedPageRedirectUrl ();
+			//checkoutExistingRedirectNCancelUrl ();
+			//createInvoiceForCharge ();
+			//updateCardRedirectNCancelUrl ();
+			amountdue ();
+//			Sample s = new Sample();
+//			s.Configure ();
 			//			s.TestRetrieveSubscriptions();
 			//			s.TestRetrieveInvoice();
 			//			s.TestCustomFields();
