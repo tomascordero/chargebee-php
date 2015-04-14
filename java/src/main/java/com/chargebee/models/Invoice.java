@@ -215,7 +215,7 @@ public class Invoice extends Resource<Invoice> {
         }
 
         public String entityId() {
-            return reqString("entity_id");
+            return optString("entity_id");
         }
 
     }

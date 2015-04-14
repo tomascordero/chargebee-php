@@ -684,7 +684,7 @@ namespace ChargeBee.Models
             }
 
             public string EntityId() {
-                return GetValue<string>("entity_id", true);
+                return GetValue<string>("entity_id", false);
             }
 
         }
