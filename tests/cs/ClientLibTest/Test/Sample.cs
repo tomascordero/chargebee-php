@@ -481,6 +481,7 @@ namespace Examples
 				.Request();
 			Console.WriteLine (result2.Invoice.Id);
 		}
+
 		public static void amountdue() {
 
 			EntityResult result = Invoice.Retrieve("__demo_inv__19").Request();
@@ -488,29 +489,54 @@ namespace Examples
 			Console.WriteLine (invoice.AmountDue);
 			Console.WriteLine (invoice.Amount);
 		}
-		public static void Main(string[] args) 
-		{
-			//DateTime dt = DateTime.Now;
-//			DateTime m_unixTime = new DateTime (1970, 1, 1);
-//			Console.WriteLine ("Constant variable m_unixTime" + m_unixTime);
-//			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
-//			Console.WriteLine("For local time from utc" + 
-//				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
-//
-//
-//			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
-//			Console.WriteLine (dt.ToString());
-			//Console.WriteLine ( dt.ToUniversalTime ());
-			//dt = dt.AddHours (5).AddMinutes(30);
-			//Console.WriteLine ("After adding 5:30 " + dt.ToUniversalTime ());
-//			if (dt.Equals(m_unixTime)) {
-//				Console.WriteLine ("It is less than Jan 1, 1970");
-//			}
-//			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
-			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
-			ApiConfig.Proto = "http";
-			ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("mannar-test", "test___dev__7hmYvfC0XvHccu2BEFXGUmcdURdaRdbKxL");
+
+		public static void paymentMethodPayPalCreateSub(){
+
+			EntityResult result = Subscription.Create()
+				.PlanId("no-trial")
+				.PaymentMethodReferenceId("B-2W525066JC884990M")
+				.PaymentMethodType(TypeEnum.PaypalExpressCheckout)
+				.Request();
+			Console.WriteLine (result.Subscription.Id);
+		
+				
+		}
+
+		public static void  paymentMethodAmzCreateSub() {
+						EntityResult result1 = Subscription.Create()
+							.PlanId("no-trial")
+							.PaymentMethodReferenceId("B-2W525066JC884990M")
+							.PaymentMethodType(TypeEnum.AmazonPayments)
+							.Request();
+		}
+
+		public static void paymentMethodPayPalUpdateSub(){
+			EntityResult result = Subscription.Update ("__dev__KyVqjBPB85nZsK")
+				.PaymentMethodReferenceId("B-2W525066JC884990M")
+				.PaymentMethodType(TypeEnum.PaypalExpressCheckout)
+				.Request();
+			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType());
+		}
+
+		public static void paymentMethodCreateCustomer() {
+			EntityResult result = Customer.Create ()
+								.FirstName ("John")
+				.PaymentMethodReferenceId ("B-2W525066JC884990M")
+				.PaymentMethodType (TypeEnum.AmazonPayments)
+				.Request ();
+
+			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType ());
+			Console.WriteLine (result.Customer.PaymentMethod.ReferenceId ());
+
+		}
+
+
+		public static void collectPayement() {
+			EntityResult result = Invoice.CollectPayment ("__demo_inv__12").Request ();
+			Console.WriteLine (result.Invoice.Status);
+		}
+
+		public static void _main() {
 			//testPoNoCreateSub ();
 			//testPoNoCreateSubForCust ();
 			//planNotes ();
@@ -519,7 +545,28 @@ namespace Examples
 			//checkoutExistingRedirectNCancelUrl ();
 			//createInvoiceForCharge ();
 			//updateCardRedirectNCancelUrl ();
-			amountdue ();
+			//amountdue ();
+			//paymentMethodPayPalCreateSub ();
+			//paymentMethodAmzCreateSub ();
+			//paymentMethodPayPalUpdateSub ();
+			//paymentMethodCreateCustomer ();
+			collectPayement ();
+		}
+
+		public static void Main(string[] args) 
+		{
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__TyftA4WmNRCKLBtWXGWasOAcdYMM0cd9mk");
+			try{
+				_main();
+			}catch(ApiException e) {
+				Console.WriteLine (e.ApiErrorCode);
+				Console.WriteLine (e.Param);
+				Console.WriteLine (e.HttpStatusCode);
+			}
+
+
 //			Sample s = new Sample();
 //			s.Configure ();
 			//			s.TestRetrieveSubscriptions();
@@ -540,6 +587,28 @@ namespace Examples
 			//			s.cretaePortalSession ();
 			//			s.retrievePortalSession ("portal_2slhRVXAP5TdWAv74L");
 			//			s.activatePortalSession ();
+		}
+
+
+		public static  void dateConversion(){
+			//DateTime dt = DateTime.Now;
+			//			DateTime m_unixTime = new DateTime (1970, 1, 1);
+			//			Console.WriteLine ("Constant variable m_unixTime" + m_unixTime);
+			//			Console.WriteLine (m_unixTime.ToUniversalTime ().ToUniversalTime ());
+			//			Console.WriteLine("For local time from utc" + 
+			//				m_unixTime.ToUniversalTime().AddHours (5).AddMinutes(30)); // for local time
+			//
+			//
+			//			DateTime dt = new DateTime (1970,1, 1, 0, 0, 0);
+			//			Console.WriteLine (dt.ToString());
+			//Console.WriteLine ( dt.ToUniversalTime ());
+			//dt = dt.AddHours (5).AddMinutes(30);
+			//Console.WriteLine ("After adding 5:30 " + dt.ToUniversalTime ());
+			//			if (dt.Equals(m_unixTime)) {
+			//				Console.WriteLine ("It is less than Jan 1, 1970");
+			//			}
+			//			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
+			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
 		}
 		 
 

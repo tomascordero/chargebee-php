@@ -3,12 +3,12 @@ sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),"../..
 #print os.path.join(os.path.dirname(os.path.abspath(__file__)),"../../python")
 import chargebee
 from chargebee.main import Environment
-Environment.chargebee_domain="stagingcb.com"
-Environment.protocol = "https"
+Environment.chargebee_domain="localcb.in:8080"
+Environment.protocol = "http"
 chargebee.ChargeBee.verify_ca_certs=False
 
 ##Copy code from api docs
-chargebee.configure("test_b8Zsv1ZhzEIbumcdrijvPC1Nj4q1ZREoq","stagingtesting-2-test")
+chargebee.configure("test___dev__8j3eqJEsmd18nN5WjzboqcBc4WjkL7kM","mannar-test")
 
 
 def customer_retrieve():
@@ -19,8 +19,56 @@ def customer_retrieve():
    print result.customer.payment_method
    print result.customer.payment_method.status
    print result.customer.payment_method.reference_id
-   print result.customer.payment_method.type 
+   print result.customer.payment_method.type
 
+
+def update_payment_method_customer():
+	result = chargebee.result = chargebee.Customer.update_payment_method("__dev__KyVq6pPB30WON1", {
+    	"payment_method" : {
+        "type" : "paypal_express_checkout", 
+        "reference_id" : "B-0VP263300J9780"
+    	}})
+        print result.customer.payment_method 
+
+def create_customer():
+ result = chargebee.Customer.create({
+    "first_name" : "John", 
+    "last_name" : "Doe", 
+    "email" : "john@test.com",
+    "payment_method" : {
+        "type" : "amazon_payments",
+        "reference_id" : "B-04V710325S436224L"
+        }})
+ print result
+
+def collect_invoice():
+ result = chargebee.Invoice.collect_payment("__demo_inv__6")
+ print result
+
+def update_subscription():
+ result = chargebee.Subscription.update("future_billing", {
+    "plan_id" : "cbee_multiple_site_plan", 
+    "payment_method" : {
+        "type" : "paypal_express_checkout",
+        "reference_id" : "B-04V710325S436224L"
+      }})
+ print result
+
+
+def create_subscription():
+ result = chargebee.Subscription.create({
+    "plan_id" : "cbee_multiple_site_plan", 
+    "customer" : {
+        "email" : "john@user.com", 
+        "first_name" : "John", 
+        "last_name" : "Doe", 
+        "phone" : "+1-949-999-9999"
+    },
+     "payment_method" : {
+        "type" : "card",
+        "reference_id" : "B-04V710325S436224L"
+      }})
+ print result
 
 def retrieve_card():
   result = chargebee.Card.retrieve("1sGeZ2FOvI0H2E4y")
@@ -53,7 +101,12 @@ def amazon_txn():
  print result.transaction
  print result.transaction.payment_method 
 
-amazon_txn()
+collect_invoice()
+#create_customer()
+#create_subscription()
+#update_subscription()
+#amazon_txn()
 #retrieve_card()
 #update_card_amazon()
 #customer_retrieve()
+#update_payment_method_customer()

@@ -7,12 +7,14 @@ require 'json'
 
 #Use the below settings code to connect the library with the
 #local server
-$CHARGEBEE_DOMAIN = "localcb.in:8080"
+$ENV_PROTOCOL = "https"
+$CHARGEBEE_DOMAIN = "chargebee.com"
 ChargeBee.configure({
-    :site=> 'mannar-test', #'rrcb-test',
-    :api_key => "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7"
+    :site=> 'chitra-test', #'rrcb-test',
+    :api_key => "0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7"
 })
-ChargeBee.verify_ca_certs=(false)
+ChargeBee.verify_ca_certs=(true)
+
 
 #Use the below settings to connect to the production server.
 # ChargeBee.configure({
@@ -181,6 +183,16 @@ def create_sub_for_customer
 							  :coupon =>"plan_only_coupon",
 							  :addons => [{ :id=>"sms_credits" , :quantity => 2 }] } )
   puts result.to_s
+end
+
+def update_payment_method
+  result = ChargeBee::Customer.update_payment_method("HpvtAaeP9MUKXUdA", {
+    :payment_method => {
+      :type => "paypal_express_checkout", 
+      :reference_id => "B-58N742152Y721200U"
+    }
+  })
+  puts result
 end
 
 def list_comments
@@ -357,11 +369,13 @@ result = ChargeBee::Invoice.charge_addon({
 puts result.invoice
 end
 
+def collect_payment
+  result = ChargeBee::Invoice.collect_payment("7041")
+  print result
+end
+
 def add_charge_at_term_end
-  result = ChargeBee::Subscription.add_charge_at_term_end("__dev__XpbGBGYOlOtWQPN", {
-     :amount => 1000, 
-     :description => "Support charge"
-  })
+  result = ChargeBee::Subscription.add_charge_at_term_end("__dev__XpbGBGYOlOtWQPN");
   print result.estimate.amount
   print result.estimate
 end
@@ -448,6 +462,8 @@ end
 
 # Comment the methods you don't want to run.
 begin
+ update_payment_method
+  collect_payment
 # checkout_new
 # create_subscription
 # update_subscription
@@ -481,7 +497,7 @@ begin
 #create_invoice_addon()
 # create_portal_session()
 # retrieve_portal_session('portal_2uENY2zdP5Tllqa8f3')
-activate_portal_session()
+# activate_portal_session()
 # logout_portal_session('__dev__5unJ34tVUIKPddcdw3nCjyFgwmlU8E5Hf')
 # add_charge_at_term_end()
 # add_non_rec_addon_at_term_end()

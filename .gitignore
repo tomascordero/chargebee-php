@@ -4,3 +4,5 @@ review/
 /netbeans_proj_files/node_test_proj/nbproject/private/
 /tests/cs/ClientLibTest/bin/
 /tests/cs/ClientLibTest/obj/
+
+.DS_Store
