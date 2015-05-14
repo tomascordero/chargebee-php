@@ -536,6 +536,16 @@ namespace Examples
 			Console.WriteLine (result.Invoice.Status);
 		}
 
+		public void recordPartialPayment(String invId, int amount){
+			EntityResult result = Transaction.RecordPayment(invId)
+				.PaymentMethod(Transaction.PaymentMethodEnum.BankTransfer)
+				.Amount(amount)
+				.PaidAt(1394532759).Request();
+			Transaction transaction = result.Transaction;
+			Invoice invoice = result.Invoice;
+			printInvoice (invoice);
+		}
+
 		public static void _main() {
 			//testPoNoCreateSub ();
 			//testPoNoCreateSubForCust ();
