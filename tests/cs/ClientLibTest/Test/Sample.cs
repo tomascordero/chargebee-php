@@ -24,7 +24,7 @@ namespace Examples
 		{
 			ApiConfig.Proto = "http";
 			ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("mannar-test", "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7");
+			ApiConfig.Configure("mannar-test", "test___dev__nlPsVfosgPCcJcuVNY12VHwNfstHmiYxN");
 		}
 
 		public void TestSerializeEvent()
@@ -546,6 +546,34 @@ namespace Examples
 			printInvoice (invoice);
 		}
 
+		public void testCreatePlan() {
+			EntityResult result = Plan.Create()
+				.Id("silver")
+				.Name("Silver")
+				.InvoiceName("sample plan")
+				.Price(5000)
+//				.DowngradePenalty(12.5D)
+				.InvoiceNotes("This is the invoice notes for the plan")
+				.Request();
+
+			EntityResult result1 = Plan.Retrieve ("silver").Request ();
+			Console.WriteLine ( result1.Plan.InvoiceNotes);
+		}
+
+		public void testUpdatePlan() {
+			EntityResult result =  Plan.Update("cbee_multiple_site_plan")
+				.Id("silver")
+				.Name("Silver")
+				.InvoiceName("sample plan")
+				.Price(5000)
+				.DowngradePenalty(12.5D)
+				.InvoiceNotes("This is the invoice notes for the plan")
+				.Request();
+			printFields (result.Plan, typeof(Plan));
+			EntityResult result1 = Plan.Retrieve ("silver").Request ();
+			printFields (result1.Plan, typeof(Plan));
+		}
+
 		public static void _main() {
 			//testPoNoCreateSub ();
 			//testPoNoCreateSubForCust ();
@@ -579,6 +607,7 @@ namespace Examples
 
 //			Sample s = new Sample();
 //			s.Configure ();
+//			s.testUpdatePlan ();
 			//			s.TestRetrieveSubscriptions();
 			//			s.TestRetrieveInvoice();
 			//			s.TestCustomFields();
