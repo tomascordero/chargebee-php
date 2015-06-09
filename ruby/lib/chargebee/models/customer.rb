@@ -15,28 +15,28 @@ module ChargeBee
   # OPERATIONS
   #-----------
 
-  def self.create(params={}, env=nil)
-    Request.send('post', uri_path("customers"), params, env)
+  def self.create(params={}, env=nil, headers={})
+    Request.send('post', uri_path("customers"), params, env, headers)
   end
 
-  def self.list(params={}, env=nil)
-    Request.send('get', uri_path("customers"), params, env)
+  def self.list(params={}, env=nil, headers={})
+    Request.send('get', uri_path("customers"), params, env, headers)
   end
 
-  def self.retrieve(id, env=nil)
-    Request.send('get', uri_path("customers",id.to_s), {}, env)
+  def self.retrieve(id, env=nil, headers={})
+    Request.send('get', uri_path("customers",id.to_s), {}, env, headers)
   end
 
-  def self.update(id, params={}, env=nil)
-    Request.send('post', uri_path("customers",id.to_s), params, env)
+  def self.update(id, params={}, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s), params, env, headers)
   end
 
-  def self.update_payment_method(id, params, env=nil)
-    Request.send('post', uri_path("customers",id.to_s,"update_payment_method"), params, env)
+  def self.update_payment_method(id, params, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s,"update_payment_method"), params, env, headers)
   end
 
-  def self.update_billing_info(id, params={}, env=nil)
-    Request.send('post', uri_path("customers",id.to_s,"update_billing_info"), params, env)
+  def self.update_billing_info(id, params={}, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s,"update_billing_info"), params, env, headers)
   end
 
   end # ~Customer
