@@ -16,25 +16,25 @@ class Customer(Model):
 
 
     @staticmethod
-    def create(params=None, env=None):
-        return request.send('post', request.uri_path("customers"), params, env)
+    def create(params=None, env=None, headers=None):
+        return request.send('post', request.uri_path("customers"), params, env, headers)
 
     @staticmethod
-    def list(params=None, env=None):
-        return request.send('get', request.uri_path("customers"), params, env)
+    def list(params=None, env=None, headers=None):
+        return request.send('get', request.uri_path("customers"), params, env, headers)
 
     @staticmethod
-    def retrieve(id, env=None):
-        return request.send('get', request.uri_path("customers",id), None, env)
+    def retrieve(id, env=None, headers=None):
+        return request.send('get', request.uri_path("customers",id), None, env, headers)
 
     @staticmethod
-    def update(id, params=None, env=None):
-        return request.send('post', request.uri_path("customers",id), params, env)
+    def update(id, params=None, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id), params, env, headers)
 
     @staticmethod
-    def update_payment_method(id, params, env=None):
-        return request.send('post', request.uri_path("customers",id,"update_payment_method"), params, env)
+    def update_payment_method(id, params, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"update_payment_method"), params, env, headers)
 
     @staticmethod
-    def update_billing_info(id, params=None, env=None):
-        return request.send('post', request.uri_path("customers",id,"update_billing_info"), params, env)
+    def update_billing_info(id, params=None, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"update_billing_info"), params, env, headers)
