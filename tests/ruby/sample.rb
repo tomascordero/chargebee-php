@@ -177,11 +177,18 @@ def list_sub_for_cust
   end
 end
 
-def create_sub_for_customer
-  result = ChargeBee::Subscription.create_for_customer("active_direct",
-							{ :plan_id => "professional",
-							  :coupon =>"plan_only_coupon",
-							  :addons => [{ :id=>"sms_credits" , :quantity => 2 }] } )
+def create_sub_for_cust(cust_id)
+  result = ChargeBee::Subscription.create_for_customer(cust_id, {
+    :plan_id => "professional",
+    :coupon =>"plan_only_coupon",
+    :addons => [{
+      :id=>"sms_credits",
+      :quantity => 2
+      }]
+      },nil,{
+        "chargebee-event-email" => "all-disabled"
+      }
+    )
   puts result.to_s
 end
 
@@ -462,8 +469,8 @@ end
 
 # Comment the methods you don't want to run.
 begin
- update_payment_method
-  collect_payment
+ # update_payment_method
+  # collect_payment
 # checkout_new
 # create_subscription
 # update_subscription
@@ -487,7 +494,6 @@ begin
 # retrieve_custom_field
 # retrieve_comment
 # list_sub_for_cust
-# create_sub_for_customer
 # refund_invoice()
 # refund_transaction()
 # retrieve_coupon()
@@ -520,6 +526,7 @@ begin
 # list_orders()
 # list_orders_for_invoice("__demo_inv__21")
 # create_invoice()
+# create_sub_for_cust("cust_handle")
 rescue ChargeBee::APIError => e
   puts e
 end

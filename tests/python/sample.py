@@ -251,11 +251,13 @@ def list_sub_for_cust():
      print(entry.card)
      print(entry.invoice)
 
-def create_sub_for_customer():
-   result = chargebee.Subscription.create_for_customer("trial", {
+def create_sub_for_cust(cust_id):
+   result = chargebee.Subscription.create_for_customer(cust_id, {
     "plan_id" : "basic",
     "coupon" : "plan_only_coupon",
     "addons" : [ { "id" : "sms_credits", "quantity" : "2" } ]
+   }, None, {
+       "chargebee-event-email" : "all-disabled"
    })
    print(result)
 
@@ -375,7 +377,7 @@ Comment out the methods you don't want to run.
 #retrieve_subscription()
 #retrieve_custom_field()
 # update_subscription()
-list_subscriptions()
+# list_subscriptions()
 #create_estimate()
 #list_events()
 #create_estimate()
@@ -404,7 +406,6 @@ list_subscriptions()
 #delete_comment()
 #retrieve_comment()
 #list_sub_for_cust()
-#create_sub_for_customer()
 # create_subscription()
 # create_order()
 # retrieve_order("__dev__XpbGU7pOxD8GPd1")
@@ -423,3 +424,4 @@ list_subscriptions()
 #     "price":4000,
 #     "addons":["one","two"]
 #     });
+# create_sub_for_cust("cust_handle")

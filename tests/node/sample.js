@@ -38,6 +38,14 @@ function createPortalSession() {
     }).request(callback);
 }
 
+function createSubForCust(custId) {
+	chargebee.subscription.create_for_customer(custId, {
+	  plan_id : "basic"
+	}).addHeaders({
+		"chargebee-event-email" : "all-disabled"
+	}).request(callback);
+}
+
 function retrievePortalSession(sessionId) {
     chargebee.portal_session.retrieve(sessionId).request(callback);
 }
@@ -82,4 +90,5 @@ function listInvOrders(invId) {
 // retrieveOrder("__dev__XpbGU6hOxHqreZ1");
 // updateOrder("__dev__XpbGU6hOxHqreZ1");
 // listOrders();
-listInvOrders("__demo_inv__8");
+// listInvOrders("__demo_inv__8");
+// createSubForCust("cust_handle");

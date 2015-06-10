@@ -397,6 +397,18 @@ namespace Examples
 
 		}
 
+		public static void createSubForCust(string custId){
+			EntityResult result = Subscription.CreateForCustomer (custId)
+				.PlanId ("basic").PoNumber("#4321")
+				.InvoiceNotes("Notes for the sub create for customer")
+				.header ("chargebee-event-email", "all-disabled")
+				.Request();
+			Console.WriteLine (result.Subscription.Id);
+			Console.WriteLine (result.Subscription.PoNumber);
+			Console.WriteLine (result.Subscription.InvoiceNotes);
+
+		}
+
 		public static void hostedPageRedirectUrl(){
 			EntityResult result = HostedPage.CheckoutNew ()
 				.SubscriptionPlanId("silver")

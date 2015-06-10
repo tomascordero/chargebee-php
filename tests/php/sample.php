@@ -490,14 +490,16 @@ function retrieveSubscriptionsForCust()
     }
 }
 
-function createForSub()
+function createSubForCust($custId)
 {
-    $result = ChargeBee_Subscription::createForCustomer("active_direct", array(
+    $result = ChargeBee_Subscription::createForCustomer($custId, array(
         "planId" => "basic",
         "addons" => array(array(
         "id" => "ssl"
         )
-    )));
+    )), null, array(
+    	"chargebee-event-email" => "all-disabled"
+    ));
     $subscription = $result->subscription();
     $customer = $result->customer();
     $card = $result->card();
@@ -700,7 +702,6 @@ function listOrdersForInvoice($invId)
 // invoiceTransactions();
 // retrieveSubscriptionsForCust();
 // deleteCard();
-// createForSub();
 // listSubForCust();
 // createComment();
 // listComment();
@@ -733,4 +734,5 @@ function listOrdersForInvoice($invId)
 // retrieveOrder("__dev__XpbGU6hOxIRurN4");
 // updateOrder("__dev__XpbGU6hOxIRurN4");
 // listOrders();
-listOrdersForInvoice("__demo_inv__23");
+// listOrdersForInvoice("__demo_inv__23");
+// createSubForCust("cust_handle");
