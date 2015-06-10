@@ -12,7 +12,8 @@ class Customer(Model):
       pass
 
     fields = ["id", "first_name", "last_name", "email", "phone", "company", "vat_number", "auto_collection", \
-    "created_at", "created_from_ip", "card_status", "billing_address", "payment_method", "invoice_notes"]
+    "created_at", "created_from_ip", "card_status", "billing_address", "payment_method", "invoice_notes", \
+    "account_credits"]
 
 
     @staticmethod
@@ -38,3 +39,15 @@ class Customer(Model):
     @staticmethod
     def update_billing_info(id, params=None, env=None, headers=None):
         return request.send('post', request.uri_path("customers",id,"update_billing_info"), params, env, headers)
+
+    @staticmethod
+    def add_account_credits(id, params, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"add_account_credits"), params, env, headers)
+
+    @staticmethod
+    def deduct_account_credits(id, params, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"deduct_account_credits"), params, env, headers)
+
+    @staticmethod
+    def set_account_credits(id, params, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"set_account_credits"), params, env, headers)

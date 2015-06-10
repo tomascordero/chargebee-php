@@ -10,7 +10,8 @@ module ChargeBee
     end
 
   attr_accessor :id, :first_name, :last_name, :email, :phone, :company, :vat_number, :auto_collection,
-  :created_at, :created_from_ip, :card_status, :billing_address, :payment_method, :invoice_notes
+  :created_at, :created_from_ip, :card_status, :billing_address, :payment_method, :invoice_notes,
+  :account_credits
 
   # OPERATIONS
   #-----------
@@ -37,6 +38,18 @@ module ChargeBee
 
   def self.update_billing_info(id, params={}, env=nil, headers={})
     Request.send('post', uri_path("customers",id.to_s,"update_billing_info"), params, env, headers)
+  end
+
+  def self.add_account_credits(id, params, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s,"add_account_credits"), params, env, headers)
+  end
+
+  def self.deduct_account_credits(id, params, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s,"deduct_account_credits"), params, env, headers)
+  end
+
+  def self.set_account_credits(id, params, env=nil, headers={})
+    Request.send('post', uri_path("customers",id.to_s,"set_account_credits"), params, env, headers)
   end
 
   end # ~Customer
