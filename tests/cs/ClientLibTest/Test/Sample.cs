@@ -253,6 +253,48 @@ namespace Examples
 			Console.WriteLine (result.List.Capacity);
 		}
 
+		public static void updateAddress(){
+			EntityResult result = Address.Update()
+				.SubscriptionId("HqWAAxAPFHZPFp3g3")
+				.Label("shipping_address")
+				.FirstName("Benjamin")
+				.LastName("Ross")
+				.Addr("PO Box 9999")
+				.City("Walnut")
+				.State("California")
+				.Zip("91789")
+				.Country("United States").Request();
+			Address address = result.Address;
+			printFields (address, typeof(Address));		
+		}
+
+		public static void addAccountCredits()
+		{  				
+			EntityResult result =  Customer.AddAccountCredits("cbdemo_KyVqezP94gGB31")
+				.Amount(500)
+				.Description("Loyalty credits").Request();
+			Customer customer = result.Customer;
+			printFields (customer, typeof(Customer));
+		}
+
+		public static void deductAccountCredits()
+		{
+			EntityResult result = Customer.DeductAccountCredits("8avVGOkx8U1MX")
+				.Amount(200)
+				.Description("Correcting credits given by mistake").Request();
+			Customer customer = result.Customer;
+			printFields (customer,typeof(Customer));
+		}
+
+		public static void setAccountCredit()
+		{
+			EntityResult result = Customer.SetAccountCredits("cbdemo_KyVqezP94gGB31")
+				.Amount(1200)
+				.Description("Correcting credits given by mistake").Request();
+			Customer customer = result.Customer;
+			printFields (customer,typeof(Customer));
+		}
+
 		public void createInvoice(){
 			EntityResult result = Invoice.Create()
 				.CustomerId("2slhRVVBP4RyYhYTHp")
@@ -356,7 +398,7 @@ namespace Examples
 			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
 		}
 
-		public void printFields(object obj, Type type){
+		public static void printFields(object obj, Type type){
 			if (obj == null) {
 				return;
 			}
@@ -399,9 +441,10 @@ namespace Examples
 
 		public static void createSubForCust(string custId){
 			EntityResult result = Subscription.CreateForCustomer (custId)
-				.PlanId ("basic").PoNumber("#4321")
+				.PlanId ("enterprise").PoNumber("#4333")
 				.InvoiceNotes("Notes for the sub create for customer")
 				.header ("chargebee-event-email", "all-disabled")
+				.header("chargebee-event-webhook","all-disabled")
 				.Request();
 			Console.WriteLine (result.Subscription.Id);
 			Console.WriteLine (result.Subscription.PoNumber);
@@ -605,11 +648,12 @@ namespace Examples
 
 		public static void Main(string[] args) 
 		{
-			ApiConfig.Proto = "http";
-			ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("mannar-test", "test___dev__TyftA4WmNRCKLBtWXGWasOAcdYMM0cd9mk");
+			ApiConfig.Proto = "https";
+			ApiConfig.DomainSuffix = "devcb.in";
+			ApiConfig.Configure("raghu-dev-test", "test_fEAbxv6jhIwEgh8cdwB5cuIGvtGXr2Ibj4");
 			try{
-				_main();
+				//_main();
+				setAccountCredit();
 			}catch(ApiException e) {
 				Console.WriteLine (e.ApiErrorCode);
 				Console.WriteLine (e.Param);
