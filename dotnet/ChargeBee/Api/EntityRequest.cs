@@ -21,7 +21,7 @@ namespace ChargeBee.Api
 			return (T)Convert.ChangeType (this, typeof(T));
 		}
 
-		public T header(string headerName, string headerValue){
+		public T Header(string headerName, string headerValue){
 			headers.Add (headerName, headerValue);
 			return (T)Convert.ChangeType (this, typeof(T));
 		}

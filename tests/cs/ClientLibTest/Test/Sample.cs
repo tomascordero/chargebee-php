@@ -443,8 +443,8 @@ namespace Examples
 			EntityResult result = Subscription.CreateForCustomer (custId)
 				.PlanId ("enterprise").PoNumber("#4333")
 				.InvoiceNotes("Notes for the sub create for customer")
-				.header ("chargebee-event-email", "all-disabled")
-				.header("chargebee-event-webhook","all-disabled")
+				.Header ("chargebee-event-email", "all-disabled")
+				.Header("chargebee-event-webhook","all-disabled")
 				.Request();
 			Console.WriteLine (result.Subscription.Id);
 			Console.WriteLine (result.Subscription.PoNumber);

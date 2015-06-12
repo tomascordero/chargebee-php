@@ -26,7 +26,7 @@ namespace ChargeBee.Api
             return this;
         }
 
-		public ListRequest header(string headerName, string headerValue){
+		public ListRequest Header(string headerName, string headerValue){
 			headers.Add (headerName, headerValue);
 			return this;
 		}

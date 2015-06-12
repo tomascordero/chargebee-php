@@ -40,8 +40,8 @@ namespace ChargeBee.Api
 
 	     request.Accept = "application/json";
 
-			addHeaders (request, env);
-			addCustomHeaders (request, headers);
+			AddHeaders (request, env);
+			AddCustomHeaders (request, headers);
 
             request.Timeout = env.ConnectTimeout;
             request.ReadWriteTimeout = env.ReadTimeout;
@@ -49,18 +49,18 @@ namespace ChargeBee.Api
             return request;
         }
 
-		private static void addHeaders(HttpWebRequest request, ApiConfig env) {
+		private static void AddHeaders(HttpWebRequest request, ApiConfig env) {
 			request.Headers.Add(HttpRequestHeader.AcceptCharset, env.Charset);
 			request.Headers.Add(HttpRequestHeader.Authorization, env.AuthValue);
 		}
 
-		private static void addCustomHeaders(HttpWebRequest request, Dictionary<string, string> headers) {
+		private static void AddCustomHeaders(HttpWebRequest request, Dictionary<string, string> headers) {
 			foreach (KeyValuePair<string, string> entry in headers) {
-					addHeader(request, entry.Key, entry.Value);
+					AddHeader(request, entry.Key, entry.Value);
 			}
 		}
 
-		private static void addHeader(HttpWebRequest request, String headerName, String value) {
+		private static void AddHeader(HttpWebRequest request, String headerName, String value) {
 			request.Headers.Add(headerName, value);
 		}
 
