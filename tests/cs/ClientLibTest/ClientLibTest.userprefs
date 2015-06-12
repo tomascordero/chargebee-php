@@ -1,14 +1,13 @@
-﻿<Properties StartupItem="ClientLibTest.csproj">
+﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Test/Sample.cs">
     <Files>
-      <File FileName="Test/Sample.cs" Line="274" Column="4" />
+      <File FileName="Test/Sample.cs" Line="4" Column="4" />
+      <File FileName="Test/ErrorTest.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/cb-raghu/work/client-libs/tests/cs/ClientLibTest/Test/Sample.cs" line="639" column="40" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
