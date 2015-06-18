@@ -23,8 +23,8 @@ namespace Examples
 		public void Configure()
 		{
 			ApiConfig.Proto = "http";
-			ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("mannar-test", "test___dev__nlPsVfosgPCcJcuVNY12VHwNfstHmiYxN");
+			ApiConfig.DomainSuffix = "chargebee.com";
+			ApiConfig.Configure("vaibhav-1-test", "test_5edlkZPTuthqWqNFEpJePjvtpcuTAIpBo");
 		}
 
 		public void TestSerializeEvent()
@@ -370,7 +370,7 @@ namespace Examples
 		}
 
 
-		public void printInvoice(Invoice inv){
+		public static void printInvoice(Invoice inv){
 			foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(inv))
 			{
 				string name=descriptor.Name;
@@ -629,6 +629,12 @@ namespace Examples
 			printFields (result1.Plan, typeof(Plan));
 		}
 
+		public static void voidInvoice(string invId) {
+			EntityResult result = Invoice.VoidInvoice(invId).Request();
+			Invoice invoice = result.Invoice;
+			printInvoice (invoice);
+		}
+
 		public static void _main() {
 			//testPoNoCreateSub ();
 			//testPoNoCreateSubForCust ();
@@ -649,16 +655,16 @@ namespace Examples
 		public static void Main(string[] args) 
 		{
 			ApiConfig.Proto = "https";
-			ApiConfig.DomainSuffix = "devcb.in";
-			ApiConfig.Configure("raghu-dev-test", "test_fEAbxv6jhIwEgh8cdwB5cuIGvtGXr2Ibj4");
-			try{
+			ApiConfig.DomainSuffix = "chargebee.com";
+			ApiConfig.Configure("vaibhav-1-test", "test_5edlkZPTuthqWqNFEpJePjvtpcuTAIpBo");
+//			try{
 				//_main();
-				setAccountCredit();
-			}catch(ApiException e) {
-				Console.WriteLine (e.ApiErrorCode);
-				Console.WriteLine (e.Param);
-				Console.WriteLine (e.HttpStatusCode);
-			}
+			voidInvoice("98");
+//			}catch(ApiException e) {
+//				Console.WriteLine (e.ApiErrorCode);
+//				Console.WriteLine (e.Param);
+//				Console.WriteLine (e.HttpStatusCode);
+//			}
 
 
 //			Sample s = new Sample();
@@ -709,3 +715,4 @@ namespace Examples
 
 	}
 }
+	
