@@ -380,9 +380,9 @@ namespace Examples
 			foreach(Invoice.InvoiceLineItem li in inv.LineItems){
 				printFields (li, typeof(Invoice.InvoiceLineItem));
 			}
-			foreach(Invoice.InvoiceDiscount dis in inv.Discounts){
-				printFields (dis, typeof(Invoice.InvoiceDiscount));
-			}
+//			foreach(Invoice.InvoiceDiscount dis in inv.Discounts){
+//				printFields (dis, typeof(Invoice.InvoiceDiscount));
+//			}
 			if (inv.Taxes != null) {
 				foreach (Invoice.InvoiceTax tax in inv.Taxes) {
 					printFields (tax, typeof(Invoice.InvoiceTax));
@@ -391,11 +391,11 @@ namespace Examples
 			foreach(Invoice.InvoiceLinkedTransaction txn in inv.LinkedTransactions){
 				printFields (txn, typeof(Invoice.InvoiceLinkedTransaction));
 			}
-			foreach(Invoice.InvoiceLinkedOrder ord in inv.LinkedOrders){
-				printFields (ord, typeof(Invoice.InvoiceLinkedOrder));
-			}
-			printFields (inv.BillingAddress, typeof(Invoice.InvoiceBillingAddress));
-			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
+//			foreach(Invoice.InvoiceLinkedOrder ord in inv.LinkedOrders){
+//				printFields (ord, typeof(Invoice.InvoiceLinkedOrder));
+//			}
+//			printFields (inv.BillingAddress, typeof(Invoice.InvoiceBillingAddress));
+//			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
 		}
 
 		public static void printFields(object obj, Type type){
@@ -576,8 +576,9 @@ namespace Examples
 		public static void paymentMethodCreateCustomer() {
 			EntityResult result = Customer.Create ()
 								.FirstName ("John")
-				.PaymentMethodReferenceId ("B-2W525066JC884990M")
-				.PaymentMethodType (TypeEnum.AmazonPayments)
+				.PaymentMethodReferenceId ("49288584")
+				.PaymentMethodType (TypeEnum.Card)
+				.PaymentMethodGateway (GatewayEnum.Braintree)
 				.Request ();
 
 			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType ());
@@ -593,7 +594,7 @@ namespace Examples
 
 		public void recordPartialPayment(String invId, int amount){
 			EntityResult result = Transaction.RecordPayment(invId)
-				.PaymentMethod(Transaction.PaymentMethodEnum.BankTransfer)
+				.PaymentMethod(PaymentMethodEnum.BankTransfer)
 				.Amount(amount)
 				.PaidAt(1394532759).Request();
 			Transaction transaction = result.Transaction;
@@ -652,11 +653,23 @@ namespace Examples
 			collectPayement ();
 		}
 
+		public static void recordRefund(){
+			EntityResult result = Invoice.RecordRefund("85")
+				.Memo("Refunding as customer canceled the order.")
+//				.TransactionAmount(800)
+				.TransactionPaymentMethod(PaymentMethodEnum.BankTransfer)
+				.TransactionDate(1435777328)
+				.TransactionReferenceNumber("876876")
+				.Request();
+			printInvoice (result.Invoice);
+		}
+
 		public static void Main(string[] args) 
 		{
 			ApiConfig.Proto = "https";
 			ApiConfig.DomainSuffix = "chargebee.com";
-			ApiConfig.Configure("vaibhav-1-test", "test_5edlkZPTuthqWqNFEpJePjvtpcuTAIpBo");
+			ApiConfig.Configure("mannar-test", "test___dev__ULjDUaIoajPKsrz9uigpFWUSEO0ykwaC");
+
 //			try{
 				//_main();
 			voidInvoice("98");
