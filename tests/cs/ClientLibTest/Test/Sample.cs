@@ -664,6 +664,20 @@ namespace Examples
 			printInvoice (result.Invoice);
 		}
 
+
+		public static void stopDunning(){
+			EntityResult result = Invoice.StopDunning("126")
+				.Request();
+			printInvoice (result.Invoice);
+		}
+
+		public static void retriveInv(){
+			EntityResult result = Invoice.Retrieve("127")
+				.Request();
+			printInvoice (result.Invoice);
+			Console.WriteLine("DunningStatus = {0}",result.Invoice.DunningStatus);
+		}
+
 		public static void Main(string[] args) 
 		{
 			ApiConfig.Proto = "https";
