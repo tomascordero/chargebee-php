@@ -169,6 +169,52 @@ def delete_invoice
  puts result
 end
 
+def test_accent_chars
+  result = ChargeBee::Event.retrieve("ev___dev__KyVpAsPA7dZ2YJ")
+  puts result
+  name = result.event.content.customer.first_name
+  puts name
+end
+
+def create_plan
+ begin
+result = ChargeBee::Plan.create({
+  :id => "silver2",
+  :name => "Silver2",
+  :invoice_name => "sample plan",
+  :price => 5000,
+  :downgrade_penalty => 1
+})
+puts result.plan
+rescue ChargeBee::InvalidRequestError=> ex
+  puts ex.error_code
+  puts ex.api_error_code
+  puts ex.http_status_code
+  #puts ex.error_msg
+  puts ex.message
+  puts ex.param
+end
+end
+
+def update_plan
+ begin
+result = ChargeBee::Plan.update("silver", :invoice_name => "sample plan", :downgrade_penalty => "1")
+puts result.plan
+rescue ChargeBee::InvalidRequestError=> ex
+  puts ex.error_code
+  puts ex.api_error_code
+  puts ex.http_status_code
+  #puts ex.error_msg
+  puts ex.message
+  puts ex.param
+end
+end
+
+
+
+create_plan
+#update_plan
+#test_accent_chars()
 #delete_invoice
 #test_linked_order()
 #test_state_code_card_addr()
