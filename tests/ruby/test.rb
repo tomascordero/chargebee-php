@@ -7,7 +7,7 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__ZULS5m2AJ2GTJgQJIcd4OecuDcddpFv4tTt")
+  :api_key => "test___dev__h7i0dGZfx0xuXBvPxXZ6jsNrUunOXcu53")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -210,9 +210,17 @@ rescue ChargeBee::InvalidRequestError=> ex
 end
 end
 
+def get_invoice
+  result = ChargeBee::Invoice.retrieve("__demo_inv__32")
+  puts result.invoice.dunning_status
+  
+  result1 = ChargeBee::Invoice.stop_dunning(result.invoice.id)
+  puts result1.invoice.dunning_status
+end
 
 
-create_plan
+get_invoice
+#create_plan
 #update_plan
 #test_accent_chars()
 #delete_invoice
