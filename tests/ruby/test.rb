@@ -7,7 +7,7 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__ZULS5m2AJ2GTJgQJIcd4OecuDcddpFv4tTt")
+  :api_key => "test___dev__h7i0dGZfx0xuXBvPxXZ6jsNrUunOXcu53")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -169,6 +169,60 @@ def delete_invoice
  puts result
 end
 
+def test_accent_chars
+  result = ChargeBee::Event.retrieve("ev___dev__KyVpAsPA7dZ2YJ")
+  puts result
+  name = result.event.content.customer.first_name
+  puts name
+end
+
+def create_plan
+ begin
+result = ChargeBee::Plan.create({
+  :id => "silver2",
+  :name => "Silver2",
+  :invoice_name => "sample plan",
+  :price => 5000,
+  :downgrade_penalty => 1
+})
+puts result.plan
+rescue ChargeBee::InvalidRequestError=> ex
+  puts ex.error_code
+  puts ex.api_error_code
+  puts ex.http_status_code
+  #puts ex.error_msg
+  puts ex.message
+  puts ex.param
+end
+end
+
+def update_plan
+ begin
+result = ChargeBee::Plan.update("silver", :invoice_name => "sample plan", :downgrade_penalty => "1")
+puts result.plan
+rescue ChargeBee::InvalidRequestError=> ex
+  puts ex.error_code
+  puts ex.api_error_code
+  puts ex.http_status_code
+  #puts ex.error_msg
+  puts ex.message
+  puts ex.param
+end
+end
+
+def get_invoice
+  result = ChargeBee::Invoice.retrieve("__demo_inv__32")
+  puts result.invoice.dunning_status
+  
+  result1 = ChargeBee::Invoice.stop_dunning(result.invoice.id)
+  puts result1.invoice.dunning_status
+end
+
+
+get_invoice
+#create_plan
+#update_plan
+#test_accent_chars()
 #delete_invoice
 #test_linked_order()
 #test_state_code_card_addr()
