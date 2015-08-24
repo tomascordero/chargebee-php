@@ -8,10 +8,10 @@ require 'json'
 #Use the below settings code to connect the library with the
 #local server
 $ENV_PROTOCOL = "https"
-$CHARGEBEE_DOMAIN = "chargebee.com"
+$CHARGEBEE_DOMAIN = "devcb.in"
 ChargeBee.configure({
-    :site=> 'chitra-test', #'rrcb-test',
-    :api_key => "0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7"
+    :site=> 'raghu-dev-test', #'rrcb-test',
+    :api_key => "test_fEAbxv6jhIwEgh8cdwB5cuIGvtGXr2Ibj4"
 })
 ChargeBee.verify_ca_certs=(true)
 
@@ -49,7 +49,7 @@ def reactivate_subscription
 end
 
 def retrieve_subscription
-  result = ChargeBee::Subscription.retrieve('2slhRVVBP4RyYhYTHp')
+  result = ChargeBee::Subscription.retrieve('__dev__KyVrKRPHl5UT33q')
   puts result.subscription
 end
 
@@ -77,6 +77,12 @@ def charge_addon
   })
   puts result.subscription
 end
+
+def retrieve_invoice
+  result = ChargeBee::Invoice.retrieve("DemoInv_102")
+  invoice = result.invoice
+  puts invoice
+end  
 
 # puts result.customer.cf_market_name
 # puts (result.subscription.total_dues()  > 0) ? 'true' : 'false'
@@ -346,7 +352,7 @@ def activate_portal_session()
 end
 
 def list_txn_for_customer
-  list = ChargeBee::Transaction.transactions_for_customer("__dev__KyVqjAOhW0JXU1", {
+  list = ChargeBee::Transaction.transactions_for_customer("1mqYqnaPDgsBL1sy", {
     :limit => 10
   })
   list.each do |entry|
@@ -434,6 +440,18 @@ def list_orders_for_invoice(inv_id)
   print result.inspect
 end
 
+def rertrive_transaction
+  result = ChargeBee::Transaction.retrieve("txn_2uENY37cPMGqWIW22dT")
+  transaction = result.transaction
+  puts transaction
+end  
+
+def retrieve_event
+  result = ChargeBee::Event.retrieve("ev_1sGhD9KPMGxzKF1cq")
+  event = result.event
+  puts event
+end
+
 def create_invoice()
   result = ChargeBee::Invoice.create({
     :customer_id => "2slhRVVBP4RyYhYTHp", 
@@ -498,7 +516,7 @@ begin
 # refund_transaction()
 # retrieve_coupon()
 # list_coupon()
-# list_txn_for_customer()
+#list_txn_for_customer()
 #create_invoice()
 #create_invoice_addon()
 # create_portal_session()
@@ -527,6 +545,9 @@ begin
 # list_orders_for_invoice("__demo_inv__21")
 # create_invoice()
 # create_sub_for_cust("cust_handle")
+#retrieve_invoice();
+#rertrive_transaction()
+#retrieve_event()
 rescue ChargeBee::APIError => e
   puts e
 end
