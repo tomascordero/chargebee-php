@@ -59,9 +59,9 @@ class ChargeBee_Result
 
     function estimate() 
     {
-		$estimate = ChargeBee_Result::_get($this, 'estimate', 'ChargeBee_Estimate', array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
-        return ChargeBee_Result::_get($estimate, 'invoice_estimate', 'ChargeBee_InvoiceEstimate', 
-        array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
+		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', 'ChargeBee_InvoiceEstimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		return $estimate;
     }
 
     function plan() 
@@ -110,20 +110,19 @@ class ChargeBee_Result
         array('linked_customers' => 'ChargeBee_PortalSessionLinkedCustomer'));
     }
 
-
-    private static function _get($obj, $type, $class, $subTypes = array())
-    {
-        if(!array_key_exists($type, $obj->_response))
+	private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
+	{
+		if(!array_key_exists($type, $this->_response))
+		{
+	    	return null;
+		}
+        if(!array_key_exists($type, $this->_responseObj))
         {
-                return null;
+                $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes, $dependantTypes);
         }
-        if(!array_key_exists($type, $obj->_responseObj))
-        {
-                $obj->_responseObj[$type] = new $class($obj->_response[$type], $subTypes);
-        }
-        return $obj->_responseObj[$type];
-    }
-
+        return $this->_responseObj[$type];
+	}
+			
 }
 
 ?>
