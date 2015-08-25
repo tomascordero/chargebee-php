@@ -6,8 +6,8 @@ function test($respJson){
 		array($respJson, '');
 		$resp = json_decode($respJson, true);
 		$res = new ChargeBee_Result($resp);
-		$est = $res->estimate();
-		print_r($est);
+		$r = $res->estimates();
+		print_r($r);
 		// print_r($est->invoiceEstimate);
 		// print_r($est->invoiceEstimate->lineItems[0]);
 }
@@ -65,42 +65,42 @@ $sub =  '{
 	    "sub_total": 900,
 	    "tax": 0,
 	    "line_items": [{
-	            "date_from": 1320085811,
-	            "date_to": 1322677811,
-	            "unit_amount": 900,
-	            "quantity": 1,
-	            "tax": 0,
-	            "object": "line_item",
-	            "amount": 900,
-	            "description": "Basic",
-	            "type": "charge",
-	            "entity_type": "plan",
-	            "entity_id": "basic"
-	        }],
-	    "linked_transactions": [{
-	            "txn_id": "txn_KyVr8xPHl5Bjg8",
-	            "applied_amount": 900,
-	            "txn_type": "payment",
-	            "txn_status": "success",
-	            "txn_date": 1320085812,
-	            "txn_amount": 900
-	        }],
-	    "linked_orders": [{
-	            "id": "XpbG8t4OvwWgjzM",
-	            "status": "processing",
-	            "reference_id": "1002",
-	            "fulfillment_status": "Awaiting Shipment",
-	            "created_at": 1436275881
-	        }],
+			"date_from": 1320085811,
+            "date_to": 1322677811,
+            "unit_amount": 900,
+            "quantity": 1,
+            "tax": 0,
+            "object": "line_item",
+            "amount": 900,
+            "description": "Basic",
+            "type": "charge",
+            "entity_type": "plan",
+            "entity_id": "basic"
+		}],
+		"linked_transactions": [{
+			"txn_id": "txn_KyVr8xPHl5Bjg8",
+            "applied_amount": 900,
+            "txn_type": "payment",
+            "txn_status": "success",
+            "txn_date": 1320085812,
+            "txn_amount": 900
+		}],
+		"linked_orders": [{
+			"id": "XpbG8t4OvwWgjzM",
+            "status": "processing",
+            "reference_id": "1002",
+            "fulfillment_status": "Awaiting Shipment",
+            "created_at": 1436275881
+		}],
 	    "billing_address": {
 	        "first_name": "Benjamin",
 	        "last_name": "Ross",
 	        "object": "billing_address"
 	    }
-		}]
+	}]
 }';
 
-$estimate =  '{"estimate": {
+$est =  '{"estimate": {
     "created_at": 1436275938,
 	"subscription_status": "in_trial",
 	"subscription_id": "gf45sajhjhga656sa",
@@ -130,5 +130,36 @@ $estimate =  '{"estimate": {
 	}
 }}';
 
-test($estimate);
+$listEst =  '{"estimates": [{
+    "created_at": 1436275938,
+	"subscription_status": "in_trial",
+	"subscription_id": "gf45sajhjhga656sa",
+    "subscription_next_billing_at": 1438954338,
+	"object": "estimate",
+	"invoice_estimate": {
+		"recurring": true,
+	    "collect_now": false,
+	    "sub_otal": 500,
+		"total": 900,
+		"amount_due": 0,
+		"object": "invoice_estimate",
+	    "line_items": [{
+			"date_from": 1438954338,
+			"date_to": 1441632738,
+			"unit_amount": 900,
+	        "quantity": 1,
+			"tax_amount": 0,
+	        "object": "line_item",
+			"discount_amount": 0,
+			"line_amount": 1900,
+	        "description": "Basic",
+			"entity_type": "plan"
+		}],
+		"discounts": [],
+		"taxes": []
+	}
+}]
+}';
+
+test($listEst);
 ?>

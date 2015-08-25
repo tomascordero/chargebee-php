@@ -1,0 +1,266 @@
+Array
+(
+    [0] => ChargeBee_Estimate Object
+        (
+            [allowed:protected] => Array
+                (
+                    [0] => createdAt
+                    [1] => subscriptionId
+                    [2] => subscriptionStatus
+                    [3] => subscriptionNextBillingAt
+                    [4] => invoiceEstimate
+                    [5] => creditNoteEstimates
+                )
+
+            [_values:protected] => Array
+                (
+                    [created_at] => 1436275938
+                    [subscription_status] => in_trial
+                    [subscription_id] => gf45sajhjhga656sa
+                    [subscription_next_billing_at] => 1438954338
+                    [object] => estimate
+                    [invoice_estimate] => Array
+                        (
+                            [recurring] => 1
+                            [collect_now] => 
+                            [sub_otal] => 500
+                            [total] => 900
+                            [amount_due] => 0
+                            [object] => invoice_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1438954338
+                                            [date_to] => 1441632738
+                                            [unit_amount] => 900
+                                            [quantity] => 1
+                                            [tax_amount] => 0
+                                            [object] => line_item
+                                            [discount_amount] => 0
+                                            [line_amount] => 1900
+                                            [description] => Basic
+                                            [entity_type] => plan
+                                        )
+
+                                )
+
+                            [discounts] => Array
+                                (
+                                )
+
+                            [taxes] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_subTypes:protected] => Array
+                (
+                )
+
+            [_dependantTypes:protected] => Array
+                (
+                    [invoice_estimate] => ChargeBee_InvoiceEstimate
+                )
+
+            [_data:protected] => Array
+                (
+                    [createdAt] => 1436275938
+                    [subscriptionStatus] => in_trial
+                    [subscriptionId] => gf45sajhjhga656sa
+                    [subscriptionNextBillingAt] => 1438954338
+                    [object] => estimate
+                    [invoiceEstimate] => ChargeBee_InvoiceEstimate Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => recurring
+                                    [1] => collectNow
+                                    [2] => subTotal
+                                    [3] => total
+                                    [4] => amountDue
+                                    [5] => lineItems
+                                    [6] => discounts
+                                    [7] => taxes
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [recurring] => 1
+                                    [collect_now] => 
+                                    [sub_otal] => 500
+                                    [total] => 900
+                                    [amount_due] => 0
+                                    [object] => invoice_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1438954338
+                                                    [date_to] => 1441632738
+                                                    [unit_amount] => 900
+                                                    [quantity] => 1
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [discount_amount] => 0
+                                                    [line_amount] => 1900
+                                                    [description] => Basic
+                                                    [entity_type] => plan
+                                                )
+
+                                        )
+
+                                    [discounts] => Array
+                                        (
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                    [line_items] => ChargeBee_InvoiceEstimateLineItem
+                                    [discounts] => ChargeBee_InvoiceEstimateDiscount
+                                    [taxes] => ChargeBee_InvoiceEstimateTax
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [recurring] => 1
+                                    [collectNow] => 
+                                    [subOtal] => 500
+                                    [total] => 900
+                                    [amountDue] => 0
+                                    [object] => invoice_estimate
+                                    [lineItems] => Array
+                                        (
+                                            [0] => ChargeBee_InvoiceEstimateLineItem Object
+                                                (
+                                                    [allowed:protected] => Array
+                                                        (
+                                                            [0] => date_from
+                                                            [1] => date_to
+                                                            [2] => unit_amount
+                                                            [3] => quantity
+                                                            [4] => tax_amount
+                                                            [5] => tax_rate
+                                                            [6] => line_amount
+                                                            [7] => discount_amount
+                                                            [8] => description
+                                                            [9] => entity_type
+                                                            [10] => entity_id
+                                                        )
+
+                                                    [_values:protected] => Array
+                                                        (
+                                                            [date_from] => 1438954338
+                                                            [date_to] => 1441632738
+                                                            [unit_amount] => 900
+                                                            [quantity] => 1
+                                                            [tax_amount] => 0
+                                                            [object] => line_item
+                                                            [discount_amount] => 0
+                                                            [line_amount] => 1900
+                                                            [description] => Basic
+                                                            [entity_type] => plan
+                                                        )
+
+                                                    [_subTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_dependantTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_data:protected] => Array
+                                                        (
+                                                            [dateFrom] => 1438954338
+                                                            [dateTo] => 1441632738
+                                                            [unitAmount] => 900
+                                                            [quantity] => 1
+                                                            [taxAmount] => 0
+                                                            [object] => line_item
+                                                            [discountAmount] => 0
+                                                            [lineAmount] => 1900
+                                                            [description] => Basic
+                                                            [entityType] => plan
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [discounts] => ChargeBee_InvoiceEstimateDiscount Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                    [2] => entity_type
+                                                    [3] => entity_id
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                    [taxes] => ChargeBee_InvoiceEstimateTax Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)

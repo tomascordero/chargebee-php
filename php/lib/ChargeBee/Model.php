@@ -67,6 +67,22 @@ class ChargeBee_Model
 		}
 	}
 	
+	private function __getDependant($k)
+	{
+		if (isset($this->_dependantTypes[$k])) 
+		{
+			return $this->_dependantTypes[$k];
+		} 
+		else if(in_array($k, $this->allowed))
+		{
+			return null;
+		}
+		else
+		{
+			throw new Exception("Unknown property $k in " . get_class($this));
+		}
+	}
+	
   private function isHash($array)
   {
     if (!is_array($array))
@@ -107,13 +123,14 @@ class ChargeBee_Model
 		}
 	}
 	
-	public function _initDependant($obj, $type, $class, $subTypes = array())
+	public function _initDependant($obj, $type, $subTypes = array())
 	{
 		if(!array_key_exists($type, $obj))
 		{
 	    	return $this;
 		}
-		if($this->isHash($obj) && array_key_exists($type, $this->_dependantTypes))
+		$class=$this->__getDependant($type);
+		if($this->isHash($obj) && !is_null($class))
 		{
 			$dependantObj = new $class($obj[$type], $subTypes);
 			$this->_data[ChargeBee_Util::toCamelCaseFromUnderscore($type)] = $dependantObj;

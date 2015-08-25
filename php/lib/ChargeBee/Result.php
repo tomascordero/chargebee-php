@@ -35,6 +35,12 @@ class ChargeBee_Result
         array('line_items' => 'ChargeBee_InvoiceLineItem', 'discounts' => 'ChargeBee_InvoiceDiscount', 'taxes' => 'ChargeBee_InvoiceTax', 'invoice_transactions' => 'ChargeBee_InvoiceLinkedTransaction', 'applied_credits' => 'ChargeBee_InvoiceAppliedCredit', 'created_credits' => 'ChargeBee_InvoiceCreatedCreditNote', 'orders' => 'ChargeBee_InvoiceLinkedOrder', 'invoice_notes' => 'ChargeBee_InvoiceNote', 'shipping_address' => 'ChargeBee_InvoiceShippingAddress', 'billing_address' => 'ChargeBee_InvoiceBillingAddress'));
     }
 
+    function invoices() 
+	{
+        return $this->_getList('invoices', 'ChargeBee_Invoice', 
+        array('line_items' => 'ChargeBee_InvoiceLineItem', 'discounts' => 'ChargeBee_InvoiceDiscount', 'taxes' => 'ChargeBee_InvoiceTax', 'invoice_transactions' => 'ChargeBee_InvoiceLinkedTransaction', 'applied_credits' => 'ChargeBee_InvoiceAppliedCredit', 'created_credits' => 'ChargeBee_InvoiceCreatedCreditNote', 'orders' => 'ChargeBee_InvoiceLinkedOrder', 'invoice_notes' => 'ChargeBee_InvoiceNote', 'shipping_address' => 'ChargeBee_InvoiceShippingAddress', 'billing_address' => 'ChargeBee_InvoiceBillingAddress'));
+	}
+	
     function creditNote() 
     {
         return $this->_get('credit_note', 'ChargeBee_CreditNote', 
@@ -60,8 +66,14 @@ class ChargeBee_Result
     function estimate() 
     {
 		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
-		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', 'ChargeBee_InvoiceEstimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
 		return $estimate;
+    }
+	
+    function estimates() 
+    {
+		return $this->_getList('estimates', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'),
+		array('invoice_estimate'=>array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax')));
     }
 
     function plan() 
@@ -119,6 +131,29 @@ class ChargeBee_Result
         if(!array_key_exists($type, $this->_responseObj))
         {
                 $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes, $dependantTypes);
+        }
+        return $this->_responseObj[$type];
+	}
+
+	private function _getList($type, $class, $subTypes = array(), $dependantTypes = array(),  $dependantSubTypes = array())
+	{
+		if(!array_key_exists($type, $this->_response))
+		{
+	    	return null;
+		}
+        if(!array_key_exists($type, $this->_responseObj))
+        {
+			$setVal = array();
+			foreach($this->_response[$type] as $stV)
+			{
+				$obj = new $class($stV, $subTypes, $dependantTypes);
+				foreach($dependantSubTypes as $k => $v)
+				{
+					$obj->_initDependant($stV, $k, $v);
+				}	
+				array_push($setVal, $obj);
+			}
+			$this->_responseObj[$type] = $setVal;
         }
         return $this->_responseObj[$type];
 	}
