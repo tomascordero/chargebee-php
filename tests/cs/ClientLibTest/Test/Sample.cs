@@ -95,9 +95,10 @@ namespace Examples
 			return _listReq.Request();
 		}
 		
-		public void TestRetrieveEvent()
+		public static void TestRetrieveEvent()
 		{
-			Event evt = Event.Retrieve("ev_IsLMimiO0BjMT3B8").Request().Event;
+			Event evt = Event.Retrieve("ev___dev__3Nl8RPbPMLlbpUG").Request().Event;
+			printFields (evt, typeof(Event));
 			Console.WriteLine(evt.WebhookStatus);
 		}
 		
@@ -672,21 +673,30 @@ namespace Examples
 		}
 
 		public static void retriveInv(){
-			EntityResult result = Invoice.Retrieve("127")
+			EntityResult result = Invoice.Retrieve("__demo_inv__28")
 				.Request();
 			printInvoice (result.Invoice);
 			Console.WriteLine("DunningStatus = {0}",result.Invoice.DunningStatus);
+			Console.WriteLine(result.Invoice.CurrencyCode);
+			Console.WriteLine(result.Invoice.FirstInvoice);
+		}
+
+		public static void retriveTxn(){
+			EntityResult result =  Transaction.Retrieve("txn___dev__3Nl8RHsPMLjbsjT")
+				.Request();
+			printFields (result.Transaction, typeof(Transaction));
+			Console.WriteLine(result.Transaction.CurrencyCode);
 		}
 
 		public static void Main(string[] args) 
 		{
-			ApiConfig.Proto = "https";
-			ApiConfig.DomainSuffix = "chargebee.com";
-			ApiConfig.Configure("mannar-test", "test___dev__ULjDUaIoajPKsrz9uigpFWUSEO0ykwaC");
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__e82JdAMAVk4MikmP9YTnN7CSJV44Pklr");
 
 //			try{
 				//_main();
-			voidInvoice("98");
+			TestRetrieveEvent();
 //			}catch(ApiException e) {
 //				Console.WriteLine (e.ApiErrorCode);
 //				Console.WriteLine (e.Param);
