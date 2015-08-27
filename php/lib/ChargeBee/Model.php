@@ -137,6 +137,27 @@ class ChargeBee_Model
 		}
 		return $this;
 	}
+	
+	public function _initDependantList($obj, $type, $subTypes = array())
+	{
+		if(!array_key_exists($type, $obj))
+		{
+	    	return $this;
+		}
+		if(!is_array($obj[$type])){
+			return $this;
+		}
+		$class=$this->__getDependant($type);
+		if(!is_null($class)){
+			$setVal = array();
+			foreach($obj[$type] as $dt)
+			{
+				array_push($setVal, new $class($dt, $subTypes));
+			}
+			$this->_data[ChargeBee_Util::toCamelCaseFromUnderscore($type)] = $setVal;
+		}
+		return $this;
+	}	
 			
 }
 

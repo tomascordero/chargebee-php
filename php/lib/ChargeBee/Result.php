@@ -60,13 +60,16 @@ class ChargeBee_Result
 
     function hostedPage() 
     {
-        return $this->_get('hosted_page', 'ChargeBee_HostedPage');
+        $hostedPage = $this->_get('hosted_page', 'ChargeBee_HostedPage');
+		return $hostedPage;
     }
 
-    function estimate() 
+    function estimate()
     {
 		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
 		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimates' => 'ChargeBee_InvoiceEstimate'));		
+		$estimate->_initDependantList($this->_response['estimate'], 'invoice_estimates', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));		
 		return $estimate;
     }
 	
