@@ -43,13 +43,13 @@ module ChargeBee
     end
 
     def estimate() 
-      # estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate});
-      # estimate.init_dependant(@response[:estimate], :invoice_estimate,
-      # {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
-      
-      estimate = get(:estimate, Estimate, {}, {:invoice_estimates => InvoiceEstimate});
-  		estimate.init_dependant_list(@response[:estimate], :invoice_estimates, 
+      estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate});
+      estimate.init_dependant(@response[:estimate], :invoice_estimate,
       {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
+      
+      #       estimate = get(:estimate, Estimate, {}, {:invoice_estimates => InvoiceEstimate});
+      # estimate.init_dependant_list(@response[:estimate], :invoice_estimates,
+      #       {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
   		return estimate;
     end
 

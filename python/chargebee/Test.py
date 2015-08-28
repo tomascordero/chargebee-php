@@ -12,7 +12,9 @@ from chargebee.result import Result
 
 def test(file):
     fileName = '../../files/'+file+'.json'
-    respJson = open(fileName).read()
+    f = open(fileName)
+    respJson = f.read()
+    f.close()
     resp_json = compat.json.loads(respJson)
     
     res = Result(resp_json)    
