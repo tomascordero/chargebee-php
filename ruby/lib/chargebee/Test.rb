@@ -5,9 +5,9 @@ def test(respJson)
   resp = JSON.parse(respJson)
   resp = ChargeBee::Util.symbolize_keys(resp)
   res =  ChargeBee::Result.new(resp)
-  #puts res.estimate.inspect
+  res.estimate
   #puts res.estimate.invoice_estimate.line_items[1].inspect
-  puts res.estimate.credit_note_estimates[0].line_items[1].inspect
+  # puts res.estimate.credit_note_estimates[0].line_items[1].inspect
 end
   
 sub =  '{
@@ -729,9 +729,9 @@ listDep =  '{"estimate": {
     "subscription_next_billing_at": 1438954338,
 	"object": "estimate",
 	"invoice_estimates": [{
-		"recurring": true,
-	    "collect_now": false,
-	    "sub_otal": 500,
+    "recurring": true,
+    "collect_now": false,
+	  "sub_otal": 500,
 		"total": 900,
 		"amount_due": 0,
 		"object": "invoice_estimate",
@@ -739,12 +739,12 @@ listDep =  '{"estimate": {
 			"date_from": 1438954338,
 			"date_to": 1441632738,
 			"unit_amount": 900,
-	        "quantity": 1,
+	    "quantity": 1,
 			"tax_amount": 0,
-	        "object": "line_item",
+	    "object": "line_item",
 			"discount_amount": 0,
 			"line_amount": 1900,
-	        "description": "Basic",
+	    "description": "Basic",
 			"entity_type": "plan"
 		}],
 		"discounts": [],
@@ -752,8 +752,8 @@ listDep =  '{"estimate": {
 	},
 	{
 		"recurring": true,
-	    "collect_now": false,
-	    "sub_otal": 500,
+	  "collect_now": false,
+	  "sub_otal": 500,
 		"total": 900,
 		"amount_due": 0,
 		"object": "invoice_estimate",
@@ -761,12 +761,12 @@ listDep =  '{"estimate": {
 			"date_from": 1438954338,
 			"date_to": 1441632738,
 			"unit_amount": 900,
-	        "quantity": 1,
+	    "quantity": 1,
 			"tax_amount": 0,
-	        "object": "line_item",
+	    "object": "line_item",
 			"discount_amount": 0,
 			"line_amount": 1900,
-	        "description": "Basic",
+	    "description": "Basic",
 			"entity_type": "plan"
 		}],
 		"discounts": [],
@@ -775,5 +775,5 @@ listDep =  '{"estimate": {
 }}';
 
 begin
-  test(est);
+  test(listDep);
 end

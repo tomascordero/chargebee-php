@@ -82,10 +82,7 @@ module ChargeBee
           case obj[type]
           when Array
             if(@dependant_types[type] != nil)
-              set_val = nil
-              obj[type].each do |dt|
-                set_val = dt.map { |item| @dependant_types[type].construct(item, sub_types)}
-              end
+              set_val = obj[type].map {|dt| @dependant_types[type].construct(dt, sub_types)}
               instance_variable_set("@#{type}", set_val)
             end
           end

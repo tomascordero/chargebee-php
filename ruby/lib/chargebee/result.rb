@@ -43,8 +43,12 @@ module ChargeBee
     end
 
     def estimate() 
-      estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate});
-  		estimate.init_dependant(@response[:estimate], :invoice_estimate, 
+      # estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate});
+      # estimate.init_dependant(@response[:estimate], :invoice_estimate,
+      # {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
+      
+      estimate = get(:estimate, Estimate, {}, {:invoice_estimates => InvoiceEstimate});
+  		estimate.init_dependant_list(@response[:estimate], :invoice_estimates, 
       {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
   		return estimate;
     end
@@ -103,32 +107,21 @@ module ChargeBee
     
     private
     def get_list(type, klass, sub_types = {}, dependant_types = {}, dependant_sub_types = {})
-      # if(@response[type] != nil)
-      #
-      # end
-          
-      return klass.construct(@response[type], sub_types, dependant_types)
-      
-      # if(!array_key_exists($type, $this->_response))
-      # {
-      #           return null;
-      # }
-      #           if(!array_key_exists($type, $this->_responseObj))
-      #           {
-      #   $setVal = array();
-      #   foreach($this->_response[$type] as $stV)
-      #   {
-      #     $obj = new $class($stV, $subTypes, $dependantTypes);
-      #     foreach($dependantSubTypes as $k => $v)
-      #     {
-      #       $obj->_initDependant($stV, $k, $v);
-      #     }
-      #     array_push($setVal, $obj);
-      #   }
-      #   $this->_responseObj[$type] = $setVal;
-      #           }
-      #           return $this->_responseObj[$type];
-      #
+      if(@response[type] == nil)
+        return nil
+      end
+      set_val = Array.new
+      @response[type].each do |obj|
+        case obj
+        when Hash
+          model = klass.construct(obj, sub_types, dependant_types)
+          dependant_sub_types.each do |k,v|
+        		model.init_dependant(obj, k, v);
+          end
+          set_val.push(model)
+        end
+      end
+      return instance_variable_set("@#{type}", set_val)
     end
 
   end
