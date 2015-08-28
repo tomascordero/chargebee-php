@@ -16,7 +16,7 @@ public class Invoice extends Resource<Invoice> {
         PAYMENT_DUE,
         NOT_PAID,
         VOIDED,
-        PENDING,
+        DRAFT,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -31,14 +31,8 @@ public class Invoice extends Resource<Invoice> {
     }
 
     public static class LineItem extends Resource<LineItem> {
-        public enum Type {
-             CHARGE,PRORATED_CHARGE,SETUP_CHARGE,
-            _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
-            java-client version incompatibility. We suggest you to upgrade to the latest version */ 
-        }
-
         public enum EntityType {
-             PLAN,ADDON,ADHOC,
+             PLAN_SETUP,PLAN,ADDON,ADHOC,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -63,24 +57,24 @@ public class Invoice extends Resource<Invoice> {
             return optInteger("quantity");
         }
 
-        public Integer tax() {
-            return optInteger("tax");
+        public Integer taxAmount() {
+            return optInteger("tax_amount");
         }
 
         public Double taxRate() {
             return optDouble("tax_rate");
         }
 
-        public Integer amount() {
-            return reqInteger("amount");
+        public Integer lineAmount() {
+            return reqInteger("line_amount");
+        }
+
+        public Integer discountAmount() {
+            return optInteger("discount_amount");
         }
 
         public String description() {
             return reqString("description");
-        }
-
-        public Type type() {
-            return reqEnum("type", Type.class);
         }
 
         public EntityType entityType() {
@@ -112,8 +106,8 @@ public class Invoice extends Resource<Invoice> {
             return optString("description");
         }
 
-        public Type type() {
-            return reqEnum("type", Type.class);
+        public EntityType entityType() {
+            return reqEnum("entity_type", EntityType.class);
         }
 
         public String entityId() {
@@ -150,6 +144,10 @@ public class Invoice extends Resource<Invoice> {
             return reqInteger("applied_amount");
         }
 
+        public Timestamp appliedAt() {
+            return reqTimestamp("applied_at");
+        }
+
         public Transaction.Type txnType() {
             return reqEnum("txn_type", Transaction.Type.class);
         }
@@ -164,6 +162,72 @@ public class Invoice extends Resource<Invoice> {
 
         public Integer txnAmount() {
             return optInteger("txn_amount");
+        }
+
+    }
+
+    public static class AppliedCredit extends Resource<AppliedCredit> {
+        public AppliedCredit(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String cnId() {
+            return reqString("cn_id");
+        }
+
+        public Integer appliedAmount() {
+            return reqInteger("applied_amount");
+        }
+
+        public Timestamp appliedAt() {
+            return reqTimestamp("applied_at");
+        }
+
+        public CreditNote.Type cnType() {
+            return reqEnum("cn_type", CreditNote.Type.class);
+        }
+
+        public CreditNote.ReasonCode cnReasonCode() {
+            return reqEnum("cn_reason_code", CreditNote.ReasonCode.class);
+        }
+
+        public Timestamp cnDate() {
+            return optTimestamp("cn_date");
+        }
+
+        public CreditNote.Status cnStatus() {
+            return reqEnum("cn_status", CreditNote.Status.class);
+        }
+
+    }
+
+    public static class CreatedCreditNote extends Resource<CreatedCreditNote> {
+        public CreatedCreditNote(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String cnId() {
+            return reqString("cn_id");
+        }
+
+        public CreditNote.Type cnType() {
+            return reqEnum("cn_type", CreditNote.Type.class);
+        }
+
+        public CreditNote.ReasonCode cnReasonCode() {
+            return reqEnum("cn_reason_code", CreditNote.ReasonCode.class);
+        }
+
+        public Timestamp cnDate() {
+            return optTimestamp("cn_date");
+        }
+
+        public Integer cnTotal() {
+            return optInteger("cn_total");
+        }
+
+        public CreditNote.Status cnStatus() {
+            return reqEnum("cn_status", CreditNote.Status.class);
         }
 
     }
@@ -390,32 +454,32 @@ public class Invoice extends Resource<Invoice> {
         return optString("vat_number");
     }
 
-    public Timestamp startDate() {
-        return reqTimestamp("start_date");
+    public Timestamp date() {
+        return optTimestamp("date");
     }
 
-    public Timestamp endDate() {
-        return optTimestamp("end_date");
-    }
-
-    public Integer amount() {
-        return optInteger("amount");
+    public Integer total() {
+        return optInteger("total");
     }
 
     public Integer amountDue() {
         return optInteger("amount_due");
     }
 
-    public Timestamp paidOn() {
-        return optTimestamp("paid_on");
+    public Integer createdCredits() {
+        return reqInteger("created_credits");
+    }
+
+    public Timestamp paidAt() {
+        return optTimestamp("paid_at");
     }
 
     public DunningStatus dunningStatus() {
         return optEnum("dunning_status", DunningStatus.class);
     }
 
-    public Timestamp nextRetry() {
-        return optTimestamp("next_retry");
+    public Timestamp nextRetryAt() {
+        return optTimestamp("next_retry_at");
     }
 
     public Integer subTotal() {
@@ -448,6 +512,14 @@ public class Invoice extends Resource<Invoice> {
 
     public List<Invoice.LinkedTransaction> linkedTransactions() {
         return optList("linked_transactions", Invoice.LinkedTransaction.class);
+    }
+
+    public List<Invoice.AppliedCredit> appliedCredits() {
+        return optList("applied_credits", Invoice.AppliedCredit.class);
+    }
+
+    public List<Invoice.CreatedCreditNote> createdCreditNotes() {
+        return optList("created_credit_notes", Invoice.CreatedCreditNote.class);
     }
 
     public List<Invoice.LinkedOrder> linkedOrders() {
@@ -489,6 +561,11 @@ public class Invoice extends Resource<Invoice> {
         return new Request(Method.POST, uri);
     }
 
+    public static ImportInvoiceRequest importInvoice() throws IOException {
+        String uri = uri("invoices", "import_invoice");
+        return new ImportInvoiceRequest(Method.POST, uri);
+    }
+
     public static InvoiceListRequest list() throws IOException {
         String uri = uri("invoices");
         return new InvoiceListRequest(uri);
@@ -524,14 +601,19 @@ public class Invoice extends Resource<Invoice> {
         return new AddAddonChargeRequest(Method.POST, uri);
     }
 
-    public static Request collect(String id) throws IOException {
-        String uri = uri("invoices", nullCheck(id), "collect");
+    public static Request close(String id) throws IOException {
+        String uri = uri("invoices", nullCheck(id), "close");
         return new Request(Method.POST, uri);
     }
 
     public static Request collectPayment(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "collect_payment");
         return new Request(Method.POST, uri);
+    }
+
+    public static RecordPaymentRequest recordPayment(String id) throws IOException {
+        String uri = uri("invoices", nullCheck(id), "record_payment");
+        return new RecordPaymentRequest(Method.POST, uri);
     }
 
     public static RefundRequest refund(String id) throws IOException {
@@ -769,6 +851,223 @@ public class Invoice extends Resource<Invoice> {
         }
     }
 
+    public static class ImportInvoiceRequest extends Request<ImportInvoiceRequest> {
+
+        private ImportInvoiceRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public ImportInvoiceRequest id(String id) {
+            params.add("id", id);
+            return this;
+        }
+
+
+        public ImportInvoiceRequest customerId(String customerId) {
+            params.add("customer_id", customerId);
+            return this;
+        }
+
+
+        public ImportInvoiceRequest poNumber(String poNumber) {
+            params.addOpt("po_number", poNumber);
+            return this;
+        }
+
+
+        public ImportInvoiceRequest date(Timestamp date) {
+            params.add("date", date);
+            return this;
+        }
+
+
+        public ImportInvoiceRequest status(Status status) {
+            params.addOpt("status", status);
+            return this;
+        }
+
+
+        public ImportInvoiceRequest billingAddressFirstName(String billingAddressFirstName) {
+            params.addOpt("billing_address[first_name]", billingAddressFirstName);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressLastName(String billingAddressLastName) {
+            params.addOpt("billing_address[last_name]", billingAddressLastName);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressEmail(String billingAddressEmail) {
+            params.addOpt("billing_address[email]", billingAddressEmail);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressCompany(String billingAddressCompany) {
+            params.addOpt("billing_address[company]", billingAddressCompany);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressPhone(String billingAddressPhone) {
+            params.addOpt("billing_address[phone]", billingAddressPhone);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressLine1(String billingAddressLine1) {
+            params.addOpt("billing_address[line1]", billingAddressLine1);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressLine2(String billingAddressLine2) {
+            params.addOpt("billing_address[line2]", billingAddressLine2);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressLine3(String billingAddressLine3) {
+            params.addOpt("billing_address[line3]", billingAddressLine3);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressCity(String billingAddressCity) {
+            params.addOpt("billing_address[city]", billingAddressCity);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressStateCode(String billingAddressStateCode) {
+            params.addOpt("billing_address[state_code]", billingAddressStateCode);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressState(String billingAddressState) {
+            params.addOpt("billing_address[state]", billingAddressState);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressZip(String billingAddressZip) {
+            params.addOpt("billing_address[zip]", billingAddressZip);
+            return this;
+        }
+
+        public ImportInvoiceRequest billingAddressCountry(String billingAddressCountry) {
+            params.addOpt("billing_address[country]", billingAddressCountry);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressFirstName(String shippingAddressFirstName) {
+            params.addOpt("shipping_address[first_name]", shippingAddressFirstName);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressLastName(String shippingAddressLastName) {
+            params.addOpt("shipping_address[last_name]", shippingAddressLastName);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressEmail(String shippingAddressEmail) {
+            params.addOpt("shipping_address[email]", shippingAddressEmail);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressCompany(String shippingAddressCompany) {
+            params.addOpt("shipping_address[company]", shippingAddressCompany);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressPhone(String shippingAddressPhone) {
+            params.addOpt("shipping_address[phone]", shippingAddressPhone);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressLine1(String shippingAddressLine1) {
+            params.addOpt("shipping_address[line1]", shippingAddressLine1);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressLine2(String shippingAddressLine2) {
+            params.addOpt("shipping_address[line2]", shippingAddressLine2);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressLine3(String shippingAddressLine3) {
+            params.addOpt("shipping_address[line3]", shippingAddressLine3);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressCity(String shippingAddressCity) {
+            params.addOpt("shipping_address[city]", shippingAddressCity);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressStateCode(String shippingAddressStateCode) {
+            params.addOpt("shipping_address[state_code]", shippingAddressStateCode);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressState(String shippingAddressState) {
+            params.addOpt("shipping_address[state]", shippingAddressState);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressZip(String shippingAddressZip) {
+            params.addOpt("shipping_address[zip]", shippingAddressZip);
+            return this;
+        }
+
+        public ImportInvoiceRequest shippingAddressCountry(String shippingAddressCountry) {
+            params.addOpt("shipping_address[country]", shippingAddressCountry);
+            return this;
+        }
+
+        public ImportInvoiceRequest lineItemUnitAmount(int index, Integer lineItemUnitAmount) {
+            params.add("line_items[unit_amount][" + index + "]", lineItemUnitAmount);
+            return this;
+        }
+
+        public ImportInvoiceRequest lineItemQuantity(int index, Integer lineItemQuantity) {
+            params.addOpt("line_items[quantity][" + index + "]", lineItemQuantity);
+            return this;
+        }
+
+        public ImportInvoiceRequest lineItemDateFrom(int index, Timestamp lineItemDateFrom) {
+            params.add("line_items[date_from][" + index + "]", lineItemDateFrom);
+            return this;
+        }
+
+        public ImportInvoiceRequest lineItemDateTo(int index, Timestamp lineItemDateTo) {
+            params.add("line_items[date_to][" + index + "]", lineItemDateTo);
+            return this;
+        }
+
+        public ImportInvoiceRequest lineItemDescription(int index, String lineItemDescription) {
+            params.add("line_items[description][" + index + "]", lineItemDescription);
+            return this;
+        }
+
+        public ImportInvoiceRequest transactionAmount(int index, Integer transactionAmount) {
+            params.addOpt("transactions[amount][" + index + "]", transactionAmount);
+            return this;
+        }
+
+        public ImportInvoiceRequest transactionPaymentMethod(int index, PaymentMethod transactionPaymentMethod) {
+            params.addOpt("transactions[payment_method][" + index + "]", transactionPaymentMethod);
+            return this;
+        }
+
+        public ImportInvoiceRequest transactionDate(int index, Timestamp transactionDate) {
+            params.addOpt("transactions[date][" + index + "]", transactionDate);
+            return this;
+        }
+
+        public ImportInvoiceRequest transactionReferenceNumber(int index, String transactionReferenceNumber) {
+            params.addOpt("transactions[reference_number][" + index + "]", transactionReferenceNumber);
+            return this;
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
     public static class InvoiceListRequest extends ListRequest<InvoiceListRequest> {
 
         private InvoiceListRequest(String uri) {
@@ -847,6 +1146,44 @@ public class Invoice extends Resource<Invoice> {
         }
     }
 
+    public static class RecordPaymentRequest extends Request<RecordPaymentRequest> {
+
+        private RecordPaymentRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public RecordPaymentRequest comment(String comment) {
+            params.addOpt("comment", comment);
+            return this;
+        }
+
+
+        public RecordPaymentRequest transactionAmount(Integer transactionAmount) {
+            params.addOpt("transaction[amount]", transactionAmount);
+            return this;
+        }
+
+        public RecordPaymentRequest transactionPaymentMethod(PaymentMethod transactionPaymentMethod) {
+            params.add("transaction[payment_method]", transactionPaymentMethod);
+            return this;
+        }
+
+        public RecordPaymentRequest transactionReferenceNumber(String transactionReferenceNumber) {
+            params.addOpt("transaction[reference_number]", transactionReferenceNumber);
+            return this;
+        }
+
+        public RecordPaymentRequest transactionDate(Timestamp transactionDate) {
+            params.addOpt("transaction[date]", transactionDate);
+            return this;
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
     public static class RefundRequest extends Request<RefundRequest> {
 
         private RefundRequest(Method httpMeth, String uri) {
@@ -859,11 +1196,16 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public RefundRequest memo(String memo) {
-            params.addOpt("memo", memo);
+        public RefundRequest comment(String comment) {
+            params.addOpt("comment", comment);
             return this;
         }
 
+
+        public RefundRequest creditNoteReasonCode(ReasonCode creditNoteReasonCode) {
+            params.addOpt("credit_note[reason_code]", creditNoteReasonCode);
+            return this;
+        }
 
         @Override
         public Params params() {
@@ -877,8 +1219,8 @@ public class Invoice extends Resource<Invoice> {
             super(httpMeth, uri);
         }
     
-        public RecordRefundRequest memo(String memo) {
-            params.add("memo", memo);
+        public RecordRefundRequest comment(String comment) {
+            params.add("comment", comment);
             return this;
         }
 
@@ -900,6 +1242,11 @@ public class Invoice extends Resource<Invoice> {
 
         public RecordRefundRequest transactionDate(Timestamp transactionDate) {
             params.add("transaction[date]", transactionDate);
+            return this;
+        }
+
+        public RecordRefundRequest creditNoteReasonCode(ReasonCode creditNoteReasonCode) {
+            params.addOpt("credit_note[reason_code]", creditNoteReasonCode);
             return this;
         }
 
