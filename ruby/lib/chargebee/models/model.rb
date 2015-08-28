@@ -3,9 +3,10 @@ require 'uri'
 module ChargeBee
   class Model
     
-    def initialize(values, sub_types={})
+    def initialize(values, sub_types={}, dependant_types={})
       @values = values
       @sub_types = sub_types
+      @dependant_types = dependant_types
     end
     
     def to_s(*args) 
@@ -21,6 +22,8 @@ module ChargeBee
         values.each do |k, v|
           set_val = nil
           case v
+          when Hash && (@dependant_types[k] != nil)
+            next
           when Hash
             set_val = (@sub_types[k] != nil) ? @sub_types[k].construct(v) : v
           when Array
@@ -51,11 +54,42 @@ module ChargeBee
       "/#{paths.map{|path| "#{URI.encode(path)}"}.join('/')}"
     end
     
-    def self.construct(values, sub_types = {})
+    def self.construct(values, sub_types = {}, dependant_types = {})
       if(values != nil)
-        obj = self.new(values, sub_types)
+        obj = self.new(values, sub_types, dependant_types)
         obj.load(values)
         obj
+      end
+    end
+    
+    def init_dependant(obj, type, sub_types = {})
+      instance_eval do
+        if(obj[type] != nil)
+          case obj
+          when Hash
+            if(@dependant_types[type] != nil)
+              dependant_obj = @dependant_types[type].construct(obj[type], sub_types)
+              instance_variable_set("@#{type}", dependant_obj)
+            end
+          end
+        end
+      end
+    end
+    
+    def init_dependant_list(obj, type, sub_types = {})
+      instance_eval do
+        if(obj[type] != nil)
+          case obj[type]
+          when Array
+            if(@dependant_types[type] != nil)
+              set_val = nil
+              obj[type].each do |dt|
+                set_val = dt.map { |item| @dependant_types[type].construct(item, sub_types)}
+              end
+              instance_variable_set("@#{type}", set_val)
+            end
+          end
+        end
       end
     end
     
