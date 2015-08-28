@@ -2,11 +2,11 @@ module ChargeBee
   class Invoice < Model
 
     class LineItem < Model
-      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :tax, :tax_rate, :amount, :description, :type, :entity_type, :entity_id
+      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :tax_amount, :tax_rate, :line_amount, :discount_amount, :description, :entity_type, :entity_id
     end
 
     class Discount < Model
-      attr_accessor :amount, :description, :type, :entity_id
+      attr_accessor :amount, :description, :entity_type, :entity_id
     end
 
     class Tax < Model
@@ -14,7 +14,15 @@ module ChargeBee
     end
 
     class LinkedTransaction < Model
-      attr_accessor :txn_id, :applied_amount, :txn_type, :txn_status, :txn_date, :txn_amount
+      attr_accessor :txn_id, :applied_amount, :applied_at, :txn_type, :txn_status, :txn_date, :txn_amount
+    end
+
+    class AppliedCredit < Model
+      attr_accessor :cn_id, :applied_amount, :applied_at, :cn_type, :cn_reason_code, :cn_date, :cn_status
+    end
+
+    class CreatedCreditNote < Model
+      attr_accessor :cn_id, :cn_type, :cn_reason_code, :cn_date, :cn_total, :cn_status
     end
 
     class LinkedOrder < Model
@@ -34,9 +42,9 @@ module ChargeBee
     end
 
   attr_accessor :id, :po_number, :customer_id, :subscription_id, :recurring, :status, :vat_number,
-  :start_date, :end_date, :amount, :amount_due, :paid_on, :dunning_status, :next_retry, :sub_total,
+  :date, :total, :amount_due, :created_credits, :paid_at, :dunning_status, :next_retry_at, :sub_total,
   :tax, :first_invoice, :currency_code, :line_items, :discounts, :taxes, :linked_transactions,
-  :linked_orders, :notes, :shipping_address, :billing_address
+  :applied_credits, :created_credit_notes, :linked_orders, :notes, :shipping_address, :billing_address
 
   # OPERATIONS
   #-----------
@@ -55,6 +63,10 @@ module ChargeBee
 
   def self.stop_dunning(id, env=nil, headers={})
     Request.send('post', uri_path("invoices",id.to_s,"stop_dunning"), {}, env, headers)
+  end
+
+  def self.import_invoice(params, env=nil, headers={})
+    Request.send('post', uri_path("invoices","import_invoice"), params, env, headers)
   end
 
   def self.list(params={}, env=nil, headers={})
@@ -85,12 +97,16 @@ module ChargeBee
     Request.send('post', uri_path("invoices",id.to_s,"add_addon_charge"), params, env, headers)
   end
 
-  def self.collect(id, env=nil, headers={})
-    Request.send('post', uri_path("invoices",id.to_s,"collect"), {}, env, headers)
+  def self.close(id, env=nil, headers={})
+    Request.send('post', uri_path("invoices",id.to_s,"close"), {}, env, headers)
   end
 
   def self.collect_payment(id, env=nil, headers={})
     Request.send('post', uri_path("invoices",id.to_s,"collect_payment"), {}, env, headers)
+  end
+
+  def self.record_payment(id, params, env=nil, headers={})
+    Request.send('post', uri_path("invoices",id.to_s,"record_payment"), params, env, headers)
   end
 
   def self.refund(id, params={}, env=nil, headers={})

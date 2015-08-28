@@ -2,12 +2,16 @@ module ChargeBee
   class Transaction < Model
 
     class LinkedInvoice < Model
-      attr_accessor :invoice_id, :applied_amount, :invoice_date, :invoice_amount
+      attr_accessor :invoice_id, :applied_amount, :applied_at, :invoice_date, :invoice_total, :invoice_status
+    end
+
+    class LinkedCreditNote < Model
+      attr_accessor :cn_id, :applied_amount, :applied_at, :cn_type, :cn_reason_code, :cn_date, :cn_total, :cn_status
     end
 
   attr_accessor :id, :customer_id, :subscription_id, :payment_method, :reference_number, :gateway,
-  :description, :type, :date, :amount, :id_at_gateway, :status, :error_code, :error_text, :voided_at,
-  :void_description, :masked_card_number, :refunded_txn_id, :linked_invoices, :currency_code
+  :type, :date, :amount, :id_at_gateway, :status, :error_code, :error_text, :voided_at, :payment_method_string,
+  :reference_txn_id, :linked_invoices, :linked_credit_notes, :currency_code
 
   # OPERATIONS
   #-----------
@@ -30,10 +34,6 @@ module ChargeBee
 
   def self.retrieve(id, env=nil, headers={})
     Request.send('get', uri_path("transactions",id.to_s), {}, env, headers)
-  end
-
-  def self.record_payment(id, params, env=nil, headers={})
-    Request.send('post', uri_path("invoices",id.to_s,"record_payment"), params, env, headers)
   end
 
   end # ~Transaction
