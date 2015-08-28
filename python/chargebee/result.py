@@ -42,8 +42,19 @@ class Result(object):
 
     @property
     def estimate(self):
-        return self._get('estimate', Estimate,
-        {'line_items' : Estimate.LineItem, 'discounts' : Estimate.Discount, 'taxes' : Estimate.Tax});
+        # estimate = self._get('estimate', Estimate, {}, {'invoice_estimate' : InvoiceEstimate});
+        # estimate.init_dependant(self._response['estimate'], 'invoice_estimate',
+        # {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax});
+        
+        estimate = self._get('estimate', Estimate, {}, {'invoice_estimates' : InvoiceEstimate});
+        estimate.init_dependant_list(self._response['estimate'], 'invoice_estimates',
+        {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax});
+        return estimate;
+
+    @property
+    def estimates(self):
+        return self._get_list('estimates', Estimate, {}, {'invoice_estimate' : InvoiceEstimate}, {'invoice_estimate' :
+        {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax}});
 
     @property
     def plan(self):
@@ -83,15 +94,30 @@ class Result(object):
         {'linked_customers' : PortalSession.LinkedCustomer});
 
 
-    def _get(self, type, cls, sub_types=None):
+    def _get(self, type, cls, sub_types=None, dependant_types=None):
         if not type in self._response:
             return None
 
         if not type in self._response_obj:
-            self._response_obj[type] = cls.construct(self._response[type], sub_types)
+            self._response_obj[type] = cls.construct(self._response[type], sub_types, dependant_types)
 
         return self._response_obj[type]
 
+    def _get_list(self, type, cls, sub_types={}, dependant_types={}, dependant_sub_types={}):
+        if not type in self._response:
+            return None
+        
+        set_val = []
+        for obj in self._response[type]:
+            if isinstance(obj, dict):
+                model = cls.construct(obj, sub_types, dependant_types)
+                for k in dependant_sub_types:
+                    model.init_dependant(obj, k, dependant_sub_types[k])
+                    set_val.append(model)
+
+        self._response_obj[type] = set_val
+        return self._response_obj[type]
+    
     def __str__(self):
         return json.dumps(self._response, indent=4)
 
