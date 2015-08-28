@@ -47,6 +47,11 @@ class ChargeBee_Result
         array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'));
     }
 
+    function creditNotes() 
+    {
+		return $this->_getList('credit_notes', 'ChargeBee_CreditNote', array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'));
+    }
+
     function order() 
     {
         return $this->_get('order', 'ChargeBee_Order');
@@ -64,21 +69,29 @@ class ChargeBee_Result
 		return $hostedPage;
     }
 
-    function estimate()
-    {
-		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
-		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
-		
+		//     function estimate()
+		//     {
+		// $estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'));
+		// $estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		//
 		// $estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimates' => 'ChargeBee_InvoiceEstimate'));
 		// $estimate->_initDependantList($this->_response['estimate'], 'invoice_estimates', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount','taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		// return $estimate;
+		//     }
+	
+    function estimate()
+    {
+		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate', 'invoice_credit_note_estimates' => 'ChargeBee_CreditNoteEstimate'));
+		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+		$estimate->_initDependantList($this->_response['estimate'], 'invoice_credit_note_estimates', array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'));
 		return $estimate;
     }
 	
-    function estimates() 
-    {
-		return $this->_getList('estimates', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'),
-		array('invoice_estimate'=>array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax')));
-    }
+		//     function estimates()
+		//     {
+		// return $this->_getList('estimates', 'ChargeBee_Estimate', array(), array('invoice_estimate' => 'ChargeBee_InvoiceEstimate'),
+		// array('invoice_estimate'=>array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax')));
+		//     }
 
     function plan() 
     {

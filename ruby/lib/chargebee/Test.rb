@@ -16,5 +16,5 @@ end
   
 
 begin
-  test('est');
+  test('test');
 end
