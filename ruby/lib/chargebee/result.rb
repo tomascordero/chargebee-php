@@ -79,7 +79,8 @@ module ChargeBee
     end
 
     def event() 
-        get(:event, Event);
+        get(:event, Event, 
+        {:webhooks => Event::Webhook});
     end
 
     def comment() 

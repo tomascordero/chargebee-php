@@ -120,7 +120,8 @@ class ChargeBee_Result
 
     function event() 
     {
-        return $this->_get('event', 'ChargeBee_Event');
+        return $this->_get('event', 'ChargeBee_Event', 
+        array('webhooks' => 'ChargeBee_EventWebhook'));
     }
 
     function comment() 
