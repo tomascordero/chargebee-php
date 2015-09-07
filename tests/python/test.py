@@ -8,7 +8,7 @@ Environment.protocol = "http"
 chargebee.ChargeBee.verify_ca_certs=False
 
 ##Copy code from api docs
-chargebee.configure("test___dev__8j3eqJEsmd18nN5WjzboqcBc4WjkL7kM","mannar-test")
+chargebee.configure("test___dev__2BgdqjK9jMcXc9pzFlunAhcd9vcd2irK5W","mannar-test")
 
 
 def customer_retrieve():
@@ -101,7 +101,36 @@ def amazon_txn():
  print result.transaction
  print result.transaction.payment_method 
 
-collect_invoice()
+
+def retrieve_events():
+ result = chargebee.Event.retrieve("ev___dev__KyVqiWPMvuj0qC")
+ event = result.event
+ print event
+ if event.webhooks is not None:
+    for w in event.webhooks:
+        print w.webhook_status
+        print w.id
+ print event.user
+
+def list_events():
+ result = chargebee.Event.list()
+ for entry in result:
+    event = entry.event
+    print event
+    print event.id
+    print event.webhook_status
+    print event.webhook_failure_reason
+    print event.user
+    print type(event.webhooks) is dict
+    if event.webhooks is not None:
+       for w in event.webhooks:
+          print w.webhook_status 
+          print w.id
+    print "==========="
+
+list_events()
+#retrieve_events()
+#collect_invoice()
 #create_customer()
 #create_subscription()
 #update_subscription()

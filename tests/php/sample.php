@@ -19,7 +19,7 @@ ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("mannar-test", "test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7");
+ChargeBee_Environment::configure("mannar-test", "test___dev__q47E9iZRiK9JkhlaM0BYw5pJcu0CduAh3");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -167,9 +167,8 @@ function reactivateSubscription()
 
 function retrieveEvent()
 {
-	$result = ChargeBee_Event::retrieve('ev_2tTR52ZSO78CaU196d');
-	printEvent($result);
-	printSubscription($result);
+	$result = ChargeBee_Event::retrieve('ev___dev__3Nl8S8RPNZqpjQ9');
+	print_r($result->event());
 }
 
 function allEvents()
@@ -230,7 +229,7 @@ function printEvent($result)
         return;
 	// print_r($event);
 	echo "event attributes are \n";
-	echo $event->id()."\n";
+	echo $event->id."\n";
 	echo $event->occurredAt."\n";
 	echo $event->webhookStatus."\n";
 	echo $event->eventType."\n";
