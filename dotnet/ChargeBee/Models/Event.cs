@@ -131,6 +131,7 @@ namespace ChargeBee.Models
         }
         #endregion
 
+        [Obsolete]
         public enum WebhookStatusEnum
         {
 
