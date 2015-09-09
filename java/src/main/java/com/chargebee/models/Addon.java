@@ -42,6 +42,13 @@ public class Addon extends Resource<Addon> {
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
+    public enum Taxable {
+        YES,
+        NO,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
     //Constructors
     //============
 
@@ -102,6 +109,10 @@ public class Addon extends Resource<Addon> {
 
     public Timestamp archivedAt() {
         return optTimestamp("archived_at");
+    }
+
+    public Taxable taxable() {
+        return optEnum("taxable", Taxable.class);
     }
 
     public String invoiceNotes() {
@@ -206,6 +217,12 @@ public class Addon extends Resource<Addon> {
         }
 
 
+        public CreateRequest taxable(Taxable taxable) {
+            params.addOpt("taxable", taxable);
+            return this;
+        }
+
+
         public CreateRequest invoiceNotes(String invoiceNotes) {
             params.addOpt("invoice_notes", invoiceNotes);
             return this;
@@ -280,6 +297,12 @@ public class Addon extends Resource<Addon> {
 
         public UpdateRequest unit(String unit) {
             params.addOpt("unit", unit);
+            return this;
+        }
+
+
+        public UpdateRequest taxable(Taxable taxable) {
+            params.addOpt("taxable", taxable);
             return this;
         }
 

@@ -44,6 +44,10 @@ public class Estimate extends Resource<Estimate> {
             return optInteger("quantity");
         }
 
+        public Boolean isTaxed() {
+            return reqBoolean("is_taxed");
+        }
+
         public Integer tax() {
             return optInteger("tax");
         }
