@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__NgweVXGDQfsY10iCdmcuXkjwgK16QpUja", "mannar-test")
+chargebee.configure("test___dev__mTWOH7D5UtjrQqJgoqo6osBuABwjYG7k", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -161,9 +161,11 @@ def create_addon():
 		        "period_unit":"not_applicable",
                 "type":"quantity",
 		        "unit":"Agent",
-                "price":4000
+                "price":4000,
+                "taxable": "yes"
             })
     print(result.addon)
+    return result.addon.id
 
 def refundInvoice():
     result = chargebee.Invoice.refund("DemoInv_105",{
@@ -271,6 +273,7 @@ def create_subscription():
    result = chargebee.Subscription.create(params)
    print(result.subscription)
    print(result.customer.first_name)
+   return result.subscription.id
     
 def test_addons():
    result = chargebee.Addon.create({
@@ -365,14 +368,59 @@ def list_inv_orders():
     list_result = chargebee.Order.orders_for_invoice("__demo_inv__8", {"limit" : 5})
     for entry in list_result:
         print entry.order
-        
+
+def retrieve_addon():
+    result = chargebee.Addon.retrieve(create_addon());
+    print result.addon
+
+def create_customer():
+    result = chargebee.Customer.create({
+        "first_name" : "John", 
+        "last_name" : "Doe", 
+        "email" : "john@test.com", 
+        "billing_address" : {
+            "first_name" : "John", 
+            "last_name" : "Doe", 
+            "line1" : "PO Box 9999", 
+            "city" : "Walnut", 
+            "state" : "California", 
+            "zip" : "91789", 
+            "country" : "US",
+            "taxability" : "taxable"
+            },
+        "auto_collection" : "off"
+        })
+    print result.customer
+    return result.customer.id
+
+def retrieve_customer():
+    result = chargebee.Customer.retrieve(create_customer())
+    print result.customer
+
+def create_invoice():
+    result = chargebee.Invoice.charge({ "customer_id" : create_customer(),
+                                        "amount" : 1000,
+                                        "description" : "test charge" });
+    print(result.invoice)
+    return result.invoice.id
+
+def renewal_estimate():
+    result = chargebee.Estimate.renewal_estimate(create_subscription())
+    for i in result.estimate.line_items:
+        print i
+
+def retrieve_invoice():
+    result= chargebee.Invoice.retrieve(create_invoice())
+    for i in result.invoice.line_items:
+        print i
+
 
 """
 Comment out the methods you don't want to run.
 """
 
 # create_invoice_for_addon()
-#create_invoice_for_charge()
+# create_invoice_for_charge()
 #list_txn_for_customer()
 #retrieve_subscription()
 #retrieve_custom_field()
@@ -425,3 +473,8 @@ Comment out the methods you don't want to run.
 #     "addons":["one","two"]
 #     });
 # create_sub_for_cust("cust_handle")
+# create_addon()
+# retrieve_addon()
+# retrieve_customer()
+renewal_estimate()
+# retrieve_invoice()
