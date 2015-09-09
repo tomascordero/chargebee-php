@@ -21,8 +21,8 @@ namespace ChargeBee.Models.Enums
         [Description("subscription_started")]
          SubscriptionStarted,
 
-        [Description("subscription_trial_ending")]
-         SubscriptionTrialEnding,
+        [Description("subscription_trial_end_reminder")]
+         SubscriptionTrialEndReminder,
 
         [Description("subscription_activated")]
          SubscriptionActivated,
@@ -33,8 +33,8 @@ namespace ChargeBee.Models.Enums
         [Description("subscription_cancellation_scheduled")]
          SubscriptionCancellationScheduled,
 
-        [Description("subscription_cancelling")]
-         SubscriptionCancelling,
+        [Description("subscription_cancellation_reminder")]
+         SubscriptionCancellationReminder,
 
         [Description("subscription_cancelled")]
          SubscriptionCancelled,
@@ -51,9 +51,6 @@ namespace ChargeBee.Models.Enums
         [Description("subscription_shipping_address_updated")]
          SubscriptionShippingAddressUpdated,
 
-        [Description("invoice_receipt")]
-         InvoiceReceipt,
-
         [Description("invoice_created")]
          InvoiceCreated,
 
@@ -63,10 +60,8 @@ namespace ChargeBee.Models.Enums
         [Description("invoice_deleted")]
          InvoiceDeleted,
 
-
         [Description("subscription_renewal_reminder")]
          SubscriptionRenewalReminder,
-
 
         [Description("payment_succeeded")]
          PaymentSucceeded,
@@ -83,8 +78,8 @@ namespace ChargeBee.Models.Enums
         [Description("card_updated")]
          CardUpdated,
 
-        [Description("card_expiring")]
-         CardExpiring,
+        [Description("card_expiry_reminder")]
+         CardExpiryReminder,
 
         [Description("card_expired")]
          CardExpired,

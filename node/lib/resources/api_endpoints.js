@@ -266,10 +266,10 @@ var _endpoints = {
       true
     ],
     [
-      "collect",
+      "close",
       "POST",
       "/invoices",
-      "/collect",
+      "/close",
       true
     ],
     [
@@ -277,6 +277,13 @@ var _endpoints = {
       "POST",
       "/invoices",
       "/collect_payment",
+      true
+    ],
+    [
+      "record_payment",
+      "POST",
+      "/invoices",
+      "/record_payment",
       true
     ],
     [
@@ -305,6 +312,29 @@ var _endpoints = {
       "POST",
       "/invoices",
       "/delete",
+      true
+    ]
+  ],
+  "credit_note": [
+    [
+      "retrieve",
+      "GET",
+      "/credit_notes",
+      null,
+      true
+    ],
+    [
+      "list",
+      "GET",
+      "/credit_notes",
+      null,
+      false
+    ],
+    [
+      "credit_notes_for_customer",
+      "GET",
+      "/customers",
+      "/credit_notes",
       true
     ]
   ],
@@ -379,13 +409,6 @@ var _endpoints = {
       "GET",
       "/transactions",
       null,
-      true
-    ],
-    [
-      "record_payment",
-      "POST",
-      "/invoices",
-      "/record_payment",
       true
     ]
   ],

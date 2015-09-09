@@ -142,6 +142,10 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
         return optInteger("total");
     }
 
+    public Integer creditsApplied() {
+        return optInteger("credits_applied");
+    }
+
     public Integer amountDue() {
         return optInteger("amount_due");
     }

@@ -65,10 +65,6 @@ module ChargeBee
     Request.send('post', uri_path("invoices",id.to_s,"stop_dunning"), {}, env, headers)
   end
 
-  def self.import_invoice(params, env=nil, headers={})
-    Request.send('post', uri_path("invoices","import_invoice"), params, env, headers)
-  end
-
   def self.list(params={}, env=nil, headers={})
     Request.send('get', uri_path("invoices"), params, env, headers)
   end

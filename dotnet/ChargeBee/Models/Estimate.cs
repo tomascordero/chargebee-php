@@ -40,10 +40,6 @@ namespace ChargeBee.Models
         {
             get { return (DateTime)GetDateTime("created_at", true); }
         }
-        public bool Recurring 
-        {
-            get { return GetValue<bool>("recurring", true); }
-        }
         public string SubscriptionId 
         {
             get { return GetValue<string>("subscription_id", false); }
@@ -52,33 +48,17 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<SubscriptionStatusEnum>("subscription_status", false); }
         }
-        public DateTime? TermEndsAt 
+        public DateTime? SubscriptionNextBillingAt 
         {
-            get { return GetDateTime("term_ends_at", false); }
+            get { return GetDateTime("subscription_next_billing_at", false); }
         }
-        public bool CollectNow 
+        public EstimateInvoiceEstimate InvoiceEstimate 
         {
-            get { return GetValue<bool>("collect_now", true); }
+            get { return GetSubResource<EstimateInvoiceEstimate>("invoice_estimate"); }
         }
-        public int Amount 
+        public List<EstimateCreditNoteEstimate> CreditNoteEstimates 
         {
-            get { return GetValue<int>("amount", true); }
-        }
-        public int SubTotal 
-        {
-            get { return GetValue<int>("sub_total", true); }
-        }
-        public List<EstimateLineItem> LineItems 
-        {
-            get { return GetResourceList<EstimateLineItem>("line_items"); }
-        }
-        public List<EstimateDiscount> Discounts 
-        {
-            get { return GetResourceList<EstimateDiscount>("discounts"); }
-        }
-        public List<EstimateTax> Taxes 
-        {
-            get { return GetResourceList<EstimateTax>("taxes"); }
+            get { return GetResourceList<EstimateCreditNoteEstimate>("credit_note_estimates"); }
         }
         
         #endregion
@@ -247,119 +227,6 @@ namespace ChargeBee.Models
 
 
         #region Subclasses
-        public class EstimateLineItem : Resource
-        {
-            public enum TypeEnum
-            {
-                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("charge")]
-                Charge,
-                [Description("prorated_charge")]
-                ProratedCharge,
-                [Description("setup_charge")]
-                SetupCharge,
-            }
-            public enum EntityTypeEnum
-            {
-                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("plan")]
-                Plan,
-                [Description("addon")]
-                Addon,
-                [Description("adhoc")]
-                Adhoc,
-            }
-
-            public DateTime DateFrom() {
-                return (DateTime)GetDateTime("date_from", true);
-            }
-
-            public DateTime DateTo() {
-                return (DateTime)GetDateTime("date_to", true);
-            }
-
-            public int UnitAmount() {
-                return GetValue<int>("unit_amount", true);
-            }
-
-            public int? Quantity() {
-                return GetValue<int?>("quantity", false);
-            }
-
-            public int? Tax() {
-                return GetValue<int?>("tax", false);
-            }
-
-            public double? TaxRate() {
-                return GetValue<double?>("tax_rate", false);
-            }
-
-            public int Amount() {
-                return GetValue<int>("amount", true);
-            }
-
-            public string Description() {
-                return GetValue<string>("description", true);
-            }
-
-            public TypeEnum LineItemType() {
-                return GetEnum<TypeEnum>("type", true);
-            }
-
-            public EntityTypeEnum EntityType() {
-                return GetEnum<EntityTypeEnum>("entity_type", true);
-            }
-
-            public string EntityId() {
-                return GetValue<string>("entity_id", false);
-            }
-
-        }
-        public class EstimateDiscount : Resource
-        {
-            public enum TypeEnum
-            {
-                UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("coupon")]
-                Coupon,
-                [Description("credit_adjustment")]
-                CreditAdjustment,
-                [Description("account_credits")]
-                AccountCredits,
-            }
-
-            public int Amount() {
-                return GetValue<int>("amount", true);
-            }
-
-            public string Description() {
-                return GetValue<string>("description", false);
-            }
-
-            public TypeEnum DiscountType() {
-                return GetEnum<TypeEnum>("type", true);
-            }
-
-            public string EntityId() {
-                return GetValue<string>("entity_id", false);
-            }
-
-        }
-        public class EstimateTax : Resource
-        {
-
-            public int Amount() {
-                return GetValue<int>("amount", true);
-            }
-
-            public string Description() {
-                return GetValue<string>("description", false);
-            }
-
-        }
 
         #endregion
     }

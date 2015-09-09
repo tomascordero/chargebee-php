@@ -43,11 +43,6 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("transactions", CheckNull(id));
             return new EntityRequest<Type>(url, HttpMethod.GET);
         }
-        public static RecordPaymentRequest RecordPayment(string id)
-        {
-            string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "record_payment");
-            return new RecordPaymentRequest(url, HttpMethod.POST);
-        }
         #endregion
         
         #region Properties
@@ -74,11 +69,6 @@ namespace ChargeBee.Models
         public GatewayEnum Gateway 
         {
             get { return GetEnum<GatewayEnum>("gateway", true); }
-        }
-        [Obsolete]
-        public string Description 
-        {
-            get { return GetValue<string>("description", false); }
         }
         public TypeEnum TransactionType 
         {
@@ -112,22 +102,21 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("voided_at", false); }
         }
-        [Obsolete]
-        public string VoidDescription 
+        public string PaymentMethodString 
         {
-            get { return GetValue<string>("void_description", false); }
+            get { return GetValue<string>("payment_method_string", true); }
         }
-        public string MaskedCardNumber 
+        public string ReferenceTxnId 
         {
-            get { return GetValue<string>("masked_card_number", true); }
-        }
-        public string RefundedTxnId 
-        {
-            get { return GetValue<string>("refunded_txn_id", false); }
+            get { return GetValue<string>("reference_txn_id", false); }
         }
         public List<TransactionLinkedInvoice> LinkedInvoices 
         {
             get { return GetResourceList<TransactionLinkedInvoice>("linked_invoices"); }
+        }
+        public List<TransactionLinkedCreditNote> LinkedCreditNotes 
+        {
+            get { return GetResourceList<TransactionLinkedCreditNote>("linked_credit_notes"); }
         }
         public string CurrencyCode 
         {
@@ -136,41 +125,6 @@ namespace ChargeBee.Models
         
         #endregion
         
-        #region Requests
-        public class RecordPaymentRequest : EntityRequest<RecordPaymentRequest> 
-        {
-            public RecordPaymentRequest(string url, HttpMethod method) 
-                    : base(url, method)
-            {
-            }
-
-            public RecordPaymentRequest Amount(int amount) 
-            {
-                m_params.AddOpt("amount", amount);
-                return this;
-            }
-            public RecordPaymentRequest PaymentMethod(PaymentMethodEnum paymentMethod) 
-            {
-                m_params.Add("payment_method", paymentMethod);
-                return this;
-            }
-            public RecordPaymentRequest PaidAt(long paidAt) 
-            {
-                m_params.Add("paid_at", paidAt);
-                return this;
-            }
-            public RecordPaymentRequest ReferenceNumber(string referenceNumber) 
-            {
-                m_params.AddOpt("reference_number", referenceNumber);
-                return this;
-            }
-            public RecordPaymentRequest Memo(string memo) 
-            {
-                m_params.AddOpt("memo", memo);
-                return this;
-            }
-        }
-        #endregion
 
         public enum TypeEnum
         {
@@ -215,12 +169,56 @@ namespace ChargeBee.Models
                 return GetValue<int>("applied_amount", true);
             }
 
+            public DateTime AppliedAt() {
+                return (DateTime)GetDateTime("applied_at", true);
+            }
+
             public DateTime? InvoiceDate() {
                 return GetDateTime("invoice_date", false);
             }
 
-            public int? InvoiceAmount() {
-                return GetValue<int?>("invoice_amount", false);
+            public int? InvoiceTotal() {
+                return GetValue<int?>("invoice_total", false);
+            }
+
+            public Invoice.StatusEnum InvoiceStatus() {
+                return GetEnum<Invoice.StatusEnum>("invoice_status", true);
+            }
+
+        }
+        public class TransactionLinkedCreditNote : Resource
+        {
+
+            public string CnId() {
+                return GetValue<string>("cn_id", true);
+            }
+
+            public int AppliedAmount() {
+                return GetValue<int>("applied_amount", true);
+            }
+
+            public DateTime AppliedAt() {
+                return (DateTime)GetDateTime("applied_at", true);
+            }
+
+            public CreditNote.StatusEnum CnType() {
+                return GetEnum<CreditNote.StatusEnum>("cn_type", true);
+            }
+
+            public CreditNote.StatusEnum CnReasonCode() {
+                return GetEnum<CreditNote.StatusEnum>("cn_reason_code", true);
+            }
+
+            public DateTime? CnDate() {
+                return GetDateTime("cn_date", false);
+            }
+
+            public int? CnTotal() {
+                return GetValue<int?>("cn_total", false);
+            }
+
+            public CreditNote.StatusEnum CnStatus() {
+                return GetEnum<CreditNote.StatusEnum>("cn_status", true);
             }
 
         }

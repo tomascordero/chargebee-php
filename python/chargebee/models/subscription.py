@@ -76,11 +76,3 @@ class Subscription(Model):
     @staticmethod
     def charge_addon_at_term_end(id, params, env=None, headers=None):
         return request.send('post', request.uri_path("subscriptions",id,"charge_addon_at_term_end"), params, env, headers)
-
-    @staticmethod
-    def import_subscription(params, env=None, headers=None):
-        return request.send('post', request.uri_path("subscriptions","import_subscription"), params, env, headers)
-
-    @staticmethod
-    def import_for_customer(id, params, env=None, headers=None):
-        return request.send('post', request.uri_path("customers",id,"import_subscription"), params, env, headers)

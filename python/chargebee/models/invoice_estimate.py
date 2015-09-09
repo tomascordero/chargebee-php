@@ -14,6 +14,6 @@ class InvoiceEstimate(Model):
       fields = ["amount", "description"]
       pass
 
-    fields = ["recurring", "collect_now", "sub_total", "total", "amount_due", "line_items", \
-    "discounts", "taxes"]
+    fields = ["recurring", "collect_now", "sub_total", "total", "credits_applied", "amount_due", \
+    "line_items", "discounts", "taxes"]
 
