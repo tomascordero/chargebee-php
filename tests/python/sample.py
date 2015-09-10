@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__mTWOH7D5UtjrQqJgoqo6osBuABwjYG7k", "mannar-test")
+chargebee.configure("test___dev__H6i5sJNETNT2CXgkiP1ZuP9031Tk4i4p", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -476,5 +476,5 @@ Comment out the methods you don't want to run.
 # create_addon()
 # retrieve_addon()
 # retrieve_customer()
-renewal_estimate()
+# renewal_estimate()
 # retrieve_invoice()
