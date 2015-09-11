@@ -10,89 +10,110 @@ class Result(object):
 
     @property
     def subscription(self):
-        return self._get('subscription', Subscription,
+        subscription = self._get('subscription', Subscription,
         {'addons' : Subscription.Addon, 'coupons' : Subscription.Coupon, 'shipping_address' : Subscription.ShippingAddress});
+        return subscription;
 
     @property
     def customer(self):
-        return self._get('customer', Customer,
+        customer = self._get('customer', Customer,
         {'billing_address' : Customer.BillingAddress, 'payment_method' : Customer.PaymentMethod});
+        return customer;
 
     @property
     def card(self):
-        return self._get('card', Card);
+        card = self._get('card', Card);
+        return card;
 
     @property
     def invoice(self):
-        return self._get('invoice', Invoice,
-        {'line_items' : Invoice.LineItem, 'discounts' : Invoice.Discount, 'taxes' : Invoice.Tax, 'invoice_transactions' : Invoice.LinkedTransaction, 'orders' : Invoice.LinkedOrder, 'invoice_notes' : Invoice.Note, 'shipping_address' : Invoice.ShippingAddress, 'billing_address' : Invoice.BillingAddress});
+        invoice = self._get('invoice', Invoice,
+        {'line_items' : Invoice.LineItem, 'discounts' : Invoice.Discount, 'taxes' : Invoice.Tax, 'invoice_transactions' : Invoice.LinkedTransaction, 'applied_credits' : Invoice.AppliedCredit, 'created_credits' : Invoice.CreatedCreditNote, 'orders' : Invoice.LinkedOrder, 'invoice_notes' : Invoice.Note, 'shipping_address' : Invoice.ShippingAddress, 'billing_address' : Invoice.BillingAddress});
+        return invoice;
+
+    @property
+    def credit_note(self):
+        credit_note = self._get('credit_note', CreditNote,
+        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'credit_note_transactions' : CreditNote.LinkedTransaction, 'applied_credits' : CreditNote.Allocation});
+        return credit_note;
 
     @property
     def order(self):
-        return self._get('order', Order);
+        order = self._get('order', Order);
+        return order;
 
     @property
     def transaction(self):
-        return self._get('transaction', Transaction,
-        {'invoice_transactions' : Transaction.LinkedInvoice});
+        transaction = self._get('transaction', Transaction,
+        {'invoice_transactions' : Transaction.LinkedInvoice, 'credit_note_transactions' : Transaction.LinkedCreditNote});
+        return transaction;
 
     @property
     def hosted_page(self):
-        return self._get('hosted_page', HostedPage);
+        hosted_page = self._get('hosted_page', HostedPage);
+        return hosted_page;
 
     @property
     def estimate(self):
-        # estimate = self._get('estimate', Estimate, {}, {'invoice_estimate' : InvoiceEstimate});
-        # estimate.init_dependant(self._response['estimate'], 'invoice_estimate',
-        # {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax});
-        
-        estimate = self._get('estimate', Estimate, {}, {'invoice_estimates' : InvoiceEstimate});
-        estimate.init_dependant_list(self._response['estimate'], 'invoice_estimates',
+        estimate = self._get('estimate', Estimate, {}, {'invoice_estimate' : InvoiceEstimate, 'credit_note_estimates' : CreditNoteEstimate});
+        estimate.init_dependant(self._response['estimate'], 'invoice_estimate',
         {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax});
+        estimate.init_dependant_list(self._response['estimate'], 'credit_note_estimates',
+        {'line_items' : CreditNoteEstimate.LineItem, 'discounts' : CreditNoteEstimate.Discount, 'taxes' : CreditNoteEstimate.Tax});
         return estimate;
 
     @property
-    def estimates(self):
-        return self._get_list('estimates', Estimate, {}, {'invoice_estimate' : InvoiceEstimate}, {'invoice_estimate' :
-        {'line_items' : InvoiceEstimate.LineItem, 'discounts' : InvoiceEstimate.Discount, 'taxes' : InvoiceEstimate.Tax}});
-
-    @property
     def plan(self):
-        return self._get('plan', Plan);
+        plan = self._get('plan', Plan);
+        return plan;
 
     @property
     def addon(self):
-        return self._get('addon', Addon);
+        addon = self._get('addon', Addon);
+        return addon;
 
     @property
     def coupon(self):
-        return self._get('coupon', Coupon);
+        coupon = self._get('coupon', Coupon);
+        return coupon;
 
     @property
     def coupon_code(self):
-        return self._get('coupon_code', CouponCode);
+        coupon_code = self._get('coupon_code', CouponCode);
+        return coupon_code;
 
     @property
     def address(self):
-        return self._get('address', Address);
+        address = self._get('address', Address);
+        return address;
 
     @property
     def event(self):
-        return self._get('event', Event,
+        event = self._get('event', Event,
         {'webhooks' : Event.Webhook});
+        return event;
 
     @property
     def comment(self):
-        return self._get('comment', Comment);
+        comment = self._get('comment', Comment);
+        return comment;
 
     @property
     def download(self):
-        return self._get('download', Download);
+        download = self._get('download', Download);
+        return download;
 
     @property
     def portal_session(self):
-        return self._get('portal_session', PortalSession,
+        portal_session = self._get('portal_session', PortalSession,
         {'linked_customers' : PortalSession.LinkedCustomer});
+        return portal_session;
+        
+    @property
+    def credit_notes(self):
+        credit_notes = self._get_list('credit_notes', CreditNote, 
+        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'credit_note_transactions' : CreditNote.LinkedTransaction, 'applied_credits' : CreditNote.Allocation});
+        return credit_notes;
 
 
     def _get(self, type, cls, sub_types=None, dependant_types=None):
@@ -118,7 +139,7 @@ class Result(object):
 
         self._response_obj[type] = set_val
         return self._response_obj[type]
-    
+
     def __str__(self):
         return json.dumps(self._response, indent=4)
 
