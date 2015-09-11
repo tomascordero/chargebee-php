@@ -94,13 +94,13 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("archived_at", false); }
         }
-        public TaxableEnum? Taxable 
-        {
-            get { return GetEnum<TaxableEnum>("taxable", false); }
-        }
         public string InvoiceNotes 
         {
             get { return GetValue<string>("invoice_notes", false); }
+        }
+        public bool? Taxable 
+        {
+            get { return GetValue<bool?>("taxable", false); }
         }
         
         #endregion
@@ -163,7 +163,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("unit", unit);
                 return this;
             }
-            public CreateRequest Taxable(TaxableEnum taxable) 
+            public CreateRequest Taxable(bool taxable) 
             {
                 m_params.AddOpt("taxable", taxable);
                 return this;
@@ -231,7 +231,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("unit", unit);
                 return this;
             }
-            public UpdateRequest Taxable(TaxableEnum taxable) 
+            public UpdateRequest Taxable(bool taxable) 
             {
                 m_params.AddOpt("taxable", taxable);
                 return this;
@@ -292,17 +292,6 @@ namespace ChargeBee.Models
             Archived,
             [Description("deleted")]
             Deleted,
-
-        }
-        public enum TaxableEnum
-        {
-
-            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("yes")]
-            Yes,
-            [Description("no")]
-            No,
 
         }
 

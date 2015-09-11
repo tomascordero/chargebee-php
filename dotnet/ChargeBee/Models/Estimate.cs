@@ -136,6 +136,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
                 return this;
             }
+            public CreateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) 
+            {
+                m_params.AddOpt("customer[taxability]", customerTaxability);
+                return this;
+            }
             public CreateSubscriptionRequest AddonId(int index, string addonId) 
             {
                 m_params.AddOpt("addons[id][" + index + "]", addonId);
@@ -217,6 +222,11 @@ namespace ChargeBee.Models
             public UpdateSubscriptionRequest CustomerVatNumber(string customerVatNumber) 
             {
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+            public UpdateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) 
+            {
+                m_params.AddOpt("customer[taxability]", customerTaxability);
                 return this;
             }
             public UpdateSubscriptionRequest AddonId(int index, string addonId) 
