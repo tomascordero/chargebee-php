@@ -6,96 +6,112 @@ module ChargeBee
     end
     
     def subscription() 
-        get(:subscription, Subscription, 
+        subscription = get(:subscription, Subscription, 
         {:addons => Subscription::Addon, :coupons => Subscription::Coupon, :shipping_address => Subscription::ShippingAddress});
+        return subscription;
     end
 
     def customer() 
-        get(:customer, Customer, 
+        customer = get(:customer, Customer, 
         {:billing_address => Customer::BillingAddress, :payment_method => Customer::PaymentMethod});
+        return customer;
     end
 
     def card() 
-        get(:card, Card);
+        card = get(:card, Card);
+        return card;
     end
 
     def invoice() 
-        get(:invoice, Invoice, 
+        invoice = get(:invoice, Invoice, 
         {:line_items => Invoice::LineItem, :discounts => Invoice::Discount, :taxes => Invoice::Tax, :invoice_transactions => Invoice::LinkedTransaction, :applied_credits => Invoice::AppliedCredit, :created_credits => Invoice::CreatedCreditNote, :orders => Invoice::LinkedOrder, :invoice_notes => Invoice::Note, :shipping_address => Invoice::ShippingAddress, :billing_address => Invoice::BillingAddress});
+        return invoice;
     end
 
     def credit_note() 
-        get(:credit_note, CreditNote, 
+        credit_note = get(:credit_note, CreditNote, 
         {:line_items => CreditNote::LineItem, :discounts => CreditNote::Discount, :taxes => CreditNote::Tax, :credit_note_transactions => CreditNote::LinkedTransaction, :applied_credits => CreditNote::Allocation});
+        return credit_note;
     end
 
     def order() 
-        get(:order, Order);
+        order = get(:order, Order);
+        return order;
     end
 
     def transaction() 
-        get(:transaction, Transaction, 
+        transaction = get(:transaction, Transaction, 
         {:invoice_transactions => Transaction::LinkedInvoice, :credit_note_transactions => Transaction::LinkedCreditNote});
+        return transaction;
     end
 
     def hosted_page() 
-        get(:hosted_page, HostedPage);
+        hosted_page = get(:hosted_page, HostedPage);
+        return hosted_page;
     end
 
     def estimate() 
-      estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate});
-      estimate.init_dependant(@response[:estimate], :invoice_estimate,
-      {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
-      
-      #       estimate = get(:estimate, Estimate, {}, {:invoice_estimates => InvoiceEstimate});
-      # estimate.init_dependant_list(@response[:estimate], :invoice_estimates,
-      #       {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
-  		return estimate;
+        estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate, :credit_note_estimates => CreditNoteEstimate});
+        estimate.init_dependant(@response[:estimate], :invoice_estimate,
+        {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
+        estimate.init_dependant_list(@response[:estimate], :credit_note_estimates,
+        {:line_items => CreditNoteEstimate::LineItem, :discounts => CreditNoteEstimate::Discount, :taxes => CreditNoteEstimate::Tax});
+        return estimate;
     end
 
-    def estimates() 
-      return get_list(:estimates, Estimate, {}, {:invoice_estimate => InvoiceEstimate},
-      {:invoice_estimate => {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax}});
-    end    
-
     def plan() 
-        get(:plan, Plan);
+        plan = get(:plan, Plan);
+        return plan;
     end
 
     def addon() 
-        get(:addon, Addon);
+        addon = get(:addon, Addon);
+        return addon;
     end
 
     def coupon() 
-        get(:coupon, Coupon);
+        coupon = get(:coupon, Coupon);
+        return coupon;
     end
 
     def coupon_code() 
-        get(:coupon_code, CouponCode);
+        coupon_code = get(:coupon_code, CouponCode);
+        return coupon_code;
     end
 
     def address() 
-        get(:address, Address);
+        address = get(:address, Address);
+        return address;
     end
 
     def event() 
-        get(:event, Event, 
+        event = get(:event, Event, 
         {:webhooks => Event::Webhook});
+        return event;
     end
 
     def comment() 
-        get(:comment, Comment);
+        comment = get(:comment, Comment);
+        return comment;
     end
 
     def download() 
-        get(:download, Download);
+        download = get(:download, Download);
+        return download;
     end
 
     def portal_session() 
-        get(:portal_session, PortalSession, 
+        portal_session = get(:portal_session, PortalSession, 
         {:linked_customers => PortalSession::LinkedCustomer});
+        return portal_session;
     end
-
+    
+    def credit_note() 
+        credit_notes = get_list(:credit_notes, CreditNote, 
+        {:line_items => CreditNote::LineItem, :discounts => CreditNote::Discount, :taxes => CreditNote::Tax, :credit_note_transactions => CreditNote::LinkedTransaction, :applied_credits => CreditNote::Allocation});
+        return credit_notes;
+    end
+    
 
     def to_s(*args) 
       JSON.pretty_generate(@response) 
@@ -105,7 +121,7 @@ module ChargeBee
     def get(type, klass, sub_types = {}, dependant_types = {})
       return klass.construct(@response[type], sub_types, dependant_types)
     end
-    
+
     private
     def get_list(type, klass, sub_types = {}, dependant_types = {}, dependant_sub_types = {})
       if(@response[type] == nil)
