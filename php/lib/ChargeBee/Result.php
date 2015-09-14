@@ -131,14 +131,15 @@ class ChargeBee_Result
         array('linked_customers' => 'ChargeBee_PortalSessionLinkedCustomer'));
         return $portal_session;
     }
-	
-	function creditNotes() 
-	{
-		$credit_notes = $this->_getList('credit_notes', 'ChargeBee_CreditNote', 
-		array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'));
-		return $credit_notes
-	}
 
+    
+    function creditNotes() 
+    {
+        $credit_notes = $this->_getList('credit_notes', 'ChargeBee_CreditNote',
+        array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'),
+        array());
+        return $credit_notes;
+    }
 
     private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
     {
