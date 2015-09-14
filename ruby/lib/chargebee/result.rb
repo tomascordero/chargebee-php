@@ -6,13 +6,13 @@ module ChargeBee
     end
     
     def subscription() 
-        subscription = get(:subscription, Subscription, 
+        subscription = get(:subscription, Subscription,
         {:addons => Subscription::Addon, :coupons => Subscription::Coupon, :shipping_address => Subscription::ShippingAddress});
         return subscription;
     end
 
     def customer() 
-        customer = get(:customer, Customer, 
+        customer = get(:customer, Customer,
         {:billing_address => Customer::BillingAddress, :payment_method => Customer::PaymentMethod});
         return customer;
     end
@@ -23,13 +23,13 @@ module ChargeBee
     end
 
     def invoice() 
-        invoice = get(:invoice, Invoice, 
+        invoice = get(:invoice, Invoice,
         {:line_items => Invoice::LineItem, :discounts => Invoice::Discount, :taxes => Invoice::Tax, :invoice_transactions => Invoice::LinkedTransaction, :applied_credits => Invoice::AppliedCredit, :created_credits => Invoice::CreatedCreditNote, :orders => Invoice::LinkedOrder, :invoice_notes => Invoice::Note, :shipping_address => Invoice::ShippingAddress, :billing_address => Invoice::BillingAddress});
         return invoice;
     end
 
     def credit_note() 
-        credit_note = get(:credit_note, CreditNote, 
+        credit_note = get(:credit_note, CreditNote,
         {:line_items => CreditNote::LineItem, :discounts => CreditNote::Discount, :taxes => CreditNote::Tax, :credit_note_transactions => CreditNote::LinkedTransaction, :applied_credits => CreditNote::Allocation});
         return credit_note;
     end
@@ -40,7 +40,7 @@ module ChargeBee
     end
 
     def transaction() 
-        transaction = get(:transaction, Transaction, 
+        transaction = get(:transaction, Transaction,
         {:invoice_transactions => Transaction::LinkedInvoice, :credit_note_transactions => Transaction::LinkedCreditNote});
         return transaction;
     end
@@ -51,10 +51,11 @@ module ChargeBee
     end
 
     def estimate() 
-        estimate = get(:estimate, Estimate, {}, {:invoice_estimate => InvoiceEstimate, :credit_note_estimates => CreditNoteEstimate});
-        estimate.init_dependant(@response[:estimate], :invoice_estimate,
+        estimate = get(:estimate, Estimate, {},
+        {:invoice_estimate => InvoiceEstimate, :credit_note_estimates => CreditNoteEstimate});
+        estimate.init_dependant(@response[:estimate], invoice_estimate,
         {:line_items => InvoiceEstimate::LineItem, :discounts => InvoiceEstimate::Discount, :taxes => InvoiceEstimate::Tax});
-        estimate.init_dependant_list(@response[:estimate], :credit_note_estimates,
+        estimate.init_dependant_list(@response[estimate], credit_note_estimates,
         {:line_items => CreditNoteEstimate::LineItem, :discounts => CreditNoteEstimate::Discount, :taxes => CreditNoteEstimate::Tax});
         return estimate;
     end
@@ -85,7 +86,7 @@ module ChargeBee
     end
 
     def event() 
-        event = get(:event, Event, 
+        event = get(:event, Event,
         {:webhooks => Event::Webhook});
         return event;
     end
@@ -101,7 +102,7 @@ module ChargeBee
     end
 
     def portal_session() 
-        portal_session = get(:portal_session, PortalSession, 
+        portal_session = get(:portal_session, PortalSession,
         {:linked_customers => PortalSession::LinkedCustomer});
         return portal_session;
     end
