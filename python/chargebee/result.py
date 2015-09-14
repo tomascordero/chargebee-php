@@ -109,11 +109,13 @@ class Result(object):
         portal_session = self._get('portal_session', PortalSession,
         {'linked_customers' : PortalSession.LinkedCustomer});
         return portal_session;
-        
+
+
     @property
     def credit_notes(self):
-        credit_notes = self._get_list('credit_notes', CreditNote, 
-        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'credit_note_transactions' : CreditNote.LinkedTransaction, 'applied_credits' : CreditNote.Allocation});
+        credit_notes = self._get_list('credit_notes', 'CreditNote',
+        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'credit_note_transactions' : CreditNote.LinkedTransaction, 'applied_credits' : CreditNote.Allocation},
+        {});
         return credit_notes;
 
 

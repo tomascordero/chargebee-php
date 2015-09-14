@@ -140,6 +140,7 @@ class ChargeBee_Result
         array());
         return $credit_notes;
     }
+    
 
     private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
     {
