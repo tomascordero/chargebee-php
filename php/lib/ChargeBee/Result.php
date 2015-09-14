@@ -67,14 +67,14 @@ class ChargeBee_Result
 
     function estimate() 
     {
-		$estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(), 
-		array('invoice_estimate' => 'ChargeBee_InvoiceEstimate', 'credit_note_estimates' => 'ChargeBee_CreditNoteEstimate'));
-		$estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', 
-		array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
-		$estimate->_initDependantList($this->_response['estimate'], 'credit_note_estimates', 
-		array('line_items' => 'ChargeBee_CreditNoteEstimateLineItem', 'discounts' => 'ChargeBee_CreditNoteEstimateDiscount', 'taxes' => 'ChargeBee_CreditNoteEstimateTax'));
-		return $estimate;
-	}
+        $estimate = $this->_get('estimate', 'ChargeBee_Estimate', array(),
+        array('invoice_estimate' => 'ChargeBee_InvoiceEstimate', 'credit_note_estimates' => 'ChargeBee_CreditNoteEstimate'));
+        $estimate->_initDependant($this->_response['estimate'], 'invoice_estimate', 
+        array('line_items' => 'ChargeBee_InvoiceEstimateLineItem', 'discounts' => 'ChargeBee_InvoiceEstimateDiscount', 'taxes' => 'ChargeBee_InvoiceEstimateTax'));
+        $estimate->_initDependantList($this->_response['estimate'], 'credit_note_estimates', 
+        array('line_items' => 'ChargeBee_CreditNoteEstimateLineItem', 'discounts' => 'ChargeBee_CreditNoteEstimateDiscount', 'taxes' => 'ChargeBee_CreditNoteEstimateTax'));
+        return $estimate;
+    }
 
     function plan() 
     {
