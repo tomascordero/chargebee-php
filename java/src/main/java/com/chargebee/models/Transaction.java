@@ -20,6 +20,7 @@ public class Transaction extends Resource<Transaction> {
     }
 
     public enum Status {
+        IN_PROGRESS,
         SUCCESS,
         VOIDED,
         FAILURE,
