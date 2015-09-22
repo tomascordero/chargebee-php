@@ -119,7 +119,7 @@ namespace ChargeBee.Models
         }
         public string MaskedCardNumber 
         {
-            get { return GetValue<string>("masked_card_number", true); }
+            get { return GetValue<string>("masked_card_number", false); }
         }
         public string RefundedTxnId 
         {
