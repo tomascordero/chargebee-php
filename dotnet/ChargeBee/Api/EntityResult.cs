@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using ChargeBee.Internal;
+using System.IO;
+using System;
 
 namespace ChargeBee.Api
 {
@@ -14,5 +16,27 @@ namespace ChargeBee.Api
 
         public HttpStatusCode StatusCode { get; private set; }
 
-    }
+    
+
+
+	public static void Main(string[] args)
+	{
+		string fileName="../files/updSub.json";
+		string json = "";
+
+		using (var reader = new StreamReader(fileName))
+		{
+			string line;
+			while ((line = reader.ReadLine()) != null)
+			{
+				json += line; 
+			}
+		}
+
+
+			EntityResult res = new EntityResult(HttpStatusCode.BadGateway, json);
+			Console.Write (res.CreditNotes);
+		}
+	}
+
 }

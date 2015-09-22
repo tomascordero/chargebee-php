@@ -52,13 +52,13 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("subscription_next_billing_at", false); }
         }
-        public EstimateInvoiceEstimate InvoiceEstimate 
+        public InvoiceEstimate InvoiceEstimate 
         {
-            get { return GetSubResource<EstimateInvoiceEstimate>("invoice_estimate"); }
+            get { return GetSubResource<InvoiceEstimate>("invoice_estimate"); }
         }
-        public List<EstimateCreditNoteEstimate> CreditNoteEstimates 
+        public List<CreditNoteEstimate> CreditNoteEstimates 
         {
-            get { return GetResourceList<EstimateCreditNoteEstimate>("credit_note_estimates"); }
+            get { return GetResourceList<CreditNoteEstimate>("credit_note_estimates"); }
         }
         
         #endregion
