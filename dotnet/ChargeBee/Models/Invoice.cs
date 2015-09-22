@@ -520,7 +520,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("comment", comment);
                 return this;
             }
-            public RefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
+            public RefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
@@ -558,7 +558,7 @@ namespace ChargeBee.Models
                 m_params.Add("transaction[date]", transactionDate);
                 return this;
             }
-            public RecordRefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
+			public RecordRefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
