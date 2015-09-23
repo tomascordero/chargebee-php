@@ -397,6 +397,10 @@ def retrieve_customer():
     result = chargebee.Customer.retrieve(create_customer())
     print result.customer
 
+def retrieve_customer(cust_id):
+    result = chargebee.Customer.retrieve(cust_id)
+    print result.customer
+
 def create_invoice():
     result = chargebee.Invoice.charge({ "customer_id" : create_customer(),
                                         "amount" : 1000,
@@ -414,6 +418,10 @@ def retrieve_invoice():
     for i in result.invoice.line_items:
         print i
 
+def retrieve_txn(txn_id):
+    result = chargebee.Transaction.retrieve(txn_id)
+    transaction = result.transaction
+    print transaction
 
 """
 Comment out the methods you don't want to run.
@@ -475,6 +483,9 @@ Comment out the methods you don't want to run.
 # create_sub_for_cust("cust_handle")
 # create_addon()
 # retrieve_addon()
+# create_customer()
 # retrieve_customer()
+# retrieve_customer("__dev__KyVp1oPP5RK2z4")
 # renewal_estimate()
 # retrieve_invoice()
+# retrieve_txn("txn___dev__KyVp1oPP5RjjjB")
