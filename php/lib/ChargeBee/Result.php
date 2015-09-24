@@ -136,8 +136,7 @@ class ChargeBee_Result
     function creditNotes() 
     {
         $credit_notes = $this->_getList('credit_notes', 'ChargeBee_CreditNote',
-        array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'),
-        array());
+        array('line_items' => 'ChargeBee_CreditNoteLineItem', 'discounts' => 'ChargeBee_CreditNoteDiscount', 'taxes' => 'ChargeBee_CreditNoteTax', 'credit_note_transactions' => 'ChargeBee_CreditNoteLinkedTransaction', 'applied_credits' => 'ChargeBee_CreditNoteAllocation'));
         return $credit_notes;
     }
     
