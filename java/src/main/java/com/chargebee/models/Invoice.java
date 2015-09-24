@@ -16,7 +16,7 @@ public class Invoice extends Resource<Invoice> {
         PAYMENT_DUE,
         NOT_PAID,
         VOIDED,
-        DRAFT,
+        PENDING,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -57,6 +57,10 @@ public class Invoice extends Resource<Invoice> {
             return optInteger("quantity");
         }
 
+        public Boolean isTaxed() {
+            return reqBoolean("is_taxed");
+        }
+
         public Integer taxAmount() {
             return optInteger("tax_amount");
         }
@@ -65,12 +69,12 @@ public class Invoice extends Resource<Invoice> {
             return optDouble("tax_rate");
         }
 
-        public Integer lineAmount() {
-            return reqInteger("line_amount");
-        }
-
         public Integer discountAmount() {
             return optInteger("discount_amount");
+        }
+
+        public Integer lineAmount() {
+            return reqInteger("line_amount");
         }
 
         public String description() {
@@ -89,7 +93,7 @@ public class Invoice extends Resource<Invoice> {
 
     public static class Discount extends Resource<Discount> {
         public enum Type {
-             COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
+             DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }

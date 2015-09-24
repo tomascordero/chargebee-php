@@ -520,7 +520,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("comment", comment);
                 return this;
             }
-            public RefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
+            public RefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
@@ -558,7 +558,7 @@ namespace ChargeBee.Models
                 m_params.Add("transaction[date]", transactionDate);
                 return this;
             }
-			public RecordRefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
+            public RecordRefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
@@ -605,8 +605,8 @@ namespace ChargeBee.Models
             NotPaid,
             [Description("voided")]
             Voided,
-            [Description("draft")]
-            Draft,
+            [Description("pending")]
+            Pending,
 
         }
         public enum DunningStatusEnum
@@ -658,6 +658,10 @@ namespace ChargeBee.Models
                 return GetValue<int?>("quantity", false);
             }
 
+            public bool IsTaxed() {
+                return GetValue<bool>("is_taxed", true);
+            }
+
             public int? TaxAmount() {
                 return GetValue<int?>("tax_amount", false);
             }
@@ -666,12 +670,12 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
-            }
-
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
+            }
+
+            public int LineAmount() {
+                return GetValue<int>("line_amount", true);
             }
 
             public string Description() {
@@ -693,8 +697,8 @@ namespace ChargeBee.Models
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("coupon")]
-                Coupon,
+                [Description("document_level_coupon")]
+                DocumentLevelCoupon,
                 [Description("credit_adjustment")]
                 CreditAdjustment,
                 [Description("account_credits")]

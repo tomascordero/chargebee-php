@@ -110,8 +110,7 @@ module ChargeBee
 
     def credit_notes()
         credit_notes = get_list(:credit_notes, CreditNote,
-        {:line_items => CreditNote::LineItem, :discounts => CreditNote::Discount, :taxes => CreditNote::Tax, :credit_note_transactions => CreditNote::LinkedTransaction, :applied_credits => CreditNote::Allocation},
-        {});
+        {:line_items => CreditNote::LineItem, :discounts => CreditNote::Discount, :taxes => CreditNote::Tax, :credit_note_transactions => CreditNote::LinkedTransaction, :applied_credits => CreditNote::Allocation});
         return credit_notes;
     end
     

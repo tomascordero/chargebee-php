@@ -11,15 +11,6 @@ import java.util.*;
 
 public class Customer extends Resource<Customer> {
 
-    public enum CardStatus {
-        NO_CARD,
-        VALID,
-        EXPIRING,
-        EXPIRED,
-        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
-        java-client version incompatibility. We suggest you to upgrade to the latest version */
-    }
-
     public static class BillingAddress extends Resource<BillingAddress> {
         public BillingAddress(JSONObject jsonObj) {
             super(jsonObj);
@@ -81,7 +72,7 @@ public class Customer extends Resource<Customer> {
 
     public static class PaymentMethod extends Resource<PaymentMethod> {
         public enum Type {
-             CARD,PAYPAL_EXPRESS_CHECKOUT,AMAZON_PAYMENTS,
+             CARD,PAYPAL_EXPRESS_CHECKOUT,AMAZON_PAYMENTS,DIRECT_DEBIT,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -168,8 +159,8 @@ public class Customer extends Resource<Customer> {
         return optString("created_from_ip");
     }
 
-    public CardStatus cardStatus() {
-        return optEnum("card_status", CardStatus.class);
+    public Taxability taxability() {
+        return optEnum("taxability", Taxability.class);
     }
 
     public Customer.BillingAddress billingAddress() {
@@ -290,6 +281,12 @@ public class Customer extends Resource<Customer> {
 
         public CreateRequest vatNumber(String vatNumber) {
             params.addOpt("vat_number", vatNumber);
+            return this;
+        }
+
+
+        public CreateRequest taxability(Taxability taxability) {
+            params.addOpt("taxability", taxability);
             return this;
         }
 
@@ -510,6 +507,12 @@ public class Customer extends Resource<Customer> {
 
         public UpdateRequest autoCollection(AutoCollection autoCollection) {
             params.addOpt("auto_collection", autoCollection);
+            return this;
+        }
+
+
+        public UpdateRequest taxability(Taxability taxability) {
+            params.addOpt("taxability", taxability);
             return this;
         }
 

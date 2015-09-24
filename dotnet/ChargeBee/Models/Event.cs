@@ -131,6 +131,7 @@ namespace ChargeBee.Models
         }
         #endregion
 
+        [Obsolete]
         public enum WebhookStatusEnum
         {
 
@@ -156,7 +157,7 @@ namespace ChargeBee.Models
         #region Subclasses
         public class EventWebhook : Resource
         {
-            public enum VersionEnum
+            public enum ApiVersionEnum
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
@@ -187,8 +188,8 @@ namespace ChargeBee.Models
                 return GetValue<string>("id", true);
             }
 
-            public VersionEnum? Version() {
-                return GetEnum<VersionEnum>("version", false);
+            public ApiVersionEnum ApiVersion() {
+                return GetEnum<ApiVersionEnum>("api_version", true);
             }
 
             public WebhookStatusEnum WebhookStatus() {

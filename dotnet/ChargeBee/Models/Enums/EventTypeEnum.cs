@@ -54,6 +54,9 @@ namespace ChargeBee.Models.Enums
         [Description("invoice_created")]
          InvoiceCreated,
 
+        [Description("invoice_generated")]
+         InvoiceGenerated,
+
         [Description("invoice_updated")]
          InvoiceUpdated,
 
@@ -71,6 +74,12 @@ namespace ChargeBee.Models.Enums
 
         [Description("payment_refunded")]
          PaymentRefunded,
+
+        [Description("payment_initiated")]
+         PaymentInitiated,
+
+        [Description("refund_initiated")]
+         RefundInitiated,
 
         [Description("card_added")]
          CardAdded,

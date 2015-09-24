@@ -106,9 +106,9 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("created_from_ip", false); }
         }
-        public CardStatusEnum? CardStatus 
+        public TaxabilityEnum? Taxability 
         {
-            get { return GetEnum<CardStatusEnum>("card_status", false); }
+            get { return GetEnum<TaxabilityEnum>("taxability", false); }
         }
         public CustomerBillingAddress BillingAddress 
         {
@@ -175,6 +175,11 @@ namespace ChargeBee.Models
             public CreateRequest VatNumber(string vatNumber) 
             {
                 m_params.AddOpt("vat_number", vatNumber);
+                return this;
+            }
+            public CreateRequest Taxability(TaxabilityEnum taxability) 
+            {
+                m_params.AddOpt("taxability", taxability);
                 return this;
             }
             public CreateRequest CreatedFromIp(string createdFromIp) 
@@ -385,6 +390,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("auto_collection", autoCollection);
                 return this;
             }
+            public UpdateRequest Taxability(TaxabilityEnum taxability) 
+            {
+                m_params.AddOpt("taxability", taxability);
+                return this;
+            }
             public UpdateRequest InvoiceNotes(string invoiceNotes) 
             {
                 m_params.AddOpt("invoice_notes", invoiceNotes);
@@ -548,21 +558,6 @@ namespace ChargeBee.Models
         }
         #endregion
 
-        public enum CardStatusEnum
-        {
-
-            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("no_card")]
-            NoCard,
-            [Description("valid")]
-            Valid,
-            [Description("expiring")]
-            Expiring,
-            [Description("expired")]
-            Expired,
-
-        }
 
         #region Subclasses
         public class CustomerBillingAddress : Resource
@@ -633,6 +628,8 @@ namespace ChargeBee.Models
                 PaypalExpressCheckout,
                 [Description("amazon_payments")]
                 AmazonPayments,
+                [Description("direct_debit")]
+                DirectDebit,
             }
             public enum StatusEnum
             {

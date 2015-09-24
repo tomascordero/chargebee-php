@@ -7,18 +7,19 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__h7i0dGZfx0xuXBvPxXZ6jsNrUunOXcu53")
+  :api_key => "test___dev__Trq73UPylRdL8jDhGPaQzcubo7C2skcd2k")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
   :subscription => {
-    :plan_id => "enterprise_half_yearly"
+    :plan_id => "no-trial"
   }, 
   :customer => {
     :email => "john@user.com", 
     :first_name => "John", 
     :last_name => "Doe", 
     :phone => "+1-949-999-9999"
+    #:taxability => "exempt"
   },
   :embed => "false" 
  })
@@ -219,7 +220,112 @@ def get_invoice
 end
 
 
-get_invoice
+def create_customer
+  result = ChargeBee::Customer.create({
+     :first_name => "first_name",
+     :taxability => "exempt"
+  })
+  puts result
+end
+
+def create_plan
+  plan_name = "gold"
+  result = ChargeBee::Plan.create({
+         :id => plan_name,
+         :name => plan_name,
+         :price => 1000,
+         :taxable => "yes"
+  })
+  puts result.plan.to_s
+end
+
+def update_plan_tax
+   plan_name = "silver"
+   result = ChargeBee::Plan.update(plan_name, { :invoice_name => "sample plan", :taxable => "no"})
+   puts result.plan.to_s
+end
+
+def create_addon
+  addon_name = "tax_addon"
+  result = ChargeBee::Addon.create({
+          :id => addon_name,
+          :name => addon_name,
+          :charge_type => "recurring",
+          :price => "1000",
+          :period => 1,
+          :period_unit => "week",
+          :type => "on_off",
+          :taxable => "no"
+  })
+  puts result.addon.to_s
+end
+
+def update_addon
+   addon_name = "tax_addon"
+   result = ChargeBee::Addon.update(addon_name,{ :taxable => "yes"
+   })
+end
+
+def create_sub
+  result = ChargeBee::Subscription.create({
+         :plan_id => "gold",
+         :customer => {
+                  :email => "email@email.com",
+                  :taxability => "taxable",
+                  :auto_collection => "off"
+         },
+  })
+  puts result.to_s
+end
+
+def update_sub
+  result = ChargeBee::Subscription.update("__dev__3Nl8H3wPOLhACA2l",{
+  	:plan_id => "basic",
+        :customer => {:taxable => "exempt" }
+  })
+  puts result.to_s
+end
+
+def create_sub_estimate
+ result = ChargeBee::Estimate.create_subscription({
+      :subscription => {
+          :plan_id => "no-trial"
+      }, 
+      :addons => [{
+         :id => "tax_addon"
+      }]
+    })
+  puts result.to_s
+end
+
+def update_sub_estimate
+ result = ChargeBee::Estimate.update_subscription({
+  :subscription => {
+    :id => "__dev__3Nl8H3wPOLkjUt4K", 
+  }, 
+ })
+ puts result.to_s
+end
+
+
+def retrieve_plan
+result = ChargeBee::Plan.retrieve("silver");
+puts result.to_s
+end
+
+def retrieve_addon
+result = ChargeBee::Addon.retrieve("tax_addon")
+puts result.to_s
+end
+
+#update_sub
+#create_sub
+#update_addon
+#create_addon
+#update_plan_tax
+#create_plan
+#create_customer
+#get_invoice
 #create_plan
 #update_plan
 #test_accent_chars()
@@ -236,3 +342,7 @@ get_invoice
 #retrieve_customer_card
 #retrieve_customer_amazon_payment
 #checkout_new
+#create_sub_estimate
+#update_sub_estimate
+#retrieve_plan
+retrieve_addon

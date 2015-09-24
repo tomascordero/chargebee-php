@@ -52,13 +52,13 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("subscription_next_billing_at", false); }
         }
-        public InvoiceEstimate InvoiceEstimate 
+        public EstimateInvoiceEstimate InvoiceEstimate 
         {
-            get { return GetSubResource<InvoiceEstimate>("invoice_estimate"); }
+            get { return GetSubResource<EstimateInvoiceEstimate>("invoice_estimate"); }
         }
-        public List<CreditNoteEstimate> CreditNoteEstimates 
+        public List<EstimateCreditNoteEstimate> CreditNoteEstimates 
         {
-            get { return GetResourceList<CreditNoteEstimate>("credit_note_estimates"); }
+            get { return GetResourceList<EstimateCreditNoteEstimate>("credit_note_estimates"); }
         }
         
         #endregion
@@ -114,6 +114,11 @@ namespace ChargeBee.Models
             public CreateSubscriptionRequest CustomerVatNumber(string customerVatNumber) 
             {
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+            public CreateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) 
+            {
+                m_params.AddOpt("customer[taxability]", customerTaxability);
                 return this;
             }
             public CreateSubscriptionRequest AddonId(int index, string addonId) 
@@ -197,6 +202,11 @@ namespace ChargeBee.Models
             public UpdateSubscriptionRequest CustomerVatNumber(string customerVatNumber) 
             {
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+            public UpdateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) 
+            {
+                m_params.AddOpt("customer[taxability]", customerTaxability);
                 return this;
             }
             public UpdateSubscriptionRequest AddonId(int index, string addonId) 

@@ -2,7 +2,7 @@
 
 class ChargeBee_CreditNoteEstimateLineItem extends ChargeBee_Model
 {
-  protected $allowed = array('date_from', 'date_to', 'unit_amount', 'quantity', 'tax_amount', 'tax_rate', 'line_amount', 'discount_amount', 'description', 'entity_type', 'entity_id');
+  protected $allowed = array('date_from', 'date_to', 'unit_amount', 'quantity', 'is_taxed', 'tax_amount', 'tax_rate', 'discount_amount', 'line_amount', 'description', 'entity_type', 'entity_id');
 
 }
 

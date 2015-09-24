@@ -97,7 +97,7 @@ namespace Examples
 		
 		public static void TestRetrieveEvent()
 		{
-			Event evt = Event.Retrieve("ev___dev__3Nl8RPbPMLlbpUG").Request().Event;
+			Event evt = Event.Retrieve("ev_2uENY2zlPNZvoit1NBq").Request().Event;
 			printFields (evt, typeof(Event));
 			Console.WriteLine(evt.WebhookStatus);
 		}
@@ -690,13 +690,20 @@ namespace Examples
 
 		public static void Main(string[] args) 
 		{
-			ApiConfig.Proto = "http";
-			ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("mannar-test", "test___dev__e82JdAMAVk4MikmP9YTnN7CSJV44Pklr");
+			//ApiConfig.Proto = "http";
+			//ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("gayathri-cb", "BjGWlindcucuG7bVFx7qggCfor3ZGASxgb");
+			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
+			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
+			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
 
 //			try{
 				//_main();
-			TestRetrieveEvent();
+			//TestRetrieveEvent();
 //			}catch(ApiException e) {
 //				Console.WriteLine (e.ApiErrorCode);
 //				Console.WriteLine (e.Param);

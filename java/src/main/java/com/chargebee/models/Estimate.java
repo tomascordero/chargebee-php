@@ -123,6 +123,11 @@ public class Estimate extends Resource<Estimate> {
             return this;
         }
 
+        public CreateSubscriptionRequest customerTaxability(Taxability customerTaxability) {
+            params.addOpt("customer[taxability]", customerTaxability);
+            return this;
+        }
+
         public CreateSubscriptionRequest addonId(int index, String addonId) {
             params.addOpt("addons[id][" + index + "]", addonId);
             return this;
@@ -212,6 +217,11 @@ public class Estimate extends Resource<Estimate> {
 
         public UpdateSubscriptionRequest customerVatNumber(String customerVatNumber) {
             params.addOpt("customer[vat_number]", customerVatNumber);
+            return this;
+        }
+
+        public UpdateSubscriptionRequest customerTaxability(Taxability customerTaxability) {
+            params.addOpt("customer[taxability]", customerTaxability);
             return this;
         }
 

@@ -95,6 +95,10 @@ namespace ChargeBee.Models
                 return GetValue<int?>("quantity", false);
             }
 
+            public bool IsTaxed() {
+                return GetValue<bool>("is_taxed", true);
+            }
+
             public int? TaxAmount() {
                 return GetValue<int?>("tax_amount", false);
             }
@@ -103,12 +107,12 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
-            }
-
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
+            }
+
+            public int LineAmount() {
+                return GetValue<int>("line_amount", true);
             }
 
             public string Description() {
@@ -130,8 +134,8 @@ namespace ChargeBee.Models
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-                [Description("coupon")]
-                Coupon,
+                [Description("document_level_coupon")]
+                DocumentLevelCoupon,
                 [Description("credit_adjustment")]
                 CreditAdjustment,
                 [Description("account_credits")]
