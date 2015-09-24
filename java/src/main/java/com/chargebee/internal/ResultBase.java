@@ -1,8 +1,8 @@
 package com.chargebee.internal;
 
 import com.chargebee.models.*;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
+import java.util.*;
 
 public class ResultBase {
 
@@ -11,6 +11,7 @@ public class ResultBase {
     public ResultBase(JSONObject jsonObj) {
         this.jsonObj = jsonObj;
     }
+
 
     public Subscription subscription() {
         return (Subscription)get("subscription");
@@ -80,14 +81,36 @@ public class ResultBase {
         return (PortalSession)get("portal_session");
     }
 
+    
 
     private Resource get(String key) {
         JSONObject modelJson = jsonObj.optJSONObject(key);
+        return _get(key, modelJson);
+    }
+
+    private Resource _get(String key, JSONObject modelJson) {
         if(modelJson == null) {
             return null;
         }
         Class<Resource> modelClaz = ClazzUtil.getClaz(key);
         return ClazzUtil.createInstance(modelClaz, modelJson);
+    }
+
+    private List<? extends Resource> getList(String pluralName, String singularName) {
+        JSONArray listModels = jsonObj.optJSONArray(pluralName);
+        if (listModels == null) {
+            return null;
+        }
+        try {
+            List<Resource> list = new ArrayList<Resource>();
+            for (int i = 0; i < listModels.length(); i++) {
+                JSONObject modelJson = listModels.getJSONObject(i);
+                list.add(_get(singularName, modelJson));
+            }
+            return list;
+        } catch (JSONException jsonExp) {
+            throw new RuntimeException(jsonExp);
+        }
     }
 
     @Override

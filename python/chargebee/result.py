@@ -10,87 +10,120 @@ class Result(object):
 
     @property
     def subscription(self):
-        return self._get('subscription', Subscription,
+        subscription = self._get('subscription', Subscription,
         {'addons' : Subscription.Addon, 'coupons' : Subscription.Coupon, 'shipping_address' : Subscription.ShippingAddress});
+        return subscription;
 
     @property
     def customer(self):
-        return self._get('customer', Customer,
+        customer = self._get('customer', Customer,
         {'billing_address' : Customer.BillingAddress, 'payment_method' : Customer.PaymentMethod});
+        return customer;
 
     @property
     def card(self):
-        return self._get('card', Card);
+        card = self._get('card', Card);
+        return card;
 
     @property
     def invoice(self):
-        return self._get('invoice', Invoice,
+        invoice = self._get('invoice', Invoice,
         {'line_items' : Invoice.LineItem, 'discounts' : Invoice.Discount, 'taxes' : Invoice.Tax, 'invoice_transactions' : Invoice.LinkedTransaction, 'orders' : Invoice.LinkedOrder, 'invoice_notes' : Invoice.Note, 'shipping_address' : Invoice.ShippingAddress, 'billing_address' : Invoice.BillingAddress});
+        return invoice;
 
     @property
     def order(self):
-        return self._get('order', Order);
+        order = self._get('order', Order);
+        return order;
 
     @property
     def transaction(self):
-        return self._get('transaction', Transaction,
+        transaction = self._get('transaction', Transaction,
         {'invoice_transactions' : Transaction.LinkedInvoice});
+        return transaction;
 
     @property
     def hosted_page(self):
-        return self._get('hosted_page', HostedPage);
+        hosted_page = self._get('hosted_page', HostedPage);
+        return hosted_page;
 
     @property
     def estimate(self):
-        return self._get('estimate', Estimate,
+        estimate = self._get('estimate', Estimate,
         {'line_items' : Estimate.LineItem, 'discounts' : Estimate.Discount, 'taxes' : Estimate.Tax});
+        return estimate;
 
     @property
     def plan(self):
-        return self._get('plan', Plan);
+        plan = self._get('plan', Plan);
+        return plan;
 
     @property
     def addon(self):
-        return self._get('addon', Addon);
+        addon = self._get('addon', Addon);
+        return addon;
 
     @property
     def coupon(self):
-        return self._get('coupon', Coupon);
+        coupon = self._get('coupon', Coupon);
+        return coupon;
 
     @property
     def coupon_code(self):
-        return self._get('coupon_code', CouponCode);
+        coupon_code = self._get('coupon_code', CouponCode);
+        return coupon_code;
 
     @property
     def address(self):
-        return self._get('address', Address);
+        address = self._get('address', Address);
+        return address;
 
     @property
     def event(self):
-        return self._get('event', Event,
+        event = self._get('event', Event,
         {'webhooks' : Event.Webhook});
+        return event;
 
     @property
     def comment(self):
-        return self._get('comment', Comment);
+        comment = self._get('comment', Comment);
+        return comment;
 
     @property
     def download(self):
-        return self._get('download', Download);
+        download = self._get('download', Download);
+        return download;
 
     @property
     def portal_session(self):
-        return self._get('portal_session', PortalSession,
+        portal_session = self._get('portal_session', PortalSession,
         {'linked_customers' : PortalSession.LinkedCustomer});
+        return portal_session;
 
 
-    def _get(self, type, cls, sub_types=None):
+
+    def _get(self, type, cls, sub_types=None, dependant_types=None):
         if not type in self._response:
             return None
 
         if not type in self._response_obj:
-            self._response_obj[type] = cls.construct(self._response[type], sub_types)
+            self._response_obj[type] = cls.construct(self._response[type], sub_types, dependant_types)
 
+        return self._response_obj[type]
+
+    def _get_list(self, type, cls, sub_types={}, dependant_types={}, dependant_sub_types={}):
+        if not type in self._response:
+            return None
+        
+        set_val = []
+        for obj in self._response[type]:
+            if isinstance(obj, dict):
+                model = cls.construct(obj, sub_types, dependant_types)
+                for k in dependant_sub_types:
+                    model.init_dependant(obj, k, dependant_sub_types[k])
+                    set_val.append(model)
+
+        self._response_obj[type] = set_val
         return self._response_obj[type]
 
     def __str__(self):

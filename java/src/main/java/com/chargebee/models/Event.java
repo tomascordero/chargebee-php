@@ -25,6 +25,12 @@ public class Event extends Resource<Event> {
     }
 
     public static class Webhook extends Resource<Webhook> {
+        public enum ApiVersion {
+             V1,V2,
+            _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+            java-client version incompatibility. We suggest you to upgrade to the latest version */ 
+        }
+
         public enum WebhookStatus {
              NOT_CONFIGURED,SCHEDULED,SUCCEEDED,RE_SCHEDULED,FAILED,SKIPPED,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
@@ -37,6 +43,10 @@ public class Event extends Resource<Event> {
 
         public String id() {
             return reqString("id");
+        }
+
+        public ApiVersion apiVersion() {
+            return reqEnum("api_version", ApiVersion.class);
         }
 
         public WebhookStatus webhookStatus() {
