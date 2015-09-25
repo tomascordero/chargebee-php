@@ -696,10 +696,10 @@ namespace Examples
 			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
 			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
 			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
-			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
-			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
-			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
-			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
+//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
 
 //			try{
 				//_main();
