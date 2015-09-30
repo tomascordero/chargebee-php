@@ -7,7 +7,7 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__Trq73UPylRdL8jDhGPaQzcubo7C2skcd2k")
+  :api_key => "test___dev__qIOf7uXcI3vsR3DNNOelTWmF70W1yIUR")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -318,6 +318,38 @@ result = ChargeBee::Addon.retrieve("tax_addon")
 puts result.to_s
 end
 
+def retrieve_customer
+  result = ChargeBee::Customer.retrieve("__dev__3Nl8GtQPPCCMhr1Y")
+  puts result
+  puts result.customer.card_status
+end
+
+
+def retrieve_event
+  result = ChargeBee::Event.retrieve("ev___dev__3Nl8GtQPPCDukR23")
+  puts result
+  puts result.event.event_type
+end
+
+def retrieve_txn
+  result = ChargeBee::Transaction.retrieve("txn___dev__3Nl8GtQPPCDu7H21")
+  puts result
+  puts result.transaction.status
+  puts result.transaction.payment_method
+  puts result.transaction.masked_card_number
+end
+
+
+def update_cust
+  id=" "
+  result = ChargeBee::Customer.update(id,{:first_name=>"John", :last_name=>"Doe"})
+  print result.to_s 
+end
+
+update_cust
+#retrieve_txn
+#retrieve_event
+#retrieve_customer
 #update_sub
 #create_sub
 #update_addon
@@ -345,4 +377,4 @@ end
 #create_sub_estimate
 #update_sub_estimate
 #retrieve_plan
-retrieve_addon
+#retrieve_addon

@@ -1,11 +1,11 @@
 <?php
 require '../../php/lib/ChargeBee.php';
-ChargeBee_Environment::$scheme = "https";
-ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
+ChargeBee_Environment::$scheme = "http";
+ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
 
 //Code from apidocs
-ChargeBee_Environment::configure("stagingtesting-2-test",
-  "test_b8Zsv1ZhzEIbumcdrijvPC1Nj4q1ZREoq");
+ChargeBee_Environment::configure("mannar-test",
+  "test___dev__6FbsRDbxnOQQqfWSQlAcCWrgxQGgywma");
 
 function retrieveCustomerAmazon(){
  //$result = ChargeBee_Customer::retrieve("1sGeZ2FOvHp6wJ2k");
@@ -53,7 +53,19 @@ function amazontxn(){
  var_dump($transaction->type);
 }
 
-amazontxn();
+function retriveiFrameHp() {
+$result = ChargeBee_HostedPage::checkoutNew(array(
+  "subscription" => array(
+    "planId" => "cbee_multiple_site_plan"
+  ),
+  "iframeMessaging" => "true"
+ ));
+
+echo $result->hostedpage()->url;
+}
+
+retriveiFrameHp();
+//amazontxn();
 //updateCardAmazon();
 //retrieveCard();
 //retrieveCustomerAmazon();
