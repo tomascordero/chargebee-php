@@ -134,6 +134,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("vat_number", false); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public DateTime StartDate 
         {
             get { return (DateTime)GetDateTime("start_date", true); }

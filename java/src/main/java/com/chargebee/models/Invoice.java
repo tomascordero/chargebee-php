@@ -394,6 +394,10 @@ public class Invoice extends Resource<Invoice> {
         return optString("vat_number");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Timestamp startDate() {
         return reqTimestamp("start_date");
     }
