@@ -82,7 +82,6 @@
     <Compile Include="Models\Enums\TypeEnum.cs" />
     <Compile Include="Models\Enums\PaymentMethodEnum.cs" />
     <Compile Include="Models\Enums\TaxabilityEnum.cs" />
-	<Compile Include="Models/Enums/PriceTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
