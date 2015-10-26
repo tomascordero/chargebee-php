@@ -7,7 +7,7 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test",
-  :api_key => "test___dev__zUrPD7kAFPBWcdcGn84UTo5PY570A0vsl")
+  :api_key => "test___dev__cu4CboYwBfeX4gKO8QMwGWZIQvcdFwNaZf")
 
 
 def test_invoice_note
@@ -110,12 +110,125 @@ def test_void_invoice
 end
 
 
-test_void_invoice()
+def estimate_create_subscription
+  result = ChargeBee::Estimate.create_subscription({
+    :subscription => {
+      :plan_id => "basic",
+    },
+    :customer => {
+      :email => "john@user.com",
+      :first_name => "John",
+      :last_name => "Wayne"
+    },
+    :addons => [
+    ],
+    :billing_address => {
+      :country => "US",
+      :state_code => "AB",
+      :zip => "12345"
+    },
+    :shipping_address => {
+      :country => "US", 
+      :state_code => "CA",
+      :zip => "12345"
+    }
+  })
+  print result.estimate
+end
+
+
+
+def create_customer(handle)
+  result = ChargeBee::Customer.create({
+    :first_name => "John", 
+    :last_name => "Doe", 
+    :email => "john@test.com", 
+    :id => handle,
+    :allow_direct_debit => "true",
+    :billing_address => {
+      :first_name => "John", 
+      :last_name => "Doe", 
+      :line1 => "PO Box 9999", 
+      :city => "Walnut", 
+      :state => "California", 
+      :zip => "91789", 
+      :country => "US"
+    },
+  })
+  print result.customer
+end
+
+def  update_customer(handle)
+  create_customer(handle)
+  result = ChargeBee::Customer.update(handle, {
+    :first_name => "Denise", 
+    :last_name => "Barone",
+    :allow_direct_debit => "true"
+  })
+  print result.customer  
+end
+
+def get_customer(handle)
+  create_customer(handle)
+  result = ChargeBee::Customer.retrieve(handle)
+  customer = result.customer
+  print result.customer 
+end
+
+def create_no_trial_sub(handle)
+  result = ChargeBee::Subscription.create({
+    :id => handle,
+  :plan_id => "no-trial", 
+  :customer => {
+    :email => "john@user.com", 
+    :first_name => "John", 
+    :last_name => "Doe", 
+    :phone => "+1-949-999-9999",
+    :auto_collection => "off"
+  }, 
+  :billing_address => {
+    :first_name => "John", 
+    :last_name => "Doe", 
+    :line1 => "PO Box 9999", 
+    :city => "Walnut", 
+    :state => "California", 
+    :zip => "91789", 
+    :country => "US"
+  },
+    :shipping_address => {
+      :country => "US", 
+      :state_code => "CA",
+      :zip => "12345"
+    }
+})
+end
+
+def create_invoice(handle)
+  create_no_trial_sub(handle)
+  list = ChargeBee::Invoice.invoices_for_subscription(handle, {
+      :limit => 1
+      })  
+  list.each do |entry|
+    invoice = entry.invoice
+    print invoice
+  end
+end
+
+# test_void_invoice()
 #test_create_sub_customer()
 #test_invoice_note()
 #test_update_sub()
-#test_create_invoice()
-#test_create_invoice_for_charge()
+# test_create_invoice_for_charge()
 #test_create_invoice_for_addon()
 #test_amount_due()
 #test_redirect_cancel_url()
+# puts "Estimate"
+# estimate_create_subscription
+# puts "create_customer"
+# create_customer("test1")
+# puts "update_customer"
+# update_customer("test2")
+# puts "get_customer"
+# get_customer("test3")
+puts "invoice"
+create_invoice("asq1")
