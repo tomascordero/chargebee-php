@@ -1,9 +1,9 @@
 var chargebee = require("../../node/lib/chargebee.js");
 
 chargebee.configure({
-    'site': 'honeycomics-test',
+	'site': 'honeycomics-test',
     'api_key': 'test_5LjFA6K6doB2EKRP7cufTd5TvT32a5BrT',
-//    'hostSuffix': '.localcb.in',
+//	 'hostSuffix': '.localcb.in',
 //    'protocol': 'http',
 //    'port': 8080
 });
@@ -151,8 +151,60 @@ function updateEstimate() {
   }).request(callback);
 }
 
+function retrieveCustomer() {
+	chargebee.customer.retrieve("2uENY38cPHq4YZ6pT").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
 
-updateEstimate();
+function retrieveInv() {
+	chargebee.invoice.retrieve("111").request(
+	function(error,result){
+	  if(error){
+	    console.log(error);
+	  }else{
+		console.log(result.invoice.linked_transactions);
+	  }
+	});
+}
+
+function retrieveTxn() {
+	chargebee.transaction.retrieve("txn_2rprAVk1PTWCKikIPP").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.transaction.linked_invoices);
+	  }
+	});
+}
+
+function retrieveEvent() {
+	chargebee.event.retrieve("ev_BfmoYxPTWF2XoFuB").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.event.content.transaction);
+	  }
+	});
+}
+
+
+
+// updateEstimate();
+// retrieveCustomer();
+// retrieveInv();
+// retrieveTxn();
+retrieveEvent();
 //createSubEstimate();
 //updateCustomer();
 //createCustomer();
