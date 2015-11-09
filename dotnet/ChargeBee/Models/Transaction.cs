@@ -251,6 +251,14 @@ namespace ChargeBee.Models
         public class TransactionLinkedRefund : Resource
         {
 
+            public int TxnAmount() {
+                return GetValue<int>("txn_amount", true);
+            }
+
+            public DateTime TxnDate() {
+                return (DateTime)GetDateTime("txn_date", true);
+            }
+
             public string TxnId() {
                 return GetValue<string>("txn_id", true);
             }
