@@ -101,7 +101,8 @@ namespace Examples
 			printFields (evt, typeof(Event));
 			Console.WriteLine(evt.WebhookStatus);
 		}
-		
+
+
 		public void TestCreateSubscription()
 		{
 			string planId = "enterprise_half_yearly";
@@ -737,11 +738,60 @@ namespace Examples
 			Console.WriteLine (result.Event.Content.Transaction.TransactionType);
 		}
 
+		public static void testEnabledInPortalInPlan(){
+			String id = "enterprise_half_yearly";
+			Plan plan = Plan.Retrieve (id).Request().Plan;
+			Console.WriteLine (plan.Id);
+			Console.WriteLine (plan.EnabledInPortal);
+			Console.WriteLine (plan.Name);
+			Console.WriteLine (plan.Status);
+		}
+
+		public static void testEnabledInPortalInUpdatePlan () {
+			String id= "enterprise_half_yearly";
+			Plan plan = Plan.Update (id).EnabledInPortal(false).Request ().Plan;
+			Console.WriteLine (plan.Id);
+			Console.WriteLine (plan.EnabledInPortal);
+			Console.WriteLine (plan.EnabledInHostedPages);
+		}
+
+		public static void testEnabledInPortalCreatePlan(){
+			String id="plan3";
+			Plan plan = Plan.Create().Id(id).Name(id).BillingCycles (10).EnabledInPortal(false)
+				.ChargeModel (Plan.ChargeModelEnum.FlatFee).Request ().Plan;
+			Console.WriteLine (plan.EnabledInPortal);
+
+		}
+			
+		public static void testEnabledInPortalCreateAddon() {
+			String id="addon2";
+			Addon addon = Addon.Create ().Id (id).Name (id).EnabledInPortal (true)
+				.ChargeType (Addon.ChargeTypeEnum.NonRecurring)
+				.Type(Addon.TypeEnum.OnOff)
+				.Price(1000).Request ().Addon;
+			Console.WriteLine (addon.AddonType);
+			Console.WriteLine (addon.ChargeType);
+			Console.WriteLine (addon.EnabledInPortal);
+
+		}
+
+		public static void testUpdateEnabledInPortalAddon() {
+			String id = "addon1";
+			Addon addon = Addon.Update(id).EnabledInPortal (true).Request ().Addon;
+			Console.WriteLine (addon.EnabledInPortal);
+			Console.WriteLine(addon.Id);
+		}
+
 		public static void Main(string[] args) 
 		{
 			//ApiConfig.Proto = "http";
 			//ApiConfig.DomainSuffix = "localcb.in:8080";
 			ApiConfig.Configure("CBEEE-test", "FOUptASiGixNjBcuJuJcdWhJCmxfT1hNBz");
+			//testEnabledInPortalInPlan ();
+			testUpdateEnabledInPortalAddon ();
+			testEnabledInPortalCreateAddon ();
+			//testEnabledInPortalCreatePlan ();
+			//testEnabledInPortalInCreatePlan ();
 			//createCustomer ();
 			//retrieveEvent ();
 			//retrieveInvoice ();
