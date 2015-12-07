@@ -4,7 +4,6 @@ public enum EntityType {
     CUSTOMER,
     SUBSCRIPTION,
     INVOICE,
-    CREDIT_NOTE,
     TRANSACTION,
     PLAN,
     ADDON,

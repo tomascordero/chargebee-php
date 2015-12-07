@@ -421,18 +421,6 @@ public class Invoice extends Resource<Invoice> {
         return optInteger("amount");
     }
 
-    public Integer paymentsMade() {
-        return optInteger("payments_made");
-    }
-
-    public Integer adjustmentAmount() {
-        return optInteger("adjustment_amount");
-    }
-
-    public Integer creditsApplied() {
-        return optInteger("credits_applied");
-    }
-
     public Integer amountDue() {
         return optInteger("amount_due");
     }

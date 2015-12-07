@@ -30,10 +30,9 @@ class Invoice(Model):
       pass
 
     fields = ["id", "po_number", "customer_id", "subscription_id", "recurring", "status", "vat_number", \
-    "price_type", "start_date", "end_date", "amount", "payments_made", "adjustment_amount", "credits_applied", \
-    "amount_due", "paid_on", "dunning_status", "next_retry", "sub_total", "tax", "first_invoice", \
-    "currency_code", "line_items", "discounts", "taxes", "linked_transactions", "linked_orders", \
-    "notes", "shipping_address", "billing_address"]
+    "price_type", "start_date", "end_date", "amount", "amount_due", "paid_on", "dunning_status", \
+    "next_retry", "sub_total", "tax", "first_invoice", "currency_code", "line_items", "discounts", \
+    "taxes", "linked_transactions", "linked_orders", "notes", "shipping_address", "billing_address"]
 
 
     @staticmethod

@@ -14,151 +14,110 @@ class ChargeBee_Result
 
     function subscription() 
     {
-        $subscription = $this->_get('subscription', 'ChargeBee_Subscription', 
+        return $this->_get('subscription', 'ChargeBee_Subscription', 
         array('addons' => 'ChargeBee_SubscriptionAddon', 'coupons' => 'ChargeBee_SubscriptionCoupon', 'shipping_address' => 'ChargeBee_SubscriptionShippingAddress'));
-        return $subscription;
     }
 
     function customer() 
     {
-        $customer = $this->_get('customer', 'ChargeBee_Customer', 
+        return $this->_get('customer', 'ChargeBee_Customer', 
         array('billing_address' => 'ChargeBee_CustomerBillingAddress', 'payment_method' => 'ChargeBee_CustomerPaymentMethod'));
-        return $customer;
     }
 
     function card() 
     {
-        $card = $this->_get('card', 'ChargeBee_Card');
-        return $card;
+        return $this->_get('card', 'ChargeBee_Card');
     }
 
     function invoice() 
     {
-        $invoice = $this->_get('invoice', 'ChargeBee_Invoice', 
+        return $this->_get('invoice', 'ChargeBee_Invoice', 
         array('line_items' => 'ChargeBee_InvoiceLineItem', 'discounts' => 'ChargeBee_InvoiceDiscount', 'taxes' => 'ChargeBee_InvoiceTax', 'invoice_transactions' => 'ChargeBee_InvoiceLinkedTransaction', 'orders' => 'ChargeBee_InvoiceLinkedOrder', 'invoice_notes' => 'ChargeBee_InvoiceNote', 'shipping_address' => 'ChargeBee_InvoiceShippingAddress', 'billing_address' => 'ChargeBee_InvoiceBillingAddress'));
-        return $invoice;
     }
 
     function order() 
     {
-        $order = $this->_get('order', 'ChargeBee_Order');
-        return $order;
+        return $this->_get('order', 'ChargeBee_Order');
     }
 
     function transaction() 
     {
-        $transaction = $this->_get('transaction', 'ChargeBee_Transaction', 
-        array('invoice_transactions' => 'ChargeBee_TransactionLinkedInvoice'));
-        return $transaction;
+        return $this->_get('transaction', 'ChargeBee_Transaction', 
+        array('invoice_transactions' => 'ChargeBee_TransactionLinkedInvoice', 'txn_refunds_and_reversals' => 'ChargeBee_TransactionLinkedRefund'));
     }
 
     function hostedPage() 
     {
-        $hosted_page = $this->_get('hosted_page', 'ChargeBee_HostedPage');
-        return $hosted_page;
+        return $this->_get('hosted_page', 'ChargeBee_HostedPage');
     }
 
     function estimate() 
     {
-        $estimate = $this->_get('estimate', 'ChargeBee_Estimate', 
+        return $this->_get('estimate', 'ChargeBee_Estimate', 
         array('line_items' => 'ChargeBee_EstimateLineItem', 'discounts' => 'ChargeBee_EstimateDiscount', 'taxes' => 'ChargeBee_EstimateTax'));
-        return $estimate;
     }
 
     function plan() 
     {
-        $plan = $this->_get('plan', 'ChargeBee_Plan');
-        return $plan;
+        return $this->_get('plan', 'ChargeBee_Plan');
     }
 
     function addon() 
     {
-        $addon = $this->_get('addon', 'ChargeBee_Addon');
-        return $addon;
+        return $this->_get('addon', 'ChargeBee_Addon');
     }
 
     function coupon() 
     {
-        $coupon = $this->_get('coupon', 'ChargeBee_Coupon');
-        return $coupon;
+        return $this->_get('coupon', 'ChargeBee_Coupon');
     }
 
     function couponCode() 
     {
-        $coupon_code = $this->_get('coupon_code', 'ChargeBee_CouponCode');
-        return $coupon_code;
+        return $this->_get('coupon_code', 'ChargeBee_CouponCode');
     }
 
     function address() 
     {
-        $address = $this->_get('address', 'ChargeBee_Address');
-        return $address;
+        return $this->_get('address', 'ChargeBee_Address');
     }
 
     function event() 
     {
-        $event = $this->_get('event', 'ChargeBee_Event', 
+        return $this->_get('event', 'ChargeBee_Event', 
         array('webhooks' => 'ChargeBee_EventWebhook'));
-        return $event;
     }
 
     function comment() 
     {
-        $comment = $this->_get('comment', 'ChargeBee_Comment');
-        return $comment;
+        return $this->_get('comment', 'ChargeBee_Comment');
     }
 
     function download() 
     {
-        $download = $this->_get('download', 'ChargeBee_Download');
-        return $download;
+        return $this->_get('download', 'ChargeBee_Download');
     }
 
     function portalSession() 
     {
-        $portal_session = $this->_get('portal_session', 'ChargeBee_PortalSession', 
+        return $this->_get('portal_session', 'ChargeBee_PortalSession', 
         array('linked_customers' => 'ChargeBee_PortalSessionLinkedCustomer'));
-        return $portal_session;
     }
 
-    
 
-    private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
+    private function _get($type, $class, $subTypes = array())
     {
         if(!array_key_exists($type, $this->_response))
         {
-            return null;
+                return null;
         }
         if(!array_key_exists($type, $this->_responseObj))
         {
-            $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes, $dependantTypes);
+                $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes);
         }
         return $this->_responseObj[$type];
     }
 
-    private function _getList($type, $class, $subTypes = array(), $dependantTypes = array(),  $dependantSubTypes = array())
-    {
-        if(!array_key_exists($type, $this->_response))
-        {
-            return null;
-        }
-        if(!array_key_exists($type, $this->_responseObj))
-        {
-            $setVal = array();
-            foreach($this->_response[$type] as $stV)
-            {
-                $obj = new $class($stV, $subTypes, $dependantTypes);
-                foreach($dependantSubTypes as $k => $v)
-                {
-                    $obj->_initDependant($stV, $k, $v);
-                }
-                array_push($setVal, $obj);
-            }
-            $this->_responseObj[$type] = $setVal;
-        }
-        return $this->_responseObj[$type];        
-    }
-    
 }
 
 ?>

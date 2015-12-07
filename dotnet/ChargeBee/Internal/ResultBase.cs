@@ -102,12 +102,11 @@ namespace ChargeBee.Internal
             get {  return GetResource<PortalSession>("portal_session"); }
         }
 
-
         private T GetResource<T>(string property) where T : Resource, new()
         {
             if (m_jobj == null)
                 return default(T);
-			
+
             JToken jobj = m_jobj[property];
             if (jobj != null)
             {
@@ -119,13 +118,6 @@ namespace ChargeBee.Internal
             {
                 return default(T);
             }
-        }
-
-        private List<T> GetResourceList<T>(string property, string propertySingularName) where T : Resource, new() 
-        {
-            var jObj = JToken.Parse(m_jobj.ToString());
-            List<T> list = jObj.ToObject<List<T>>();
-            return list;
         }
     }
 }

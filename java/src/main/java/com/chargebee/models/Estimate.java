@@ -167,20 +167,12 @@ public class Estimate extends Resource<Estimate> {
         return reqBoolean("collect_now");
     }
 
-    public PriceType priceType() {
-        return reqEnum("price_type", PriceType.class);
-    }
-
     public Integer amount() {
         return reqInteger("amount");
     }
 
-    public Integer creditsApplied() {
-        return reqInteger("credits_applied");
-    }
-
-    public Integer amountDue() {
-        return reqInteger("amount_due");
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
     }
 
     public Integer subTotal() {

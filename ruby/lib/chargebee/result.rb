@@ -6,97 +6,79 @@ module ChargeBee
     end
     
     def subscription() 
-        subscription = get(:subscription, Subscription,
+        get(:subscription, Subscription, 
         {:addons => Subscription::Addon, :coupons => Subscription::Coupon, :shipping_address => Subscription::ShippingAddress});
-        return subscription;
     end
 
     def customer() 
-        customer = get(:customer, Customer,
+        get(:customer, Customer, 
         {:billing_address => Customer::BillingAddress, :payment_method => Customer::PaymentMethod});
-        return customer;
     end
 
     def card() 
-        card = get(:card, Card);
-        return card;
+        get(:card, Card);
     end
 
     def invoice() 
-        invoice = get(:invoice, Invoice,
+        get(:invoice, Invoice, 
         {:line_items => Invoice::LineItem, :discounts => Invoice::Discount, :taxes => Invoice::Tax, :invoice_transactions => Invoice::LinkedTransaction, :orders => Invoice::LinkedOrder, :invoice_notes => Invoice::Note, :shipping_address => Invoice::ShippingAddress, :billing_address => Invoice::BillingAddress});
-        return invoice;
     end
 
     def order() 
-        order = get(:order, Order);
-        return order;
+        get(:order, Order);
     end
 
     def transaction() 
-        transaction = get(:transaction, Transaction,
-        {:invoice_transactions => Transaction::LinkedInvoice});
-        return transaction;
+        get(:transaction, Transaction, 
+        {:invoice_transactions => Transaction::LinkedInvoice, :txn_refunds_and_reversals => Transaction::LinkedRefund});
     end
 
     def hosted_page() 
-        hosted_page = get(:hosted_page, HostedPage);
-        return hosted_page;
+        get(:hosted_page, HostedPage);
     end
 
     def estimate() 
-        estimate = get(:estimate, Estimate,
+        get(:estimate, Estimate, 
         {:line_items => Estimate::LineItem, :discounts => Estimate::Discount, :taxes => Estimate::Tax});
-        return estimate;
     end
 
     def plan() 
-        plan = get(:plan, Plan);
-        return plan;
+        get(:plan, Plan);
     end
 
     def addon() 
-        addon = get(:addon, Addon);
-        return addon;
+        get(:addon, Addon);
     end
 
     def coupon() 
-        coupon = get(:coupon, Coupon);
-        return coupon;
+        get(:coupon, Coupon);
     end
 
     def coupon_code() 
-        coupon_code = get(:coupon_code, CouponCode);
-        return coupon_code;
+        get(:coupon_code, CouponCode);
     end
 
     def address() 
-        address = get(:address, Address);
-        return address;
+        get(:address, Address);
     end
 
     def event() 
-        event = get(:event, Event,
+        get(:event, Event, 
         {:webhooks => Event::Webhook});
-        return event;
     end
 
     def comment() 
-        comment = get(:comment, Comment);
-        return comment;
+        get(:comment, Comment);
     end
 
     def download() 
-        download = get(:download, Download);
-        return download;
+        get(:download, Download);
     end
 
     def portal_session() 
-        portal_session = get(:portal_session, PortalSession,
+        get(:portal_session, PortalSession, 
         {:linked_customers => PortalSession::LinkedCustomer});
-        return portal_session;
     end
-
 
 
     def to_s(*args) 
@@ -104,27 +86,8 @@ module ChargeBee
     end
 
     private
-    def get(type, klass, sub_types = {}, dependant_types = {})
-      return klass.construct(@response[type], sub_types, dependant_types)
-    end
-
-    private
-    def get_list(type, klass, sub_types = {}, dependant_types = {}, dependant_sub_types = {})
-      if(@response[type] == nil)
-        return nil
-      end
-      set_val = Array.new
-      @response[type].each do |obj|
-        case obj
-        when Hash
-          model = klass.construct(obj, sub_types, dependant_types)
-          dependant_sub_types.each do |k,v|
-        		model.init_dependant(obj, k, v);
-          end
-          set_val.push(model)
-        end
-      end
-      return instance_variable_set("@#{type}", set_val)
+    def get(type, klass, sub_types = {})
+      klass.construct(@response[type], sub_types)
     end
 
   end

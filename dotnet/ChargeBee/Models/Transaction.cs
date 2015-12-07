@@ -129,7 +129,6 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("reference_transaction_id", false); }
         }
-        [Obsolete]
         public string RefundedTxnId 
         {
             get { return GetValue<string>("refunded_txn_id", false); }

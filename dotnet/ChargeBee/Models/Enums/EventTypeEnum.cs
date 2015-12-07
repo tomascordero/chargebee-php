@@ -66,8 +66,10 @@ namespace ChargeBee.Models.Enums
         [Description("invoice_deleted")]
          InvoiceDeleted,
 
+
         [Description("subscription_renewal_reminder")]
          SubscriptionRenewalReminder,
+
 
         [Description("transaction_created")]
          TransactionCreated,
