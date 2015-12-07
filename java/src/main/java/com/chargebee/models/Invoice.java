@@ -21,6 +21,13 @@ public class Invoice extends Resource<Invoice> {
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
+    public enum PriceType {
+        TAX_EXCLUSIVE,
+        TAX_INCLUSIVE,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
     public enum DunningStatus {
         IN_PROGRESS,
         EXHAUSTED,
@@ -152,6 +159,10 @@ public class Invoice extends Resource<Invoice> {
 
         public Integer appliedAmount() {
             return reqInteger("applied_amount");
+        }
+
+        public Timestamp appliedAt() {
+            return reqTimestamp("applied_at");
         }
 
         public Transaction.Type txnType() {
@@ -394,6 +405,10 @@ public class Invoice extends Resource<Invoice> {
         return optString("vat_number");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Timestamp startDate() {
         return reqTimestamp("start_date");
     }
@@ -404,6 +419,18 @@ public class Invoice extends Resource<Invoice> {
 
     public Integer amount() {
         return optInteger("amount");
+    }
+
+    public Integer paymentsMade() {
+        return optInteger("payments_made");
+    }
+
+    public Integer adjustmentAmount() {
+        return optInteger("adjustment_amount");
+    }
+
+    public Integer creditsApplied() {
+        return optInteger("credits_applied");
     }
 
     public Integer amountDue() {

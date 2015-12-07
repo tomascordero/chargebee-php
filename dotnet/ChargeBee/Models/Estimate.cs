@@ -60,9 +60,21 @@ namespace ChargeBee.Models
         {
             get { return GetValue<bool>("collect_now", true); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public int Amount 
         {
             get { return GetValue<int>("amount", true); }
+        }
+        public int CreditsApplied 
+        {
+            get { return GetValue<int>("credits_applied", true); }
+        }
+        public int AmountDue 
+        {
+            get { return GetValue<int>("amount_due", true); }
         }
         public int SubTotal 
         {
@@ -129,6 +141,31 @@ namespace ChargeBee.Models
             public CreateSubscriptionRequest BillingAddressCountry(string billingAddressCountry) 
             {
                 m_params.AddOpt("billing_address[country]", billingAddressCountry);
+                return this;
+            }
+            public CreateSubscriptionRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+                return this;
+            }
+            public CreateSubscriptionRequest BillingAddressZip(string billingAddressZip) 
+            {
+                m_params.AddOpt("billing_address[zip]", billingAddressZip);
+                return this;
+            }
+            public CreateSubscriptionRequest ShippingAddressCountry(string shippingAddressCountry) 
+            {
+                m_params.AddOpt("shipping_address[country]", shippingAddressCountry);
+                return this;
+            }
+            public CreateSubscriptionRequest ShippingAddressStateCode(string shippingAddressStateCode) 
+            {
+                m_params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
+                return this;
+            }
+            public CreateSubscriptionRequest ShippingAddressZip(string shippingAddressZip) 
+            {
+                m_params.AddOpt("shipping_address[zip]", shippingAddressZip);
                 return this;
             }
             public CreateSubscriptionRequest CustomerVatNumber(string customerVatNumber) 
@@ -219,6 +256,31 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_address[country]", billingAddressCountry);
                 return this;
             }
+            public UpdateSubscriptionRequest BillingAddressStateCode(string billingAddressStateCode) 
+            {
+                m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+                return this;
+            }
+            public UpdateSubscriptionRequest BillingAddressZip(string billingAddressZip) 
+            {
+                m_params.AddOpt("billing_address[zip]", billingAddressZip);
+                return this;
+            }
+            public UpdateSubscriptionRequest ShippingAddressCountry(string shippingAddressCountry) 
+            {
+                m_params.AddOpt("shipping_address[country]", shippingAddressCountry);
+                return this;
+            }
+            public UpdateSubscriptionRequest ShippingAddressStateCode(string shippingAddressStateCode) 
+            {
+                m_params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
+                return this;
+            }
+            public UpdateSubscriptionRequest ShippingAddressZip(string shippingAddressZip) 
+            {
+                m_params.AddOpt("shipping_address[zip]", shippingAddressZip);
+                return this;
+            }
             public UpdateSubscriptionRequest CustomerVatNumber(string customerVatNumber) 
             {
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
@@ -255,6 +317,17 @@ namespace ChargeBee.Models
         }
         #endregion
 
+        public enum PriceTypeEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("tax_exclusive")]
+            TaxExclusive,
+            [Description("tax_inclusive")]
+            TaxInclusive,
+
+        }
 
         #region Subclasses
         public class EstimateLineItem : Resource
