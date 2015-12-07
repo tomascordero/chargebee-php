@@ -60,13 +60,21 @@ namespace ChargeBee.Models
         {
             get { return GetValue<bool>("collect_now", true); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public int Amount 
         {
             get { return GetValue<int>("amount", true); }
         }
-        public PriceTypeEnum PriceType 
+        public int CreditsApplied 
         {
-            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+            get { return GetValue<int>("credits_applied", true); }
+        }
+        public int AmountDue 
+        {
+            get { return GetValue<int>("amount_due", true); }
         }
         public int SubTotal 
         {

@@ -150,6 +150,18 @@ namespace ChargeBee.Models
         {
             get { return GetValue<int?>("amount", false); }
         }
+        public int? PaymentsMade 
+        {
+            get { return GetValue<int?>("payments_made", false); }
+        }
+        public int? AdjustmentAmount 
+        {
+            get { return GetValue<int?>("adjustment_amount", false); }
+        }
+        public int? CreditsApplied 
+        {
+            get { return GetValue<int?>("credits_applied", false); }
+        }
         public int? AmountDue 
         {
             get { return GetValue<int?>("amount_due", false); }
