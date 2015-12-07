@@ -101,7 +101,8 @@ namespace Examples
 			printFields (evt, typeof(Event));
 			Console.WriteLine(evt.WebhookStatus);
 		}
-		
+
+
 		public void TestCreateSubscription()
 		{
 			string planId = "enterprise_half_yearly";
@@ -688,14 +689,118 @@ namespace Examples
 			Console.WriteLine(result.Transaction.CurrencyCode);
 		}
 
+		public static void createCustomer(){
+			EntityResult result = Customer.Retrieve ("_testing").Request ();
+			Console.WriteLine (result.Customer.Id);
+			Console.WriteLine (result.Customer.ExcessPayments);
+			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType());
+		}
+
+		public static void retrieveInvoice(){
+			EntityResult result = Invoice.Retrieve("154").Request();
+			Invoice invoice = result.Invoice;
+			Console.WriteLine (invoice.LinkedTransactions [0].AppliedAt());
+			Console.WriteLine (invoice.LinkedTransactions [0].TxnAmount());
+			Console.WriteLine (invoice.LinkedTransactions [0].TxnId());
+			Console.WriteLine (invoice.LinkedTransactions [0].TxnStatus());
+			Console.WriteLine (invoice.LinkedTransactions [0].TxnType());
+
+			Console.WriteLine (invoice.LinkedTransactions [1].AppliedAt());
+			Console.WriteLine (invoice.LinkedTransactions [1].TxnAmount());
+			Console.WriteLine (invoice.LinkedTransactions [1].TxnId());
+			Console.WriteLine (invoice.LinkedTransactions [1].TxnStatus());
+			Console.WriteLine (invoice.LinkedTransactions [1].TxnType());
+		}
+
+
+		public static void retrieveTxn() {
+			EntityResult result = Transaction.Retrieve("txn_IG5ryiXPTWPQNoUue").Request();
+			Transaction transaction = result.Transaction;
+			Console.WriteLine (transaction.Id);
+			Console.WriteLine (transaction.ReferenceTransactionId);
+			Console.WriteLine (transaction.RefundedTxnId);
+			Console.WriteLine (transaction.ReversalTransactionId);
+			Console.WriteLine (transaction.AmountUnused);
+			Console.WriteLine (transaction.LinkedInvoices[0].AppliedAmount());
+			Console.WriteLine (transaction.LinkedInvoices[0].AppliedAt());
+
+			//Console.WriteLine(transaction.LinkedRefunds[0].TxnId());
+			//Console.WriteLine(transaction.LinkedRefunds[0].TxnStatus());
+			//Console.WriteLine(transaction.LinkedRefunds[0].TxnAmount());
+		}
+
+		public static void retrieveEvent(){
+			EntityResult result = Event.Retrieve("ev_IG5ryiXPTWByOTThK").Request();
+			Event evt = result.Event;
+			Console.WriteLine (result.Event.Id);
+			Console.WriteLine (result.Event.EventType);
+			Console.WriteLine(result.Event.Content.Transaction.Id);
+			Console.WriteLine (result.Event.Content.Transaction.TransactionType);
+		}
+
+		public static void testEnabledInPortalInPlan(){
+			String id = "enterprise_half_yearly";
+			Plan plan = Plan.Retrieve (id).Request().Plan;
+			Console.WriteLine (plan.Id);
+			Console.WriteLine (plan.EnabledInPortal);
+			Console.WriteLine (plan.Name);
+			Console.WriteLine (plan.Status);
+		}
+
+		public static void testEnabledInPortalInUpdatePlan () {
+			String id= "enterprise_half_yearly";
+			Plan plan = Plan.Update (id).EnabledInPortal(false).Request ().Plan;
+			Console.WriteLine (plan.Id);
+			Console.WriteLine (plan.EnabledInPortal);
+			Console.WriteLine (plan.EnabledInHostedPages);
+		}
+
+		public static void testEnabledInPortalCreatePlan(){
+			String id="plan3";
+			Plan plan = Plan.Create().Id(id).Name(id).BillingCycles (10).EnabledInPortal(false)
+				.ChargeModel (Plan.ChargeModelEnum.FlatFee).Request ().Plan;
+			Console.WriteLine (plan.EnabledInPortal);
+
+		}
+			
+		public static void testEnabledInPortalCreateAddon() {
+			String id="addon2";
+			Addon addon = Addon.Create ().Id (id).Name (id).EnabledInPortal (true)
+				.ChargeType (Addon.ChargeTypeEnum.NonRecurring)
+				.Type(Addon.TypeEnum.OnOff)
+				.Price(1000).Request ().Addon;
+			Console.WriteLine (addon.AddonType);
+			Console.WriteLine (addon.ChargeType);
+			Console.WriteLine (addon.EnabledInPortal);
+
+		}
+
+		public static void testUpdateEnabledInPortalAddon() {
+			String id = "addon1";
+			Addon addon = Addon.Update(id).EnabledInPortal (true).Request ().Addon;
+			Console.WriteLine (addon.EnabledInPortal);
+			Console.WriteLine(addon.Id);
+		}
+
 		public static void Main(string[] args) 
 		{
 			//ApiConfig.Proto = "http";
 			//ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("gayathri-cb", "BjGWlindcucuG7bVFx7qggCfor3ZGASxgb");
-			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
-			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
-			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
+			ApiConfig.Configure("CBEEE-test", "FOUptASiGixNjBcuJuJcdWhJCmxfT1hNBz");
+			//testEnabledInPortalInPlan ();
+			testUpdateEnabledInPortalAddon ();
+			testEnabledInPortalCreateAddon ();
+			//testEnabledInPortalCreatePlan ();
+			//testEnabledInPortalInCreatePlan ();
+			//createCustomer ();
+			//retrieveEvent ();
+			//retrieveInvoice ();
+			//retrieveTxn ();
+
+//			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
+//
+//			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
+//			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
 //			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
 //			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
 //			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
