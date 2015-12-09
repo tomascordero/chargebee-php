@@ -5,7 +5,7 @@ from chargebee import APIError
 
 class Invoice(Model):
     class LineItem(Model):
-      fields = ["date_from", "date_to", "unit_amount", "quantity", "is_taxed", "tax_amount", "tax_rate", "discount_amount", "line_amount", "description", "entity_type", "entity_id"]
+      fields = ["date_from", "date_to", "unit_amount", "quantity", "is_taxed", "tax_amount", "tax_rate", "amount", "discount_amount", "item_level_discount_amount", "description", "entity_type", "entity_id"]
       pass
     class Discount(Model):
       fields = ["amount", "description", "entity_type", "entity_id"]
@@ -13,8 +13,8 @@ class Invoice(Model):
     class Tax(Model):
       fields = ["amount", "description"]
       pass
-    class LinkedTransaction(Model):
-      fields = ["txn_id", "applied_amount", "applied_at", "txn_type", "txn_status", "txn_date", "txn_amount"]
+    class LinkedPayment(Model):
+      fields = ["txn_id", "applied_amount", "applied_at", "txn_status", "txn_date", "txn_amount"]
       pass
     class AppliedCredit(Model):
       fields = ["cn_id", "applied_amount", "applied_at", "cn_type", "cn_reason_code", "cn_date", "cn_status"]
@@ -36,9 +36,10 @@ class Invoice(Model):
       pass
 
     fields = ["id", "po_number", "customer_id", "subscription_id", "recurring", "status", "vat_number", \
-    "date", "total", "amount_due", "created_credits", "paid_at", "dunning_status", "next_retry_at", \
-    "sub_total", "tax", "first_invoice", "currency_code", "line_items", "discounts", "taxes", "linked_transactions", \
-    "applied_credits", "created_credit_notes", "linked_orders", "notes", "shipping_address", "billing_address"]
+    "price_type", "date", "total", "payments_made", "adjustment_amount", "write_off_amount", "credits_applied", \
+    "amount_due", "paid_at", "dunning_status", "next_retry_at", "sub_total", "tax", "first_invoice", \
+    "currency_code", "line_items", "discounts", "taxes", "linked_payments", "applied_credits", "created_credit_notes", \
+    "linked_orders", "notes", "shipping_address", "billing_address"]
 
 
     @staticmethod
