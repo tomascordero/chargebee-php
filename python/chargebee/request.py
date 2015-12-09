@@ -22,7 +22,7 @@ def send(method, url, params=None, env=None, headers=None):
 def uri_path(*paths):
     url = ""
     for path in paths:
-        if path == None or len(str(path).strip()) <= 1 :
+        if path == None or len(str(path).strip()) < 1 :
              raise Exception("Id is None or empty")
         if compat.py_major_v >= 3:          
              url = url + "/" +  urllib.parse.quote(str(path).strip()) 
