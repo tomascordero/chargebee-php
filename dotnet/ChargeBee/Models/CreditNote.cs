@@ -72,6 +72,10 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("date", false); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public int? Total 
         {
             get { return GetValue<int?>("total", false); }
@@ -108,9 +112,9 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<CreditNoteTax>("taxes"); }
         }
-        public List<CreditNoteLinkedTransaction> LinkedTransactions 
+        public List<CreditNoteLinkedRefund> LinkedRefunds 
         {
-            get { return GetResourceList<CreditNoteLinkedTransaction>("linked_transactions"); }
+            get { return GetResourceList<CreditNoteLinkedRefund>("linked_refunds"); }
         }
         public List<CreditNoteAllocation> Allocations 
         {
@@ -125,8 +129,8 @@ namespace ChargeBee.Models
 
             UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
             dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("due_adjustment")]
-            DueAdjustment,
+            [Description("adjustment")]
+            Adjustment,
             [Description("refundable")]
             Refundable,
 
@@ -146,14 +150,12 @@ namespace ChargeBee.Models
             ProductOrServiceUnsatisfactory,
             [Description("order_change")]
             OrderChange,
+            [Description("order_cancelled")]
+            OrderCancelled,
             [Description("waiver")]
             Waiver,
-            [Description("reward")]
-            Reward,
             [Description("others")]
             Others,
-            [Description("not_applicable")]
-            NotApplicable,
 
         }
         public enum StatusEnum
@@ -167,6 +169,17 @@ namespace ChargeBee.Models
             PaymentDue,
             [Description("voided")]
             Voided,
+
+        }
+        public enum PriceTypeEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("tax_exclusive")]
+            TaxExclusive,
+            [Description("tax_inclusive")]
+            TaxInclusive,
 
         }
 
@@ -215,12 +228,16 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
+            public int Amount() {
+                return GetValue<int>("amount", true);
+            }
+
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
+            public int? ItemLevelDiscountAmount() {
+                return GetValue<int?>("item_level_discount_amount", false);
             }
 
             public string Description() {
@@ -238,10 +255,12 @@ namespace ChargeBee.Models
         }
         public class CreditNoteDiscount : Resource
         {
-            public enum TypeEnum
+            public enum EntityTypeEnum
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("item_level_coupon")]
+                ItemLevelCoupon,
                 [Description("document_level_coupon")]
                 DocumentLevelCoupon,
                 [Description("credit_adjustment")]
@@ -279,7 +298,7 @@ namespace ChargeBee.Models
             }
 
         }
-        public class CreditNoteLinkedTransaction : Resource
+        public class CreditNoteLinkedRefund : Resource
         {
 
             public string TxnId() {
@@ -292,10 +311,6 @@ namespace ChargeBee.Models
 
             public DateTime AppliedAt() {
                 return (DateTime)GetDateTime("applied_at", true);
-            }
-
-            public Transaction.TypeEnum TxnType() {
-                return GetEnum<Transaction.TypeEnum>("txn_type", true);
             }
 
             public Transaction.StatusEnum? TxnStatus() {

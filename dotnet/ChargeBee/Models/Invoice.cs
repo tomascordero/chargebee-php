@@ -139,6 +139,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("vat_number", false); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public DateTime? Date 
         {
             get { return GetDateTime("date", false); }
@@ -147,13 +151,25 @@ namespace ChargeBee.Models
         {
             get { return GetValue<int?>("total", false); }
         }
+        public int? PaymentsMade 
+        {
+            get { return GetValue<int?>("payments_made", false); }
+        }
+        public int? AdjustmentAmount 
+        {
+            get { return GetValue<int?>("adjustment_amount", false); }
+        }
+        public int? WriteOffAmount 
+        {
+            get { return GetValue<int?>("write_off_amount", false); }
+        }
+        public int? CreditsApplied 
+        {
+            get { return GetValue<int?>("credits_applied", false); }
+        }
         public int? AmountDue 
         {
             get { return GetValue<int?>("amount_due", false); }
-        }
-        public int CreatedCredits 
-        {
-            get { return GetValue<int>("created_credits", true); }
         }
         public DateTime? PaidAt 
         {
@@ -195,9 +211,9 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<InvoiceTax>("taxes"); }
         }
-        public List<InvoiceLinkedTransaction> LinkedTransactions 
+        public List<InvoiceLinkedPayment> LinkedPayments 
         {
-            get { return GetResourceList<InvoiceLinkedTransaction>("linked_transactions"); }
+            get { return GetResourceList<InvoiceLinkedPayment>("linked_payments"); }
         }
         public List<InvoiceAppliedCredit> AppliedCredits 
         {
@@ -520,6 +536,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("comment", comment);
                 return this;
             }
+            public RefundRequest CustomerNotes(string customerNotes) 
+            {
+                m_params.AddOpt("customer_notes", customerNotes);
+                return this;
+            }
             public RefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
@@ -535,7 +556,12 @@ namespace ChargeBee.Models
 
             public RecordRefundRequest Comment(string comment) 
             {
-                m_params.Add("comment", comment);
+                m_params.AddOpt("comment", comment);
+                return this;
+            }
+            public RecordRefundRequest CustomerNotes(string customerNotes) 
+            {
+                m_params.AddOpt("customer_notes", customerNotes);
                 return this;
             }
             public RecordRefundRequest TransactionAmount(int transactionAmount) 
@@ -609,6 +635,17 @@ namespace ChargeBee.Models
             Pending,
 
         }
+        public enum PriceTypeEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("tax_exclusive")]
+            TaxExclusive,
+            [Description("tax_inclusive")]
+            TaxInclusive,
+
+        }
         public enum DunningStatusEnum
         {
 
@@ -670,12 +707,16 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
+            public int Amount() {
+                return GetValue<int>("amount", true);
+            }
+
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
+            public int? ItemLevelDiscountAmount() {
+                return GetValue<int?>("item_level_discount_amount", false);
             }
 
             public string Description() {
@@ -693,10 +734,12 @@ namespace ChargeBee.Models
         }
         public class InvoiceDiscount : Resource
         {
-            public enum TypeEnum
+            public enum EntityTypeEnum
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("item_level_coupon")]
+                ItemLevelCoupon,
                 [Description("document_level_coupon")]
                 DocumentLevelCoupon,
                 [Description("credit_adjustment")]
@@ -734,7 +777,7 @@ namespace ChargeBee.Models
             }
 
         }
-        public class InvoiceLinkedTransaction : Resource
+        public class InvoiceLinkedPayment : Resource
         {
 
             public string TxnId() {
@@ -747,10 +790,6 @@ namespace ChargeBee.Models
 
             public DateTime AppliedAt() {
                 return (DateTime)GetDateTime("applied_at", true);
-            }
-
-            public Transaction.TypeEnum TxnType() {
-                return GetEnum<Transaction.TypeEnum>("txn_type", true);
             }
 
             public Transaction.StatusEnum? TxnStatus() {

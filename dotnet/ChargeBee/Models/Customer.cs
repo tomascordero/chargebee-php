@@ -98,6 +98,10 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<AutoCollectionEnum>("auto_collection", true); }
         }
+        public bool AllowDirectDebit 
+        {
+            get { return GetValue<bool>("allow_direct_debit", true); }
+        }
         public DateTime CreatedAt 
         {
             get { return (DateTime)GetDateTime("created_at", true); }
@@ -125,6 +129,10 @@ namespace ChargeBee.Models
         public int AccountCredits 
         {
             get { return GetValue<int>("account_credits", true); }
+        }
+        public int ExcessPayments 
+        {
+            get { return GetValue<int>("excess_payments", true); }
         }
         
         #endregion
@@ -170,6 +178,11 @@ namespace ChargeBee.Models
             public CreateRequest AutoCollection(AutoCollectionEnum autoCollection) 
             {
                 m_params.AddOpt("auto_collection", autoCollection);
+                return this;
+            }
+            public CreateRequest AllowDirectDebit(bool allowDirectDebit) 
+            {
+                m_params.AddOpt("allow_direct_debit", allowDirectDebit);
                 return this;
             }
             public CreateRequest VatNumber(string vatNumber) 
@@ -388,6 +401,11 @@ namespace ChargeBee.Models
             public UpdateRequest AutoCollection(AutoCollectionEnum autoCollection) 
             {
                 m_params.AddOpt("auto_collection", autoCollection);
+                return this;
+            }
+            public UpdateRequest AllowDirectDebit(bool allowDirectDebit) 
+            {
+                m_params.AddOpt("allow_direct_debit", allowDirectDebit);
                 return this;
             }
             public UpdateRequest Taxability(TaxabilityEnum taxability) 
@@ -645,8 +663,8 @@ namespace ChargeBee.Models
                 Invalid,
             }
 
-            public TypeEnum? PaymentMethodType() {
-                return GetEnum<TypeEnum>("type", false);
+            public TypeEnum PaymentMethodType() {
+                return GetEnum<TypeEnum>("type", true);
             }
 
             public GatewayEnum Gateway() {
