@@ -391,17 +391,10 @@ var _endpoints = {
       true
     ],
     [
-      "transactions_for_subscription",
-      "GET",
-      "/subscriptions",
-      "/transactions",
-      true
-    ],
-    [
-      "transactions_for_invoice",
+      "payments_for_invoice",
       "GET",
       "/invoices",
-      "/transactions",
+      "/payments",
       true
     ],
     [
