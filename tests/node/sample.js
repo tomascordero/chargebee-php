@@ -1,11 +1,11 @@
 var chargebee = require("../../node/lib/chargebee.js");
 
 chargebee.configure({
-    'site': 'mannar-test',
-    'api_key': 'test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7',
-    'hostSuffix': '.localcb.in',
-    'protocol': 'http',
-    'port': 8080
+	'site': 'honeycomics-test',
+    'api_key': 'test_5LjFA6K6doB2EKRP7cufTd5TvT32a5BrT',
+//	 'hostSuffix': '.localcb.in',
+//    'protocol': 'http',
+//    'port': 8080
 });
 
 var callback = function(error, result) {
@@ -79,6 +79,136 @@ function listOrders() {
 function listInvOrders(invId) {
     chargebee.order.orders_for_invoice(invId, {limit: "5"}).request(callback);
 }
+
+
+function createSub() {
+   chargebee.subscription.create({
+         plan_id : "yearly",
+         customer : {
+              first_name : "john",
+              last_name : "doe",
+              email : "john@acmeinc.com",
+              allow_direct_debit : "true",
+              auto_collection : "off"
+         }
+   }).request(callback);
+}
+
+function createCustomer() {
+  chargebee.customer.create({
+    first_name : "Bruce",
+    last_name : "Wayne",
+    email : "bruce@wayneenterprises.com",
+    allow_direct_debit : "TRUE "
+  }).request(callback);
+}
+
+function updateCustomer() {
+  chargebee.customer.update("1sjs9jGPRumO0ZLbA",
+     {first_name : "Bruce",
+     last_name : "Wayne",
+     email : "asd@AS.com",
+     allow_direct_debit : "True"
+  }).request(callback);
+}
+
+
+function createSubEstimate() {
+  chargebee.estimate.create_subscription({
+    subscription: { 
+            plan_id : "silver",
+            coupon : " ", 
+    },
+    "billing_address" : {
+        country : "INDIA",
+        state_code : "TN",
+        zip : "600001",
+    }
+//    "shipping_address" : {
+//       country : "US",
+//       state_code : "CA"
+//    }  
+  }).request(function(error,result){
+    console.log(result);
+    console.log(result.estimate.line_items) ;
+  });
+}
+
+function updateEstimate() {
+  chargebee.estimate.update_subscription({
+     subscription : { 
+         id : "2rprAVhzPRkSC3T2dr",
+         plan_id  : "silver"
+     },
+     billing_address : {
+        country : "Inida",
+        state_code : "TN"
+     },
+     shipping_address : {
+         country :"US",
+         zip_code : "91789"
+     }       
+  }).request(callback);
+}
+
+function retrieveCustomer() {
+	chargebee.customer.retrieve("2uENY38cPHq4YZ6pT").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+function retrieveInv() {
+	chargebee.invoice.retrieve("111").request(
+	function(error,result){
+	  if(error){
+	    console.log(error);
+	  }else{
+		console.log(result.invoice.linked_transactions);
+	  }
+	});
+}
+
+function retrieveTxn() {
+	chargebee.transaction.retrieve("txn_2rprAVk1PTWCKikIPP").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.transaction.linked_invoices);
+	  }
+	});
+}
+
+function retrieveEvent() {
+	chargebee.event.retrieve("ev_BfmoYxPTWF2XoFuB").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.event.content.transaction);
+	  }
+	});
+}
+
+
+
+// updateEstimate();
+// retrieveCustomer();
+// retrieveInv();
+// retrieveTxn();
+retrieveEvent();
+//createSubEstimate();
+//updateCustomer();
+//createCustomer();
+//createSub();
 
 // createCoupon();
 

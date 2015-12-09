@@ -1,3 +1,50 @@
+### v1.5.6 (2015-11-24)
+* * *
+
+** APIs updated**:
+
+Support to specify accessbility in customer portal for a plan & addon. Create & update methods of Plan & Addon APIs accept "enabled_in_portal" parameter. See create plan API here : https://apidocs.chargebee.com/docs/api/plans#create_a_plan
+
+New attribute "enabled_in_portal" is returned as part of Plan/Addon resource.
+See plan attributes here: https://apidocs.chargebee.com/docs/api/plans#plan_attributes
+
+### v1.5.5 (2015-11-09)
+* * *
+
+** APIs updated**:
+
+Support for access payments. See : https://www.chargebee.com/docs/customers.html#excess-payments
+
+New attribute "excess_payments" is returned as part of Customer resource.
+See: https://apidocs.chargebee.com/docs/api/customers#customer_attributes
+
+New attribute "applied_at" is returned as part of Linked Transaction subresource of Invoice resource.
+See: https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+New transaction type "PAYMENT_REVERSAL" is returned as part of Transaction resource.
+See: https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes
+
+New attributes "amount_unused", "reference_transaction_id", "reversal_transaction_id" & "linked_refunds" subresource are returned as part of Transaction resource.
+
+New attribute "applied_at" is returmed as part of Linked Invoice subresource of Transaction resource.
+See: https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes
+
+### v1.5.4 (2015-10-26)
+* * *
+
+** APIs updated**:
+
+Support to specify if a customer can pay via direct debit. Now, create & update customer, create subscription APIs accept the "allow_direct_debit" parameter for Customer resource. See create customer API here : https://apidocs.chargebee.com/docs/api/customers#create_a_customer
+
+New attribute "allow_direct_debit" is returned as part of Customer resource.
+See : https://apidocs.chargebee.com/docs/api/customers#customer_attributes
+
+New "price_type" attribute is returned as part of Estimate & Invoice Resource. 
+See : https://apidocs.chargebee.com/docs/api/estimates#estimate_attributes
+
+Support for address parameters in estimate APIs that is used to calculate tax. Now, create & update subscription estimate APIs accept billing state code, billing zip, shipping country, shipping state code & shipping zip.
+See : https://apidocs.chargebee.com/docs/api/estimates#create_subscription_estimate
+
 ### v1.5.3 (2015-09-18)
 * * *
 

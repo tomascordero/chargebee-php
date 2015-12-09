@@ -134,6 +134,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("vat_number", false); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public DateTime StartDate 
         {
             get { return (DateTime)GetDateTime("start_date", true); }
@@ -553,6 +557,17 @@ namespace ChargeBee.Models
             Pending,
 
         }
+        public enum PriceTypeEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("tax_exclusive")]
+            TaxExclusive,
+            [Description("tax_inclusive")]
+            TaxInclusive,
+
+        }
         public enum DunningStatusEnum
         {
 
@@ -696,6 +711,10 @@ namespace ChargeBee.Models
 
             public int AppliedAmount() {
                 return GetValue<int>("applied_amount", true);
+            }
+
+            public DateTime AppliedAt() {
+                return (DateTime)GetDateTime("applied_at", true);
             }
 
             public Transaction.TypeEnum TxnType() {
