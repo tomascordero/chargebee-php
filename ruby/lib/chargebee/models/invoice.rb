@@ -2,7 +2,7 @@ module ChargeBee
   class Invoice < Model
 
     class LineItem < Model
-      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :discount_amount, :line_amount, :description, :entity_type, :entity_id
+      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :amount, :discount_amount, :item_level_discount_amount, :description, :entity_type, :entity_id
     end
 
     class Discount < Model
@@ -13,8 +13,8 @@ module ChargeBee
       attr_accessor :amount, :description
     end
 
-    class LinkedTransaction < Model
-      attr_accessor :txn_id, :applied_amount, :applied_at, :txn_type, :txn_status, :txn_date, :txn_amount
+    class LinkedPayment < Model
+      attr_accessor :txn_id, :applied_amount, :applied_at, :txn_status, :txn_date, :txn_amount
     end
 
     class AppliedCredit < Model
@@ -42,9 +42,10 @@ module ChargeBee
     end
 
   attr_accessor :id, :po_number, :customer_id, :subscription_id, :recurring, :status, :vat_number,
-  :date, :total, :amount_due, :created_credits, :paid_at, :dunning_status, :next_retry_at, :sub_total,
-  :tax, :first_invoice, :currency_code, :line_items, :discounts, :taxes, :linked_transactions,
-  :applied_credits, :created_credit_notes, :linked_orders, :notes, :shipping_address, :billing_address
+  :price_type, :date, :total, :payments_made, :adjustment_amount, :write_off_amount, :credits_applied,
+  :amount_due, :paid_at, :dunning_status, :next_retry_at, :sub_total, :tax, :first_invoice, :currency_code,
+  :line_items, :discounts, :taxes, :linked_payments, :applied_credits, :created_credit_notes,
+  :linked_orders, :notes, :shipping_address, :billing_address
 
   # OPERATIONS
   #-----------

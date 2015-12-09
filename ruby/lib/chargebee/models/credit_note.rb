@@ -2,7 +2,7 @@ module ChargeBee
   class CreditNote < Model
 
     class LineItem < Model
-      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :discount_amount, :line_amount, :description, :entity_type, :entity_id
+      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :amount, :discount_amount, :item_level_discount_amount, :description, :entity_type, :entity_id
     end
 
     class Discount < Model
@@ -13,8 +13,8 @@ module ChargeBee
       attr_accessor :amount, :description
     end
 
-    class LinkedTransaction < Model
-      attr_accessor :txn_id, :applied_amount, :applied_at, :txn_type, :txn_status, :txn_date, :txn_amount
+    class LinkedRefund < Model
+      attr_accessor :txn_id, :applied_amount, :applied_at, :txn_status, :txn_date, :txn_amount
     end
 
     class Allocation < Model
@@ -22,8 +22,8 @@ module ChargeBee
     end
 
   attr_accessor :id, :customer_id, :subscription_id, :reference_invoice_id, :type, :reason_code,
-  :status, :vat_number, :date, :total, :credits_allocated, :refunds_made, :remaining_credits,
-  :paid_at, :sub_total, :line_items, :discounts, :taxes, :linked_transactions, :allocations
+  :status, :vat_number, :date, :price_type, :total, :credits_allocated, :refunds_made, :remaining_credits,
+  :paid_at, :sub_total, :line_items, :discounts, :taxes, :linked_refunds, :allocations
 
   # OPERATIONS
   #-----------
