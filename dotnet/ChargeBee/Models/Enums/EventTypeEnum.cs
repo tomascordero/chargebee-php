@@ -86,6 +86,9 @@ namespace ChargeBee.Models.Enums
         [Description("payment_failed")]
          PaymentFailed,
 
+        [Description("payment_offline_reminder")]
+         PaymentOfflineReminder,
+
         [Description("payment_refunded")]
          PaymentRefunded,
 
