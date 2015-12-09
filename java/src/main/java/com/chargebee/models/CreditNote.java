@@ -12,7 +12,7 @@ import java.util.*;
 public class CreditNote extends Resource<CreditNote> {
 
     public enum Type {
-        DUE_ADJUSTMENT,
+        ADJUSTMENT,
         REFUNDABLE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
@@ -24,10 +24,9 @@ public class CreditNote extends Resource<CreditNote> {
         CHARGEBACK,
         PRODUCT_OR_SERVICE_UNSATISFACTORY,
         ORDER_CHANGE,
+        ORDER_CANCELLED,
         WAIVER,
-        REWARD,
         OTHERS,
-        NOT_APPLICABLE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -36,6 +35,13 @@ public class CreditNote extends Resource<CreditNote> {
         PAID,
         PAYMENT_DUE,
         VOIDED,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
+    public enum PriceType {
+        TAX_EXCLUSIVE,
+        TAX_INCLUSIVE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -79,12 +85,16 @@ public class CreditNote extends Resource<CreditNote> {
             return optDouble("tax_rate");
         }
 
+        public Integer amount() {
+            return reqInteger("amount");
+        }
+
         public Integer discountAmount() {
             return optInteger("discount_amount");
         }
 
-        public Integer lineAmount() {
-            return reqInteger("line_amount");
+        public Integer itemLevelDiscountAmount() {
+            return optInteger("item_level_discount_amount");
         }
 
         public String description() {
@@ -102,8 +112,8 @@ public class CreditNote extends Resource<CreditNote> {
     }
 
     public static class Discount extends Resource<Discount> {
-        public enum Type {
-             DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
+        public enum EntityType {
+             ITEM_LEVEL_COUPON,DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -145,8 +155,8 @@ public class CreditNote extends Resource<CreditNote> {
 
     }
 
-    public static class LinkedTransaction extends Resource<LinkedTransaction> {
-        public LinkedTransaction(JSONObject jsonObj) {
+    public static class LinkedRefund extends Resource<LinkedRefund> {
+        public LinkedRefund(JSONObject jsonObj) {
             super(jsonObj);
         }
 
@@ -160,10 +170,6 @@ public class CreditNote extends Resource<CreditNote> {
 
         public Timestamp appliedAt() {
             return reqTimestamp("applied_at");
-        }
-
-        public Transaction.Type txnType() {
-            return reqEnum("txn_type", Transaction.Type.class);
         }
 
         public Transaction.Status txnStatus() {
@@ -257,6 +263,10 @@ public class CreditNote extends Resource<CreditNote> {
         return optTimestamp("date");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Integer total() {
         return optInteger("total");
     }
@@ -293,8 +303,8 @@ public class CreditNote extends Resource<CreditNote> {
         return optList("taxes", CreditNote.Tax.class);
     }
 
-    public List<CreditNote.LinkedTransaction> linkedTransactions() {
-        return optList("linked_transactions", CreditNote.LinkedTransaction.class);
+    public List<CreditNote.LinkedRefund> linkedRefunds() {
+        return optList("linked_refunds", CreditNote.LinkedRefund.class);
     }
 
     public List<CreditNote.Allocation> allocations() {
