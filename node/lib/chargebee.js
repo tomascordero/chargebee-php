@@ -50,7 +50,7 @@ RequestWrapper.prototype.request = function(callBack, envOptions) {
 };
 
 function validateIdParam(idParam) {
-    if (typeof idParam === 'undefined' || typeof idParam !== 'string') {
+    if (typeof idParam === 'undefined' || typeof idParam !== 'string' || idParam.trim() < 1) {
         throw new Error('the required id parameter missing or wrong');
     }
     return idParam;
