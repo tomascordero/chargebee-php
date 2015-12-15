@@ -485,6 +485,304 @@ def create_invoice()
   puts result.invoice
 end
 
+
+# tesing 3.9.3_libs starts
+def create_subscription
+  result = ChargeBee::Subscription.create({
+    :plan_id => "cbdemo_free", 
+    :customer => {
+      :email => "john@user.com", 
+      :first_name => "John", 
+      :last_name => "Doe", 
+      :phone => "+1-949-999-9999"
+    }, 
+    :billing_address => {
+      :first_name => "John", 
+      :last_name => "Doe", 
+      :line1 => "PO Box 9999", 
+      :city => "Walnut", 
+      :state => "California", 
+      :zip => "91789", 
+      :country => "US"
+    }, 
+    :addons => [{
+      :id => "cbdemo_conciergesupport "
+    }]
+  })
+  puts result
+end
+
+def retrive_subs
+  result = ChargeBee::Subscription.retrieve("IG5ryo6PWdakk0oFM")
+  puts result
+end
+
+def retrieve_with_scheduled #need to test again
+  result = ChargeBee::Subscription.retrieve_with_scheduled_changes("IG5ryo6PWdakk0oFM")
+  puts result
+end
+
+def update_subs
+  result = ChargeBee::Subscription.update("IG5ryo6PWdakk0oFM",{
+    :plan_id => "cbdemo_free", 
+    :billing_address => {
+      :first_name => "John", 
+      :last_name => "Doe", 
+      :line1 => "PO Box 9999", 
+      :city => "Walnut", 
+      :state => "California", 
+      :zip => "91789", 
+      :country => "US"
+    }, 
+    :addons => [{
+      :id => "cbdemo_setuphelp"
+    }]
+  }) 
+  puts result
+end
+
+def cancel_subs
+  result = ChargeBee::Subscription.cancel("IG5ryo6PWdakk0oFM")
+  puts result
+end
+
+def reactivate_subs
+  result = ChargeBee::Subscription.reactivate("affjnkjad")
+  puts result
+end
+
+def create_a_customer
+  result = ChargeBee::Customer.create({
+    :first_name => "Karthikeyan",
+    :last_name => "marimuthu",
+    :email => "Karthikeyan@chargebee.com"
+  })
+  puts result
+end
+
+def list_customer
+  list = ChargeBee::Customer.list(:limit=>5)
+  list.each do |entry|
+    puts entry
+  end
+end
+
+def retrieve_a_customer
+  customer= ChargeBee::Customer.retrieve("IG5ryo6PWdakk0oFM")
+  puts customer
+end
+
+def update_customer
+  result = ChargeBee::Customer.update("IG5ryo6PWdakk0oFM",{
+    :first_name => "Karthikeyan",
+    :last_name => "marimuthu"
+  })
+  puts result
+end
+
+def retrieve_a_card
+  result = ChargeBee::Card.retrieve("HtZEwHwPWXUROzWl1")  #customer id
+  puts result
+end
+
+def update_card_for_a_customer
+  result = ChargeBee::Card.update_card_for_customer("HtZEwHwPWXUROzWl1", {
+    :gateway => "chargebee", 
+    :first_name => "Richard", 
+    :last_name => "Fox", 
+    :number => "4012888888881881", 
+    :expiry_month => 10, 
+    :expiry_year => 2022, 
+    :cvv => "999"
+  })
+  puts result
+end
+
+def delete_a_card_for_customer
+  result = ChargeBee::Card.delete_card_for_customer("HtZEwHwPWXUROzWl1")
+  puts result
+end
+
+def create_an_invoice
+  result = ChargeBee::Invoice.create({
+    :customer_id => "HtZEwHwPWoOnHL1TEU", 
+    :addons => [{
+      :id => "cbdemo_setuphelp"
+    }], 
+    :charges => [{
+      :amount => 1000, 
+      :description => "Support charge"
+    }]
+  })
+  puts result
+end
+
+def list_inv_for_customer(id)
+  list = ChargeBee::Invoice.invoices_for_customer(id, {
+    :limit => 5
+  })
+  list.each do |entry|
+    puts entry
+  end
+end
+
+def list_inv_for_subscription(id)
+  list = ChargeBee::Invoice.invoices_for_subscription(id, {
+    :limit=> 5
+  })
+  list.each do |ent|
+    puts ent
+  end
+end
+
+def retrieve_an_inv(id)
+  inv=ChargeBee::Invoice.retrieve(id)
+  puts inv
+end
+
+def dwonload_inv(id)
+  inv=ChargeBee::Invoice.pdf(id)
+  puts inv
+end
+
+def add_charge_to_pending_inv(id,amount,des)
+  result = ChargeBee::Invoice.add_charge(id, {
+    :amount => amount, 
+    :description => des
+  })
+  puts result
+end
+
+def create_an_order_for_inv(id) #not tested.... why man
+  result = ChargeBee::Order.create(:invoice_id => id)
+  puts result
+end
+
+def list_transactions(limit)
+  result = ChargeBee::Transaction.list(:limit=>limit)
+  result.each do |ent|
+    puts ent
+  end
+end
+
+def transaction_for_customer(id)
+  list = ChargeBee::Transaction.transactions_for_customer(id, {
+    :limit => 5
+  })
+  list.each do |entry|
+    transaction = entry.transaction
+    puts transaction
+  end
+end
+
+def retrieve_a_transaction(id)
+  result = ChargeBee::Transaction.retrieve(id)
+  puts result.transaction
+end
+def create_a_plan
+  result = ChargeBee::Plan.create({
+    :id => "silver", 
+    :name => "Silver", 
+    :invoice_name => "sample plan", 
+    :price => 5000
+  })
+  puts result
+end
+
+def update_a_plan
+  result = ChargeBee::Plan.update("sdasd",{
+    :invoice_name => "sample plan",
+    :id => "cbdemo_free"
+  })
+  puts result
+end
+
+def retrieve_a_plan
+  result = ChargeBee::Plan.retrieve("")
+  puts result
+end
+
+def update_a_addon
+  result = ChargeBee::Addon.update("sms_pack", {
+    :id => "vsdsdfsdflk",
+    :invoice_name => "sample data pack",
+    :name => "rsfsd",
+    :charge_type => "recurring"
+
+  })
+  puts result
+end
+
+def create_a_addon    #gives some unwanted msg in response
+  result = ChargeBee::Addon.create({
+    :id => "sms_pack", 
+    :name => "Sms Pack", 
+    :invoice_name => "sample data pack", 
+    :charge_type => "recurring", 
+    :price => 200, 
+    :period => 1, 
+    :period_unit => "month", 
+    :type => "on_off"
+  })
+  addon = result.addon
+  puts addon
+end
+
+def retrieve_addon(id)
+  result=ChargeBee::Addon.retrieve(id);
+  puts result.addon
+end
+
+def retrieve_coupon
+  result = ChargeBee::Coupon.retrieve("cbdemo_holidays")
+  puts result
+end
+
+def create_code_for_a_coupon
+  result = ChargeBee::CouponCode.create({
+    :coupon_id => "cbdemo_holidays", 
+    :coupon_set_name => "Launch Promotion", 
+    :code => "CBCC435"
+  })
+  coupon_code = result.coupon_code
+  puts coupon_code
+end
+def retrieve_coupon_code(id)
+  puts ChargeBee::CouponCode.retrieve(id).coupon_code
+end
+
+def retrieve_an_event(id)
+  result= ChargeBee::Event.retrieve(id)
+  puts result.event
+end
+
+def create_a_comment(type,id,notes)
+  result = ChargeBee::Comment.create({
+    :entity_type => type, 
+    :entity_id =>id, 
+    :notes => notes
+  })  
+  puts result
+end
+def list_comments
+  result= ChargeBee::Comment.list(:limit=>5)
+  result.each do |ent|
+    puts ent.comment.to_s
+  end
+end
+
+def retrieve_a_comment(id)
+  result = ChargeBee::Comment.retrieve(id)
+  puts result.comment
+end
+## tesing 3.9.3_libs ends 
+
+
+
+
+
+
+
 # Comment the methods you don't want to run.
 begin
  # update_payment_method
