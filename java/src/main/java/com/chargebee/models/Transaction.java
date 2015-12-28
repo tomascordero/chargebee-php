@@ -173,7 +173,6 @@ public class Transaction extends Resource<Transaction> {
         return optString("reference_transaction_id");
     }
 
-    @Deprecated
     public String refundedTxnId() {
         return optString("refunded_txn_id");
     }
