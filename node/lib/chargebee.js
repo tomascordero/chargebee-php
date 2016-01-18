@@ -1,5 +1,7 @@
 var ChargeBee = {};
 
+var Q = require("q");
+
 ChargeBee._env = {
     protocol: 'https',
     hostSuffix: '.chargebee.com',
@@ -41,12 +43,21 @@ RequestWrapper.prototype.request = function(callBack, envOptions) {
     if (typeof env !== 'undefined') {
         ChargeBee._util.extend(true, env, envOptions);
     }
+    var deferred = ChargeBee._util.createDeferred(callBack);
     var urlIdParam = this.apiCall.hasIdInUrl ? this.args[0] : null;
     var params = this.apiCall.hasIdInUrl ? this.args[1] : this.args[0];
-    if (!ChargeBee._util.isFunction(callBack)) {
+    if (typeof callBack !== 'undefined' && !ChargeBee._util.isFunction(callBack)) {
         throw new Error('The callback parameter passed is incorrect.');
     }
-    return ChargeBee._core.makeApiRequest(env, callBack, this.apiCall.httpMethod, this.apiCall.urlPrefix, this.apiCall.urlSuffix, urlIdParam, params, this.httpHeaders);
+    function callBackWrapper(err, response) {
+        if (err) {
+            deferred.reject(err);
+        } else {
+            deferred.resolve(response);
+        }
+    };
+    ChargeBee._core.makeApiRequest(env, callBackWrapper, this.apiCall.httpMethod, this.apiCall.urlPrefix, this.apiCall.urlSuffix, urlIdParam, params, this.httpHeaders);
+    return deferred.promise;
 };
 
 function validateIdParam(idParam) {
@@ -78,7 +89,7 @@ ChargeBee._core = (function() {
             res.on('data', function(chunk) {
                 response += chunk;
             });
-            res.on('end', function() {                
+            res.on('end', function() {
                 try {
                     response = JSON.parse(response);
                 } catch (e) {
@@ -120,7 +131,7 @@ ChargeBee._core = (function() {
             "Content-Length": data.length,
             'User-Agent': "Chargebee-NodeJs-Client " + env.clientVersion
         });
-        
+
         var req = protocol.request({
             "hostname": getHost(env),
             "path": path,
@@ -142,7 +153,7 @@ ChargeBee._core = (function() {
             throw new Error('Your site or api key is not configured.');
         }
         return   env.apiPath + urlPrefix + (urlIdParam !== null ? //
-                '/' + encodeURIComponent(urlIdParam) : '') + (urlSuffix !== null ? urlSuffix : '');
+            '/' + encodeURIComponent(urlIdParam) : '') + (urlSuffix !== null ? urlSuffix : '');
     }
 
     function getHost(env) {
@@ -182,7 +193,7 @@ ChargeBee._core = (function() {
                 }
             }
         }
-        
+
         return serialized.join('&').replace(/%20/g, '+');
     };
     var throwError = function(callBack,type,httpStatusCode, errorCode, message, detail) {
@@ -213,10 +224,10 @@ ChargeBee._util = (function() {
 
     util.extendsFn = function() {
         var options, name, src, copy, copyIsArray, clone,
-                target = arguments[0] || {},
-                i = 1,
-                length = arguments.length,
-                deep = false;
+            target = arguments[0] || {},
+            i = 1,
+            length = arguments.length,
+            deep = false;
         if (typeof target === "boolean") {
             deep = target;
             target = arguments[1] || {};
@@ -295,6 +306,21 @@ ChargeBee._util = (function() {
         return typeof obj === 'function';
     };
 
+    util.createDeferred = function(callback) {
+        var deferred = Q.defer();
+        if (callback) {
+            deferred.promise.then(function(res) {
+                setTimeout(function() {
+                    callback(null, res);
+                }, 0);
+            }, function(err) {
+                setTimeout(function() {
+                    callback(err, null);
+                }, 0);
+            });
+        };
+        return deferred;
+    };
     return util;
 
 }).call(this);
