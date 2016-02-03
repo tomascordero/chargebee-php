@@ -28,14 +28,9 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "transactions");
             return new ListRequest(url);
         }
-        public static ListRequest TransactionsForSubscription(string id)
+        public static ListRequest PaymentsForInvoice(string id)
         {
-            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "transactions");
-            return new ListRequest(url);
-        }
-        public static ListRequest TransactionsForInvoice(string id)
-        {
-            string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "transactions");
+            string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "payments");
             return new ListRequest(url);
         }
         public static EntityRequest<Type> Retrieve(string id)
@@ -102,13 +97,25 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("voided_at", false); }
         }
-        public string PaymentMethodString 
+        public int? AmountUnused 
         {
-            get { return GetValue<string>("payment_method_string", true); }
+            get { return GetValue<int?>("amount_unused", false); }
         }
-        public string ReferenceTxnId 
+        public string MaskedCardNumber 
         {
-            get { return GetValue<string>("reference_txn_id", false); }
+            get { return GetValue<string>("masked_card_number", false); }
+        }
+        public string ReferenceTransactionId 
+        {
+            get { return GetValue<string>("reference_transaction_id", false); }
+        }
+        public string RefundedTxnId 
+        {
+            get { return GetValue<string>("refunded_txn_id", false); }
+        }
+        public string ReversalTransactionId 
+        {
+            get { return GetValue<string>("reversal_transaction_id", false); }
         }
         public List<TransactionLinkedInvoice> LinkedInvoices 
         {
@@ -117,6 +124,10 @@ namespace ChargeBee.Models
         public List<TransactionLinkedCreditNote> LinkedCreditNotes 
         {
             get { return GetResourceList<TransactionLinkedCreditNote>("linked_credit_notes"); }
+        }
+        public List<TransactionLinkedRefund> LinkedRefunds 
+        {
+            get { return GetResourceList<TransactionLinkedRefund>("linked_refunds"); }
         }
         public string CurrencyCode 
         {
@@ -137,6 +148,8 @@ namespace ChargeBee.Models
             Payment,
             [Description("refund")]
             Refund,
+            [Description("payment_reversal")]
+            PaymentReversal,
 
         }
         public enum StatusEnum
@@ -203,12 +216,8 @@ namespace ChargeBee.Models
                 return (DateTime)GetDateTime("applied_at", true);
             }
 
-            public CreditNote.StatusEnum CnType() {
-                return GetEnum<CreditNote.StatusEnum>("cn_type", true);
-            }
-
-            public CreditNote.StatusEnum CnReasonCode() {
-                return GetEnum<CreditNote.StatusEnum>("cn_reason_code", true);
+            public CreditNote.ReasonCodeEnum CnReasonCode() {
+                return GetEnum<CreditNote.ReasonCodeEnum>("cn_reason_code", true);
             }
 
             public DateTime? CnDate() {
@@ -221,6 +230,30 @@ namespace ChargeBee.Models
 
             public CreditNote.StatusEnum CnStatus() {
                 return GetEnum<CreditNote.StatusEnum>("cn_status", true);
+            }
+
+            public string CnReferenceInvoiceId() {
+                return GetValue<string>("cn_reference_invoice_id", true);
+            }
+
+        }
+        public class TransactionLinkedRefund : Resource
+        {
+
+            public string TxnId() {
+                return GetValue<string>("txn_id", true);
+            }
+
+            public Transaction.StatusEnum TxnStatus() {
+                return GetEnum<Transaction.StatusEnum>("txn_status", true);
+            }
+
+            public DateTime TxnDate() {
+                return (DateTime)GetDateTime("txn_date", true);
+            }
+
+            public int TxnAmount() {
+                return GetValue<int>("txn_amount", true);
             }
 
         }

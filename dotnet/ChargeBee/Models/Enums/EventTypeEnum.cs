@@ -51,8 +51,8 @@ namespace ChargeBee.Models.Enums
         [Description("subscription_shipping_address_updated")]
          SubscriptionShippingAddressUpdated,
 
-        [Description("invoice_created")]
-         InvoiceCreated,
+        [Description("pending_invoice_created")]
+         PendingInvoiceCreated,
 
         [Description("invoice_generated")]
          InvoiceGenerated,
@@ -63,8 +63,26 @@ namespace ChargeBee.Models.Enums
         [Description("invoice_deleted")]
          InvoiceDeleted,
 
+        [Description("credit_note_created")]
+         CreditNoteCreated,
+
+        [Description("credit_note_updated")]
+         CreditNoteUpdated,
+
+        [Description("credit_note_deleted")]
+         CreditNoteDeleted,
+
         [Description("subscription_renewal_reminder")]
          SubscriptionRenewalReminder,
+
+        [Description("transaction_created")]
+         TransactionCreated,
+
+        [Description("transaction_updated")]
+         TransactionUpdated,
+
+        [Description("transaction_deleted")]
+         TransactionDeleted,
 
         [Description("payment_succeeded")]
          PaymentSucceeded,

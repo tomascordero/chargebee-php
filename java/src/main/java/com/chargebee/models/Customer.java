@@ -11,6 +11,16 @@ import java.util.*;
 
 public class Customer extends Resource<Customer> {
 
+    @Deprecated
+    public enum CardStatus {
+        NO_CARD,
+        VALID,
+        EXPIRING,
+        EXPIRED,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
     public static class BillingAddress extends Resource<BillingAddress> {
         public BillingAddress(JSONObject jsonObj) {
             super(jsonObj);
@@ -70,6 +80,49 @@ public class Customer extends Resource<Customer> {
 
     }
 
+    public static class Contact extends Resource<Contact> {
+        public Contact(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String id() {
+            return reqString("id");
+        }
+
+        public String firstName() {
+            return optString("first_name");
+        }
+
+        public String lastName() {
+            return optString("last_name");
+        }
+
+        public String email() {
+            return reqString("email");
+        }
+
+        public String phone() {
+            return optString("phone");
+        }
+
+        public String label() {
+            return optString("label");
+        }
+
+        public Boolean enabled() {
+            return reqBoolean("enabled");
+        }
+
+        public Boolean sendAcccountEmail() {
+            return reqBoolean("send_acccount_email");
+        }
+
+        public Boolean sendBillingEmail() {
+            return reqBoolean("send_billing_email");
+        }
+
+    }
+
     public static class PaymentMethod extends Resource<PaymentMethod> {
         public enum Type {
              CARD,PAYPAL_EXPRESS_CHECKOUT,AMAZON_PAYMENTS,DIRECT_DEBIT,
@@ -88,7 +141,7 @@ public class Customer extends Resource<Customer> {
         }
 
         public Type type() {
-            return optEnum("type", Type.class);
+            return reqEnum("type", Type.class);
         }
 
         public Gateway gateway() {
@@ -151,6 +204,10 @@ public class Customer extends Resource<Customer> {
         return reqEnum("auto_collection", AutoCollection.class);
     }
 
+    public Boolean allowDirectDebit() {
+        return reqBoolean("allow_direct_debit");
+    }
+
     public Timestamp createdAt() {
         return reqTimestamp("created_at");
     }
@@ -163,8 +220,17 @@ public class Customer extends Resource<Customer> {
         return optEnum("taxability", Taxability.class);
     }
 
+    @Deprecated
+    public CardStatus cardStatus() {
+        return optEnum("card_status", CardStatus.class);
+    }
+
     public Customer.BillingAddress billingAddress() {
         return optSubResource("billing_address", Customer.BillingAddress.class);
+    }
+
+    public List<Customer.Contact> contacts() {
+        return optList("contacts", Customer.Contact.class);
     }
 
     public Customer.PaymentMethod paymentMethod() {
@@ -175,8 +241,16 @@ public class Customer extends Resource<Customer> {
         return optString("invoice_notes");
     }
 
-    public Integer accountCredits() {
-        return reqInteger("account_credits");
+    public Integer promotionalCredits() {
+        return reqInteger("promotional_credits");
+    }
+
+    public Integer refundableCredits() {
+        return reqInteger("refundable_credits");
+    }
+
+    public Integer excessPayments() {
+        return reqInteger("excess_payments");
     }
 
     // Operations
@@ -212,19 +286,34 @@ public class Customer extends Resource<Customer> {
         return new UpdateBillingInfoRequest(Method.POST, uri);
     }
 
-    public static AddAccountCreditsRequest addAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "add_account_credits");
-        return new AddAccountCreditsRequest(Method.POST, uri);
+    public static AddContactRequest addContact(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "add_contact");
+        return new AddContactRequest(Method.POST, uri);
     }
 
-    public static DeductAccountCreditsRequest deductAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "deduct_account_credits");
-        return new DeductAccountCreditsRequest(Method.POST, uri);
+    public static UpdateContactRequest updateContact(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "update_contact");
+        return new UpdateContactRequest(Method.POST, uri);
     }
 
-    public static SetAccountCreditsRequest setAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "set_account_credits");
-        return new SetAccountCreditsRequest(Method.POST, uri);
+    public static DeleteContactRequest deleteContact(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "delete_contact");
+        return new DeleteContactRequest(Method.POST, uri);
+    }
+
+    public static AddPromotionalCreditsRequest addPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "add_promotional_credits");
+        return new AddPromotionalCreditsRequest(Method.POST, uri);
+    }
+
+    public static DeductPromotionalCreditsRequest deductPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "deduct_promotional_credits");
+        return new DeductPromotionalCreditsRequest(Method.POST, uri);
+    }
+
+    public static SetPromotionalCreditsRequest setPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "set_promotional_credits");
+        return new SetPromotionalCreditsRequest(Method.POST, uri);
     }
 
 
@@ -275,6 +364,12 @@ public class Customer extends Resource<Customer> {
 
         public CreateRequest autoCollection(AutoCollection autoCollection) {
             params.addOpt("auto_collection", autoCollection);
+            return this;
+        }
+
+
+        public CreateRequest allowDirectDebit(Boolean allowDirectDebit) {
+            params.addOpt("allow_direct_debit", allowDirectDebit);
             return this;
         }
 
@@ -511,6 +606,12 @@ public class Customer extends Resource<Customer> {
         }
 
 
+        public UpdateRequest allowDirectDebit(Boolean allowDirectDebit) {
+            params.addOpt("allow_direct_debit", allowDirectDebit);
+            return this;
+        }
+
+
         public UpdateRequest taxability(Taxability taxability) {
             params.addOpt("taxability", taxability);
             return this;
@@ -639,19 +740,150 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class AddAccountCreditsRequest extends Request<AddAccountCreditsRequest> {
+    public static class AddContactRequest extends Request<AddContactRequest> {
 
-        private AddAccountCreditsRequest(Method httpMeth, String uri) {
+        private AddContactRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public AddAccountCreditsRequest amount(Integer amount) {
+        public AddContactRequest contactId(String contactId) {
+            params.addOpt("contact[id]", contactId);
+            return this;
+        }
+
+        public AddContactRequest contactFirstName(String contactFirstName) {
+            params.addOpt("contact[first_name]", contactFirstName);
+            return this;
+        }
+
+        public AddContactRequest contactLastName(String contactLastName) {
+            params.addOpt("contact[last_name]", contactLastName);
+            return this;
+        }
+
+        public AddContactRequest contactEmail(String contactEmail) {
+            params.add("contact[email]", contactEmail);
+            return this;
+        }
+
+        public AddContactRequest contactPhone(String contactPhone) {
+            params.addOpt("contact[phone]", contactPhone);
+            return this;
+        }
+
+        public AddContactRequest contactLabel(String contactLabel) {
+            params.addOpt("contact[label]", contactLabel);
+            return this;
+        }
+
+        public AddContactRequest contactEnabled(Boolean contactEnabled) {
+            params.addOpt("contact[enabled]", contactEnabled);
+            return this;
+        }
+
+        public AddContactRequest contactSendBillingEmail(Boolean contactSendBillingEmail) {
+            params.addOpt("contact[send_billing_email]", contactSendBillingEmail);
+            return this;
+        }
+
+        public AddContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
+            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+            return this;
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class UpdateContactRequest extends Request<UpdateContactRequest> {
+
+        private UpdateContactRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public UpdateContactRequest contactId(String contactId) {
+            params.addOpt("contact[id]", contactId);
+            return this;
+        }
+
+        public UpdateContactRequest contactFirstName(String contactFirstName) {
+            params.addOpt("contact[first_name]", contactFirstName);
+            return this;
+        }
+
+        public UpdateContactRequest contactLastName(String contactLastName) {
+            params.addOpt("contact[last_name]", contactLastName);
+            return this;
+        }
+
+        public UpdateContactRequest contactEmail(String contactEmail) {
+            params.add("contact[email]", contactEmail);
+            return this;
+        }
+
+        public UpdateContactRequest contactPhone(String contactPhone) {
+            params.addOpt("contact[phone]", contactPhone);
+            return this;
+        }
+
+        public UpdateContactRequest contactLabel(String contactLabel) {
+            params.addOpt("contact[label]", contactLabel);
+            return this;
+        }
+
+        public UpdateContactRequest contactEnabled(Boolean contactEnabled) {
+            params.addOpt("contact[enabled]", contactEnabled);
+            return this;
+        }
+
+        public UpdateContactRequest contactSendBillingEmail(Boolean contactSendBillingEmail) {
+            params.addOpt("contact[send_billing_email]", contactSendBillingEmail);
+            return this;
+        }
+
+        public UpdateContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
+            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+            return this;
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class DeleteContactRequest extends Request<DeleteContactRequest> {
+
+        private DeleteContactRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public DeleteContactRequest contactId(String contactId) {
+            params.addOpt("contact[id]", contactId);
+            return this;
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class AddPromotionalCreditsRequest extends Request<AddPromotionalCreditsRequest> {
+
+        private AddPromotionalCreditsRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public AddPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public AddAccountCreditsRequest description(String description) {
+        public AddPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }
@@ -663,19 +895,19 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class DeductAccountCreditsRequest extends Request<DeductAccountCreditsRequest> {
+    public static class DeductPromotionalCreditsRequest extends Request<DeductPromotionalCreditsRequest> {
 
-        private DeductAccountCreditsRequest(Method httpMeth, String uri) {
+        private DeductPromotionalCreditsRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public DeductAccountCreditsRequest amount(Integer amount) {
+        public DeductPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public DeductAccountCreditsRequest description(String description) {
+        public DeductPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }
@@ -687,19 +919,19 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class SetAccountCreditsRequest extends Request<SetAccountCreditsRequest> {
+    public static class SetPromotionalCreditsRequest extends Request<SetPromotionalCreditsRequest> {
 
-        private SetAccountCreditsRequest(Method httpMeth, String uri) {
+        private SetPromotionalCreditsRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public SetAccountCreditsRequest amount(Integer amount) {
+        public SetPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public SetAccountCreditsRequest description(String description) {
+        public SetPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }

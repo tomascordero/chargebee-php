@@ -48,20 +48,35 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_billing_info");
             return new UpdateBillingInfoRequest(url, HttpMethod.POST);
         }
-        public static AddAccountCreditsRequest AddAccountCredits(string id)
+        public static AddContactRequest AddContact(string id)
         {
-            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_account_credits");
-            return new AddAccountCreditsRequest(url, HttpMethod.POST);
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_contact");
+            return new AddContactRequest(url, HttpMethod.POST);
         }
-        public static DeductAccountCreditsRequest DeductAccountCredits(string id)
+        public static UpdateContactRequest UpdateContact(string id)
         {
-            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "deduct_account_credits");
-            return new DeductAccountCreditsRequest(url, HttpMethod.POST);
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_contact");
+            return new UpdateContactRequest(url, HttpMethod.POST);
         }
-        public static SetAccountCreditsRequest SetAccountCredits(string id)
+        public static DeleteContactRequest DeleteContact(string id)
         {
-            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "set_account_credits");
-            return new SetAccountCreditsRequest(url, HttpMethod.POST);
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_contact");
+            return new DeleteContactRequest(url, HttpMethod.POST);
+        }
+        public static AddPromotionalCreditsRequest AddPromotionalCredits(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_promotional_credits");
+            return new AddPromotionalCreditsRequest(url, HttpMethod.POST);
+        }
+        public static DeductPromotionalCreditsRequest DeductPromotionalCredits(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "deduct_promotional_credits");
+            return new DeductPromotionalCreditsRequest(url, HttpMethod.POST);
+        }
+        public static SetPromotionalCreditsRequest SetPromotionalCredits(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "set_promotional_credits");
+            return new SetPromotionalCreditsRequest(url, HttpMethod.POST);
         }
         #endregion
         
@@ -98,6 +113,10 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<AutoCollectionEnum>("auto_collection", true); }
         }
+        public bool AllowDirectDebit 
+        {
+            get { return GetValue<bool>("allow_direct_debit", true); }
+        }
         public DateTime CreatedAt 
         {
             get { return (DateTime)GetDateTime("created_at", true); }
@@ -110,9 +129,18 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<TaxabilityEnum>("taxability", false); }
         }
+        [Obsolete]
+        public CardStatusEnum? CardStatus 
+        {
+            get { return GetEnum<CardStatusEnum>("card_status", false); }
+        }
         public CustomerBillingAddress BillingAddress 
         {
             get { return GetSubResource<CustomerBillingAddress>("billing_address"); }
+        }
+        public List<CustomerContact> Contacts 
+        {
+            get { return GetResourceList<CustomerContact>("contacts"); }
         }
         public CustomerPaymentMethod PaymentMethod 
         {
@@ -122,9 +150,17 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("invoice_notes", false); }
         }
-        public int AccountCredits 
+        public int PromotionalCredits 
         {
-            get { return GetValue<int>("account_credits", true); }
+            get { return GetValue<int>("promotional_credits", true); }
+        }
+        public int RefundableCredits 
+        {
+            get { return GetValue<int>("refundable_credits", true); }
+        }
+        public int ExcessPayments 
+        {
+            get { return GetValue<int>("excess_payments", true); }
         }
         
         #endregion
@@ -170,6 +206,11 @@ namespace ChargeBee.Models
             public CreateRequest AutoCollection(AutoCollectionEnum autoCollection) 
             {
                 m_params.AddOpt("auto_collection", autoCollection);
+                return this;
+            }
+            public CreateRequest AllowDirectDebit(bool allowDirectDebit) 
+            {
+                m_params.AddOpt("allow_direct_debit", allowDirectDebit);
                 return this;
             }
             public CreateRequest VatNumber(string vatNumber) 
@@ -390,6 +431,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("auto_collection", autoCollection);
                 return this;
             }
+            public UpdateRequest AllowDirectDebit(bool allowDirectDebit) 
+            {
+                m_params.AddOpt("allow_direct_debit", allowDirectDebit);
+                return this;
+            }
             public UpdateRequest Taxability(TaxabilityEnum taxability) 
             {
                 m_params.AddOpt("taxability", taxability);
@@ -502,55 +548,174 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class AddAccountCreditsRequest : EntityRequest<AddAccountCreditsRequest> 
+        public class AddContactRequest : EntityRequest<AddContactRequest> 
         {
-            public AddAccountCreditsRequest(string url, HttpMethod method) 
+            public AddContactRequest(string url, HttpMethod method) 
                     : base(url, method)
             {
             }
 
-            public AddAccountCreditsRequest Amount(int amount) 
+            public AddContactRequest ContactId(string contactId) 
+            {
+                m_params.AddOpt("contact[id]", contactId);
+                return this;
+            }
+            public AddContactRequest ContactFirstName(string contactFirstName) 
+            {
+                m_params.AddOpt("contact[first_name]", contactFirstName);
+                return this;
+            }
+            public AddContactRequest ContactLastName(string contactLastName) 
+            {
+                m_params.AddOpt("contact[last_name]", contactLastName);
+                return this;
+            }
+            public AddContactRequest ContactEmail(string contactEmail) 
+            {
+                m_params.Add("contact[email]", contactEmail);
+                return this;
+            }
+            public AddContactRequest ContactPhone(string contactPhone) 
+            {
+                m_params.AddOpt("contact[phone]", contactPhone);
+                return this;
+            }
+            public AddContactRequest ContactLabel(string contactLabel) 
+            {
+                m_params.AddOpt("contact[label]", contactLabel);
+                return this;
+            }
+            public AddContactRequest ContactEnabled(bool contactEnabled) 
+            {
+                m_params.AddOpt("contact[enabled]", contactEnabled);
+                return this;
+            }
+            public AddContactRequest ContactSendBillingEmail(bool contactSendBillingEmail) 
+            {
+                m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
+                return this;
+            }
+            public AddContactRequest ContactSendAcccountEmail(bool contactSendAcccountEmail) 
+            {
+                m_params.AddOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+                return this;
+            }
+        }
+        public class UpdateContactRequest : EntityRequest<UpdateContactRequest> 
+        {
+            public UpdateContactRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public UpdateContactRequest ContactId(string contactId) 
+            {
+                m_params.AddOpt("contact[id]", contactId);
+                return this;
+            }
+            public UpdateContactRequest ContactFirstName(string contactFirstName) 
+            {
+                m_params.AddOpt("contact[first_name]", contactFirstName);
+                return this;
+            }
+            public UpdateContactRequest ContactLastName(string contactLastName) 
+            {
+                m_params.AddOpt("contact[last_name]", contactLastName);
+                return this;
+            }
+            public UpdateContactRequest ContactEmail(string contactEmail) 
+            {
+                m_params.Add("contact[email]", contactEmail);
+                return this;
+            }
+            public UpdateContactRequest ContactPhone(string contactPhone) 
+            {
+                m_params.AddOpt("contact[phone]", contactPhone);
+                return this;
+            }
+            public UpdateContactRequest ContactLabel(string contactLabel) 
+            {
+                m_params.AddOpt("contact[label]", contactLabel);
+                return this;
+            }
+            public UpdateContactRequest ContactEnabled(bool contactEnabled) 
+            {
+                m_params.AddOpt("contact[enabled]", contactEnabled);
+                return this;
+            }
+            public UpdateContactRequest ContactSendBillingEmail(bool contactSendBillingEmail) 
+            {
+                m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
+                return this;
+            }
+            public UpdateContactRequest ContactSendAcccountEmail(bool contactSendAcccountEmail) 
+            {
+                m_params.AddOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+                return this;
+            }
+        }
+        public class DeleteContactRequest : EntityRequest<DeleteContactRequest> 
+        {
+            public DeleteContactRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public DeleteContactRequest ContactId(string contactId) 
+            {
+                m_params.AddOpt("contact[id]", contactId);
+                return this;
+            }
+        }
+        public class AddPromotionalCreditsRequest : EntityRequest<AddPromotionalCreditsRequest> 
+        {
+            public AddPromotionalCreditsRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public AddPromotionalCreditsRequest Amount(int amount) 
             {
                 m_params.Add("amount", amount);
                 return this;
             }
-            public AddAccountCreditsRequest Description(string description) 
+            public AddPromotionalCreditsRequest Description(string description) 
             {
                 m_params.Add("description", description);
                 return this;
             }
         }
-        public class DeductAccountCreditsRequest : EntityRequest<DeductAccountCreditsRequest> 
+        public class DeductPromotionalCreditsRequest : EntityRequest<DeductPromotionalCreditsRequest> 
         {
-            public DeductAccountCreditsRequest(string url, HttpMethod method) 
+            public DeductPromotionalCreditsRequest(string url, HttpMethod method) 
                     : base(url, method)
             {
             }
 
-            public DeductAccountCreditsRequest Amount(int amount) 
+            public DeductPromotionalCreditsRequest Amount(int amount) 
             {
                 m_params.Add("amount", amount);
                 return this;
             }
-            public DeductAccountCreditsRequest Description(string description) 
+            public DeductPromotionalCreditsRequest Description(string description) 
             {
                 m_params.Add("description", description);
                 return this;
             }
         }
-        public class SetAccountCreditsRequest : EntityRequest<SetAccountCreditsRequest> 
+        public class SetPromotionalCreditsRequest : EntityRequest<SetPromotionalCreditsRequest> 
         {
-            public SetAccountCreditsRequest(string url, HttpMethod method) 
+            public SetPromotionalCreditsRequest(string url, HttpMethod method) 
                     : base(url, method)
             {
             }
 
-            public SetAccountCreditsRequest Amount(int amount) 
+            public SetPromotionalCreditsRequest Amount(int amount) 
             {
                 m_params.Add("amount", amount);
                 return this;
             }
-            public SetAccountCreditsRequest Description(string description) 
+            public SetPromotionalCreditsRequest Description(string description) 
             {
                 m_params.Add("description", description);
                 return this;
@@ -558,6 +723,22 @@ namespace ChargeBee.Models
         }
         #endregion
 
+        [Obsolete]
+        public enum CardStatusEnum
+        {
+
+            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
+            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+            [Description("no_card")]
+            NoCard,
+            [Description("valid")]
+            Valid,
+            [Description("expiring")]
+            Expiring,
+            [Description("expired")]
+            Expired,
+
+        }
 
         #region Subclasses
         public class CustomerBillingAddress : Resource
@@ -616,6 +797,46 @@ namespace ChargeBee.Models
             }
 
         }
+        public class CustomerContact : Resource
+        {
+
+            public string Id() {
+                return GetValue<string>("id", true);
+            }
+
+            public string FirstName() {
+                return GetValue<string>("first_name", false);
+            }
+
+            public string LastName() {
+                return GetValue<string>("last_name", false);
+            }
+
+            public string Email() {
+                return GetValue<string>("email", true);
+            }
+
+            public string Phone() {
+                return GetValue<string>("phone", false);
+            }
+
+            public string Label() {
+                return GetValue<string>("label", false);
+            }
+
+            public bool Enabled() {
+                return GetValue<bool>("enabled", true);
+            }
+
+            public bool SendAcccountEmail() {
+                return GetValue<bool>("send_acccount_email", true);
+            }
+
+            public bool SendBillingEmail() {
+                return GetValue<bool>("send_billing_email", true);
+            }
+
+        }
         public class CustomerPaymentMethod : Resource
         {
             public enum TypeEnum
@@ -645,8 +866,8 @@ namespace ChargeBee.Models
                 Invalid,
             }
 
-            public TypeEnum? PaymentMethodType() {
-                return GetEnum<TypeEnum>("type", false);
+            public TypeEnum PaymentMethodType() {
+                return GetEnum<TypeEnum>("type", true);
             }
 
             public GatewayEnum Gateway() {

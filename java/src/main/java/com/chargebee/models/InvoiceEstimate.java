@@ -50,12 +50,16 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
             return optDouble("tax_rate");
         }
 
+        public Integer amount() {
+            return reqInteger("amount");
+        }
+
         public Integer discountAmount() {
             return optInteger("discount_amount");
         }
 
-        public Integer lineAmount() {
-            return reqInteger("line_amount");
+        public Integer itemLevelDiscountAmount() {
+            return optInteger("item_level_discount_amount");
         }
 
         public String description() {
@@ -73,8 +77,8 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
     }
 
     public static class Discount extends Resource<Discount> {
-        public enum Type {
-             DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
+        public enum EntityType {
+             ITEM_LEVEL_COUPON,DOCUMENT_LEVEL_COUPON,PROMOTIONAL_CREDITS,PRORATED_CREDITS,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -138,6 +142,10 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
         return reqBoolean("collect_now");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Integer subTotal() {
         return reqInteger("sub_total");
     }
@@ -148,6 +156,10 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
 
     public Integer creditsApplied() {
         return optInteger("credits_applied");
+    }
+
+    public Integer amountPaid() {
+        return optInteger("amount_paid");
     }
 
     public Integer amountDue() {

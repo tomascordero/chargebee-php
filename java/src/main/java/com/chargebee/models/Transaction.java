@@ -15,6 +15,7 @@ public class Transaction extends Resource<Transaction> {
         AUTHORIZATION,
         PAYMENT,
         REFUND,
+        PAYMENT_REVERSAL,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
@@ -78,12 +79,8 @@ public class Transaction extends Resource<Transaction> {
             return reqTimestamp("applied_at");
         }
 
-        public CreditNote.Status cnType() {
-            return reqEnum("cn_type", CreditNote.Status.class);
-        }
-
-        public CreditNote.Status cnReasonCode() {
-            return reqEnum("cn_reason_code", CreditNote.Status.class);
+        public CreditNote.ReasonCode cnReasonCode() {
+            return reqEnum("cn_reason_code", CreditNote.ReasonCode.class);
         }
 
         public Timestamp cnDate() {
@@ -96,6 +93,33 @@ public class Transaction extends Resource<Transaction> {
 
         public CreditNote.Status cnStatus() {
             return reqEnum("cn_status", CreditNote.Status.class);
+        }
+
+        public String cnReferenceInvoiceId() {
+            return reqString("cn_reference_invoice_id");
+        }
+
+    }
+
+    public static class LinkedRefund extends Resource<LinkedRefund> {
+        public LinkedRefund(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String txnId() {
+            return reqString("txn_id");
+        }
+
+        public Transaction.Status txnStatus() {
+            return reqEnum("txn_status", Transaction.Status.class);
+        }
+
+        public Timestamp txnDate() {
+            return reqTimestamp("txn_date");
+        }
+
+        public Integer txnAmount() {
+            return reqInteger("txn_amount");
         }
 
     }
@@ -170,12 +194,24 @@ public class Transaction extends Resource<Transaction> {
         return optTimestamp("voided_at");
     }
 
-    public String paymentMethodString() {
-        return reqString("payment_method_string");
+    public Integer amountUnused() {
+        return optInteger("amount_unused");
     }
 
-    public String referenceTxnId() {
-        return optString("reference_txn_id");
+    public String maskedCardNumber() {
+        return optString("masked_card_number");
+    }
+
+    public String referenceTransactionId() {
+        return optString("reference_transaction_id");
+    }
+
+    public String refundedTxnId() {
+        return optString("refunded_txn_id");
+    }
+
+    public String reversalTransactionId() {
+        return optString("reversal_transaction_id");
     }
 
     public List<Transaction.LinkedInvoice> linkedInvoices() {
@@ -184,6 +220,10 @@ public class Transaction extends Resource<Transaction> {
 
     public List<Transaction.LinkedCreditNote> linkedCreditNotes() {
         return optList("linked_credit_notes", Transaction.LinkedCreditNote.class);
+    }
+
+    public List<Transaction.LinkedRefund> linkedRefunds() {
+        return optList("linked_refunds", Transaction.LinkedRefund.class);
     }
 
     public String currencyCode() {
@@ -203,13 +243,8 @@ public class Transaction extends Resource<Transaction> {
         return new ListRequest(uri);
     }
 
-    public static ListRequest transactionsForSubscription(String id) throws IOException {
-        String uri = uri("subscriptions", nullCheck(id), "transactions");
-        return new ListRequest(uri);
-    }
-
-    public static ListRequest transactionsForInvoice(String id) throws IOException {
-        String uri = uri("invoices", nullCheck(id), "transactions");
+    public static ListRequest paymentsForInvoice(String id) throws IOException {
+        String uri = uri("invoices", nullCheck(id), "payments");
         return new ListRequest(uri);
     }
 

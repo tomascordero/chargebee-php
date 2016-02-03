@@ -143,24 +143,45 @@ var _endpoints = {
       true
     ],
     [
-      "add_account_credits",
+      "add_contact",
       "POST",
       "/customers",
-      "/add_account_credits",
+      "/add_contact",
       true
     ],
     [
-      "deduct_account_credits",
+      "update_contact",
       "POST",
       "/customers",
-      "/deduct_account_credits",
+      "/update_contact",
       true
     ],
     [
-      "set_account_credits",
+      "delete_contact",
       "POST",
       "/customers",
-      "/set_account_credits",
+      "/delete_contact",
+      true
+    ],
+    [
+      "add_promotional_credits",
+      "POST",
+      "/customers",
+      "/add_promotional_credits",
+      true
+    ],
+    [
+      "deduct_promotional_credits",
+      "POST",
+      "/customers",
+      "/deduct_promotional_credits",
+      true
+    ],
+    [
+      "set_promotional_credits",
+      "POST",
+      "/customers",
+      "/set_promotional_credits",
       true
     ]
   ],
@@ -391,17 +412,10 @@ var _endpoints = {
       true
     ],
     [
-      "transactions_for_subscription",
-      "GET",
-      "/subscriptions",
-      "/transactions",
-      true
-    ],
-    [
-      "transactions_for_invoice",
+      "payments_for_invoice",
       "GET",
       "/invoices",
-      "/transactions",
+      "/payments",
       true
     ],
     [

@@ -29,6 +29,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<bool>("collect_now", true); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public int SubTotal 
         {
             get { return GetValue<int>("sub_total", true); }
@@ -40,6 +44,10 @@ namespace ChargeBee.Models
         public int? CreditsApplied 
         {
             get { return GetValue<int?>("credits_applied", false); }
+        }
+        public int? AmountPaid 
+        {
+            get { return GetValue<int?>("amount_paid", false); }
         }
         public int? AmountDue 
         {
@@ -107,12 +115,16 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
+            public int Amount() {
+                return GetValue<int>("amount", true);
+            }
+
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
+            public int? ItemLevelDiscountAmount() {
+                return GetValue<int?>("item_level_discount_amount", false);
             }
 
             public string Description() {
@@ -130,16 +142,18 @@ namespace ChargeBee.Models
         }
         public class InvoiceEstimateDiscount : Resource
         {
-            public enum TypeEnum
+            public enum EntityTypeEnum
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("item_level_coupon")]
+                ItemLevelCoupon,
                 [Description("document_level_coupon")]
                 DocumentLevelCoupon,
-                [Description("credit_adjustment")]
-                CreditAdjustment,
-                [Description("account_credits")]
-                AccountCredits,
+                [Description("promotional_credits")]
+                PromotionalCredits,
+                [Description("prorated_credits")]
+                ProratedCredits,
             }
 
             public int Amount() {

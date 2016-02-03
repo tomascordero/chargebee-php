@@ -69,12 +69,16 @@ public class Invoice extends Resource<Invoice> {
             return optDouble("tax_rate");
         }
 
+        public Integer amount() {
+            return reqInteger("amount");
+        }
+
         public Integer discountAmount() {
             return optInteger("discount_amount");
         }
 
-        public Integer lineAmount() {
-            return reqInteger("line_amount");
+        public Integer itemLevelDiscountAmount() {
+            return optInteger("item_level_discount_amount");
         }
 
         public String description() {
@@ -92,8 +96,8 @@ public class Invoice extends Resource<Invoice> {
     }
 
     public static class Discount extends Resource<Discount> {
-        public enum Type {
-             DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
+        public enum EntityType {
+             ITEM_LEVEL_COUPON,DOCUMENT_LEVEL_COUPON,PROMOTIONAL_CREDITS,PRORATED_CREDITS,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -135,8 +139,8 @@ public class Invoice extends Resource<Invoice> {
 
     }
 
-    public static class LinkedTransaction extends Resource<LinkedTransaction> {
-        public LinkedTransaction(JSONObject jsonObj) {
+    public static class LinkedPayment extends Resource<LinkedPayment> {
+        public LinkedPayment(JSONObject jsonObj) {
             super(jsonObj);
         }
 
@@ -150,10 +154,6 @@ public class Invoice extends Resource<Invoice> {
 
         public Timestamp appliedAt() {
             return reqTimestamp("applied_at");
-        }
-
-        public Transaction.Type txnType() {
-            return reqEnum("txn_type", Transaction.Type.class);
         }
 
         public Transaction.Status txnStatus() {
@@ -187,10 +187,6 @@ public class Invoice extends Resource<Invoice> {
             return reqTimestamp("applied_at");
         }
 
-        public CreditNote.Type cnType() {
-            return reqEnum("cn_type", CreditNote.Type.class);
-        }
-
         public CreditNote.ReasonCode cnReasonCode() {
             return reqEnum("cn_reason_code", CreditNote.ReasonCode.class);
         }
@@ -205,8 +201,8 @@ public class Invoice extends Resource<Invoice> {
 
     }
 
-    public static class CreatedCreditNote extends Resource<CreatedCreditNote> {
-        public CreatedCreditNote(JSONObject jsonObj) {
+    public static class AdjustmentCreditNote extends Resource<AdjustmentCreditNote> {
+        public AdjustmentCreditNote(JSONObject jsonObj) {
             super(jsonObj);
         }
 
@@ -214,8 +210,31 @@ public class Invoice extends Resource<Invoice> {
             return reqString("cn_id");
         }
 
-        public CreditNote.Type cnType() {
-            return reqEnum("cn_type", CreditNote.Type.class);
+        public CreditNote.ReasonCode cnReasonCode() {
+            return reqEnum("cn_reason_code", CreditNote.ReasonCode.class);
+        }
+
+        public Timestamp cnDate() {
+            return optTimestamp("cn_date");
+        }
+
+        public Integer cnTotal() {
+            return optInteger("cn_total");
+        }
+
+        public CreditNote.Status cnStatus() {
+            return reqEnum("cn_status", CreditNote.Status.class);
+        }
+
+    }
+
+    public static class IssuedCreditNote extends Resource<IssuedCreditNote> {
+        public IssuedCreditNote(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String cnId() {
+            return reqString("cn_id");
         }
 
         public CreditNote.ReasonCode cnReasonCode() {
@@ -458,6 +477,10 @@ public class Invoice extends Resource<Invoice> {
         return optString("vat_number");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Timestamp date() {
         return optTimestamp("date");
     }
@@ -466,12 +489,24 @@ public class Invoice extends Resource<Invoice> {
         return optInteger("total");
     }
 
-    public Integer amountDue() {
-        return optInteger("amount_due");
+    public Integer amountPaid() {
+        return optInteger("amount_paid");
     }
 
-    public Integer createdCredits() {
-        return reqInteger("created_credits");
+    public Integer amountAdjusted() {
+        return optInteger("amount_adjusted");
+    }
+
+    public Integer writeOffAmount() {
+        return optInteger("write_off_amount");
+    }
+
+    public Integer creditsApplied() {
+        return optInteger("credits_applied");
+    }
+
+    public Integer amountDue() {
+        return optInteger("amount_due");
     }
 
     public Timestamp paidAt() {
@@ -514,16 +549,20 @@ public class Invoice extends Resource<Invoice> {
         return optList("taxes", Invoice.Tax.class);
     }
 
-    public List<Invoice.LinkedTransaction> linkedTransactions() {
-        return optList("linked_transactions", Invoice.LinkedTransaction.class);
+    public List<Invoice.LinkedPayment> linkedPayments() {
+        return optList("linked_payments", Invoice.LinkedPayment.class);
     }
 
     public List<Invoice.AppliedCredit> appliedCredits() {
         return optList("applied_credits", Invoice.AppliedCredit.class);
     }
 
-    public List<Invoice.CreatedCreditNote> createdCreditNotes() {
-        return optList("created_credit_notes", Invoice.CreatedCreditNote.class);
+    public List<Invoice.AdjustmentCreditNote> adjustmentCreditNotes() {
+        return optList("adjustment_credit_notes", Invoice.AdjustmentCreditNote.class);
+    }
+
+    public List<Invoice.IssuedCreditNote> issuedCreditNotes() {
+        return optList("issued_credit_notes", Invoice.IssuedCreditNote.class);
     }
 
     public List<Invoice.LinkedOrder> linkedOrders() {
@@ -984,6 +1023,12 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
+        public RefundRequest customerNotes(String customerNotes) {
+            params.addOpt("customer_notes", customerNotes);
+            return this;
+        }
+
+
         public RefundRequest creditNoteReasonCode(ReasonCode creditNoteReasonCode) {
             params.addOpt("credit_note[reason_code]", creditNoteReasonCode);
             return this;
@@ -1002,7 +1047,13 @@ public class Invoice extends Resource<Invoice> {
         }
     
         public RecordRefundRequest comment(String comment) {
-            params.add("comment", comment);
+            params.addOpt("comment", comment);
+            return this;
+        }
+
+
+        public RecordRefundRequest customerNotes(String customerNotes) {
+            params.addOpt("customer_notes", customerNotes);
             return this;
         }
 

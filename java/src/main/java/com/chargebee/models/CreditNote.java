@@ -12,7 +12,7 @@ import java.util.*;
 public class CreditNote extends Resource<CreditNote> {
 
     public enum Type {
-        DUE_ADJUSTMENT,
+        ADJUSTMENT,
         REFUNDABLE,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
@@ -22,19 +22,20 @@ public class CreditNote extends Resource<CreditNote> {
         WRITE_OFF,
         SUBSCRIPTION_CHANGE,
         CHARGEBACK,
-        PRODUCT_OR_SERVICE_UNSATISFACTORY,
+        PRODUCT_UNSATISFACTORY,
+        SERVICE_UNSATISFACTORY,
         ORDER_CHANGE,
+        ORDER_CANCELLATION,
         WAIVER,
-        REWARD,
-        OTHERS,
-        NOT_APPLICABLE,
+        OTHER,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
     public enum Status {
-        PAID,
-        PAYMENT_DUE,
+        ADJUSTED,
+        REFUNDED,
+        REFUND_DUE,
         VOIDED,
         _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
         java-client version incompatibility. We suggest you to upgrade to the latest version */
@@ -79,12 +80,16 @@ public class CreditNote extends Resource<CreditNote> {
             return optDouble("tax_rate");
         }
 
+        public Integer amount() {
+            return reqInteger("amount");
+        }
+
         public Integer discountAmount() {
             return optInteger("discount_amount");
         }
 
-        public Integer lineAmount() {
-            return reqInteger("line_amount");
+        public Integer itemLevelDiscountAmount() {
+            return optInteger("item_level_discount_amount");
         }
 
         public String description() {
@@ -102,8 +107,8 @@ public class CreditNote extends Resource<CreditNote> {
     }
 
     public static class Discount extends Resource<Discount> {
-        public enum Type {
-             DOCUMENT_LEVEL_COUPON,CREDIT_ADJUSTMENT,ACCOUNT_CREDITS,
+        public enum EntityType {
+             ITEM_LEVEL_COUPON,DOCUMENT_LEVEL_COUPON,PROMOTIONAL_CREDITS,PRORATED_CREDITS,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -145,8 +150,8 @@ public class CreditNote extends Resource<CreditNote> {
 
     }
 
-    public static class LinkedTransaction extends Resource<LinkedTransaction> {
-        public LinkedTransaction(JSONObject jsonObj) {
+    public static class LinkedRefund extends Resource<LinkedRefund> {
+        public LinkedRefund(JSONObject jsonObj) {
             super(jsonObj);
         }
 
@@ -160,10 +165,6 @@ public class CreditNote extends Resource<CreditNote> {
 
         public Timestamp appliedAt() {
             return reqTimestamp("applied_at");
-        }
-
-        public Transaction.Type txnType() {
-            return reqEnum("txn_type", Transaction.Type.class);
         }
 
         public Transaction.Status txnStatus() {
@@ -257,24 +258,28 @@ public class CreditNote extends Resource<CreditNote> {
         return optTimestamp("date");
     }
 
+    public PriceType priceType() {
+        return reqEnum("price_type", PriceType.class);
+    }
+
     public Integer total() {
         return optInteger("total");
     }
 
-    public Integer creditsAllocated() {
-        return optInteger("credits_allocated");
+    public Integer amountAllocated() {
+        return optInteger("amount_allocated");
     }
 
-    public Integer refundsMade() {
-        return optInteger("refunds_made");
+    public Integer amountRefunded() {
+        return optInteger("amount_refunded");
     }
 
-    public Integer remainingCredits() {
-        return optInteger("remaining_credits");
+    public Integer amountAvailable() {
+        return optInteger("amount_available");
     }
 
-    public Timestamp paidAt() {
-        return optTimestamp("paid_at");
+    public Timestamp refundedAt() {
+        return optTimestamp("refunded_at");
     }
 
     public Integer subTotal() {
@@ -293,8 +298,8 @@ public class CreditNote extends Resource<CreditNote> {
         return optList("taxes", CreditNote.Tax.class);
     }
 
-    public List<CreditNote.LinkedTransaction> linkedTransactions() {
-        return optList("linked_transactions", CreditNote.LinkedTransaction.class);
+    public List<CreditNote.LinkedRefund> linkedRefunds() {
+        return optList("linked_refunds", CreditNote.LinkedRefund.class);
     }
 
     public List<CreditNote.Allocation> allocations() {

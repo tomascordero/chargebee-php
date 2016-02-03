@@ -72,25 +72,29 @@ namespace ChargeBee.Models
         {
             get { return GetDateTime("date", false); }
         }
+        public PriceTypeEnum PriceType 
+        {
+            get { return GetEnum<PriceTypeEnum>("price_type", true); }
+        }
         public int? Total 
         {
             get { return GetValue<int?>("total", false); }
         }
-        public int? CreditsAllocated 
+        public int? AmountAllocated 
         {
-            get { return GetValue<int?>("credits_allocated", false); }
+            get { return GetValue<int?>("amount_allocated", false); }
         }
-        public int? RefundsMade 
+        public int? AmountRefunded 
         {
-            get { return GetValue<int?>("refunds_made", false); }
+            get { return GetValue<int?>("amount_refunded", false); }
         }
-        public int? RemainingCredits 
+        public int? AmountAvailable 
         {
-            get { return GetValue<int?>("remaining_credits", false); }
+            get { return GetValue<int?>("amount_available", false); }
         }
-        public DateTime? PaidAt 
+        public DateTime? RefundedAt 
         {
-            get { return GetDateTime("paid_at", false); }
+            get { return GetDateTime("refunded_at", false); }
         }
         public int SubTotal 
         {
@@ -108,9 +112,9 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<CreditNoteTax>("taxes"); }
         }
-        public List<CreditNoteLinkedTransaction> LinkedTransactions 
+        public List<CreditNoteLinkedRefund> LinkedRefunds 
         {
-            get { return GetResourceList<CreditNoteLinkedTransaction>("linked_transactions"); }
+            get { return GetResourceList<CreditNoteLinkedRefund>("linked_refunds"); }
         }
         public List<CreditNoteAllocation> Allocations 
         {
@@ -125,8 +129,8 @@ namespace ChargeBee.Models
 
             UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
             dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("due_adjustment")]
-            DueAdjustment,
+            [Description("adjustment")]
+            Adjustment,
             [Description("refundable")]
             Refundable,
 
@@ -142,18 +146,18 @@ namespace ChargeBee.Models
             SubscriptionChange,
             [Description("chargeback")]
             Chargeback,
-            [Description("product_or_service_unsatisfactory")]
-            ProductOrServiceUnsatisfactory,
+            [Description("product_unsatisfactory")]
+            ProductUnsatisfactory,
+            [Description("service_unsatisfactory")]
+            ServiceUnsatisfactory,
             [Description("order_change")]
             OrderChange,
+            [Description("order_cancellation")]
+            OrderCancellation,
             [Description("waiver")]
             Waiver,
-            [Description("reward")]
-            Reward,
-            [Description("others")]
-            Others,
-            [Description("not_applicable")]
-            NotApplicable,
+            [Description("other")]
+            Other,
 
         }
         public enum StatusEnum
@@ -161,10 +165,12 @@ namespace ChargeBee.Models
 
             UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
             dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("paid")]
-            Paid,
-            [Description("payment_due")]
-            PaymentDue,
+            [Description("adjusted")]
+            Adjusted,
+            [Description("refunded")]
+            Refunded,
+            [Description("refund_due")]
+            RefundDue,
             [Description("voided")]
             Voided,
 
@@ -215,12 +221,16 @@ namespace ChargeBee.Models
                 return GetValue<double?>("tax_rate", false);
             }
 
+            public int Amount() {
+                return GetValue<int>("amount", true);
+            }
+
             public int? DiscountAmount() {
                 return GetValue<int?>("discount_amount", false);
             }
 
-            public int LineAmount() {
-                return GetValue<int>("line_amount", true);
+            public int? ItemLevelDiscountAmount() {
+                return GetValue<int?>("item_level_discount_amount", false);
             }
 
             public string Description() {
@@ -238,16 +248,18 @@ namespace ChargeBee.Models
         }
         public class CreditNoteDiscount : Resource
         {
-            public enum TypeEnum
+            public enum EntityTypeEnum
             {
                 UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
                 dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+                [Description("item_level_coupon")]
+                ItemLevelCoupon,
                 [Description("document_level_coupon")]
                 DocumentLevelCoupon,
-                [Description("credit_adjustment")]
-                CreditAdjustment,
-                [Description("account_credits")]
-                AccountCredits,
+                [Description("promotional_credits")]
+                PromotionalCredits,
+                [Description("prorated_credits")]
+                ProratedCredits,
             }
 
             public int Amount() {
@@ -279,7 +291,7 @@ namespace ChargeBee.Models
             }
 
         }
-        public class CreditNoteLinkedTransaction : Resource
+        public class CreditNoteLinkedRefund : Resource
         {
 
             public string TxnId() {
@@ -292,10 +304,6 @@ namespace ChargeBee.Models
 
             public DateTime AppliedAt() {
                 return (DateTime)GetDateTime("applied_at", true);
-            }
-
-            public Transaction.TypeEnum TxnType() {
-                return GetEnum<Transaction.TypeEnum>("txn_type", true);
             }
 
             public Transaction.StatusEnum? TxnStatus() {

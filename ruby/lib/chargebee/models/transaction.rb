@@ -6,12 +6,17 @@ module ChargeBee
     end
 
     class LinkedCreditNote < Model
-      attr_accessor :cn_id, :applied_amount, :applied_at, :cn_type, :cn_reason_code, :cn_date, :cn_total, :cn_status
+      attr_accessor :cn_id, :applied_amount, :applied_at, :cn_reason_code, :cn_date, :cn_total, :cn_status, :cn_reference_invoice_id
+    end
+
+    class LinkedRefund < Model
+      attr_accessor :txn_id, :txn_status, :txn_date, :txn_amount
     end
 
   attr_accessor :id, :customer_id, :subscription_id, :payment_method, :reference_number, :gateway,
-  :type, :date, :amount, :id_at_gateway, :status, :error_code, :error_text, :voided_at, :payment_method_string,
-  :reference_txn_id, :linked_invoices, :linked_credit_notes, :currency_code
+  :type, :date, :amount, :id_at_gateway, :status, :error_code, :error_text, :voided_at, :amount_unused,
+  :masked_card_number, :reference_transaction_id, :refunded_txn_id, :reversal_transaction_id,
+  :linked_invoices, :linked_credit_notes, :linked_refunds, :currency_code
 
   # OPERATIONS
   #-----------
@@ -24,12 +29,8 @@ module ChargeBee
     Request.send('get', uri_path("customers",id.to_s,"transactions"), params, env, headers)
   end
 
-  def self.transactions_for_subscription(id, params={}, env=nil, headers={})
-    Request.send('get', uri_path("subscriptions",id.to_s,"transactions"), params, env, headers)
-  end
-
-  def self.transactions_for_invoice(id, params={}, env=nil, headers={})
-    Request.send('get', uri_path("invoices",id.to_s,"transactions"), params, env, headers)
+  def self.payments_for_invoice(id, params={}, env=nil, headers={})
+    Request.send('get', uri_path("invoices",id.to_s,"payments"), params, env, headers)
   end
 
   def self.retrieve(id, env=nil, headers={})
