@@ -34,7 +34,7 @@ class Result(object):
     @property
     def credit_note(self):
         credit_note = self._get('credit_note', CreditNote,
-        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'linked_refunds' : CreditNote.LinkedRefund, 'allocationa' : CreditNote.Allocation});
+        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'linked_refunds' : CreditNote.LinkedRefund, 'allocations' : CreditNote.Allocation});
         return credit_note;
 
     @property
@@ -45,7 +45,7 @@ class Result(object):
     @property
     def transaction(self):
         transaction = self._get('transaction', Transaction,
-        {'invoice_transactions' : Transaction.LinkedInvoice, 'credit_note_transactions' : Transaction.LinkedCreditNote, 'txn_refunds_and_reversals' : Transaction.LinkedRefund});
+        {'linked_invoices' : Transaction.LinkedInvoice, 'linked_credit_notes' : Transaction.LinkedCreditNote, 'linked_refunds' : Transaction.LinkedRefund});
         return transaction;
 
     @property
@@ -114,7 +114,7 @@ class Result(object):
     @property
     def credit_notes(self):
         credit_notes = self._get_list('credit_notes', 'CreditNote',
-        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'linked_refunds' : CreditNote.LinkedRefund, 'allocationa' : CreditNote.Allocation});
+        {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'linked_refunds' : CreditNote.LinkedRefund, 'allocations' : CreditNote.Allocation});
         return credit_notes;
 
 
