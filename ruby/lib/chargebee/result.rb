@@ -81,13 +81,14 @@ module ChargeBee
     end
 
 
-    def to_s(*args) 
-      JSON.pretty_generate(@response) 
-    end
 
     private
     def get(type, klass, sub_types = {})
       klass.construct(@response[type], sub_types)
+    end
+
+    def to_s(*args) 
+      JSON.pretty_generate(@response) 
     end
 
   end

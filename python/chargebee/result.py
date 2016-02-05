@@ -84,6 +84,7 @@ class Result(object):
         {'linked_customers' : PortalSession.LinkedCustomer});
 
 
+
     def _get(self, type, cls, sub_types=None):
         if not type in self._response:
             return None

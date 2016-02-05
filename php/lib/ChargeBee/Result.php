@@ -105,6 +105,7 @@ class ChargeBee_Result
     }
 
 
+    
     private function _get($type, $class, $subTypes = array())
     {
         if(!array_key_exists($type, $this->_response))
