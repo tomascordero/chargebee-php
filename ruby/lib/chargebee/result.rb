@@ -115,15 +115,6 @@ module ChargeBee
     end
     
 
-    def to_s(*args) 
-      JSON.pretty_generate(@response) 
-    end
-
-    private
-    def get(type, klass, sub_types = {}, dependant_types = {})
-      return klass.construct(@response[type], sub_types, dependant_types)
-    end
-
     private
     def get_list(type, klass, sub_types = {}, dependant_types = {}, dependant_sub_types = {})
       if(@response[type] == nil)
@@ -141,6 +132,15 @@ module ChargeBee
         end
       end
       return instance_variable_set("@#{type}", set_val)
+    end
+
+    private
+    def get(type, klass, sub_types = {}, dependant_types = {})
+      return klass.construct(@response[type], sub_types, dependant_types)
+    end
+
+    def to_s(*args) 
+      JSON.pretty_generate(@response) 
     end
 
   end

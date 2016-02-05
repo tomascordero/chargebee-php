@@ -132,7 +132,7 @@ class ChargeBee_Result
         return $portal_session;
     }
 
-    
+
     function creditNotes() 
     {
         $credit_notes = $this->_getList('credit_notes', 'ChargeBee_CreditNote',
@@ -140,20 +140,7 @@ class ChargeBee_Result
         return $credit_notes;
     }
     
-
-    private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
-    {
-        if(!array_key_exists($type, $this->_response))
-        {
-            return null;
-        }
-        if(!array_key_exists($type, $this->_responseObj))
-        {
-            $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes, $dependantTypes);
-        }
-        return $this->_responseObj[$type];
-    }
-
+    
     private function _getList($type, $class, $subTypes = array(), $dependantTypes = array(),  $dependantSubTypes = array())
     {
         if(!array_key_exists($type, $this->_response))
@@ -177,6 +164,19 @@ class ChargeBee_Result
         return $this->_responseObj[$type];        
     }
     
+    private function _get($type, $class, $subTypes = array(), $dependantTypes = array())
+    {
+        if(!array_key_exists($type, $this->_response))
+        {
+                return null;
+        }
+        if(!array_key_exists($type, $this->_responseObj))
+        {
+                $this->_responseObj[$type] = new $class($this->_response[$type], $subTypes, $dependantTypes);
+        }
+        return $this->_responseObj[$type];
+    }
+
 }
 
 ?>

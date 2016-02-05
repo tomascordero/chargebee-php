@@ -118,15 +118,6 @@ class Result(object):
         return credit_notes;
 
 
-    def _get(self, type, cls, sub_types=None, dependant_types=None):
-        if not type in self._response:
-            return None
-
-        if not type in self._response_obj:
-            self._response_obj[type] = cls.construct(self._response[type], sub_types, dependant_types)
-
-        return self._response_obj[type]
-
     def _get_list(self, type, cls, sub_types={}, dependant_types={}, dependant_sub_types={}):
         if not type in self._response:
             return None
@@ -140,6 +131,15 @@ class Result(object):
                     set_val.append(model)
 
         self._response_obj[type] = set_val
+        return self._response_obj[type]
+
+    def _get(self, type, cls, sub_types=None, dependant_types=None):
+        if not type in self._response:
+            return None
+
+        if not type in self._response_obj:
+            self._response_obj[type] = cls.construct(self._response[type], sub_types, dependant_types)
+
         return self._response_obj[type]
 
     def __str__(self):

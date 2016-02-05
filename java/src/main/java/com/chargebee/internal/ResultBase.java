@@ -85,24 +85,10 @@ public class ResultBase {
         return (PortalSession)get("portal_session");
     }
 
-    
     public List<CreditNote> creditNotes() {
         return (List<CreditNote>) getList("credit_notes", "credit_note");
     }
 
-
-    private Resource get(String key) {
-        JSONObject modelJson = jsonObj.optJSONObject(key);
-        return _get(key, modelJson);
-    }
-
-    private Resource _get(String key, JSONObject modelJson) {
-        if(modelJson == null) {
-            return null;
-        }
-        Class<Resource> modelClaz = ClazzUtil.getClaz(key);
-        return ClazzUtil.createInstance(modelClaz, modelJson);
-    }
 
     private List<? extends Resource> getList(String pluralName, String singularName) {
         JSONArray listModels = jsonObj.optJSONArray(pluralName);
@@ -119,6 +105,19 @@ public class ResultBase {
         } catch (JSONException jsonExp) {
             throw new RuntimeException(jsonExp);
         }
+    }
+
+    private Resource get(String key) {
+        JSONObject modelJson = jsonObj.optJSONObject(key);
+        return _get(key, modelJson);
+    }
+
+    private Resource _get(String key, JSONObject modelJson) {
+        if(modelJson == null) {
+            return null;
+        }
+        Class<Resource> modelClaz = ClazzUtil.getClaz(key);
+        return ClazzUtil.createInstance(modelClaz, modelJson);
     }
 
     @Override
