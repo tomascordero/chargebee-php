@@ -78,10 +78,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "collect");
             return new EntityRequest<Type>(url, HttpMethod.POST);
         }
-        public static EntityRequest<Type> CollectPayment(string id)
+        public static CollectPaymentRequest CollectPayment(string id)
         {
             string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "collect_payment");
-            return new EntityRequest<Type>(url, HttpMethod.POST);
+            return new CollectPaymentRequest(url, HttpMethod.POST);
         }
         public static RefundRequest Refund(string id)
         {
@@ -150,13 +150,13 @@ namespace ChargeBee.Models
         {
             get { return GetValue<int?>("amount", false); }
         }
-        public int? PaymentsMade 
+        public int? AmountPaid 
         {
-            get { return GetValue<int?>("payments_made", false); }
+            get { return GetValue<int?>("amount_paid", false); }
         }
-        public int? AdjustmentAmount 
+        public int? AmountAdjusted 
         {
-            get { return GetValue<int?>("adjustment_amount", false); }
+            get { return GetValue<int?>("amount_adjusted", false); }
         }
         public int? CreditsApplied 
         {
@@ -473,6 +473,19 @@ namespace ChargeBee.Models
                 return this;
             }
         }
+        public class CollectPaymentRequest : EntityRequest<CollectPaymentRequest> 
+        {
+            public CollectPaymentRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CollectPaymentRequest Amount(int amount) 
+            {
+                m_params.AddOpt("amount", amount);
+                return this;
+            }
+        }
         public class RefundRequest : EntityRequest<RefundRequest> 
         {
             public RefundRequest(string url, HttpMethod method) 
@@ -567,17 +580,6 @@ namespace ChargeBee.Models
             Voided,
             [Description("pending")]
             Pending,
-
-        }
-        public enum PriceTypeEnum
-        {
-
-            UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-            dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
-            [Description("tax_exclusive")]
-            TaxExclusive,
-            [Description("tax_inclusive")]
-            TaxInclusive,
 
         }
         public enum DunningStatusEnum

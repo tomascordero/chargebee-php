@@ -21,13 +21,6 @@ public class Invoice extends Resource<Invoice> {
         java-client version incompatibility. We suggest you to upgrade to the latest version */
     }
 
-    public enum PriceType {
-        TAX_EXCLUSIVE,
-        TAX_INCLUSIVE,
-        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
-        java-client version incompatibility. We suggest you to upgrade to the latest version */
-    }
-
     public enum DunningStatus {
         IN_PROGRESS,
         EXHAUSTED,
@@ -421,12 +414,12 @@ public class Invoice extends Resource<Invoice> {
         return optInteger("amount");
     }
 
-    public Integer paymentsMade() {
-        return optInteger("payments_made");
+    public Integer amountPaid() {
+        return optInteger("amount_paid");
     }
 
-    public Integer adjustmentAmount() {
-        return optInteger("adjustment_amount");
+    public Integer amountAdjusted() {
+        return optInteger("amount_adjusted");
     }
 
     public Integer creditsApplied() {
@@ -560,9 +553,9 @@ public class Invoice extends Resource<Invoice> {
         return new Request(Method.POST, uri);
     }
 
-    public static Request collectPayment(String id) throws IOException {
+    public static CollectPaymentRequest collectPayment(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "collect_payment");
-        return new Request(Method.POST, uri);
+        return new CollectPaymentRequest(Method.POST, uri);
     }
 
     public static RefundRequest refund(String id) throws IOException {
@@ -868,6 +861,24 @@ public class Invoice extends Resource<Invoice> {
 
         public AddAddonChargeRequest addonQuantity(Integer addonQuantity) {
             params.addOpt("addon_quantity", addonQuantity);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class CollectPaymentRequest extends Request<CollectPaymentRequest> {
+
+        private CollectPaymentRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public CollectPaymentRequest amount(Integer amount) {
+            params.addOpt("amount", amount);
             return this;
         }
 
