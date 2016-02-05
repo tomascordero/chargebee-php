@@ -168,6 +168,14 @@ public class Estimate extends Resource<Estimate> {
         return reqInteger("amount");
     }
 
+    public Integer creditsApplied() {
+        return reqInteger("credits_applied");
+    }
+
+    public Integer amountDue() {
+        return reqInteger("amount_due");
+    }
+
     public Integer subTotal() {
         return reqInteger("sub_total");
     }

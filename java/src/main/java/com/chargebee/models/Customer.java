@@ -113,8 +113,8 @@ public class Customer extends Resource<Customer> {
             return reqBoolean("enabled");
         }
 
-        public Boolean sendAcccountEmail() {
-            return reqBoolean("send_acccount_email");
+        public Boolean sendAccountEmail() {
+            return reqBoolean("send_account_email");
         }
 
         public Boolean sendBillingEmail() {
@@ -243,6 +243,10 @@ public class Customer extends Resource<Customer> {
 
     public Integer accountCredits() {
         return reqInteger("account_credits");
+    }
+
+    public Integer refundableCredits() {
+        return reqInteger("refundable_credits");
     }
 
     public Integer excessPayments() {
@@ -782,8 +786,8 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-        public AddContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
-            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+        public AddContactRequest contactSendAccountEmail(Boolean contactSendAccountEmail) {
+            params.addOpt("contact[send_account_email]", contactSendAccountEmail);
             return this;
         }
 
@@ -800,7 +804,7 @@ public class Customer extends Resource<Customer> {
         }
     
         public UpdateContactRequest contactId(String contactId) {
-            params.addOpt("contact[id]", contactId);
+            params.add("contact[id]", contactId);
             return this;
         }
 
@@ -815,7 +819,7 @@ public class Customer extends Resource<Customer> {
         }
 
         public UpdateContactRequest contactEmail(String contactEmail) {
-            params.add("contact[email]", contactEmail);
+            params.addOpt("contact[email]", contactEmail);
             return this;
         }
 
@@ -839,8 +843,8 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-        public UpdateContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
-            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+        public UpdateContactRequest contactSendAccountEmail(Boolean contactSendAccountEmail) {
+            params.addOpt("contact[send_account_email]", contactSendAccountEmail);
             return this;
         }
 
@@ -857,7 +861,7 @@ public class Customer extends Resource<Customer> {
         }
     
         public DeleteContactRequest contactId(String contactId) {
-            params.addOpt("contact[id]", contactId);
+            params.add("contact[id]", contactId);
             return this;
         }
 

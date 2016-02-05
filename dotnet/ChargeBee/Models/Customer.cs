@@ -154,6 +154,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<int>("account_credits", true); }
         }
+        public int RefundableCredits 
+        {
+            get { return GetValue<int>("refundable_credits", true); }
+        }
         public int ExcessPayments 
         {
             get { return GetValue<int>("excess_payments", true); }
@@ -591,9 +595,9 @@ namespace ChargeBee.Models
                 m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
                 return this;
             }
-            public AddContactRequest ContactSendAcccountEmail(bool contactSendAcccountEmail) 
+            public AddContactRequest ContactSendAccountEmail(bool contactSendAccountEmail) 
             {
-                m_params.AddOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+                m_params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
                 return this;
             }
         }
@@ -606,7 +610,7 @@ namespace ChargeBee.Models
 
             public UpdateContactRequest ContactId(string contactId) 
             {
-                m_params.AddOpt("contact[id]", contactId);
+                m_params.Add("contact[id]", contactId);
                 return this;
             }
             public UpdateContactRequest ContactFirstName(string contactFirstName) 
@@ -621,7 +625,7 @@ namespace ChargeBee.Models
             }
             public UpdateContactRequest ContactEmail(string contactEmail) 
             {
-                m_params.Add("contact[email]", contactEmail);
+                m_params.AddOpt("contact[email]", contactEmail);
                 return this;
             }
             public UpdateContactRequest ContactPhone(string contactPhone) 
@@ -644,9 +648,9 @@ namespace ChargeBee.Models
                 m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
                 return this;
             }
-            public UpdateContactRequest ContactSendAcccountEmail(bool contactSendAcccountEmail) 
+            public UpdateContactRequest ContactSendAccountEmail(bool contactSendAccountEmail) 
             {
-                m_params.AddOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+                m_params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
                 return this;
             }
         }
@@ -659,7 +663,7 @@ namespace ChargeBee.Models
 
             public DeleteContactRequest ContactId(string contactId) 
             {
-                m_params.AddOpt("contact[id]", contactId);
+                m_params.Add("contact[id]", contactId);
                 return this;
             }
         }
@@ -824,8 +828,8 @@ namespace ChargeBee.Models
                 return GetValue<bool>("enabled", true);
             }
 
-            public bool SendAcccountEmail() {
-                return GetValue<bool>("send_acccount_email", true);
+            public bool SendAccountEmail() {
+                return GetValue<bool>("send_account_email", true);
             }
 
             public bool SendBillingEmail() {

@@ -6,7 +6,7 @@ module ChargeBee
     end
 
     class Contact < Model
-      attr_accessor :id, :first_name, :last_name, :email, :phone, :label, :enabled, :send_acccount_email, :send_billing_email
+      attr_accessor :id, :first_name, :last_name, :email, :phone, :label, :enabled, :send_account_email, :send_billing_email
     end
 
     class PaymentMethod < Model
@@ -15,7 +15,7 @@ module ChargeBee
 
   attr_accessor :id, :first_name, :last_name, :email, :phone, :company, :vat_number, :auto_collection,
   :allow_direct_debit, :created_at, :created_from_ip, :taxability, :card_status, :billing_address,
-  :contacts, :payment_method, :invoice_notes, :account_credits, :excess_payments
+  :contacts, :payment_method, :invoice_notes, :account_credits, :refundable_credits, :excess_payments
 
   # OPERATIONS
   #-----------
@@ -52,7 +52,7 @@ module ChargeBee
     Request.send('post', uri_path("customers",id.to_s,"update_contact"), params, env, headers)
   end
 
-  def self.delete_contact(id, params={}, env=nil, headers={})
+  def self.delete_contact(id, params, env=nil, headers={})
     Request.send('post', uri_path("customers",id.to_s,"delete_contact"), params, env, headers)
   end
 

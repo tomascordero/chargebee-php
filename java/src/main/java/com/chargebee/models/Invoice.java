@@ -414,6 +414,18 @@ public class Invoice extends Resource<Invoice> {
         return optInteger("amount");
     }
 
+    public Integer amountPaid() {
+        return optInteger("amount_paid");
+    }
+
+    public Integer amountAdjusted() {
+        return optInteger("amount_adjusted");
+    }
+
+    public Integer creditsApplied() {
+        return optInteger("credits_applied");
+    }
+
     public Integer amountDue() {
         return optInteger("amount_due");
     }
@@ -541,9 +553,9 @@ public class Invoice extends Resource<Invoice> {
         return new Request(Method.POST, uri);
     }
 
-    public static Request collectPayment(String id) throws IOException {
+    public static CollectPaymentRequest collectPayment(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "collect_payment");
-        return new Request(Method.POST, uri);
+        return new CollectPaymentRequest(Method.POST, uri);
     }
 
     public static RefundRequest refund(String id) throws IOException {
@@ -849,6 +861,24 @@ public class Invoice extends Resource<Invoice> {
 
         public AddAddonChargeRequest addonQuantity(Integer addonQuantity) {
             params.addOpt("addon_quantity", addonQuantity);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class CollectPaymentRequest extends Request<CollectPaymentRequest> {
+
+        private CollectPaymentRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public CollectPaymentRequest amount(Integer amount) {
+            params.addOpt("amount", amount);
             return this;
         }
 

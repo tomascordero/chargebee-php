@@ -68,6 +68,14 @@ namespace ChargeBee.Models
         {
             get { return GetValue<int>("amount", true); }
         }
+        public int CreditsApplied 
+        {
+            get { return GetValue<int>("credits_applied", true); }
+        }
+        public int AmountDue 
+        {
+            get { return GetValue<int>("amount_due", true); }
+        }
         public int SubTotal 
         {
             get { return GetValue<int>("sub_total", true); }
