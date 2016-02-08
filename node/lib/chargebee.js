@@ -39,9 +39,13 @@ RequestWrapper.prototype.headers = function(headers) {
 
 RequestWrapper.prototype.request = function(callBack, envOptions) {
     var env = {};
+    var jsonConstructor =  {}.constructor;
     ChargeBee._util.extend(true, env, ChargeBee._env);
-    if (typeof env !== 'undefined') {
+    if (typeof envOptions !== 'undefined') {
         ChargeBee._util.extend(true, env, envOptions);
+    } else if(typeof callBack !== 'undefined' && callBack.constructor === jsonConstructor && !ChargeBee._util.isFunction(callBack)){
+        ChargeBee._util.extend(true, env, callBack);
+        callBack = undefined;
     }
     var deferred = ChargeBee._util.createDeferred(callBack);
     var urlIdParam = this.apiCall.hasIdInUrl ? this.args[0] : null;
@@ -341,5 +345,3 @@ ChargeBee._util = (function() {
         }
     }
 })();
-
-
