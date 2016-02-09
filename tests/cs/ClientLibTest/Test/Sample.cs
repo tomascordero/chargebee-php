@@ -782,14 +782,118 @@ namespace Examples
 			Console.WriteLine(addon.Id);
 		}
 
+		public static void creatCustomer() {
+			Customer c = Customer.Retrieve ("2tE9Ty4aPbSYrBZ42v").Request().Customer;
+			Console.WriteLine (c.Id);
+			Console.WriteLine(c.RefundableCredits);
+		}
+
+		public static void addContactToCustomer() {
+			EntityResult result = Customer.AddContact ("2tE9Ty4aPbSYrBZ42v")
+				.ContactFirstName ("Jane")
+				.ContactLastName ("Doe")
+				.ContactEmail ("jane@test.com")
+				.ContactLabel ("dev")
+				.ContactEnabled (true)
+				.ContactSendBillingEmail (false)
+				.ContactSendAccountEmail (false).Request ();
+			Console.WriteLine (result.Customer.Contacts [0].Id());
+			Console.WriteLine (result.Customer.Contacts [0].SendAccountEmail());
+			Console.WriteLine (result.Customer.Contacts [0].SendBillingEmail());
+		}
+
+		public static void updateContactToCustomer() {
+			EntityResult result = Customer.UpdateContact("2tE9Ty4aPbSYrBZ42v")
+				.ContactId("contact_2tE9Ty65Pc6X8aSCOw")
+				.ContactFirstName("Jane")
+				.ContactLastName("Doe")
+				.ContactEmail("janeeeeee@test.com")
+				.ContactLabel("dev")
+				.ContactEnabled(true)
+				.ContactSendBillingEmail(true)
+				.ContactSendAccountEmail(true).Request();
+			Console.WriteLine (result.Customer.Contacts [0].Id());
+			Console.WriteLine (result.Customer.Contacts [0].SendAccountEmail());
+			Console.WriteLine (result.Customer.Contacts [0].SendBillingEmail());
+		}
+
+		public static void createEstimate() {
+			EntityResult result = Estimate.CreateSubscription()
+				.SubscriptionPlanId("no-trial")
+				.AddonId(1,"small-recurring-addon").Request();
+			Estimate estimate = result.Estimate;
+			Console.WriteLine (estimate.CreditsApplied);
+			Console.WriteLine (estimate.AmountDue);
+			Console.WriteLine (estimate.Amount);
+		}
+
+		public static void updateEstimate() {
+			EntityResult result = Estimate.UpdateSubscription()
+				.SubscriptionId("2tE9Ty4aPbSYzdO433")
+				//.SubscriptionPlanId("no-trial")
+				//.AddonId(1,"small-recurring-addon")
+				.Request();
+			Estimate estimate = result.Estimate;
+			Console.WriteLine (estimate.CreditsApplied);
+			Console.WriteLine (estimate.AmountDue);
+			Console.WriteLine (estimate.Amount);
+		}
+
+		public static void renewalEstimate() {
+			EntityResult result = Estimate.RenewalEstimate("2tE9Ty4aPbSYzdO433").Request();
+			Estimate estimate = result.Estimate;
+			Console.WriteLine (estimate.CreditsApplied);
+			Console.WriteLine (estimate.AmountDue);
+			Console.WriteLine (estimate.Amount);
+		}
+
+		public static void retrieveInvoice1() {
+			EntityResult result = Invoice.Retrieve("1").Request();
+			Invoice invoice = result.Invoice;
+			Console.WriteLine (invoice.AmountPaid);
+			Console.WriteLine (invoice.AmountAdjusted);
+			Console.WriteLine (invoice.CreditsApplied);
+			Console.WriteLine (invoice.AmountDue);
+		}
+
+		public static void collectInvoice1() {
+			EntityResult result = Invoice.CollectPayment("55").Amount(50).Request();
+			Invoice invoice = result.Invoice;
+			Console.WriteLine (invoice.AmountPaid);
+			Console.WriteLine (invoice.AmountAdjusted);
+			Console.WriteLine (invoice.CreditsApplied);
+			Console.WriteLine (invoice.AmountDue);
+		}
+
+		public static void comments() {
+			ListResult result = Comment.List()
+				.Limit(100).Request();
+			foreach (var item in result.List){
+				Comment comment = item.Comment;
+				Console.WriteLine (comment.EntityType);
+				Console.WriteLine(comment.EntityId);
+				Console.WriteLine (comment.Notes);
+			}
+		}
+
 		public static void Main(string[] args) 
 		{
-			//ApiConfig.Proto = "http";
-			//ApiConfig.DomainSuffix = "localcb.in:8080";
-			ApiConfig.Configure("CBEEE-test", "FOUptASiGixNjBcuJuJcdWhJCmxfT1hNBz");
+			ApiConfig.Proto = "https";
+			ApiConfig.DomainSuffix = "devcb.in";
+			ApiConfig.Configure("bc-comics-test", "test_Q1WGp6sFacdzEsbS92qeTLJd3na7f2KRm");
+
+			//creatCustomer ();
+			//addContactToCustomer ();
+			//updateContactToCustomer ();
+			//createEstimate ();
+			//updateEstimate ();
+			//renewalEstimate ();
+			//retrieveInvoice1 ();
+			//collectInvoice1 ();
+			comments ();
 			//testEnabledInPortalInPlan ();
-			testUpdateEnabledInPortalAddon ();
-			testEnabledInPortalCreateAddon ();
+//			testUpdateEnabledInPortalAddon ();
+//			testEnabledInPortalCreateAddon ();
 			//testEnabledInPortalCreatePlan ();
 			//testEnabledInPortalInCreatePlan ();
 			//createCustomer ();
