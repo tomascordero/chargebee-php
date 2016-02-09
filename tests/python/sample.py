@@ -22,7 +22,7 @@ Use the below settings to configure the api endpoint with specific domain.
 Environment.chargebee_domain = "localcb.in:8080"
 ChargeBee.verify_ca_certs = False
 Environment.protocol = "http"
-chargebee.configure("test___dev__H6i5sJNETNT2CXgkiP1ZuP9031Tk4i4p", "mannar-test")
+chargebee.configure("test___dev__pL73t89P1OZ4tGdYBEcdZuEAGdkES3Gms", "mannar-test")
 
 """
 Use the below code to connect to the production server.
@@ -388,7 +388,8 @@ def create_customer():
             "country" : "US",
             "taxability" : "taxable"
             },
-        "auto_collection" : "off"
+        "auto_collection" : "off",
+        
         })
     print result.customer
     return result.customer.id
@@ -402,10 +403,19 @@ def retrieve_customer(cust_id):
     print result.customer
 
 def create_invoice():
-    result = chargebee.Invoice.charge({ "customer_id" : create_customer(),
+    cust_id=create_customer()
+    result = chargebee.Invoice.charge({ "customer_id" : cust_id,
                                         "amount" : 1000,
                                         "description" : "test charge" });
-    print(result.invoice)
+    chargebee.Card.update_card_for_customer(cust_id, {
+            "first_name" : "fname",
+            "last_name" : "lname",
+            "number" : "4111111111111111",
+            "expiry_month" : 12,
+            "expiry_year" : 2015,
+            "cvv" : "100"
+    })
+    print result.invoice
     return result.invoice.id
 
 def renewal_estimate():
@@ -422,6 +432,37 @@ def retrieve_txn(txn_id):
     result = chargebee.Transaction.retrieve(txn_id)
     transaction = result.transaction
     print transaction
+
+def collectPaymentForAnInvoice(inv_id):
+    result = chargebee.Invoice.collect_payment(inv_id)
+    invoice = result.invoice
+    transaction = result.transaction
+    print "invoice"
+    print invoice
+    print "transaction"
+    print transaction
+    return transaction.id
+
+def refund_invoice(inv_id):
+    val=collectPaymentForAnInvoice(inv_id)
+    result = chargebee.Invoice.refund(inv_id ,
+        {"refund_amount": 1000})
+    invoice = result.invoice
+    transaction = result.transaction
+    print "refunded invoice"
+    print invoice
+    print "refunded transaction"
+    print transaction
+
+def retrieve_txn(txn_id):
+    result = chargebee.Transaction.retrieve(txn_id)
+    print "transaction"
+    print result.transaction
+
+def  retrieve_event(event_id):
+    result = chargebee.Event.retrieve(event_id)
+    print "event"
+    print result.event
 
 """
 Comment out the methods you don't want to run.
@@ -485,7 +526,11 @@ Comment out the methods you don't want to run.
 # retrieve_addon()
 # create_customer()
 # retrieve_customer()
-# retrieve_customer("__dev__KyVp1oPP5RK2z4")
+# retrieve_customer(create_customer())
 # renewal_estimate()
 # retrieve_invoice()
 # retrieve_txn("txn___dev__KyVp1oPP5RjjjB")
+# collectPaymentForAnInvoice(create_invoice())
+# refund_invoice(create_invoice())
+# retrieve_txn("txn___dev__3Nl8ELtPTLfmBn1z")
+# retrieve_event("ev___dev__3Nl8ELtPTLlE822S")

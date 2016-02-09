@@ -1,11 +1,11 @@
 var chargebee = require("../../node/lib/chargebee.js");
 
 chargebee.configure({
-	'site': 'honeycomics-test',
-    'api_key': 'test_5LjFA6K6doB2EKRP7cufTd5TvT32a5BrT',
-//	 'hostSuffix': '.localcb.in',
-//    'protocol': 'http',
-//    'port': 8080
+	'site': 'mannar-test',
+    'api_key': 'test___dev__vfcuZyxcu2YH51J1siLcdxiXlg8pVknqArD',
+	'hostSuffix': '.localcb.in',
+   'protocol': 'http',
+   'port': 8080
 });
 
 var callback = function(error, result) {
@@ -152,13 +152,13 @@ function updateEstimate() {
 }
 
 function retrieveCustomer() {
-	chargebee.customer.retrieve("2uENY38cPHq4YZ6pT").request(
+	chargebee.customer.retrieve("future_billing").request(
 	function(error,result){
 	  if(error){
 	    //handle error
 	    console.log(error);
 	  }else{
-	    console.log(result);
+	    console.log(JSON.stringify(result, null, 2));
 	    var customer = result.customer;
 	    var card = result.card;
 	  }
@@ -198,13 +198,77 @@ function retrieveEvent() {
 	});
 }
 
+function addContact(){
+    chargebee.customer.add_contact("future_billing", {
+    contact : {
+        first_name : "Jane", 
+        last_name : "Doe", 
+        email : "jane@test.com", 
+        label : "dev", 
+        enabled : true, 
+        send_billing_email : true, 
+        send_acccount_email : true
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(result);
+        var customer = result.customer;
+        var card = result.card;
+      }
+    });
+}
 
+function updateContact(){
+    chargebee.customer.update_contact("future_billing", {
+    contact : {
+        id : "contact___dev__3Nl8EMyPa7SDNw1", 
+        first_name : "John", 
+        last_name : "Doe", 
+        email : "john@test.com", 
+        label : "dev", 
+        enabled : true, 
+        send_billing_email : false, 
+        send_acccount_email : true
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(JSON.stringify(result, null, 2));
+        var customer = result.customer;
+        var card = result.card;
+      }
+    });
+}
+function deleteContact(){
+    chargebee.customer.delete_contact("future_billing", {
+    contact : {
+        id : "contact___dev__3Nl8EMyPa7SDNw1"
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(JSON.stringify(result, null, 2));
+        var customer = result.customer;
+        var card = result.card;
+      }
+});
+}
 
+// addContact();
+// updateContact();
+// deleteContact();
 // updateEstimate();
 // retrieveCustomer();
 // retrieveInv();
 // retrieveTxn();
-retrieveEvent();
+// retrieveEvent();
 //createSubEstimate();
 //updateCustomer();
 //createCustomer();
