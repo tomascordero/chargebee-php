@@ -153,9 +153,10 @@ public class Plan extends Resource<Plan> {
         return new UpdateRequest(Method.POST, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static ListRequestBase list() throws IOException {
         String uri = uri("plans");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
     public static Request retrieve(String id) throws IOException {

@@ -13,6 +13,15 @@ public class Params {
         }
         m.put(paramName, toValStr(value));
     }
+    
+    public void addFilter(String paramName,String filterParam, Object value) {
+        if(value == null) {
+            throw new RuntimeException("The param {" + paramName + "} cannot be null");
+        }
+        HashMap map = new HashMap();
+        map.put(filterParam, value);
+        m.put(paramName, toValStr(map));
+    }
 
     public void addOpt(String paramName, Object value) {
         m.put(paramName, value != null ? toValStr(value) : "");
@@ -56,6 +65,12 @@ public class Params {
                 l.add((String)toValStr(item));                
             }
             return l;            
+        } else if(value instanceof HashMap){
+            HashMap origList = (HashMap) value;
+            Map.Entry entry = (Map.Entry) origList.entrySet().iterator().next();          
+            HashMap m = new HashMap();
+            m.put((String)toValStr(entry.getKey()), (String)toValStr(entry.getValue()));
+            return m;            
         } else {
             throw new RuntimeException("Type [" + c.getName() + "] not handled");
         }

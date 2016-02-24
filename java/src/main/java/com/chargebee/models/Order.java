@@ -97,14 +97,16 @@ public class Order extends Resource<Order> {
         return new Request(Method.GET, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static ListRequestBase list() throws IOException {
         String uri = uri("orders");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest ordersForInvoice(String id) throws IOException {
+    public static ListRequestBase ordersForInvoice(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "orders");
-        return new ListRequest(uri);
+        return null;
+//        return new ListRequestBase(uri,null);
     }
 
 

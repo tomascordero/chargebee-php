@@ -123,10 +123,10 @@ public class Comment extends Resource<Comment> {
         }
     }
 
-    public static class CommentListRequest extends ListRequest<CommentListRequest> {
+    public static class CommentListRequest extends ListRequestBase<CommentListRequest> {
 
         private CommentListRequest(String uri) {
-            super(uri);
+//            super(uri);
         }
     
         public CommentListRequest limit(Integer limit) {

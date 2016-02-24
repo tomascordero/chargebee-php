@@ -263,14 +263,16 @@ public class Subscription extends Resource<Subscription> {
         return new CreateForCustomerRequest(Method.POST, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static ListRequestBase list() throws IOException {
         String uri = uri("subscriptions");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest subscriptionsForCustomer(String id) throws IOException {
+    public static ListRequestBase subscriptionsForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "subscriptions");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
     public static Request retrieve(String id) throws IOException {

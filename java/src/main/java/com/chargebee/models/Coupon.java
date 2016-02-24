@@ -187,9 +187,10 @@ public class Coupon extends Resource<Coupon> {
         return new CreateRequest(Method.POST, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static ListRequestBase list() throws IOException {
         String uri = uri("coupons");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri); 
+        return null;
     }
 
     public static Request retrieve(String id) throws IOException {

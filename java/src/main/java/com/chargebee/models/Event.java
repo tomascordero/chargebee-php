@@ -128,10 +128,10 @@ public class Event extends Resource<Event> {
     // Operation Request Classes
     //==========================
 
-    public static class EventListRequest extends ListRequest<EventListRequest> {
+    public static class EventListRequest extends ListRequestBase<EventListRequest> {
 
         private EventListRequest(String uri) {
-            super(uri);
+//            super(uri,null);
         }
     
         public EventListRequest limit(Integer limit) {

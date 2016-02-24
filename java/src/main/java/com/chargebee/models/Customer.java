@@ -942,5 +942,32 @@ public class Customer extends Resource<Customer> {
             return params;
         }
     }
+    
+     public static class ListRequest extends ListRequestBase{
+
+        public ListRequest(String uri) {
+            this.uri = uri;
+        }   
+        
+        public TextNode<ListRequest> firstName() {
+            return textNode("first_name",uri);  
+        }
+        
+         public TextNode<ListRequest> lastName() {
+            return textNode("last_name",uri);  
+        }
+            
+
+        @Override
+        public Params params() {
+            return params;
+        }
+        
+         public TextNode<ListRequest> textNode(String fieldName, String uri) {
+             return new TextNode<ListRequest>(fieldName, uri, this);
+
+         }
+
+    }
 
 }

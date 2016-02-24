@@ -518,14 +518,16 @@ public class Invoice extends Resource<Invoice> {
         return new InvoiceListRequest(uri);
     }
 
-    public static ListRequest invoicesForCustomer(String id) throws IOException {
+    public static ListRequestBase invoicesForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "invoices");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest invoicesForSubscription(String id) throws IOException {
+    public static ListRequestBase invoicesForSubscription(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id), "invoices");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
     public static Request retrieve(String id) throws IOException {
@@ -793,10 +795,10 @@ public class Invoice extends Resource<Invoice> {
         }
     }
 
-    public static class InvoiceListRequest extends ListRequest<InvoiceListRequest> {
+    public static class InvoiceListRequest extends ListRequestBase<InvoiceListRequest> {
 
         private InvoiceListRequest(String uri) {
-            super(uri);
+//            super(uri,null);
         }
     
         public InvoiceListRequest limit(Integer limit) {

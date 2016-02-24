@@ -196,24 +196,28 @@ public class Transaction extends Resource<Transaction> {
     // Operations
     //===========
 
-    public static ListRequest list() throws IOException {
+    public static ListRequestBase list() throws IOException {
         String uri = uri("transactions");
-        return new ListRequest(uri);
+//        return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest transactionsForCustomer(String id) throws IOException {
+    public static ListRequestBase transactionsForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "transactions");
-        return new ListRequest(uri);
+//         return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest transactionsForSubscription(String id) throws IOException {
+    public static ListRequestBase transactionsForSubscription(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id), "transactions");
-        return new ListRequest(uri);
+//         return new ListRequestBase(uri,null);
+        return null;
     }
 
-    public static ListRequest transactionsForInvoice(String id) throws IOException {
+    public static ListRequestBase transactionsForInvoice(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "transactions");
-        return new ListRequest(uri);
+//         return new ListRequestBase(uri,null);
+        return null;
     }
 
     public static Request retrieve(String id) throws IOException {
