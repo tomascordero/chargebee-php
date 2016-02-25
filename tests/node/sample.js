@@ -88,7 +88,6 @@ function createSub() {
               first_name : "john",
               last_name : "doe",
               email : "john@acmeinc.com",
-              allow_direct_debit : "true",
               auto_collection : "off"
          }
    }).request(callback);
@@ -152,7 +151,7 @@ function updateEstimate() {
 }
 
 function retrieveCustomer() {
-	chargebee.customer.retrieve("future_billing").request(
+	chargebee.customer.retrieve("test2").request(
 	function(error,result){
 	  if(error){
 	    //handle error
@@ -164,6 +163,22 @@ function retrieveCustomer() {
 	  }
 	});
 }
+
+function retrieveSubscription() {
+	chargebee.subscription.retrieve("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(JSON.stringify(result, null, 2));
+	    console.log(result.subscription);
+		console.log(result.customer);
+		console.log(result.card);
+	  }
+	});
+}
+
 
 function retrieveInv() {
 	chargebee.invoice.retrieve("111").request(
@@ -188,12 +203,14 @@ function retrieveTxn() {
 }
 
 function retrieveEvent() {
-	chargebee.event.retrieve("ev_BfmoYxPTWF2XoFuB").request(
+	chargebee.event.retrieve("ev_1sjs9nAPdhhJGldLK").request(
 	function(error,result){
 	  if(error){
 		  console.log(error);
 	  }else{
 	    console.log(result.event.content.transaction);
+		console.log(result.event);
+		console.log(result.event.event_type);
 	  }
 	});
 }
@@ -261,6 +278,42 @@ function deleteContact(){
 });
 }
 
+
+function deleteSubscription(){
+	chargebee.subscription.delete("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var subscription = result.subscription;
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+
+function deleteCustomer(){
+	chargebee.customer.delete("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var subscription = result.subscription;
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+// deleteSubscription();
+// retrieveSubscription();
+// deleteCustomer();
+// retrieveEvent();
 // addContact();
 // updateContact();
 // deleteContact();
@@ -268,11 +321,10 @@ function deleteContact(){
 // retrieveCustomer();
 // retrieveInv();
 // retrieveTxn();
-// retrieveEvent();
 //createSubEstimate();
 //updateCustomer();
 //createCustomer();
-//createSub();
+createSub();
 
 // createCoupon();
 
