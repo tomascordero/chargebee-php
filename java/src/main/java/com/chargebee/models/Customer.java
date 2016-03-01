@@ -113,8 +113,8 @@ public class Customer extends Resource<Customer> {
             return reqBoolean("enabled");
         }
 
-        public Boolean sendAcccountEmail() {
-            return reqBoolean("send_acccount_email");
+        public Boolean sendAccountEmail() {
+            return reqBoolean("send_account_email");
         }
 
         public Boolean sendBillingEmail() {
@@ -314,6 +314,11 @@ public class Customer extends Resource<Customer> {
     public static SetPromotionalCreditsRequest setPromotionalCredits(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "set_promotional_credits");
         return new SetPromotionalCreditsRequest(Method.POST, uri);
+    }
+
+    public static Request delete(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "delete");
+        return new Request(Method.POST, uri);
     }
 
 
@@ -786,8 +791,8 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-        public AddContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
-            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+        public AddContactRequest contactSendAccountEmail(Boolean contactSendAccountEmail) {
+            params.addOpt("contact[send_account_email]", contactSendAccountEmail);
             return this;
         }
 
@@ -804,7 +809,7 @@ public class Customer extends Resource<Customer> {
         }
     
         public UpdateContactRequest contactId(String contactId) {
-            params.addOpt("contact[id]", contactId);
+            params.add("contact[id]", contactId);
             return this;
         }
 
@@ -819,7 +824,7 @@ public class Customer extends Resource<Customer> {
         }
 
         public UpdateContactRequest contactEmail(String contactEmail) {
-            params.add("contact[email]", contactEmail);
+            params.addOpt("contact[email]", contactEmail);
             return this;
         }
 
@@ -843,8 +848,8 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-        public UpdateContactRequest contactSendAcccountEmail(Boolean contactSendAcccountEmail) {
-            params.addOpt("contact[send_acccount_email]", contactSendAcccountEmail);
+        public UpdateContactRequest contactSendAccountEmail(Boolean contactSendAccountEmail) {
+            params.addOpt("contact[send_account_email]", contactSendAccountEmail);
             return this;
         }
 
@@ -861,7 +866,7 @@ public class Customer extends Resource<Customer> {
         }
     
         public DeleteContactRequest contactId(String contactId) {
-            params.addOpt("contact[id]", contactId);
+            params.add("contact[id]", contactId);
             return this;
         }
 

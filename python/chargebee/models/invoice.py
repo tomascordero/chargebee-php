@@ -94,8 +94,8 @@ class Invoice(Model):
         return request.send('post', request.uri_path("invoices",id,"close"), None, env, headers)
 
     @staticmethod
-    def collect_payment(id, env=None, headers=None):
-        return request.send('post', request.uri_path("invoices",id,"collect_payment"), None, env, headers)
+    def collect_payment(id, params=None, env=None, headers=None):
+        return request.send('post', request.uri_path("invoices",id,"collect_payment"), params, env, headers)
 
     @staticmethod
     def record_payment(id, params, env=None, headers=None):

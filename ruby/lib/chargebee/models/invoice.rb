@@ -102,8 +102,8 @@ module ChargeBee
     Request.send('post', uri_path("invoices",id.to_s,"close"), {}, env, headers)
   end
 
-  def self.collect_payment(id, env=nil, headers={})
-    Request.send('post', uri_path("invoices",id.to_s,"collect_payment"), {}, env, headers)
+  def self.collect_payment(id, params={}, env=nil, headers={})
+    Request.send('post', uri_path("invoices",id.to_s,"collect_payment"), params, env, headers)
   end
 
   def self.record_payment(id, params, env=nil, headers={})

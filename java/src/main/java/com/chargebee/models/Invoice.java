@@ -644,9 +644,9 @@ public class Invoice extends Resource<Invoice> {
         return new Request(Method.POST, uri);
     }
 
-    public static Request collectPayment(String id) throws IOException {
+    public static CollectPaymentRequest collectPayment(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "collect_payment");
-        return new Request(Method.POST, uri);
+        return new CollectPaymentRequest(Method.POST, uri);
     }
 
     public static RecordPaymentRequest recordPayment(String id) throws IOException {
@@ -957,6 +957,24 @@ public class Invoice extends Resource<Invoice> {
 
         public AddAddonChargeRequest addonQuantity(Integer addonQuantity) {
             params.addOpt("addon_quantity", addonQuantity);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class CollectPaymentRequest extends Request<CollectPaymentRequest> {
+
+        private CollectPaymentRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public CollectPaymentRequest amount(Integer amount) {
+            params.addOpt("amount", amount);
             return this;
         }
 

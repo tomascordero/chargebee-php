@@ -8,7 +8,7 @@ class Customer(Model):
       fields = ["first_name", "last_name", "email", "company", "phone", "line1", "line2", "line3", "city", "state_code", "state", "country", "zip"]
       pass
     class Contact(Model):
-      fields = ["id", "first_name", "last_name", "email", "phone", "label", "enabled", "send_acccount_email", "send_billing_email"]
+      fields = ["id", "first_name", "last_name", "email", "phone", "label", "enabled", "send_account_email", "send_billing_email"]
       pass
     class PaymentMethod(Model):
       fields = ["type", "gateway", "status", "reference_id"]
@@ -53,7 +53,7 @@ class Customer(Model):
         return request.send('post', request.uri_path("customers",id,"update_contact"), params, env, headers)
 
     @staticmethod
-    def delete_contact(id, params=None, env=None, headers=None):
+    def delete_contact(id, params, env=None, headers=None):
         return request.send('post', request.uri_path("customers",id,"delete_contact"), params, env, headers)
 
     @staticmethod
@@ -67,3 +67,7 @@ class Customer(Model):
     @staticmethod
     def set_promotional_credits(id, params, env=None, headers=None):
         return request.send('post', request.uri_path("customers",id,"set_promotional_credits"), params, env, headers)
+
+    @staticmethod
+    def delete(id, env=None, headers=None):
+        return request.send('post', request.uri_path("customers",id,"delete"), None, env, headers)

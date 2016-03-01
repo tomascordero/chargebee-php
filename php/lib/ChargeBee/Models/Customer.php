@@ -51,7 +51,7 @@ class ChargeBee_Customer extends ChargeBee_Model
     return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("customers",$id,"update_contact"), $params, $env, $headers);
   }
 
-  public static function deleteContact($id, $params = array(), $env = null, $headers = array())
+  public static function deleteContact($id, $params, $env = null, $headers = array())
   {
     return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("customers",$id,"delete_contact"), $params, $env, $headers);
   }
@@ -69,6 +69,11 @@ class ChargeBee_Customer extends ChargeBee_Model
   public static function setPromotionalCredits($id, $params, $env = null, $headers = array())
   {
     return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("customers",$id,"set_promotional_credits"), $params, $env, $headers);
+  }
+
+  public static function delete($id, $env = null, $headers = array())
+  {
+    return ChargeBee_Request::send(ChargeBee_Request::POST, ChargeBee_Util::encodeURIPath("customers",$id,"delete"), array(), $env, $headers);
   }
 
  }

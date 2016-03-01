@@ -78,10 +78,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "close");
             return new EntityRequest<Type>(url, HttpMethod.POST);
         }
-        public static EntityRequest<Type> CollectPayment(string id)
+        public static CollectPaymentRequest CollectPayment(string id)
         {
             string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "collect_payment");
-            return new EntityRequest<Type>(url, HttpMethod.POST);
+            return new CollectPaymentRequest(url, HttpMethod.POST);
         }
         public static RecordPaymentRequest RecordPayment(string id)
         {
@@ -487,6 +487,19 @@ namespace ChargeBee.Models
             public AddAddonChargeRequest AddonQuantity(int addonQuantity) 
             {
                 m_params.AddOpt("addon_quantity", addonQuantity);
+                return this;
+            }
+        }
+        public class CollectPaymentRequest : EntityRequest<CollectPaymentRequest> 
+        {
+            public CollectPaymentRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CollectPaymentRequest Amount(int amount) 
+            {
+                m_params.AddOpt("amount", amount);
                 return this;
             }
         }
