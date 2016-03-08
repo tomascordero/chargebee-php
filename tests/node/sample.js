@@ -1,11 +1,11 @@
 var chargebee = require("../../node/lib/chargebee.js");
 
 chargebee.configure({
-    'site': 'mannar-test',
-    'api_key': 'test___dev__0hcdH60Wi8x2CLOzfsC7AVsDYlfYnbwy7',
-    'hostSuffix': '.localcb.in',
-    'protocol': 'http',
-    'port': 8080
+	'site': 'mannar-test',
+    'api_key': 'test___dev__vfcuZyxcu2YH51J1siLcdxiXlg8pVknqArD',
+	'hostSuffix': '.localcb.in',
+   'protocol': 'http',
+   'port': 8080
 });
 
 var callback = function(error, result) {
@@ -79,6 +79,252 @@ function listOrders() {
 function listInvOrders(invId) {
     chargebee.order.orders_for_invoice(invId, {limit: "5"}).request(callback);
 }
+
+
+function createSub() {
+   chargebee.subscription.create({
+         plan_id : "yearly",
+         customer : {
+              first_name : "john",
+              last_name : "doe",
+              email : "john@acmeinc.com",
+              auto_collection : "off"
+         }
+   }).request(callback);
+}
+
+function createCustomer() {
+  chargebee.customer.create({
+    first_name : "Bruce",
+    last_name : "Wayne",
+    email : "bruce@wayneenterprises.com",
+    allow_direct_debit : "TRUE "
+  }).request(callback);
+}
+
+function updateCustomer() {
+  chargebee.customer.update("1sjs9jGPRumO0ZLbA",
+     {first_name : "Bruce",
+     last_name : "Wayne",
+     email : "asd@AS.com",
+     allow_direct_debit : "True"
+  }).request(callback);
+}
+
+
+function createSubEstimate() {
+  chargebee.estimate.create_subscription({
+    subscription: { 
+            plan_id : "silver",
+            coupon : " ", 
+    },
+    "billing_address" : {
+        country : "INDIA",
+        state_code : "TN",
+        zip : "600001",
+    }
+//    "shipping_address" : {
+//       country : "US",
+//       state_code : "CA"
+//    }  
+  }).request(function(error,result){
+    console.log(result);
+    console.log(result.estimate.line_items) ;
+  });
+}
+
+function updateEstimate() {
+  chargebee.estimate.update_subscription({
+     subscription : { 
+         id : "2rprAVhzPRkSC3T2dr",
+         plan_id  : "silver"
+     },
+     billing_address : {
+        country : "Inida",
+        state_code : "TN"
+     },
+     shipping_address : {
+         country :"US",
+         zip_code : "91789"
+     }       
+  }).request(callback);
+}
+
+function retrieveCustomer() {
+	chargebee.customer.retrieve("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(JSON.stringify(result, null, 2));
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+function retrieveSubscription() {
+	chargebee.subscription.retrieve("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(JSON.stringify(result, null, 2));
+	    console.log(result.subscription);
+		console.log(result.customer);
+		console.log(result.card);
+	  }
+	});
+}
+
+
+function retrieveInv() {
+	chargebee.invoice.retrieve("111").request(
+	function(error,result){
+	  if(error){
+	    console.log(error);
+	  }else{
+		console.log(result.invoice.linked_transactions);
+	  }
+	});
+}
+
+function retrieveTxn() {
+	chargebee.transaction.retrieve("txn_2rprAVk1PTWCKikIPP").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.transaction.linked_invoices);
+	  }
+	});
+}
+
+function retrieveEvent() {
+	chargebee.event.retrieve("ev_1sjs9nAPdhhJGldLK").request(
+	function(error,result){
+	  if(error){
+		  console.log(error);
+	  }else{
+	    console.log(result.event.content.transaction);
+		console.log(result.event);
+		console.log(result.event.event_type);
+	  }
+	});
+}
+
+function addContact(){
+    chargebee.customer.add_contact("future_billing", {
+    contact : {
+        first_name : "Jane", 
+        last_name : "Doe", 
+        email : "jane@test.com", 
+        label : "dev", 
+        enabled : true, 
+        send_billing_email : true, 
+        send_acccount_email : true
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(result);
+        var customer = result.customer;
+        var card = result.card;
+      }
+    });
+}
+
+function updateContact(){
+    chargebee.customer.update_contact("future_billing", {
+    contact : {
+        id : "contact___dev__3Nl8EMyPa7SDNw1", 
+        first_name : "John", 
+        last_name : "Doe", 
+        email : "john@test.com", 
+        label : "dev", 
+        enabled : true, 
+        send_billing_email : false, 
+        send_acccount_email : true
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(JSON.stringify(result, null, 2));
+        var customer = result.customer;
+        var card = result.card;
+      }
+    });
+}
+function deleteContact(){
+    chargebee.customer.delete_contact("future_billing", {
+    contact : {
+        id : "contact___dev__3Nl8EMyPa7SDNw1"
+      }
+    }).request(function(error,result){
+      if(error){
+        //handle error
+        console.log(error);
+      }else{
+        console.log(JSON.stringify(result, null, 2));
+        var customer = result.customer;
+        var card = result.card;
+      }
+});
+}
+
+
+function deleteSubscription(){
+	chargebee.subscription.delete("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var subscription = result.subscription;
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+
+function deleteCustomer(){
+	chargebee.customer.delete("test2").request(
+	function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    var subscription = result.subscription;
+	    var customer = result.customer;
+	    var card = result.card;
+	  }
+	});
+}
+
+// deleteSubscription();
+// retrieveSubscription();
+// deleteCustomer();
+// retrieveEvent();
+// addContact();
+// updateContact();
+// deleteContact();
+// updateEstimate();
+// retrieveCustomer();
+// retrieveInv();
+// retrieveTxn();
+//createSubEstimate();
+//updateCustomer();
+//createCustomer();
+createSub();
 
 // createCoupon();
 

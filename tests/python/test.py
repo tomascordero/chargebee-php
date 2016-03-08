@@ -103,14 +103,20 @@ def amazon_txn():
 
 
 def retrieve_events():
- result = chargebee.Event.retrieve("ev___dev__KyVqiWPMvuj0qC")
+ result = chargebee.Event.retrieve("ev_2rprAVY2PddYDX0NOh")
  event = result.event
  print event
+ print event.id
+ print event.webhook_status
+ print event.webhook_failure_reason
+ print event.user
+ print event.event_type
  if event.webhooks is not None:
     for w in event.webhooks:
         print w.webhook_status
         print w.id
  print event.user
+ print event.content.customer.billing_address
 
 def list_events():
  result = chargebee.Event.list()
@@ -121,6 +127,7 @@ def list_events():
     print event.webhook_status
     print event.webhook_failure_reason
     print event.user
+    print event.event_type
     print type(event.webhooks) is dict
     if event.webhooks is not None:
        for w in event.webhooks:
@@ -128,8 +135,23 @@ def list_events():
           print w.id
     print "==========="
 
-list_events()
-#retrieve_events()
+
+def delete_subscription():
+    result = chargebee.Subscription.delete("test2")
+    print result.subscription
+    print result.customer
+    print result.card
+
+def delete_customer():
+    result = chargebee.Customer.delete("test2")
+    print result.customer
+    print result.billing_address
+    print result.payment_method
+
+# list_events()
+# delete_subscription()
+# delete_customer()
+retrieve_events()
 #collect_invoice()
 #create_customer()
 #create_subscription()
