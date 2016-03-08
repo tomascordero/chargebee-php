@@ -1,0 +1,90 @@
+{
+   "credit_note":[
+      {
+         "id":"TEST-CN-1",
+         "customer_id":"8avVGOkx8U1MX",
+         "subscription_id":"8avVGOkx8U1MX",
+         "reference_invoice_id":"1",
+         "type":"refundable",
+         "reason_code":"waiver",
+         "status":"refund_due",
+         "date":1453977749,
+         "price_type":"tax_exclusive",
+         "total":100,
+         "amount_allocated":0,
+         "amount_refunded":0,
+         "amount_available":100,
+         "object":"credit_note",
+         "sub_total":100,
+         "line_items":[
+            {
+               "date_from":1453977749,
+               "date_to":1453977749,
+               "unit_amount":100,
+               "quantity":1,
+               "is_taxed":false,
+               "tax_amount":0,
+               "object":"line_item",
+               "amount":100,
+               "discount_amount":0,
+               "item_level_discount_amount":0,
+               "description":"basic description1",
+               "entity_type":"plan",
+               "entity_id":"basic"
+            }
+         ],
+         "taxes":[
+
+         ],
+         "linked_refunds":[
+
+         ],
+         "allocations":[
+
+         ]
+      },
+      {
+         "id":"TEST-CN-1",
+         "customer_id":"8avVGOkx8U1MX",
+         "subscription_id":"8avVGOkx8U1MX",
+         "reference_invoice_id":"1",
+         "type":"refundable",
+         "reason_code":"waiver",
+         "status":"refund_due",
+         "date":1453977749,
+         "price_type":"tax_exclusive",
+         "total":100,
+         "amount_allocated":0,
+         "amount_refunded":0,
+         "amount_available":100,
+         "object":"credit_note",
+         "sub_total":100,
+         "line_items":[
+            {
+               "date_from":1453977749,
+               "date_to":1453977749,
+               "unit_amount":100,
+               "quantity":1,
+               "is_taxed":false,
+               "tax_amount":0,
+               "object":"line_item",
+               "amount":100,
+               "discount_amount":0,
+               "item_level_discount_amount":0,
+               "description":"basic description1",
+               "entity_type":"plan",
+               "entity_id":"basic"
+            }
+         ],
+         "taxes":[
+
+         ],
+         "linked_refunds":[
+
+         ],
+         "allocations":[
+
+         ]
+      }
+   ]
+}
