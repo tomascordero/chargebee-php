@@ -1,8 +1,11 @@
 package com.chargebee.internal;
 
 import com.chargebee.models.*;
-import org.json.*;
-import java.util.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ResultBase {
 
