@@ -1,0 +1,1901 @@
+RESULT
+ChargeBee_Result Object
+(
+    [_response:ChargeBee_Result:private] => Array
+        (
+            [estimate] => Array
+                (
+                    [created_at] => 1457948150
+                    [subscription_id] => active_direct
+                    [subscription_status] => active
+                    [subscription_next_billing_at] => 1459749232
+                    [object] => estimate
+                    [invoice_estimate] => Array
+                        (
+                            [recurring] => 1
+                            [collect_now] => 1
+                            [price_type] => tax_exclusive
+                            [sub_total] => 1150
+                            [total] => 1289
+                            [credits_applied] => 1289
+                            [amount_paid] => 0
+                            [amount_due] => 0
+                            [object] => invoice_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1457948150
+                                            [date_to] => 1459749232
+                                            [unit_amount] => 1278
+                                            [quantity] => 1
+                                            [is_taxed] => 1
+                                            [tax_amount] => 139
+                                            [tax_rate] => 12.09
+                                            [object] => line_item
+                                            [amount] => 1278
+                                            [description] => Professional - Prorated Charges
+                                            [entity_type] => plan
+                                            [entity_id] => professional
+                                            [discount_amount] => 128
+                                            [item_level_discount_amount] => 128
+                                        )
+
+                                )
+
+                            [discounts] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [object] => discount
+                                            [entity_type] => item_level_coupon
+                                            [description] => Plan & Addons Coupon
+                                            [amount] => 128
+                                            [entity_id] => plan_addons_coupon
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [object] => tax
+                                            [description] => Sales @ 12.09%
+                                            [amount] => 139
+                                        )
+
+                                )
+
+                        )
+
+                    [credit_note_estimates] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__10
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 605
+                                    [total] => 605
+                                    [amount_allocated] => 605
+                                    [amount_available] => 0
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 605
+                                                    [quantity] => 1
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 605
+                                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => plan
+                                                    [entity_id] => no-trial
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [1] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__27
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 1210
+                                    [total] => 1210
+                                    [amount_allocated] => 684
+                                    [amount_available] => 526
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 605
+                                                    [quantity] => 2
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 1210
+                                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => plan
+                                                    [entity_id] => no-trial
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [2] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__28
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 134
+                                    [total] => 134
+                                    [amount_allocated] => 0
+                                    [amount_available] => 134
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 67
+                                                    [quantity] => 2
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 134
+                                                    [description] => SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => addon
+                                                    [entity_id] => sms-credits
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [_responseObj:ChargeBee_Result:private] => Array
+        (
+        )
+
+)
+ESTIMATE
+ChargeBee_Estimate Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => createdAt
+            [1] => subscriptionId
+            [2] => subscriptionStatus
+            [3] => subscriptionNextBillingAt
+            [4] => invoiceEstimate
+            [5] => creditNoteEstimates
+        )
+
+    [_values:protected] => Array
+        (
+            [created_at] => 1457948150
+            [subscription_id] => active_direct
+            [subscription_status] => active
+            [subscription_next_billing_at] => 1459749232
+            [object] => estimate
+            [invoice_estimate] => Array
+                (
+                    [recurring] => 1
+                    [collect_now] => 1
+                    [price_type] => tax_exclusive
+                    [sub_total] => 1150
+                    [total] => 1289
+                    [credits_applied] => 1289
+                    [amount_paid] => 0
+                    [amount_due] => 0
+                    [object] => invoice_estimate
+                    [line_items] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [date_from] => 1457948150
+                                    [date_to] => 1459749232
+                                    [unit_amount] => 1278
+                                    [quantity] => 1
+                                    [is_taxed] => 1
+                                    [tax_amount] => 139
+                                    [tax_rate] => 12.09
+                                    [object] => line_item
+                                    [amount] => 1278
+                                    [description] => Professional - Prorated Charges
+                                    [entity_type] => plan
+                                    [entity_id] => professional
+                                    [discount_amount] => 128
+                                    [item_level_discount_amount] => 128
+                                )
+
+                        )
+
+                    [discounts] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [object] => discount
+                                    [entity_type] => item_level_coupon
+                                    [description] => Plan & Addons Coupon
+                                    [amount] => 128
+                                    [entity_id] => plan_addons_coupon
+                                )
+
+                        )
+
+                    [taxes] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [object] => tax
+                                    [description] => Sales @ 12.09%
+                                    [amount] => 139
+                                )
+
+                        )
+
+                )
+
+            [credit_note_estimates] => Array
+                (
+                    [0] => Array
+                        (
+                            [reference_invoice_id] => __demo_inv__10
+                            [type] => refundable
+                            [price_type] => tax_exclusive
+                            [sub_total] => 605
+                            [total] => 605
+                            [amount_allocated] => 605
+                            [amount_available] => 0
+                            [object] => credit_note_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1457948150
+                                            [date_to] => 1459749232
+                                            [unit_amount] => 605
+                                            [quantity] => 1
+                                            [is_taxed] => 
+                                            [tax_amount] => 0
+                                            [object] => line_item
+                                            [amount] => 605
+                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                            [entity_type] => plan
+                                            [entity_id] => no-trial
+                                            [discount_amount] => 0
+                                            [item_level_discount_amount] => 0
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [reference_invoice_id] => __demo_inv__27
+                            [type] => refundable
+                            [price_type] => tax_exclusive
+                            [sub_total] => 1210
+                            [total] => 1210
+                            [amount_allocated] => 684
+                            [amount_available] => 526
+                            [object] => credit_note_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1457948150
+                                            [date_to] => 1459749232
+                                            [unit_amount] => 605
+                                            [quantity] => 2
+                                            [is_taxed] => 
+                                            [tax_amount] => 0
+                                            [object] => line_item
+                                            [amount] => 1210
+                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                            [entity_type] => plan
+                                            [entity_id] => no-trial
+                                            [discount_amount] => 0
+                                            [item_level_discount_amount] => 0
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [reference_invoice_id] => __demo_inv__28
+                            [type] => refundable
+                            [price_type] => tax_exclusive
+                            [sub_total] => 134
+                            [total] => 134
+                            [amount_allocated] => 0
+                            [amount_available] => 134
+                            [object] => credit_note_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1457948150
+                                            [date_to] => 1459749232
+                                            [unit_amount] => 67
+                                            [quantity] => 2
+                                            [is_taxed] => 
+                                            [tax_amount] => 0
+                                            [object] => line_item
+                                            [amount] => 134
+                                            [description] => SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                            [entity_type] => addon
+                                            [entity_id] => sms-credits
+                                            [discount_amount] => 0
+                                            [item_level_discount_amount] => 0
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [_subTypes:protected] => Array
+        (
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+            [invoice_estimate] => ChargeBee_InvoiceEstimate
+            [credit_note_estimates] => ChargeBee_CreditNoteEstimate
+        )
+
+    [_data:protected] => Array
+        (
+            [createdAt] => 1457948150
+            [subscriptionId] => active_direct
+            [subscriptionStatus] => active
+            [subscriptionNextBillingAt] => 1459749232
+            [object] => estimate
+            [creditNoteEstimates] => Array
+                (
+                    [0] => ChargeBee_CreditNoteEstimate Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => referenceInvoiceId
+                                    [1] => type
+                                    [2] => priceType
+                                    [3] => subTotal
+                                    [4] => total
+                                    [5] => amountAllocated
+                                    [6] => amountAvailable
+                                    [7] => lineItems
+                                    [8] => discounts
+                                    [9] => taxes
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__10
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 605
+                                    [total] => 605
+                                    [amount_allocated] => 605
+                                    [amount_available] => 0
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 605
+                                                    [quantity] => 1
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 605
+                                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => plan
+                                                    [entity_id] => no-trial
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                    [line_items] => ChargeBee_CreditNoteEstimateLineItem
+                                    [discounts] => ChargeBee_CreditNoteEstimateDiscount
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [referenceInvoiceId] => __demo_inv__10
+                                    [type] => refundable
+                                    [priceType] => tax_exclusive
+                                    [subTotal] => 605
+                                    [total] => 605
+                                    [amountAllocated] => 605
+                                    [amountAvailable] => 0
+                                    [object] => credit_note_estimate
+                                    [lineItems] => Array
+                                        (
+                                            [0] => ChargeBee_CreditNoteEstimateLineItem Object
+                                                (
+                                                    [allowed:protected] => Array
+                                                        (
+                                                            [0] => date_from
+                                                            [1] => date_to
+                                                            [2] => unit_amount
+                                                            [3] => quantity
+                                                            [4] => is_taxed
+                                                            [5] => tax_amount
+                                                            [6] => tax_rate
+                                                            [7] => amount
+                                                            [8] => discount_amount
+                                                            [9] => item_level_discount_amount
+                                                            [10] => description
+                                                            [11] => entity_type
+                                                            [12] => entity_id
+                                                        )
+
+                                                    [_values:protected] => Array
+                                                        (
+                                                            [date_from] => 1457948150
+                                                            [date_to] => 1459749232
+                                                            [unit_amount] => 605
+                                                            [quantity] => 1
+                                                            [is_taxed] => 
+                                                            [tax_amount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 605
+                                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entity_type] => plan
+                                                            [entity_id] => no-trial
+                                                            [discount_amount] => 0
+                                                            [item_level_discount_amount] => 0
+                                                        )
+
+                                                    [_subTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_dependantTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_data:protected] => Array
+                                                        (
+                                                            [dateFrom] => 1457948150
+                                                            [dateTo] => 1459749232
+                                                            [unitAmount] => 605
+                                                            [quantity] => 1
+                                                            [isTaxed] => 
+                                                            [taxAmount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 605
+                                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entityType] => plan
+                                                            [entityId] => no-trial
+                                                            [discountAmount] => 0
+                                                            [itemLevelDiscountAmount] => 0
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [1] => ChargeBee_CreditNoteEstimate Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => referenceInvoiceId
+                                    [1] => type
+                                    [2] => priceType
+                                    [3] => subTotal
+                                    [4] => total
+                                    [5] => amountAllocated
+                                    [6] => amountAvailable
+                                    [7] => lineItems
+                                    [8] => discounts
+                                    [9] => taxes
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__27
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 1210
+                                    [total] => 1210
+                                    [amount_allocated] => 684
+                                    [amount_available] => 526
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 605
+                                                    [quantity] => 2
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 1210
+                                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => plan
+                                                    [entity_id] => no-trial
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                    [line_items] => ChargeBee_CreditNoteEstimateLineItem
+                                    [discounts] => ChargeBee_CreditNoteEstimateDiscount
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [referenceInvoiceId] => __demo_inv__27
+                                    [type] => refundable
+                                    [priceType] => tax_exclusive
+                                    [subTotal] => 1210
+                                    [total] => 1210
+                                    [amountAllocated] => 684
+                                    [amountAvailable] => 526
+                                    [object] => credit_note_estimate
+                                    [lineItems] => Array
+                                        (
+                                            [0] => ChargeBee_CreditNoteEstimateLineItem Object
+                                                (
+                                                    [allowed:protected] => Array
+                                                        (
+                                                            [0] => date_from
+                                                            [1] => date_to
+                                                            [2] => unit_amount
+                                                            [3] => quantity
+                                                            [4] => is_taxed
+                                                            [5] => tax_amount
+                                                            [6] => tax_rate
+                                                            [7] => amount
+                                                            [8] => discount_amount
+                                                            [9] => item_level_discount_amount
+                                                            [10] => description
+                                                            [11] => entity_type
+                                                            [12] => entity_id
+                                                        )
+
+                                                    [_values:protected] => Array
+                                                        (
+                                                            [date_from] => 1457948150
+                                                            [date_to] => 1459749232
+                                                            [unit_amount] => 605
+                                                            [quantity] => 2
+                                                            [is_taxed] => 
+                                                            [tax_amount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 1210
+                                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entity_type] => plan
+                                                            [entity_id] => no-trial
+                                                            [discount_amount] => 0
+                                                            [item_level_discount_amount] => 0
+                                                        )
+
+                                                    [_subTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_dependantTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_data:protected] => Array
+                                                        (
+                                                            [dateFrom] => 1457948150
+                                                            [dateTo] => 1459749232
+                                                            [unitAmount] => 605
+                                                            [quantity] => 2
+                                                            [isTaxed] => 
+                                                            [taxAmount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 1210
+                                                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entityType] => plan
+                                                            [entityId] => no-trial
+                                                            [discountAmount] => 0
+                                                            [itemLevelDiscountAmount] => 0
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [2] => ChargeBee_CreditNoteEstimate Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => referenceInvoiceId
+                                    [1] => type
+                                    [2] => priceType
+                                    [3] => subTotal
+                                    [4] => total
+                                    [5] => amountAllocated
+                                    [6] => amountAvailable
+                                    [7] => lineItems
+                                    [8] => discounts
+                                    [9] => taxes
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [reference_invoice_id] => __demo_inv__28
+                                    [type] => refundable
+                                    [price_type] => tax_exclusive
+                                    [sub_total] => 134
+                                    [total] => 134
+                                    [amount_allocated] => 0
+                                    [amount_available] => 134
+                                    [object] => credit_note_estimate
+                                    [line_items] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 67
+                                                    [quantity] => 2
+                                                    [is_taxed] => 
+                                                    [tax_amount] => 0
+                                                    [object] => line_item
+                                                    [amount] => 134
+                                                    [description] => SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                    [entity_type] => addon
+                                                    [entity_id] => sms-credits
+                                                    [discount_amount] => 0
+                                                    [item_level_discount_amount] => 0
+                                                )
+
+                                        )
+
+                                    [taxes] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                    [line_items] => ChargeBee_CreditNoteEstimateLineItem
+                                    [discounts] => ChargeBee_CreditNoteEstimateDiscount
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [referenceInvoiceId] => __demo_inv__28
+                                    [type] => refundable
+                                    [priceType] => tax_exclusive
+                                    [subTotal] => 134
+                                    [total] => 134
+                                    [amountAllocated] => 0
+                                    [amountAvailable] => 134
+                                    [object] => credit_note_estimate
+                                    [lineItems] => Array
+                                        (
+                                            [0] => ChargeBee_CreditNoteEstimateLineItem Object
+                                                (
+                                                    [allowed:protected] => Array
+                                                        (
+                                                            [0] => date_from
+                                                            [1] => date_to
+                                                            [2] => unit_amount
+                                                            [3] => quantity
+                                                            [4] => is_taxed
+                                                            [5] => tax_amount
+                                                            [6] => tax_rate
+                                                            [7] => amount
+                                                            [8] => discount_amount
+                                                            [9] => item_level_discount_amount
+                                                            [10] => description
+                                                            [11] => entity_type
+                                                            [12] => entity_id
+                                                        )
+
+                                                    [_values:protected] => Array
+                                                        (
+                                                            [date_from] => 1457948150
+                                                            [date_to] => 1459749232
+                                                            [unit_amount] => 67
+                                                            [quantity] => 2
+                                                            [is_taxed] => 
+                                                            [tax_amount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 134
+                                                            [description] => SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entity_type] => addon
+                                                            [entity_id] => sms-credits
+                                                            [discount_amount] => 0
+                                                            [item_level_discount_amount] => 0
+                                                        )
+
+                                                    [_subTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_dependantTypes:protected] => Array
+                                                        (
+                                                        )
+
+                                                    [_data:protected] => Array
+                                                        (
+                                                            [dateFrom] => 1457948150
+                                                            [dateTo] => 1459749232
+                                                            [unitAmount] => 67
+                                                            [quantity] => 2
+                                                            [isTaxed] => 
+                                                            [taxAmount] => 0
+                                                            [object] => line_item
+                                                            [amount] => 134
+                                                            [description] => SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                                            [entityType] => addon
+                                                            [entityId] => sms-credits
+                                                            [discountAmount] => 0
+                                                            [itemLevelDiscountAmount] => 0
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [taxes] => ChargeBee_CreditNoteEstimateTax Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [invoiceEstimate] => ChargeBee_InvoiceEstimate Object
+                (
+                    [allowed:protected] => Array
+                        (
+                            [0] => recurring
+                            [1] => collectNow
+                            [2] => priceType
+                            [3] => subTotal
+                            [4] => total
+                            [5] => creditsApplied
+                            [6] => amountPaid
+                            [7] => amountDue
+                            [8] => lineItems
+                            [9] => discounts
+                            [10] => taxes
+                        )
+
+                    [_values:protected] => Array
+                        (
+                            [recurring] => 1
+                            [collect_now] => 1
+                            [price_type] => tax_exclusive
+                            [sub_total] => 1150
+                            [total] => 1289
+                            [credits_applied] => 1289
+                            [amount_paid] => 0
+                            [amount_due] => 0
+                            [object] => invoice_estimate
+                            [line_items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [date_from] => 1457948150
+                                            [date_to] => 1459749232
+                                            [unit_amount] => 1278
+                                            [quantity] => 1
+                                            [is_taxed] => 1
+                                            [tax_amount] => 139
+                                            [tax_rate] => 12.09
+                                            [object] => line_item
+                                            [amount] => 1278
+                                            [description] => Professional - Prorated Charges
+                                            [entity_type] => plan
+                                            [entity_id] => professional
+                                            [discount_amount] => 128
+                                            [item_level_discount_amount] => 128
+                                        )
+
+                                )
+
+                            [discounts] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [object] => discount
+                                            [entity_type] => item_level_coupon
+                                            [description] => Plan & Addons Coupon
+                                            [amount] => 128
+                                            [entity_id] => plan_addons_coupon
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [object] => tax
+                                            [description] => Sales @ 12.09%
+                                            [amount] => 139
+                                        )
+
+                                )
+
+                        )
+
+                    [_subTypes:protected] => Array
+                        (
+                            [line_items] => ChargeBee_InvoiceEstimateLineItem
+                            [discounts] => ChargeBee_InvoiceEstimateDiscount
+                            [taxes] => ChargeBee_InvoiceEstimateTax
+                        )
+
+                    [_dependantTypes:protected] => Array
+                        (
+                        )
+
+                    [_data:protected] => Array
+                        (
+                            [recurring] => 1
+                            [collectNow] => 1
+                            [priceType] => tax_exclusive
+                            [subTotal] => 1150
+                            [total] => 1289
+                            [creditsApplied] => 1289
+                            [amountPaid] => 0
+                            [amountDue] => 0
+                            [object] => invoice_estimate
+                            [lineItems] => Array
+                                (
+                                    [0] => ChargeBee_InvoiceEstimateLineItem Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => date_from
+                                                    [1] => date_to
+                                                    [2] => unit_amount
+                                                    [3] => quantity
+                                                    [4] => is_taxed
+                                                    [5] => tax_amount
+                                                    [6] => tax_rate
+                                                    [7] => amount
+                                                    [8] => discount_amount
+                                                    [9] => item_level_discount_amount
+                                                    [10] => description
+                                                    [11] => entity_type
+                                                    [12] => entity_id
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                    [date_from] => 1457948150
+                                                    [date_to] => 1459749232
+                                                    [unit_amount] => 1278
+                                                    [quantity] => 1
+                                                    [is_taxed] => 1
+                                                    [tax_amount] => 139
+                                                    [tax_rate] => 12.09
+                                                    [object] => line_item
+                                                    [amount] => 1278
+                                                    [description] => Professional - Prorated Charges
+                                                    [entity_type] => plan
+                                                    [entity_id] => professional
+                                                    [discount_amount] => 128
+                                                    [item_level_discount_amount] => 128
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                    [dateFrom] => 1457948150
+                                                    [dateTo] => 1459749232
+                                                    [unitAmount] => 1278
+                                                    [quantity] => 1
+                                                    [isTaxed] => 1
+                                                    [taxAmount] => 139
+                                                    [taxRate] => 12.09
+                                                    [object] => line_item
+                                                    [amount] => 1278
+                                                    [description] => Professional - Prorated Charges
+                                                    [entityType] => plan
+                                                    [entityId] => professional
+                                                    [discountAmount] => 128
+                                                    [itemLevelDiscountAmount] => 128
+                                                )
+
+                                        )
+
+                                )
+
+                            [discounts] => Array
+                                (
+                                    [0] => ChargeBee_InvoiceEstimateDiscount Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                    [2] => entity_type
+                                                    [3] => entity_id
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                    [object] => discount
+                                                    [entity_type] => item_level_coupon
+                                                    [description] => Plan & Addons Coupon
+                                                    [amount] => 128
+                                                    [entity_id] => plan_addons_coupon
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                    [object] => discount
+                                                    [entityType] => item_level_coupon
+                                                    [description] => Plan & Addons Coupon
+                                                    [amount] => 128
+                                                    [entityId] => plan_addons_coupon
+                                                )
+
+                                        )
+
+                                )
+
+                            [taxes] => Array
+                                (
+                                    [0] => ChargeBee_InvoiceEstimateTax Object
+                                        (
+                                            [allowed:protected] => Array
+                                                (
+                                                    [0] => amount
+                                                    [1] => description
+                                                )
+
+                                            [_values:protected] => Array
+                                                (
+                                                    [object] => tax
+                                                    [description] => Sales @ 12.09%
+                                                    [amount] => 139
+                                                )
+
+                                            [_subTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_dependantTypes:protected] => Array
+                                                (
+                                                )
+
+                                            [_data:protected] => Array
+                                                (
+                                                    [object] => tax
+                                                    [description] => Sales @ 12.09%
+                                                    [amount] => 139
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+INVOICE_ESTIMATE
+ChargeBee_InvoiceEstimate Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => recurring
+            [1] => collectNow
+            [2] => priceType
+            [3] => subTotal
+            [4] => total
+            [5] => creditsApplied
+            [6] => amountPaid
+            [7] => amountDue
+            [8] => lineItems
+            [9] => discounts
+            [10] => taxes
+        )
+
+    [_values:protected] => Array
+        (
+            [recurring] => 1
+            [collect_now] => 1
+            [price_type] => tax_exclusive
+            [sub_total] => 1150
+            [total] => 1289
+            [credits_applied] => 1289
+            [amount_paid] => 0
+            [amount_due] => 0
+            [object] => invoice_estimate
+            [line_items] => Array
+                (
+                    [0] => Array
+                        (
+                            [date_from] => 1457948150
+                            [date_to] => 1459749232
+                            [unit_amount] => 1278
+                            [quantity] => 1
+                            [is_taxed] => 1
+                            [tax_amount] => 139
+                            [tax_rate] => 12.09
+                            [object] => line_item
+                            [amount] => 1278
+                            [description] => Professional - Prorated Charges
+                            [entity_type] => plan
+                            [entity_id] => professional
+                            [discount_amount] => 128
+                            [item_level_discount_amount] => 128
+                        )
+
+                )
+
+            [discounts] => Array
+                (
+                    [0] => Array
+                        (
+                            [object] => discount
+                            [entity_type] => item_level_coupon
+                            [description] => Plan & Addons Coupon
+                            [amount] => 128
+                            [entity_id] => plan_addons_coupon
+                        )
+
+                )
+
+            [taxes] => Array
+                (
+                    [0] => Array
+                        (
+                            [object] => tax
+                            [description] => Sales @ 12.09%
+                            [amount] => 139
+                        )
+
+                )
+
+        )
+
+    [_subTypes:protected] => Array
+        (
+            [line_items] => ChargeBee_InvoiceEstimateLineItem
+            [discounts] => ChargeBee_InvoiceEstimateDiscount
+            [taxes] => ChargeBee_InvoiceEstimateTax
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+        )
+
+    [_data:protected] => Array
+        (
+            [recurring] => 1
+            [collectNow] => 1
+            [priceType] => tax_exclusive
+            [subTotal] => 1150
+            [total] => 1289
+            [creditsApplied] => 1289
+            [amountPaid] => 0
+            [amountDue] => 0
+            [object] => invoice_estimate
+            [lineItems] => Array
+                (
+                    [0] => ChargeBee_InvoiceEstimateLineItem Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => date_from
+                                    [1] => date_to
+                                    [2] => unit_amount
+                                    [3] => quantity
+                                    [4] => is_taxed
+                                    [5] => tax_amount
+                                    [6] => tax_rate
+                                    [7] => amount
+                                    [8] => discount_amount
+                                    [9] => item_level_discount_amount
+                                    [10] => description
+                                    [11] => entity_type
+                                    [12] => entity_id
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [date_from] => 1457948150
+                                    [date_to] => 1459749232
+                                    [unit_amount] => 1278
+                                    [quantity] => 1
+                                    [is_taxed] => 1
+                                    [tax_amount] => 139
+                                    [tax_rate] => 12.09
+                                    [object] => line_item
+                                    [amount] => 1278
+                                    [description] => Professional - Prorated Charges
+                                    [entity_type] => plan
+                                    [entity_id] => professional
+                                    [discount_amount] => 128
+                                    [item_level_discount_amount] => 128
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [dateFrom] => 1457948150
+                                    [dateTo] => 1459749232
+                                    [unitAmount] => 1278
+                                    [quantity] => 1
+                                    [isTaxed] => 1
+                                    [taxAmount] => 139
+                                    [taxRate] => 12.09
+                                    [object] => line_item
+                                    [amount] => 1278
+                                    [description] => Professional - Prorated Charges
+                                    [entityType] => plan
+                                    [entityId] => professional
+                                    [discountAmount] => 128
+                                    [itemLevelDiscountAmount] => 128
+                                )
+
+                        )
+
+                )
+
+            [discounts] => Array
+                (
+                    [0] => ChargeBee_InvoiceEstimateDiscount Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => amount
+                                    [1] => description
+                                    [2] => entity_type
+                                    [3] => entity_id
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [object] => discount
+                                    [entity_type] => item_level_coupon
+                                    [description] => Plan & Addons Coupon
+                                    [amount] => 128
+                                    [entity_id] => plan_addons_coupon
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [object] => discount
+                                    [entityType] => item_level_coupon
+                                    [description] => Plan & Addons Coupon
+                                    [amount] => 128
+                                    [entityId] => plan_addons_coupon
+                                )
+
+                        )
+
+                )
+
+            [taxes] => Array
+                (
+                    [0] => ChargeBee_InvoiceEstimateTax Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => amount
+                                    [1] => description
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [object] => tax
+                                    [description] => Sales @ 12.09%
+                                    [amount] => 139
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [object] => tax
+                                    [description] => Sales @ 12.09%
+                                    [amount] => 139
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+INVOICE_ESTIMATE_LINE_ITEM
+ChargeBee_InvoiceEstimateLineItem Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => date_from
+            [1] => date_to
+            [2] => unit_amount
+            [3] => quantity
+            [4] => is_taxed
+            [5] => tax_amount
+            [6] => tax_rate
+            [7] => amount
+            [8] => discount_amount
+            [9] => item_level_discount_amount
+            [10] => description
+            [11] => entity_type
+            [12] => entity_id
+        )
+
+    [_values:protected] => Array
+        (
+            [date_from] => 1457948150
+            [date_to] => 1459749232
+            [unit_amount] => 1278
+            [quantity] => 1
+            [is_taxed] => 1
+            [tax_amount] => 139
+            [tax_rate] => 12.09
+            [object] => line_item
+            [amount] => 1278
+            [description] => Professional - Prorated Charges
+            [entity_type] => plan
+            [entity_id] => professional
+            [discount_amount] => 128
+            [item_level_discount_amount] => 128
+        )
+
+    [_subTypes:protected] => Array
+        (
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+        )
+
+    [_data:protected] => Array
+        (
+            [dateFrom] => 1457948150
+            [dateTo] => 1459749232
+            [unitAmount] => 1278
+            [quantity] => 1
+            [isTaxed] => 1
+            [taxAmount] => 139
+            [taxRate] => 12.09
+            [object] => line_item
+            [amount] => 1278
+            [description] => Professional - Prorated Charges
+            [entityType] => plan
+            [entityId] => professional
+            [discountAmount] => 128
+            [itemLevelDiscountAmount] => 128
+        )
+
+)
+INVOICE_ESTIMATE_LINE_ITEM.UNIT_PRICE
+1278CREDIT_NOTE_ESTIMATE
+ChargeBee_CreditNoteEstimate Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => referenceInvoiceId
+            [1] => type
+            [2] => priceType
+            [3] => subTotal
+            [4] => total
+            [5] => amountAllocated
+            [6] => amountAvailable
+            [7] => lineItems
+            [8] => discounts
+            [9] => taxes
+        )
+
+    [_values:protected] => Array
+        (
+            [reference_invoice_id] => __demo_inv__10
+            [type] => refundable
+            [price_type] => tax_exclusive
+            [sub_total] => 605
+            [total] => 605
+            [amount_allocated] => 605
+            [amount_available] => 0
+            [object] => credit_note_estimate
+            [line_items] => Array
+                (
+                    [0] => Array
+                        (
+                            [date_from] => 1457948150
+                            [date_to] => 1459749232
+                            [unit_amount] => 605
+                            [quantity] => 1
+                            [is_taxed] => 
+                            [tax_amount] => 0
+                            [object] => line_item
+                            [amount] => 605
+                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                            [entity_type] => plan
+                            [entity_id] => no-trial
+                            [discount_amount] => 0
+                            [item_level_discount_amount] => 0
+                        )
+
+                )
+
+            [taxes] => Array
+                (
+                )
+
+        )
+
+    [_subTypes:protected] => Array
+        (
+            [line_items] => ChargeBee_CreditNoteEstimateLineItem
+            [discounts] => ChargeBee_CreditNoteEstimateDiscount
+            [taxes] => ChargeBee_CreditNoteEstimateTax
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+        )
+
+    [_data:protected] => Array
+        (
+            [referenceInvoiceId] => __demo_inv__10
+            [type] => refundable
+            [priceType] => tax_exclusive
+            [subTotal] => 605
+            [total] => 605
+            [amountAllocated] => 605
+            [amountAvailable] => 0
+            [object] => credit_note_estimate
+            [lineItems] => Array
+                (
+                    [0] => ChargeBee_CreditNoteEstimateLineItem Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => date_from
+                                    [1] => date_to
+                                    [2] => unit_amount
+                                    [3] => quantity
+                                    [4] => is_taxed
+                                    [5] => tax_amount
+                                    [6] => tax_rate
+                                    [7] => amount
+                                    [8] => discount_amount
+                                    [9] => item_level_discount_amount
+                                    [10] => description
+                                    [11] => entity_type
+                                    [12] => entity_id
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [date_from] => 1457948150
+                                    [date_to] => 1459749232
+                                    [unit_amount] => 605
+                                    [quantity] => 1
+                                    [is_taxed] => 
+                                    [tax_amount] => 0
+                                    [object] => line_item
+                                    [amount] => 605
+                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                    [entity_type] => plan
+                                    [entity_id] => no-trial
+                                    [discount_amount] => 0
+                                    [item_level_discount_amount] => 0
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [dateFrom] => 1457948150
+                                    [dateTo] => 1459749232
+                                    [unitAmount] => 605
+                                    [quantity] => 1
+                                    [isTaxed] => 
+                                    [taxAmount] => 0
+                                    [object] => line_item
+                                    [amount] => 605
+                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                    [entityType] => plan
+                                    [entityId] => no-trial
+                                    [discountAmount] => 0
+                                    [itemLevelDiscountAmount] => 0
+                                )
+
+                        )
+
+                )
+
+            [taxes] => ChargeBee_CreditNoteEstimateTax Object
+                (
+                    [allowed:protected] => Array
+                        (
+                            [0] => amount
+                            [1] => description
+                        )
+
+                    [_values:protected] => Array
+                        (
+                        )
+
+                    [_subTypes:protected] => Array
+                        (
+                        )
+
+                    [_dependantTypes:protected] => Array
+                        (
+                        )
+
+                    [_data:protected] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+)
+CREDIT_NOTE_ESTIMATE
+ChargeBee_CreditNoteEstimate Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => referenceInvoiceId
+            [1] => type
+            [2] => priceType
+            [3] => subTotal
+            [4] => total
+            [5] => amountAllocated
+            [6] => amountAvailable
+            [7] => lineItems
+            [8] => discounts
+            [9] => taxes
+        )
+
+    [_values:protected] => Array
+        (
+            [reference_invoice_id] => __demo_inv__27
+            [type] => refundable
+            [price_type] => tax_exclusive
+            [sub_total] => 1210
+            [total] => 1210
+            [amount_allocated] => 684
+            [amount_available] => 526
+            [object] => credit_note_estimate
+            [line_items] => Array
+                (
+                    [0] => Array
+                        (
+                            [date_from] => 1457948150
+                            [date_to] => 1459749232
+                            [unit_amount] => 605
+                            [quantity] => 2
+                            [is_taxed] => 
+                            [tax_amount] => 0
+                            [object] => line_item
+                            [amount] => 1210
+                            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                            [entity_type] => plan
+                            [entity_id] => no-trial
+                            [discount_amount] => 0
+                            [item_level_discount_amount] => 0
+                        )
+
+                )
+
+            [taxes] => Array
+                (
+                )
+
+        )
+
+    [_subTypes:protected] => Array
+        (
+            [line_items] => ChargeBee_CreditNoteEstimateLineItem
+            [discounts] => ChargeBee_CreditNoteEstimateDiscount
+            [taxes] => ChargeBee_CreditNoteEstimateTax
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+        )
+
+    [_data:protected] => Array
+        (
+            [referenceInvoiceId] => __demo_inv__27
+            [type] => refundable
+            [priceType] => tax_exclusive
+            [subTotal] => 1210
+            [total] => 1210
+            [amountAllocated] => 684
+            [amountAvailable] => 526
+            [object] => credit_note_estimate
+            [lineItems] => Array
+                (
+                    [0] => ChargeBee_CreditNoteEstimateLineItem Object
+                        (
+                            [allowed:protected] => Array
+                                (
+                                    [0] => date_from
+                                    [1] => date_to
+                                    [2] => unit_amount
+                                    [3] => quantity
+                                    [4] => is_taxed
+                                    [5] => tax_amount
+                                    [6] => tax_rate
+                                    [7] => amount
+                                    [8] => discount_amount
+                                    [9] => item_level_discount_amount
+                                    [10] => description
+                                    [11] => entity_type
+                                    [12] => entity_id
+                                )
+
+                            [_values:protected] => Array
+                                (
+                                    [date_from] => 1457948150
+                                    [date_to] => 1459749232
+                                    [unit_amount] => 605
+                                    [quantity] => 2
+                                    [is_taxed] => 
+                                    [tax_amount] => 0
+                                    [object] => line_item
+                                    [amount] => 1210
+                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                    [entity_type] => plan
+                                    [entity_id] => no-trial
+                                    [discount_amount] => 0
+                                    [item_level_discount_amount] => 0
+                                )
+
+                            [_subTypes:protected] => Array
+                                (
+                                )
+
+                            [_dependantTypes:protected] => Array
+                                (
+                                )
+
+                            [_data:protected] => Array
+                                (
+                                    [dateFrom] => 1457948150
+                                    [dateTo] => 1459749232
+                                    [unitAmount] => 605
+                                    [quantity] => 2
+                                    [isTaxed] => 
+                                    [taxAmount] => 0
+                                    [object] => line_item
+                                    [amount] => 1210
+                                    [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+                                    [entityType] => plan
+                                    [entityId] => no-trial
+                                    [discountAmount] => 0
+                                    [itemLevelDiscountAmount] => 0
+                                )
+
+                        )
+
+                )
+
+            [taxes] => ChargeBee_CreditNoteEstimateTax Object
+                (
+                    [allowed:protected] => Array
+                        (
+                            [0] => amount
+                            [1] => description
+                        )
+
+                    [_values:protected] => Array
+                        (
+                        )
+
+                    [_subTypes:protected] => Array
+                        (
+                        )
+
+                    [_dependantTypes:protected] => Array
+                        (
+                        )
+
+                    [_data:protected] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+)
+CREDIT_NOTE_ESTIMATE_LINE_ITEM
+ChargeBee_CreditNoteEstimateLineItem Object
+(
+    [allowed:protected] => Array
+        (
+            [0] => date_from
+            [1] => date_to
+            [2] => unit_amount
+            [3] => quantity
+            [4] => is_taxed
+            [5] => tax_amount
+            [6] => tax_rate
+            [7] => amount
+            [8] => discount_amount
+            [9] => item_level_discount_amount
+            [10] => description
+            [11] => entity_type
+            [12] => entity_id
+        )
+
+    [_values:protected] => Array
+        (
+            [date_from] => 1457948150
+            [date_to] => 1459749232
+            [unit_amount] => 605
+            [quantity] => 1
+            [is_taxed] => 
+            [tax_amount] => 0
+            [object] => line_item
+            [amount] => 605
+            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+            [entity_type] => plan
+            [entity_id] => no-trial
+            [discount_amount] => 0
+            [item_level_discount_amount] => 0
+        )
+
+    [_subTypes:protected] => Array
+        (
+        )
+
+    [_dependantTypes:protected] => Array
+        (
+        )
+
+    [_data:protected] => Array
+        (
+            [dateFrom] => 1457948150
+            [dateTo] => 1459749232
+            [unitAmount] => 605
+            [quantity] => 1
+            [isTaxed] => 
+            [taxAmount] => 0
+            [object] => line_item
+            [amount] => 605
+            [description] => No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016
+            [entityType] => plan
+            [entityId] => no-trial
+            [discountAmount] => 0
+            [itemLevelDiscountAmount] => 0
+        )
+
+)
+CREDIT_NOTE_ESTIMATE_DISCOUNT
+CREDIT_NOTE_ESTIMATE_TAX
+
+Fatal error: Cannot use object of type ChargeBee_CreditNoteEstimateTax as array in /Users/Vaibhav/work/client-libs/tests/test_v2/test.php on line 51
