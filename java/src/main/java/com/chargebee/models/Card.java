@@ -135,6 +135,11 @@ public class Card extends Resource<Card> {
         return new UpdateCardForCustomerRequest(Method.POST, uri);
     }
 
+    public static SwitchGatewayRequest switchGateway(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "switch_gateway");
+        return new SwitchGatewayRequest(Method.POST, uri);
+    }
+
     public static Request deleteCardForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "delete_card");
         return new Request(Method.POST, uri);
@@ -251,6 +256,24 @@ public class Card extends Resource<Card> {
             params.addOpt("customer[vat_number]", customerVatNumber);
             return this;
         }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class SwitchGatewayRequest extends Request<SwitchGatewayRequest> {
+
+        private SwitchGatewayRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
+        }
+    
+        public SwitchGatewayRequest gateway(Gateway gateway) {
+            params.add("gateway", gateway);
+            return this;
+        }
+
 
         @Override
         public Params params() {
