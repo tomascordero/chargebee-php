@@ -1,8 +1,8 @@
 var chargebee = require("../../node/lib/chargebee.js");
 
 chargebee.configure({
-	'site': 'mannar-test',
-    'api_key': 'test___dev__vfcuZyxcu2YH51J1siLcdxiXlg8pVknqArD',
+	'site': 'mannar',
+    'api_key': 'live___dev__sO2zDFEGhaauwR0W97DKixjXdrOEgiox',
 	'hostSuffix': '.localcb.in',
    'protocol': 'http',
    'port': 8080
@@ -310,6 +310,25 @@ function deleteCustomer(){
 	});
 }
 
+
+function switchGateway(){
+	chargebee.card.switch_gateway("__dev__3Nl8OyvPfWAPZr6", {
+	  gateway : "eway_rapid"
+	}).request(function(error,result){
+	  if(error){
+	    //handle error
+	    console.log(error);
+	  }else{
+	    console.log(result);
+	    console.log(result.customer);
+	    console.log(result.card);
+		console.log(result.card.gateway);
+	  }
+	});
+}
+
+
+switchGateway();
 // deleteSubscription();
 // retrieveSubscription();
 // deleteCustomer();
@@ -324,7 +343,7 @@ function deleteCustomer(){
 //createSubEstimate();
 //updateCustomer();
 //createCustomer();
-createSub();
+// createSub();
 
 // createCoupon();
 

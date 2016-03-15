@@ -876,21 +876,31 @@ namespace Examples
 			}
 		}
 
+		public static void switchGateway() {
+			EntityResult result = Card.SwitchGateway("__dev__3Nl8OyvPfWAPZr6")
+				.Gateway(GatewayEnum.Pin).Request();
+			printFields (result.Customer, typeof(Customer));
+			printFields (result.Card, typeof(Card));
+			Console.WriteLine (result.Card.Gateway);
+		}
+
 		public static void Main(string[] args) 
 		{
-			ApiConfig.Proto = "https";
-			ApiConfig.DomainSuffix = "devcb.in";
-			ApiConfig.Configure("bc-comics-test", "test_Q1WGp6sFacdzEsbS92qeTLJd3na7f2KRm");
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar", "live___dev__sO2zDFEGhaauwR0W97DKixjXdrOEgiox");
 
+			try{
+			switchGateway ();
 			//creatCustomer ();
-			//addContactToCustomer ();
+				//addContactToCustomer ();
 			//updateContactToCustomer ();
 			//createEstimate ();
 			//updateEstimate ();
 			//renewalEstimate ();
 			//retrieveInvoice1 ();
 			//collectInvoice1 ();
-			comments ();
+//			comments ();
 			//testEnabledInPortalInPlan ();
 //			testUpdateEnabledInPortalAddon ();
 //			testEnabledInPortalCreateAddon ();
@@ -910,14 +920,15 @@ namespace Examples
 //			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
 //			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
 
-//			try{
+
 				//_main();
 			//TestRetrieveEvent();
-//			}catch(ApiException e) {
-//				Console.WriteLine (e.ApiErrorCode);
-//				Console.WriteLine (e.Param);
-//				Console.WriteLine (e.HttpStatusCode);
-//			}
+			}catch(ApiException e) {
+				Console.WriteLine (e.ApiErrorCode);
+				Console.WriteLine (e.Param);
+				Console.WriteLine (e.Message);
+				Console.WriteLine (e.HttpStatusCode);
+			}
 
 
 //			Sample s = new Sample();
