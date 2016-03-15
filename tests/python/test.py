@@ -3,12 +3,12 @@ sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),"../..
 #print os.path.join(os.path.dirname(os.path.abspath(__file__)),"../../python")
 import chargebee
 from chargebee.main import Environment
-Environment.chargebee_domain="localcb.in:8080"
-Environment.protocol = "http"
-chargebee.ChargeBee.verify_ca_certs=False
+Environment.chargebee_domain="stagingcb.com"
+Environment.protocol = "https"
+#chargebee.ChargeBee.verify_ca_certs=False
 
 ##Copy code from api docs
-chargebee.configure("test___dev__2BgdqjK9jMcXc9pzFlunAhcd9vcd2irK5W","mannar-test")
+chargebee.configure("live_WgIpp3D8cdcXcuJ20lihY0qlQ9xzrT1T8k","stagingtesting-2")
 
 
 def customer_retrieve():
@@ -148,10 +148,18 @@ def delete_customer():
     print result.billing_address
     print result.payment_method
 
+def switch_gateway():
+    result = chargebee.Customer.retrieve("2sDt7UcmPfVvIJF5b")
+    print result
+    result1 = chargebee.Card.switch_gateway("2sDt7UcmPfVvIJF5b", {"gateway" : "pin"})
+    print result1
+
+
+switch_gateway()
 # list_events()
 # delete_subscription()
 # delete_customer()
-retrieve_events()
+#retrieve_events()
 #collect_invoice()
 #create_customer()
 #create_subscription()
