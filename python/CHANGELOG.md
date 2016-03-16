@@ -1,3 +1,17 @@
+### v1.6.1 (2016-03-16)
+* * *
+
+** Dependency issue fixed**:
+
+Namespace collision for 'http' with Python dependency setuptools is fixed. See pull request: https://github.com/chargebee/chargebee-python/pull/9
+
+### v1.6.0 (2016-03-10)
+* * *
+
+** APIs updated**:
+
+Support to keep the card in gateway while deleting customer. Delete a customer API accepts "delete_payment_method" parameter. See: https://apidocs.chargebee.com/docs/api/customers#delete_a_customer
+
 ### v1.5.9 (2016-02-25)
 * * *
 
