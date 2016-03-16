@@ -215,13 +215,6 @@ var _endpoints = {
       true
     ],
     [
-      "switch_gateway",
-      "POST",
-      "/customers",
-      "/switch_gateway",
-      true
-    ],
-    [
       "delete_card_for_customer",
       "POST",
       "/customers",

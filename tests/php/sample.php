@@ -12,14 +12,14 @@ require('../../php/lib/ChargeBee.php');
 /**
  * Below are the setting to be used if you are testing with the local server.
  */
-ChargeBee_Environment::$scheme = "https";
-ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
+ChargeBee_Environment::$scheme = "http";
+ChargeBee_Environment::$chargebeeDomain = "localcb.in:8080";
 
 /**
  * Below are the configuration setting our customers will use to connect to our production server.
  */
 //ChargeBee_Environment::$chargebeeDomain = "stagingcb.com";
-ChargeBee_Environment::configure("stagingtesting-2", "live_WgIpp3D8cdcXcuJ20lihY0qlQ9xzrT1T8k");
+ChargeBee_Environment::configure("mannar-test", "test___dev__q47E9iZRiK9JkhlaM0BYw5pJcu0CduAh3");
 // ChargeBee_Environment::configure("rrcb-test", "jaGdadHeCQxfmFQG2sEgSrzHdyt23cwcd");
 
 /**
@@ -676,17 +676,9 @@ function listOrdersForInvoice($invId)
     print_r($result);
 }
 
-function switchGateway(){
-$result = ChargeBee_Customer::retrieve("2sDt7UcmPfVvIJF5b");
-print_r($result);
-$result = ChargeBee_Card::switchGateway("2sDt7UcmPfVvIJF5b", array(
-  "gateway" => "eway_rapid"));
-print_r($result);
-}
 /**
  * You define the functions above and call the ones you would like to test here.
  */
-switchGateway();
 // retrieveSubscription();
 // retrieveSubWithScheduledChanges();
 // removeScheduledChanges();

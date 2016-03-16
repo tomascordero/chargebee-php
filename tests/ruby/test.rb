@@ -1,13 +1,13 @@
 require '../../ruby/lib/chargebee.rb';
-#$CHARGEBEE_DOMAIN = "localcb.in:8080"
-$CHARGEBEE_DOMAIN = "stagingcb.com"
-#ChargeBee.verify_ca_certs=(false)
-$ENV_PROTOCOL = "https"
+$CHARGEBEE_DOMAIN = "localcb.in:8080"
+#$CHARGEBEE_DOMAIN = "stagingcb.com"
+ChargeBee.verify_ca_certs=(false)
+#$ENV_PROTOCOL = "http"
 #ChargeBee.verify_ca_certs=(true)
 
 #Code from apidocs
-ChargeBee.configure(:site => "stagingtesting-2", 
-  :api_key => "live_WgIpp3D8cdcXcuJ20lihY0qlQ9xzrT1T8k")
+ChargeBee.configure(:site => "mannar-test", 
+  :api_key => "test___dev__qIOf7uXcI3vsR3DNNOelTWmF70W1yIUR")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -346,17 +346,7 @@ def update_cust
   print result.to_s 
 end
 
-def switch_gateway
-  result = ChargeBee::Customer.retrieve("2sDt7UcmPfVvIJF5b");
-  puts result
-  result1 = ChargeBee::Card.switch_gateway("2sDt7UcmPfVvIJF5b", {:gateway => "eway_rapid"})
-  puts result1
-end
-
-
-begin
-switch_gateway
-#update_cust
+update_cust
 #retrieve_txn
 #retrieve_event
 #retrieve_customer
@@ -388,6 +378,3 @@ switch_gateway
 #update_sub_estimate
 #retrieve_plan
 #retrieve_addon
-rescue Exception => e
-  puts e
-end
