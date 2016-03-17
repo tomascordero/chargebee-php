@@ -25,10 +25,6 @@ namespace ChargeBee.Models
         {
             get { return GetValue<bool>("recurring", true); }
         }
-        public bool CollectNow 
-        {
-            get { return GetValue<bool>("collect_now", true); }
-        }
         public PriceTypeEnum PriceType 
         {
             get { return GetEnum<PriceTypeEnum>("price_type", true); }

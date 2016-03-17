@@ -29,6 +29,10 @@ module ChargeBee
     Request.send('get', uri_path("customers",id.to_s,"transactions"), params, env, headers)
   end
 
+  def self.transactions_for_subscription(id, params={}, env=nil, headers={})
+    Request.send('get', uri_path("subscriptions",id.to_s,"transactions"), params, env, headers)
+  end
+
   def self.payments_for_invoice(id, params={}, env=nil, headers={})
     Request.send('get', uri_path("invoices",id.to_s,"payments"), params, env, headers)
   end

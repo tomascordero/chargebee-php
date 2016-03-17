@@ -326,12 +326,12 @@ namespace ChargeBee.Models
                 return GetValue<string>("invoice_id", true);
             }
 
-            public int AppliedAmount() {
-                return GetValue<int>("applied_amount", true);
+            public int AllocatedAmount() {
+                return GetValue<int>("allocated_amount", true);
             }
 
-            public DateTime AppliedAt() {
-                return (DateTime)GetDateTime("applied_at", true);
+            public DateTime AllocatedAt() {
+                return (DateTime)GetDateTime("allocated_at", true);
             }
 
             public DateTime? InvoiceDate() {

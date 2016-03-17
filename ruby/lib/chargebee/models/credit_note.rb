@@ -18,7 +18,7 @@ module ChargeBee
     end
 
     class Allocation < Model
-      attr_accessor :invoice_id, :applied_amount, :applied_at, :invoice_date, :invoice_status
+      attr_accessor :invoice_id, :allocated_amount, :allocated_at, :invoice_date, :invoice_status
     end
 
   attr_accessor :id, :customer_id, :subscription_id, :reference_invoice_id, :type, :reason_code,

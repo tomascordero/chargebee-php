@@ -138,10 +138,6 @@ public class InvoiceEstimate extends Resource<InvoiceEstimate> {
         return reqBoolean("recurring");
     }
 
-    public Boolean collectNow() {
-        return reqBoolean("collect_now");
-    }
-
     public PriceType priceType() {
         return reqEnum("price_type", PriceType.class);
     }

@@ -29,16 +29,8 @@ public class Estimate extends Resource<Estimate> {
         return reqTimestamp("created_at");
     }
 
-    public String subscriptionId() {
-        return optString("subscription_id");
-    }
-
-    public SubscriptionStatus subscriptionStatus() {
-        return optEnum("subscription_status", SubscriptionStatus.class);
-    }
-
-    public Timestamp subscriptionNextBillingAt() {
-        return optTimestamp("subscription_next_billing_at");
+    public SubscriptionEstimate subscriptionEstimate() {
+        return optSubResource("subscription_estimate", SubscriptionEstimate.class);
     }
 
     public InvoiceEstimate invoiceEstimate() {
@@ -77,6 +69,12 @@ public class Estimate extends Resource<Estimate> {
             super(httpMeth, uri);
         }
     
+        public CreateSubscriptionRequest useExistingBalances(Boolean useExistingBalances) {
+            params.addOpt("use_existing_balances", useExistingBalances);
+            return this;
+        }
+
+
         public CreateSubscriptionRequest billingCycles(Integer billingCycles) {
             params.addOpt("billing_cycles", billingCycles);
             return this;
@@ -205,6 +203,12 @@ public class Estimate extends Resource<Estimate> {
         }
 
 
+        public UpdateSubscriptionRequest useExistingBalances(Boolean useExistingBalances) {
+            params.addOpt("use_existing_balances", useExistingBalances);
+            return this;
+        }
+
+
         public UpdateSubscriptionRequest subscriptionId(String subscriptionId) {
             params.add("subscription[id]", subscriptionId);
             return this;
@@ -299,6 +303,12 @@ public class Estimate extends Resource<Estimate> {
     
         public RenewalEstimateRequest includeDelayedCharges(Boolean includeDelayedCharges) {
             params.addOpt("include_delayed_charges", includeDelayedCharges);
+            return this;
+        }
+
+
+        public RenewalEstimateRequest useExistingBalances(Boolean useExistingBalances) {
+            params.addOpt("use_existing_balances", useExistingBalances);
             return this;
         }
 

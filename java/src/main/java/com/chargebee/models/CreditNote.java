@@ -190,12 +190,12 @@ public class CreditNote extends Resource<CreditNote> {
             return reqString("invoice_id");
         }
 
-        public Integer appliedAmount() {
-            return reqInteger("applied_amount");
+        public Integer allocatedAmount() {
+            return reqInteger("allocated_amount");
         }
 
-        public Timestamp appliedAt() {
-            return reqTimestamp("applied_at");
+        public Timestamp allocatedAt() {
+            return reqTimestamp("allocated_at");
         }
 
         public Timestamp invoiceDate() {

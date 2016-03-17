@@ -40,17 +40,9 @@ namespace ChargeBee.Models
         {
             get { return (DateTime)GetDateTime("created_at", true); }
         }
-        public string SubscriptionId 
+        public EstimateSubscriptionEstimate SubscriptionEstimate 
         {
-            get { return GetValue<string>("subscription_id", false); }
-        }
-        public SubscriptionStatusEnum? SubscriptionStatus 
-        {
-            get { return GetEnum<SubscriptionStatusEnum>("subscription_status", false); }
-        }
-        public DateTime? SubscriptionNextBillingAt 
-        {
-            get { return GetDateTime("subscription_next_billing_at", false); }
+            get { return GetSubResource<EstimateSubscriptionEstimate>("subscription_estimate"); }
         }
         public EstimateInvoiceEstimate InvoiceEstimate 
         {
@@ -71,6 +63,11 @@ namespace ChargeBee.Models
             {
             }
 
+            public CreateSubscriptionRequest UseExistingBalances(bool useExistingBalances) 
+            {
+                m_params.AddOpt("use_existing_balances", useExistingBalances);
+                return this;
+            }
             public CreateSubscriptionRequest BillingCycles(int billingCycles) 
             {
                 m_params.AddOpt("billing_cycles", billingCycles);
@@ -189,6 +186,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("include_delayed_charges", includeDelayedCharges);
                 return this;
             }
+            public UpdateSubscriptionRequest UseExistingBalances(bool useExistingBalances) 
+            {
+                m_params.AddOpt("use_existing_balances", useExistingBalances);
+                return this;
+            }
             public UpdateSubscriptionRequest SubscriptionId(string subscriptionId) 
             {
                 m_params.Add("subscription[id]", subscriptionId);
@@ -280,6 +282,11 @@ namespace ChargeBee.Models
             public RenewalEstimateRequest IncludeDelayedCharges(bool includeDelayedCharges) 
             {
                 m_params.AddOpt("include_delayed_charges", includeDelayedCharges);
+                return this;
+            }
+            public RenewalEstimateRequest UseExistingBalances(bool useExistingBalances) 
+            {
+                m_params.AddOpt("use_existing_balances", useExistingBalances);
                 return this;
             }
         }

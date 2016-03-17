@@ -243,6 +243,11 @@ public class Transaction extends Resource<Transaction> {
         return new ListRequest(uri);
     }
 
+    public static ListRequest transactionsForSubscription(String id) throws IOException {
+        String uri = uri("subscriptions", nullCheck(id), "transactions");
+        return new ListRequest(uri);
+    }
+
     public static ListRequest paymentsForInvoice(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "payments");
         return new ListRequest(uri);

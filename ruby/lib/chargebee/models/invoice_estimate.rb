@@ -13,8 +13,8 @@ module ChargeBee
       attr_accessor :amount, :description
     end
 
-  attr_accessor :recurring, :collect_now, :price_type, :sub_total, :total, :credits_applied, :amount_paid,
-  :amount_due, :line_items, :discounts, :taxes
+  attr_accessor :recurring, :price_type, :sub_total, :total, :credits_applied, :amount_paid, :amount_due,
+  :line_items, :discounts, :taxes
 
   # OPERATIONS
   #-----------

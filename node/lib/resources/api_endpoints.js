@@ -215,6 +215,13 @@ var _endpoints = {
       true
     ],
     [
+      "switch_gateway",
+      "POST",
+      "/customers",
+      "/switch_gateway",
+      true
+    ],
+    [
       "delete_card_for_customer",
       "POST",
       "/customers",
@@ -426,6 +433,13 @@ var _endpoints = {
       true
     ],
     [
+      "transactions_for_subscription",
+      "GET",
+      "/subscriptions",
+      "/transactions",
+      true
+    ],
+    [
       "payments_for_invoice",
       "GET",
       "/invoices",
@@ -467,20 +481,6 @@ var _endpoints = {
       "POST",
       "/hosted_pages",
       "/update_payment_method",
-      false
-    ],
-    [
-      "checkout_onetime_charge",
-      "POST",
-      "/hosted_pages",
-      "/checkout_onetime_charge",
-      false
-    ],
-    [
-      "checkout_onetime_addons",
-      "POST",
-      "/hosted_pages",
-      "/checkout_onetime_addons",
       false
     ],
     [

@@ -104,3 +104,4 @@ require(dirname(__FILE__) . '/ChargeBee/Models/InvoiceEstimateTax.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/InvoiceIssuedCreditNote.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/InvoiceLinkedPayment.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/TransactionLinkedCreditNote.php');
+require(dirname(__FILE__) . '/ChargeBee/Models/SubscriptionEstimate.php');

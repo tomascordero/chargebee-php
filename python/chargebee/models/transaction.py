@@ -29,6 +29,10 @@ class Transaction(Model):
         return request.send('get', request.uri_path("customers",id,"transactions"), params, env, headers)
 
     @staticmethod
+    def transactions_for_subscription(id, params=None, env=None, headers=None):
+        return request.send('get', request.uri_path("subscriptions",id,"transactions"), params, env, headers)
+
+    @staticmethod
     def payments_for_invoice(id, params=None, env=None, headers=None):
         return request.send('get', request.uri_path("invoices",id,"payments"), params, env, headers)
 

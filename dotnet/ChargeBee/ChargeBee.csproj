@@ -61,6 +61,7 @@
     <Compile Include="Models\Coupon.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Estimate.cs" />
+	<Compile Include="Models\SubscriptionEstimate.cs" />	
     <Compile Include="Models\InvoiceEstimate.cs" />	
     <Compile Include="Models\CreditNoteEstimate.cs" />		
     <Compile Include="Models\CreditNote.cs" />	

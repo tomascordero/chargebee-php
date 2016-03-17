@@ -17,7 +17,7 @@ class CreditNote(Model):
       fields = ["txn_id", "applied_amount", "applied_at", "txn_status", "txn_date", "txn_amount"]
       pass
     class Allocation(Model):
-      fields = ["invoice_id", "applied_amount", "applied_at", "invoice_date", "invoice_status"]
+      fields = ["invoice_id", "allocated_amount", "allocated_at", "invoice_date", "invoice_status"]
       pass
 
     fields = ["id", "customer_id", "subscription_id", "reference_invoice_id", "type", "reason_code", \
