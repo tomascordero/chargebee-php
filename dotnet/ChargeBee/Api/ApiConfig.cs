@@ -19,7 +19,7 @@ namespace ChargeBee.Api
         {
             get
             {
-                return String.Format("{0}://{1}.{2}/api/v1",
+                return String.Format("{0}://{1}.{2}/api/v2",
                     Proto,
                     SiteName,
                     DomainSuffix);

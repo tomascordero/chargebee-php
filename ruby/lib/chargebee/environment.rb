@@ -9,9 +9,9 @@ module ChargeBee
         instance_variable_set "@#{attr}", options[attr]
       end
       if($CHARGEBEE_DOMAIN == nil)
-        @api_endpoint = "https://#{@site}.chargebee.com/api/v1"
+        @api_endpoint = "https://#{@site}.chargebee.com/api/v2"
       else
-        @api_endpoint = "#{$ENV_PROTOCOL == nil ? "http": "https"}://#{@site}.#{$CHARGEBEE_DOMAIN}/api/v1"
+        @api_endpoint = "#{$ENV_PROTOCOL == nil ? "http": "https"}://#{@site}.#{$CHARGEBEE_DOMAIN}/api/v2"
       end
     end
 

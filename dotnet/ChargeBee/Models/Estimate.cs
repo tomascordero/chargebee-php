@@ -40,15 +40,15 @@ namespace ChargeBee.Models
         {
             get { return (DateTime)GetDateTime("created_at", true); }
         }
-        public EstimateSubscriptionEstimate SubscriptionEstimate 
+        public SubscriptionEstimate SubscriptionEstimate 
         {
             get { return GetSubResource<EstimateSubscriptionEstimate>("subscription_estimate"); }
         }
-        public EstimateInvoiceEstimate InvoiceEstimate 
+        public InvoiceEstimate InvoiceEstimate 
         {
             get { return GetSubResource<EstimateInvoiceEstimate>("invoice_estimate"); }
         }
-        public List<EstimateCreditNoteEstimate> CreditNoteEstimates 
+        public List<CreditNoteEstimate> CreditNoteEstimates 
         {
             get { return GetResourceList<EstimateCreditNoteEstimate>("credit_note_estimates"); }
         }

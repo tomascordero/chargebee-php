@@ -27,7 +27,7 @@ namespace ChargeBee.Test
         /*[Test]
         public void TestConfig()
         {
-            Assert.AreEqual("https://guidebot-test.chargebee.com/api/v1", ApiConfig.Instance.ApiBaseUrl);
+            Assert.AreEqual("https://guidebot-test.chargebee.com/api/v2", ApiConfig.Instance.ApiBaseUrl);
         }*/
 
         [Test]

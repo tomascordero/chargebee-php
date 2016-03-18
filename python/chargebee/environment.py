@@ -8,9 +8,9 @@ class Environment(object):
         self.site = options['site']
 
         if self.chargebee_domain is None:
-            self.api_endpoint = 'https://%s.chargebee.com/api/v1' % self.site
+            self.api_endpoint = 'https://%s.chargebee.com/api/v2' % self.site
         else:
-            self.api_endpoint = 'http://%s.%s/api/v1' % (self.site, self.chargebee_domain)
+            self.api_endpoint = 'http://%s.%s/api/v2' % (self.site, self.chargebee_domain)
 
     def api_url(self, url):
         return self.api_endpoint + url
