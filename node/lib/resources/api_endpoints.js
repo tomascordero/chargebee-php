@@ -215,7 +215,7 @@ var _endpoints = {
       true
     ],
     [
-      "switch_gateway",
+      "switch_gateway_for_customer",
       "POST",
       "/customers",
       "/switch_gateway",
