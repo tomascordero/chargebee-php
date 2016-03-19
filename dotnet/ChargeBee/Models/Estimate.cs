@@ -42,15 +42,15 @@ namespace ChargeBee.Models
         }
         public SubscriptionEstimate SubscriptionEstimate 
         {
-            get { return GetSubResource<EstimateSubscriptionEstimate>("subscription_estimate"); }
+            get { return GetSubResource<SubscriptionEstimate>("subscription_estimate"); }
         }
         public InvoiceEstimate InvoiceEstimate 
         {
-            get { return GetSubResource<EstimateInvoiceEstimate>("invoice_estimate"); }
+            get { return GetSubResource<InvoiceEstimate>("invoice_estimate"); }
         }
         public List<CreditNoteEstimate> CreditNoteEstimates 
         {
-            get { return GetResourceList<EstimateCreditNoteEstimate>("credit_note_estimates"); }
+            get { return GetResourceList<CreditNoteEstimate>("credit_note_estimates"); }
         }
         
         #endregion
