@@ -25,9 +25,9 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("id", true); }
         }
-		public SubscriptionStatusEnum? Status 
+        public StatusEnum? Status 
         {
-			get { return GetEnum<SubscriptionStatusEnum>("status", false); }
+            get { return GetEnum<StatusEnum>("status", false); }
         }
         public DateTime? NextBillingAt 
         {
