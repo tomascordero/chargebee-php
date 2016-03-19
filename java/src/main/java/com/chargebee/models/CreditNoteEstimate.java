@@ -11,6 +11,13 @@ import java.util.*;
 
 public class CreditNoteEstimate extends Resource<CreditNoteEstimate> {
 
+    public enum Type {
+        ADJUSTMENT,
+        REFUNDABLE,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
     public static class LineItem extends Resource<LineItem> {
         public enum EntityType {
              PLAN_SETUP,PLAN,ADDON,ADHOC,
