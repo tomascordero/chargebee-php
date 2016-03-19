@@ -115,7 +115,7 @@ class Result(object):
 
     @property
     def credit_notes(self):
-        credit_notes = self._get_list('credit_notes', 'CreditNote',
+        credit_notes = self._get_list('credit_notes', CreditNote,
         {'line_items' : CreditNote.LineItem, 'discounts' : CreditNote.Discount, 'taxes' : CreditNote.Tax, 'linked_refunds' : CreditNote.LinkedRefund, 'allocations' : CreditNote.Allocation});
         return credit_notes;
 
@@ -130,7 +130,7 @@ class Result(object):
                 model = cls.construct(obj, sub_types, dependant_types)
                 for k in dependant_sub_types:
                     model.init_dependant(obj, k, dependant_sub_types[k])
-                    set_val.append(model)
+                set_val.append(model)
 
         self._response_obj[type] = set_val
         return self._response_obj[type]

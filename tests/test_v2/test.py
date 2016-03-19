@@ -18,11 +18,13 @@ def test(file):
     resp_json = compat.json.loads(respJson)
     
     res = Result(resp_json)    
-    r = res.estimates
-    
-    print(r[0].invoice_estimate.line_items[0])
-    print(type(r[0].invoice_estimate.line_items[0]))
+    r = res.credit_notes
+
+    print(res.credit_notes[0].__dict__)
+    # print(r[0])
+    # print(r[0].invoice_estimate.line_items[0])
+    # print(type(r[0].invoice_estimate.line_items[0]))
 
 
 
-test('test');
+test('upd_sub');
