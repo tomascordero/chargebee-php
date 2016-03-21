@@ -1,19 +1,22 @@
-# ChargeBee .Net Client Library
+# ChargeBee .Net Client Library - Version 1
 
 The .Net library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
+This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-dotnet) branch.
+
 ## Installation
 
-Install the latest version of the library with the following commands:
+Install the latest version of the 1.x.x library with the following commands:
 
 Use NuGet: [NuGet](https://nuget.org) is a package manager for Visual Studio.
 
-To install the ChargeBee .Net Client Library, run the following command in the Package Manager Console:  
-    $ Install-Package ChargeBee
+To install the ChargeBee .Net Client Library, run the following command in the Package Manager Console:
+	
+	$ Install-Package ChargeBee -Verion 1.x.x
 
-If you would prefer to build it from source:
+If you would prefer to build it from source, checout latest version of 1.x.x release tag:
   
-    $ git clone git@github.com:chargebee/chargebee-dotnet.git
+    $ git checkout [latest realeas tag]
   
 ## Documentation
 
