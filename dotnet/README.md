@@ -12,11 +12,11 @@ Use NuGet: [NuGet](https://nuget.org) is a package manager for Visual Studio.
 
 To install the ChargeBee .Net Client Library, run the following command in the Package Manager Console:
 	
-	$ Install-Package ChargeBee -Verion 1.x.x
+	$ Install-Package ChargeBee -Vesrion 1.x.x
 
-If you would prefer to build it from source, checout latest version of 1.x.x release tag:
+If you would prefer to build it from source, checkout latest version of 1.x.x release tag:
   
-    $ git checkout [latest realeas tag]
+    $ git checkout [latest release tag]
   
 ## Documentation
 
