@@ -6,11 +6,11 @@ The python library for integrating with ChargeBee Recurring Billing and Subscrip
 
 Install the latest version of the library with the following commands:
 
-    $ pip install --upgrade chargebee
+    $ pip install 'chargebee>=1,<3'
   
 or
   
-    $ easy_install --upgrade chargebee
+    $ easy_install --upgrade 'chargebee>=1,<3'
 
 If you would prefer to install it from source:
   
