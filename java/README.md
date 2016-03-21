@@ -2,7 +2,7 @@
 
 The java library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
-This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-java) branch.
+This library is applicable for Chargebee API version 1. <b>Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-java) branch</b>
 
 ## Installation
 
@@ -18,13 +18,13 @@ Add the below dependency to your ```pom.xml```:
 
 ### To get the latest jar
 
-ChargeBee java jar is distributed as part of the release under the ```dist``` directory. Just checkout the latest version for 1.x.x by ```git checkout [latest release tag]```
+ChargeBee java jar is distributed as part of the release under the ```dist``` directory. Just checkout the latest version for 1.x.x by ```git checkout [latest 1.x.x release tag]```
 
 or
 
 Build the jar by running maven as follows in latest release tag for 1.x.x: 
 
-<pre><code>git checkout [latest release tag]
+<pre><code>git checkout [latest 1.x.x release tag]
 mvn clean package</code></pre> 
 
 ## Documentation

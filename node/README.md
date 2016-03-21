@@ -2,7 +2,7 @@
 
 The [node.js](http://nodejs.org/) library for integrating with ChargeBee
 
-This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-node) branch.
+This library is applicable for Chargebee API version 1. <b>Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-node) branch</b>
 
 ## Installation
 
@@ -16,9 +16,7 @@ Then require the library as:
 
 ## Documentation
 
-The full documentation can be found on the chargebee site here:
-
-[https://apidocs.chargebee.com/docs/api/v1/?lang=node](https://apidocs.chargebee.com/docs/api/v1/?lang=node)
+The full documentation can be found on the chargebee site [here](https://apidocs.chargebee.com/docs/api/v1/?lang=node).
 
 
 ## License

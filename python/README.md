@@ -2,7 +2,7 @@
 
 The python library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
-This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-python) branch.
+This library is applicable for Chargebee API version 1. <b>Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-python) branch</b>
 
 ## Installation
 
@@ -16,7 +16,7 @@ or
 
 
 
-If you would prefer to install it from source, just checkout the latest version for 1.x.x by ```git checkout [latest release tag]``` and install with the following command:
+If you would prefer to install it from source, just checkout the latest version for 1.x.x by ```git checkout [latest 1.x.x release tag]``` and install with the following command:
   
     $ python setup.py install
   
