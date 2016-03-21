@@ -1,20 +1,20 @@
-= ChargeBee Ruby Client Library - Version 1
+# ChargeBee Ruby Client Library - Version 1
 
 The ruby library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
 This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-ruby) branch.
 
-== Installation
+## Installation
 
 Install the latest version of the gem with the following command...
+	
+	$ sudo gem install chargebee -v '~>1'
 
-  $ sudo gem install chargebee -v '~>1'
+## Documentation
 
-== Documentation
+For API reference see <a hreaf="https://apidocs.chargebee.com/docs/api/v1/?lang=ruby"  target="_blank">here</a>
 
-For API reference see https://apidocs.chargebee.com/docs/api/v1/?lang=ruby
-
-== Usage
+## Usage
 
 To create a new subscription:
   
@@ -26,7 +26,7 @@ To create a new subscription:
   subscription = result.subscription
   puts "created subscription is #{subscription}"
 
-== License
+## License
 
 See the LICENSE file.
 
