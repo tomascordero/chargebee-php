@@ -10,7 +10,7 @@ Install the latest version of the gem with the following command...
 
 == Documentation
 
-For API reference see https://apidocs.chargebee.com/docs/api?lang=ruby
+For API reference see https://apidocs.chargebee.com/docs/api/v1/?lang=ruby
 
 == Usage
 

@@ -17,7 +17,7 @@ If you would prefer to build it from source:
   
 ## Documentation
 
-See our [.Net API Reference](http://apidocs.chargebee.com/docs/api?lang=dotnet "API Reference").
+See our [.Net API Reference](https://apidocs.chargebee.com/docs/api/v1/?lang=dotnet "API Reference").
 
 ## Usage
 

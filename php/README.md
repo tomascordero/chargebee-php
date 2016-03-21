@@ -13,7 +13,7 @@ Then, require the library as
 
 ## Documentation
 
-  * <a href="https://apidocs.chargebee.com/docs/api?lang=php" target="_blank">API Reference</a>
+  * <a href="https://apidocs.chargebee.com/docs/api/v1/?lang=php" target="_blank">API Reference</a>
 
 ## Usage
 
