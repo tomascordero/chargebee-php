@@ -2,7 +2,7 @@
 
 The ruby library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
-This library is applicable for Chargebee API version 2. Old library for version 1 can be found in [master](https://github.com/chargebee/chargebee-ruby/tree/chargebee-v1) branch.
+This library is applicable for Chargebee API version 2. Old library for version 1 can be found in [chargebee-v1](https://github.com/chargebee/chargebee-ruby/tree/chargebee-v1) branch.
 
 ## Installation
 
