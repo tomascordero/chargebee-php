@@ -18,7 +18,7 @@ Add the below dependency to your ```pom.xml```:
 
 ### To get the latest jar
 
-ChargeBee java jar is distributed as part of the release under the ```dist``` directory. Just checkout out the latest version for 1.x.x by ```git checkout [latest release tag]```
+ChargeBee java jar is distributed as part of the release under the ```dist``` directory. Just checkout the latest version for 1.x.x by ```git checkout [latest release tag]```
 
 or
 

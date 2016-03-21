@@ -8,7 +8,9 @@ This library is applicable for Chargebee API version 1. Library for version 2 ca
 
 ```ChargeBee``` is available on [Packagist](https://packagist.org/packages/chargebee/chargebee-php) and can be installed using [Composer](https://getcomposer.org/)
 
-<pre><code>composer require chargebee/chargebee-php:'>=2, &lt;3'</code></pre>
+<pre><code>
+	composer require chargebee/chargebee-php:'&lt;2'
+</code></pre>
 
 or 
 Download the php library version 1.x.x from https://github.com/chargebee/chargebee-php/tags. Extract the library into the

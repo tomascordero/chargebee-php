@@ -1,20 +1,22 @@
-# ChargeBee Python Client Library
+# ChargeBee Python Client Library - Version 1
 
 The python library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
+
+This library is applicable for Chargebee API version 1. Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-python) branch.
 
 ## Installation
 
 Install the latest version of the library with the following commands:
 
-    $ pip install 'chargebee>=1,<3'
+    $ pip install 'chargebee<2'
   
 or
   
-    $ easy_install --upgrade 'chargebee>=1,<3'
+    $ easy_install --upgrade 'chargebee<2'
 
-If you would prefer to install it from source:
-  
-    $ git clone git@github.com:chargebee/chargebee-python.git
+
+
+If you would prefer to install it from source, just checkout the lateat version for 1.x.x by ```git checkout [lateast release tag]``` and install with the following command:
   
     $ python setup.py install
   
