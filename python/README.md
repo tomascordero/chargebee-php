@@ -16,7 +16,7 @@ or
 
 
 
-If you would prefer to install it from source, just checkout the lateat version for 1.x.x by ```git checkout [lateast release tag]``` and install with the following command:
+If you would prefer to install it from source, just checkout the latest version for 1.x.x by ```git checkout [latest release tag]``` and install with the following command:
   
     $ python setup.py install
   
