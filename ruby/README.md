@@ -12,7 +12,7 @@ Install the latest version of the gem with the following command...
 
 ## Documentation
 
-For API reference see <a hreaf="https://apidocs.chargebee.com/docs/api/v1/?lang=ruby"  target="_blank">here</a>
+For API reference see <a href="https://apidocs.chargebee.com/docs/api/v1/?lang=ruby"  target="_blank">here</a>
 
 ## Usage
 
