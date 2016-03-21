@@ -48,7 +48,7 @@ namespace ChargeBee.Internal
 			if (m_jobj [key] == null)
 				return null;
 
-			return JToken?.Parse(m_jobj[key].ToString());;
+			return JToken.Parse(m_jobj[key].ToString());
 		}
 		
 		public T GetEnum<T>(string key, bool required = true)
