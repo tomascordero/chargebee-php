@@ -12,7 +12,7 @@ Add the below dependency to your ```pom.xml```:
     <dependency>
       <groupId>com.chargebee</groupId>
       <artifactId>chargebee-java</artifactId>
-      <version>[latest-release-version]</version>
+      <version>[latest-1.x.x-release-version]</version>
     </dependency>
 
 
