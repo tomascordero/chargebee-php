@@ -17,14 +17,14 @@ For API reference see <a hreaf="https://apidocs.chargebee.com/docs/api/v1/?lang=
 ## Usage
 
 To create a new subscription:
-  
-  ChargeBee.configure({:api_key => "your_api_key"}, {:site => "your_site"})
-  result = ChargeBee::Subscription.create({
-  :id => "sub_KyVqDh__dev__NTn4VZZ1", 
-  :plan_id => "basic", 
-  })
-  subscription = result.subscription
-  puts "created subscription is #{subscription}"
+	
+	ChargeBee.configure({:api_key => "your_api_key"}, {:site => "your_site"})
+	result = ChargeBee::Subscription.create({
+		:id => "sub_KyVqDh__dev__NTn4VZZ1", 
+		:plan_id => "basic", 
+	})
+	subscription = result.subscription
+	puts "created subscription is #{subscription}"
 
 ## License
 
