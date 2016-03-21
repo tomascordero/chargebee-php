@@ -6,7 +6,7 @@ This library is applicable for Chargebee API version 1. Library for version 2 ca
 
 ## Installation
 
-Install the latest version of the library with the following commands:
+Install the latest version 1.x.x of the library with the following commands:
 
     $ pip install 'chargebee<2'
   
