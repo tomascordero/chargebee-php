@@ -39,7 +39,18 @@ namespace ChargeBee.Internal
 			if (ts == null) return null;
 			return ApiUtil.ConvertFromTimestamp((long)ts);
 		}
-		
+
+		public JToken GetJToken(string key, bool required = true)
+		{
+			if (required)
+				ThrowIfKeyMissed (key);
+
+			if (m_jobj [key] == null)
+				return null;
+
+			return JToken.Parse(m_jobj[key].ToString());
+		}
+
 		public T GetEnum<T>(string key, bool required = true)
 		{
 			string value = GetValue<string>(key, required);
