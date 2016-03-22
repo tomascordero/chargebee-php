@@ -69,6 +69,12 @@ public class Estimate extends Resource<Estimate> {
             super(httpMeth, uri);
         }
     
+        public CreateSubscriptionRequest useExistingBalances(Boolean useExistingBalances) {
+            params.addOpt("use_existing_balances", useExistingBalances);
+            return this;
+        }
+
+
         public CreateSubscriptionRequest billingCycles(Integer billingCycles) {
             params.addOpt("billing_cycles", billingCycles);
             return this;

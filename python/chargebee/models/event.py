@@ -9,7 +9,7 @@ class Event(Model):
       pass
 
     fields = ["id", "occurred_at", "source", "user", "webhook_status", "webhook_failure_reason", \
-    "webhooks", "event_type", "api_version"]
+    "webhooks", "event_type"]
 
     @property
     def content(self):

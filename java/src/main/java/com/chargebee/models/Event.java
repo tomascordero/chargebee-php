@@ -101,10 +101,6 @@ public class Event extends Resource<Event> {
         return optEnum("event_type", EventType.class);
     }
 
-    public ApiVersion apiVersion() {
-        return reqEnum("api_version", ApiVersion.class);
-    }
-
     // Operations
     //===========
 
