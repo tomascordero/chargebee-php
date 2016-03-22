@@ -7,7 +7,7 @@ ChargeBee._env = {
     hostSuffix: '.chargebee.com',
     apiPath: '/api/v2',
     timeout: 40000,
-    clientVersion: 'v2.0.0',
+    clientVersion: 'v2.0.0-beta',
     port: 443
 };
 
