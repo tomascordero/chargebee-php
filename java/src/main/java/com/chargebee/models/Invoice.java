@@ -1047,7 +1047,7 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public RefundRequest creditNoteReasonCode(CreditNote.ReasonCode creditNoteReasonCode) {
+        public RefundRequest creditNoteReasonCode(ReasonCode creditNoteReasonCode) {
             params.addOpt("credit_note[reason_code]", creditNoteReasonCode);
             return this;
         }
@@ -1096,7 +1096,7 @@ public class Invoice extends Resource<Invoice> {
             return this;
         }
 
-        public RecordRefundRequest creditNoteReasonCode(CreditNote.ReasonCode creditNoteReasonCode) {
+        public RecordRefundRequest creditNoteReasonCode(ReasonCode creditNoteReasonCode) {
             params.addOpt("credit_note[reason_code]", creditNoteReasonCode);
             return this;
         }

@@ -84,6 +84,10 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<EventTypeEnum>("event_type", false); }
         }
+        public ApiVersionEnum ApiVersion 
+        {
+            get { return GetEnum<ApiVersionEnum>("api_version", true); }
+        }
         public EventContent Content
         {
             get { return new EventContent(GetValue<JToken>("content")); }

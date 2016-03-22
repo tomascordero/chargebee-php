@@ -63,11 +63,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public CreateSubscriptionRequest UseExistingBalances(bool useExistingBalances) 
-            {
-                m_params.AddOpt("use_existing_balances", useExistingBalances);
-                return this;
-            }
             public CreateSubscriptionRequest BillingCycles(int billingCycles) 
             {
                 m_params.AddOpt("billing_cycles", billingCycles);
