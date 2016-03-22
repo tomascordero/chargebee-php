@@ -135,9 +135,9 @@ public class Card extends Resource<Card> {
         return new UpdateCardForCustomerRequest(Method.POST, uri);
     }
 
-    public static SwitchGatewayRequest switchGateway(String id) throws IOException {
+    public static SwitchGatewayForCustomerRequest switchGatewayForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "switch_gateway");
-        return new SwitchGatewayRequest(Method.POST, uri);
+        return new SwitchGatewayForCustomerRequest(Method.POST, uri);
     }
 
     public static Request deleteCardForCustomer(String id) throws IOException {
@@ -263,13 +263,13 @@ public class Card extends Resource<Card> {
         }
     }
 
-    public static class SwitchGatewayRequest extends Request<SwitchGatewayRequest> {
+    public static class SwitchGatewayForCustomerRequest extends Request<SwitchGatewayForCustomerRequest> {
 
-        private SwitchGatewayRequest(Method httpMeth, String uri) {
+        private SwitchGatewayForCustomerRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public SwitchGatewayRequest gateway(Gateway gateway) {
+        public SwitchGatewayForCustomerRequest gateway(Gateway gateway) {
             params.add("gateway", gateway);
             return this;
         }

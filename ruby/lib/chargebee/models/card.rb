@@ -16,7 +16,7 @@ module ChargeBee
     Request.send('post', uri_path("customers",id.to_s,"credit_card"), params, env, headers)
   end
 
-  def self.switch_gateway(id, params, env=nil, headers={})
+  def self.switch_gateway_for_customer(id, params, env=nil, headers={})
     Request.send('post', uri_path("customers",id.to_s,"switch_gateway"), params, env, headers)
   end
 
