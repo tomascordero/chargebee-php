@@ -3,7 +3,8 @@
 The java library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
 
 Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/docs/api/v1) and [V2](https://apidocs.chargebee.com/docs/api), of which V2 is the latest release and all future developments will happen in V2. 
-This library is for our <b>API version V2<b>. The library for V1 can be found in [chargebee-v1 branch](https://github.com/chargebee/chargebee-java/tree/chargebee-v1). 
+
+This library is for our <b>API version V2</b>. The library for V1 can be found in [chargebee-v1 branch](https://github.com/chargebee/chargebee-java/tree/chargebee-v1). 
 
 ## Installation
 
