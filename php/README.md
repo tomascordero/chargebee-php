@@ -1,8 +1,11 @@
-# ChargeBee PHP Client Library - Version 1
+# Chargebee PHP Client Library - API V1
 
-The php library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
+The php library for integrating with Chargebee Recurring Billing and Subscription Management solution.
 
-This library is applicable for Chargebee API version 1. <b>Library for version 2 can be found in [master](https://github.com/chargebee/chargebee-php) branch</b>
+Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/docs/api/v1) and [V2](https://apidocs.chargebee.com/docs/api). This library is for our <b>older API version V1</b>. The library for V2 can be found in the [master branch](https://github.com/chargebee/chargebee-php). 
+
+You'd want to upgrade to V2 to benefit from the new functionality. Click here for the [API V2 Upgradation Guide](https://apidocs.chargebee.com/docs/api/v1#api-v2-upgradation-guide).
+
 
 ## Installation
 
