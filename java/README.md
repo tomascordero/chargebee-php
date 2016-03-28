@@ -1,6 +1,6 @@
 # Chargebee Java Client Library - API V2
 
-The java library for integrating with ChargeBee Recurring Billing and Subscription Management solution.
+The java library for integrating with Chargebee Recurring Billing and Subscription Management solution.
 
 Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/docs/api/v1) and [V2](https://apidocs.chargebee.com/docs/api), of which V2 is the latest release and all future developments will happen in V2. 
 
