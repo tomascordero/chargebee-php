@@ -36,7 +36,7 @@ public class SubscriptionEstimate extends Resource<SubscriptionEstimate> {
     //=======
 
     public String id() {
-        return reqString("id");
+        return optString("id");
     }
 
     public Status status() {

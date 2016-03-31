@@ -23,7 +23,7 @@ namespace ChargeBee.Models
         #region Properties
         public string Id 
         {
-            get { return GetValue<string>("id", true); }
+            get { return GetValue<string>("id", false); }
         }
         public StatusEnum? Status 
         {
