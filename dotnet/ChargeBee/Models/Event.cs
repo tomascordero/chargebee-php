@@ -84,6 +84,10 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<EventTypeEnum>("event_type", false); }
         }
+        public ApiVersionEnum? ApiVersion 
+        {
+            get { return GetEnum<ApiVersionEnum>("api_version", false); }
+        }
         public EventContent Content
         {
             get { return new EventContent(GetValue<JToken>("content")); }
@@ -173,6 +177,8 @@ namespace ChargeBee.Models
                 Failed,
                 [Description("skipped")]
                 Skipped,
+                [Description("not_applicable")]
+                NotApplicable,
             }
 
             public string Id() {

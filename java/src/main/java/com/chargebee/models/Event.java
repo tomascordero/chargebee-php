@@ -26,7 +26,7 @@ public class Event extends Resource<Event> {
 
     public static class Webhook extends Resource<Webhook> {
         public enum WebhookStatus {
-             NOT_CONFIGURED,SCHEDULED,SUCCEEDED,RE_SCHEDULED,FAILED,SKIPPED,
+             NOT_CONFIGURED,SCHEDULED,SUCCEEDED,RE_SCHEDULED,FAILED,SKIPPED,NOT_APPLICABLE,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -99,6 +99,10 @@ public class Event extends Resource<Event> {
 
     public EventType eventType() {
         return optEnum("event_type", EventType.class);
+    }
+
+    public ApiVersion apiVersion() {
+        return optEnum("api_version", ApiVersion.class);
     }
 
     // Operations
