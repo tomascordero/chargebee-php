@@ -1,3 +1,62 @@
+### v2.0.0 (2016-04-01)
+* * *
+
+#### Attributes and Operations Removed/Renamed in V2
+Chargebee [API V2](https://apidocs.chargebee.com/docs/api#versions) is now live! All our future developments will happen in V2. 
+
+V2 has been released to accommodate certain backwards-incompatible changes. Refer our [API V2 Upgradation guide](https://apidocs.chargebee.com/docs/api#api-v2-upgradation-guide) for the complete listing of the attributes and operations that have been removed/renamed in API V2.
+
+#### Incremental Changes in V2
+
+* As mentioned in the previous release - *api_version* attribute is added to [Event](https://apidocs.chargebee.com/docs/api/events) resource.
+* Credit Notes resource is introduced. More details here: https://apidocs.chargebee.com/docs/api/credit_notes
+* Operations [Update Subscription](https://apidocs.chargebee.com/docs/api/subscriptions#update_a_subscription) and [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) will return list of Credit Notes now (if applicable).  
+* Operations [Refund an Invoice](https://apidocs.chargebee.com/docs/api/invoices#refund_an_invoice) and [Record Refund for an Invoice](https://apidocs.chargebee.com/docs/api/invoices#record_refund_for_an_invoice) will return Credit Notes now (if the operation succeeds). Besides, following *input params* are added for these operations - *credit_note[reason_code]* and *customer_notes*.
+* Following attributes are added to [invoice](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) resource
+  * *write_off_amount*
+  * *applied_credits[]* - the Refundable Credits applied to this invoice.
+  * *adjustment_credit_notes[]* - The Adjustment Credit Notes created for this invoice.
+  * *issued_credit_notes[]* - The Refundable Credit Notes created against this invoice.
+* For 'Refund' type [transaction](https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes), *linked_credit_notes[]* will be returned.
+* Following [Event types](https://apidocs.chargebee.com/docs/api/events#event_types) are added
+  * *credit_note_created*
+  * *credit_note_updated*
+  * *credit_note_deleted*
+* Following attributes are added to [line_items[]](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) sub-resource:
+  * *discount_amount* - the total discount amount (both item-level and document-level discounts) of this line.
+  * *item_level_discount_amount* - only the item-level-discount amount component.
+* Further [discounts[].entity_type](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) will have two types for coupon -  *item_level_coupon* and *document_level_coupon*. 
+* Input Param *use_existing_balances* is added to the operations - [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) and [Subscription Renewal Estimate](https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate)
+
+### v1.1.76 (2016-04-01)
+* * *
+
+*api_version* attribute is added to the Event resource. 
+
+Chargebee supports multiple [API versions](https://apidocs.chargebee.com/docs/api#versions) now. The *api_version* attribute indicates the API version based on which the event content is structured. More details here:
+https://apidocs.chargebee.com/docs/api/events
+
+### v1.1.75 (2016-03-22)
+* * *
+
+** APIs updated**:
+
+Support to specify additional information as "meta_data" in json format for Customer, Subscription, Plan, Addon & Coupon resources.
+Now, create & update customer, subscription, create subscription for customer, create & update plan, addon and create coupon APIs accept the "meta_data"" parameter in json format. See create customer API here : https://apidocs.chargebee.com/docs/api/v1/customers#create_a_customer
+
+New attribute for "meta_data" is returned as part of Customer, Subscription, Plan, Addon and Coupon resources. See customer attributes here: https://apidocs.chargebee.com/docs/api/v1/customers#customer_attributes
+
+
+** APIs added**:
+
+Support to change card gateway for a customer. New api endpoint to switch gateway for a customer is added to Card resources. See: https://apidocs.chargebee.com/docs/api/v1/cards#switch_gateway
+
+
+** Issue Fixed**:
+
+Wrong keys in json response is now fixed for 'linked_transactions', 'linked_orders' & 'notes' in Invoice resource and for 'linked_invoices' & 'linked_refunds' in Transaction resource. See: invoice attributes here: https://apidocs.chargebee.com/docs/api/v1/invoices
+
+
 ### v1.1.74 (2016-03-10)
 * * *
 
