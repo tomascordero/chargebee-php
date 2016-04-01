@@ -21,6 +21,11 @@ module ChargeBee
     rescue JSON::ParserError => e
       raise Error.new("Invalid webhook object to deserialize. #{e}",e)
     end
+    
+    if webhook_data["api_version"] != nil && webhook_data["api_version"] != Environment::API_VERSION 
+       raise Error.new("Event api version is not compatible with client library version")
+    end
+
     webhook_data = Util.symbolize_keys(webhook_data)
     Event.construct(webhook_data)
   end
