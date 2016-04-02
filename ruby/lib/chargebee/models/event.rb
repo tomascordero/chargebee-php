@@ -24,8 +24,7 @@ module ChargeBee
 
     api_version = webhook_data["api_version"]
     if api_version != nil && api_version.casecmp(Environment::API_VERSION) != 0
-       raise Error.new("API version [#{api_version.upcase}] in response does not match "
-                           + "with client library API version [#{Environment::API_VERSION.upcase}]")
+       raise Error.new("API version [#{api_version.upcase}] in response does not match with client library API version [#{Environment::API_VERSION.upcase}]")
     end
 
     webhook_data = Util.symbolize_keys(webhook_data)
