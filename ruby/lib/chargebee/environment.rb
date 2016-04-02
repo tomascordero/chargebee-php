@@ -5,7 +5,6 @@ module ChargeBee
     attr_reader :api_endpoint 
       
     def initialize(options)
-      @api_version = "v1"
       [:api_key, :site].each do |attr|
         instance_variable_set "@#{attr}", options[attr]
       end
@@ -19,7 +18,6 @@ module ChargeBee
     def api_url(url)
       url = @api_endpoint + url
     end
-   
     
   end
 end
