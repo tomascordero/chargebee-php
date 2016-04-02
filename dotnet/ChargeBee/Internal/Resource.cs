@@ -142,6 +142,15 @@ namespace ChargeBee.Internal
 			t.JObj = jobj;
 			return t;
 		}
+
+		protected static void apiVersionCheck(JToken jObj){
+			string apiVersion =  jObj ["api_version"].ToString ().ToUpper();
+			if(apiVersion != null && !apiVersion.Equals(ApiConfig.API_VERSION, StringComparison.OrdinalIgnoreCase)) {
+				throw new ArgumentException ("API version [" + apiVersion + "] in response does not match "
+					+ "with client library API version [" + ApiConfig.API_VERSION.ToUpper() + "]");
+			}
+		}
+
 	}
 }
 
