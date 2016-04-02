@@ -1,5 +1,6 @@
 package com.chargebee.internal;
 
+import com.chargebee.Environment;
 import com.chargebee.gdata.PercentEscaper;
 import java.io.*;
 import java.sql.Timestamp;
@@ -265,5 +266,15 @@ public class Resource<T> {
         return strBuf.toString();
     }   
     
+    protected static void apiVersionCheck(JSONObject jsonObj) {
+        if (!jsonObj.has("api_version")) {
+            return;
+        }
+        String apiVersion = jsonObj.optString("api_version").toUpperCase();
+        if (!jsonObj.optString("api_version").equalsIgnoreCase(Environment.API_VERSION)) {
+            throw new RuntimeException("API version [" + apiVersion + "] in response does not match "
+                    + "with client library API version [" + Environment.API_VERSION.toUpperCase() + "]");
+        }
+    }
 
 }
