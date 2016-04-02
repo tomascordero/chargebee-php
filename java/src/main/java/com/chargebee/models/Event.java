@@ -50,31 +50,24 @@ public class Event extends Resource<Event> {
 
     public Event(InputStream is) throws IOException {
         super(is);
-        apiVersionCheck();
+        apiVersionCheck(jsonObj);
     }
 
     public Event(BufferedReader rd) throws IOException {
         super(rd);
-        apiVersionCheck();
+        apiVersionCheck(jsonObj);
     }
 
     public Event(String jsonStr) {
         super(jsonStr);
-        apiVersionCheck();
+        apiVersionCheck(jsonObj);
     }
 
     public Event(JSONObject jsonObj) {
         super(jsonObj);
-        apiVersionCheck();
+        apiVersionCheck(jsonObj);
     }
 
-    private void apiVersionCheck(){
-        if( jsonObj.has("api_version") && 
-                !jsonObj.optString("api_version").equals(Environment.API_VERSION) ) {
-            throw new RuntimeException("Event api version did not match with client library api version");
-        }
-    }
-    
     // Fields
     //=======
 
