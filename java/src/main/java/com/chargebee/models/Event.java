@@ -50,18 +50,22 @@ public class Event extends Resource<Event> {
 
     public Event(InputStream is) throws IOException {
         super(is);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(BufferedReader rd) throws IOException {
         super(rd);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(String jsonStr) {
         super(jsonStr);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(JSONObject jsonObj) {
         super(jsonObj);
+        apiVersionCheck(jsonObj);
     }
 
     // Fields
