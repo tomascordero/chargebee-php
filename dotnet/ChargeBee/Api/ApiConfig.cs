@@ -8,6 +8,7 @@ namespace ChargeBee.Api
 		public static string DomainSuffix = "chargebee.com";
 		public static string Proto = "https";
 		public static string Version = "2.0.0-beta";
+		public static readonly string API_VERSION = "v2";
 
 		public string ApiKey { get; set; }
         public string SiteName { get; set; }
@@ -19,10 +20,11 @@ namespace ChargeBee.Api
         {
             get
             {
-                return String.Format("{0}://{1}.{2}/api/v2",
+				return String.Format("{0}://{1}.{2}/api/{3}",
                     Proto,
                     SiteName,
-                    DomainSuffix);
+                    DomainSuffix,
+					API_VERSION);
             }
         }
 
