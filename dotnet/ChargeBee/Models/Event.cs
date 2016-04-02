@@ -23,20 +23,20 @@ namespace ChargeBee.Models
             using (StreamReader reader = new StreamReader(stream))
             {
                 JObj = JToken.Parse(reader.ReadToEnd());
-				apiVersionCheck (JObj);
+                apiVersionCheck (JObj);
             }
         }
 
         public Event(TextReader reader)
         {
             JObj = JToken.Parse(reader.ReadToEnd());
-			apiVersionCheck (JObj);
+            apiVersionCheck (JObj);    
         }
 
         public Event(String jsonString)
         {
             JObj = JToken.Parse(jsonString);
-			apiVersionCheck (JObj);
+            apiVersionCheck (JObj);
         }
 
         #region Methods

@@ -24,11 +24,11 @@ class Event(Model):
         except (TypeError, ValueError) as ex:
             raise Exception("The passed json_data is not JSON formatted . " + ex.message)
         
-        api_version = webhook_data['api_version'].upper();
-        env_version = Environment.API_VERSION.upper();
-        if api_version != None and api_version != env_version: 
-            raise Exception("API version [" + api_version + "] in response does not match "
-                    + "with client library API version [" + env_version + "]")  
+        api_version = webhook_data['api_version'];
+        env_version = Environment.API_VERSION;
+        if api_version != None and api_version.upper() != env_version.upper(): 
+            raise Exception("API version [" + api_version.upper() + "] in response does not match "
+                    + "with client library API version [" + env_version.upper() + "]")  
         return Event.construct(webhook_data)
 
     @staticmethod

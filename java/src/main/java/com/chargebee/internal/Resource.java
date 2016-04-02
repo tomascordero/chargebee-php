@@ -270,9 +270,9 @@ public class Resource<T> {
         if (!jsonObj.has("api_version")) {
             return;
         }
-        String apiVersion = jsonObj.optString("api_version").toUpperCase();
-        if (!jsonObj.optString("api_version").equalsIgnoreCase(Environment.API_VERSION)) {
-            throw new RuntimeException("API version [" + apiVersion + "] in response does not match "
+        String apiVersion = jsonObj.optString("api_version");
+        if (apiVersion != null && !jsonObj.optString("api_version").equalsIgnoreCase(Environment.API_VERSION)) {
+            throw new RuntimeException("API version [" + apiVersion.toUpperCase() + "] in response does not match "
                     + "with client library API version [" + Environment.API_VERSION.toUpperCase() + "]");
         }
     }

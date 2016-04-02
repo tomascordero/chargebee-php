@@ -144,8 +144,11 @@ namespace ChargeBee.Internal
 		}
 
 		protected static void apiVersionCheck(JToken jObj){
+			if (jObj ["api_version"] == null) {
+				return;
+			}
 			string apiVersion =  jObj ["api_version"].ToString ().ToUpper();
-			if(apiVersion != null && !apiVersion.Equals(ApiConfig.API_VERSION, StringComparison.OrdinalIgnoreCase)) {
+			if(!apiVersion.Equals(ApiConfig.API_VERSION, StringComparison.OrdinalIgnoreCase)) {
 				throw new ArgumentException ("API version [" + apiVersion + "] in response does not match "
 					+ "with client library API version [" + ApiConfig.API_VERSION.ToUpper() + "]");
 			}

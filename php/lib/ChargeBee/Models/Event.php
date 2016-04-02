@@ -20,7 +20,7 @@ class ChargeBee_Event extends ChargeBee_Model
         if($webhookData != null)
         {
             $apiVersion = strtoupper($webhookData['api_version']);
-            if($webhookData['api_version'] != null && strcasecmp($apiVersion, ChargeBee_Environment::API_VERSION) > 0){
+            if($apiVersion != null && strcasecmp($apiVersion, ChargeBee_Environment::API_VERSION) != 0){
                throw new RuntimeException("API version [".$apiVersion."] in response does not match "
                     ."with client library API version [".strtoupper(ChargeBee_Environment::API_VERSION)."]");
             }
