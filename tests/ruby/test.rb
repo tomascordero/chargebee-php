@@ -301,10 +301,18 @@ end
 def update_sub_estimate
  result = ChargeBee::Estimate.update_subscription({
   :subscription => {
-    :id => "__dev__3Nl8H3wPOLkjUt4K", 
-  }, 
+    :id => "2sDt7UarPcZq5FLD1",
+    :plan_id => "no_trial",
+    :plan_quantity => "2"
+  },
+  :addons => [{
+    :id => "sms_credits",
+    :quantity => "2"
+    }]
  })
- puts result.to_s
+  # puts result.estimate.invoice_estimate.line_items[0].date_from
+ puts result.estimate.credit_note_estimates[0].line_items[0].quantity
+ # puts result.estimate.credit_note_estimates[0].line_items[0].unit_amount
 end
 
 
@@ -346,7 +354,14 @@ def update_cust
   print result.to_s 
 end
 
-update_cust
+def retrieve_hosted_page
+  result = ChargeBee::HostedPage.retrieve("UcdjsyDh0ecyKQGmNsSBwKhh005PsEE3A")
+  hosted_page = result.hosted_page
+  puts result.hosted_page.content.credit_notes[0].line_items[0].inspect
+end
+
+retrieve_hosted_page
+# update_cust
 #retrieve_txn
 #retrieve_event
 #retrieve_customer
@@ -375,6 +390,6 @@ update_cust
 #retrieve_customer_amazon_payment
 #checkout_new
 #create_sub_estimate
-#update_sub_estimate
+# update_sub_estimate
 #retrieve_plan
 #retrieve_addon
