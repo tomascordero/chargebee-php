@@ -2,39 +2,46 @@ package com.chargebee.internal;
 
 import com.chargebee.Environment;
 import com.chargebee.ListResult;
+import com.chargebee.internal.Resource.Order;
 import com.chargebee.models.Customer;
 import java.io.IOException;
 
+public class ListRequest<U extends ListRequest> extends RequestBase<U> {
 
-
-public class ListRequestBase<U extends ListRequestBase> extends RequestBase<U>{
-
-    protected String paramName;
-    protected Object value;
+     public enum sortOrder{
+            ASC,
+            DESC,
+    }
+        
+    public ListRequest(String uri) {
+        this.uri = uri;
+    }
 
     public U limit(int limit) {
         params.addOpt("limit", limit);
-        return (U)this;
+        return (U) this;
     }
 
     public U offset(String offset) {
         params.addOpt("offset", offset);
-        return (U)this;
+        return (U) this;
     }
-    
     
     public final ListResult request() throws IOException {
         return request(Environment.defaultConfig());
     }
 
     public final ListResult request(Environment env) throws IOException {
-        if(env == null) {
+        if (env == null) {
             throw new RuntimeException("Environment cannot be null");
         }
         String url = new StringBuilder(env.apiBaseUrl()).append(uri).toString();
-        return HttpUtil.getList(url, params(),headers, env);
+        return HttpUtil.getList(url, params(), headers, env);
     }
     
+    @Override
+    public Params params() {
+        return params;
+    }
 
 }
-    

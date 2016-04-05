@@ -2,6 +2,7 @@ package com.chargebee.internal;
 
 import java.sql.Timestamp;
 import java.util.*;
+import org.json.JSONArray;
 
 public class Params {
 
@@ -65,6 +66,9 @@ public class Params {
                 l.add((String)toValStr(item));                
             }
             return l;            
+        }else if(value instanceof JSONArray){
+            JSONArray origList = (JSONArray)value;
+            return origList.toString();            
         } else if(value instanceof HashMap){
             HashMap origList = (HashMap) value;
             Map.Entry entry = (Map.Entry) origList.entrySet().iterator().next();          
