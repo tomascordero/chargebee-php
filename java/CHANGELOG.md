@@ -1,4 +1,4 @@
-### v1.1.76 (2016-04-01)
+### v1.1.76 (2016-04-06)
 * * *
 
 *api_version* attribute is added to the Event resource. 
