@@ -114,14 +114,13 @@ namespace ChargeBee.Internal
 
         private List<T> GetResourceList<T>(string property, string propertySingularName) where T : Resource, new() 
         {
-			List<T> list = new List<T> ();
-			JArray jArr = (JArray)m_jobj.SelectToken (property);
-
-			foreach (JToken jObj in jArr.Children()) {
-				T t = new T();
-				t.JObj = jObj;
-				list.Add(t);
-			}
+            List<T> list = new List<T> ();
+            JArray jArr = (JArray)m_jobj.SelectToken (property);
+            foreach (JToken jObj in jArr.Children()) {
+            T t = new T();
+                t.JObj = jObj;
+                list.Add(t);
+            }
             return list;
         }
 
