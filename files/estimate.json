@@ -1,0 +1,126 @@
+{"estimate": {
+    "created_at": 1457948150,
+    "subscription_id": "active_direct",
+    "subscription_status": "active",
+    "subscription_next_billing_at": 1459749232,
+    "object": "estimate",
+    "invoice_estimate": {
+        "recurring": true,
+        "collect_now": true,
+        "price_type": "tax_exclusive",
+        "sub_total": 1150,
+        "total": 1289,
+        "credits_applied": 1289,
+        "amount_paid": 0,
+        "amount_due": 0,
+        "object": "invoice_estimate",
+        "line_items": [{
+            "date_from": 1457948150,
+            "date_to": 1459749232,
+            "unit_amount": 1278,
+            "quantity": 1,
+            "is_taxed": true,
+            "tax_amount": 139,
+            "tax_rate": 12.09,
+            "object": "line_item",
+            "amount": 1278,
+            "description": "Professional - Prorated Charges",
+            "entity_type": "plan",
+            "entity_id": "professional",
+            "discount_amount": 128,
+            "item_level_discount_amount": 128
+        }],
+        "discounts": [{
+            "object": "discount",
+            "entity_type": "item_level_coupon",
+            "description": "Plan & Addons Coupon",
+            "amount": 128,
+            "entity_id": "plan_addons_coupon"
+        }],
+        "taxes": [{
+            "object": "tax",
+            "description": "Sales @ 12.09%",
+            "amount": 139
+        }]
+    },
+    "credit_note_estimates": [
+        {
+            "reference_invoice_id": "__demo_inv__10",
+            "type": "refundable",
+            "price_type": "tax_exclusive",
+            "sub_total": 605,
+            "total": 605,
+            "amount_allocated": 605,
+            "amount_available": 0,
+            "object": "credit_note_estimate",
+            "line_items": [{
+                "date_from": 1457948150,
+                "date_to": 1459749232,
+                "unit_amount": 605,
+                "quantity": 1,
+                "is_taxed": false,
+                "tax_amount": 0,
+                "object": "line_item",
+                "amount": 605,
+                "description": "No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016",
+                "entity_type": "plan",
+                "entity_id": "no-trial",
+                "discount_amount": 0,
+                "item_level_discount_amount": 0
+            }],
+            "taxes": []
+        },
+        {
+            "reference_invoice_id": "__demo_inv__27",
+            "type": "refundable",
+            "price_type": "tax_exclusive",
+            "sub_total": 1210,
+            "total": 1210,
+            "amount_allocated": 684,
+            "amount_available": 526,
+            "object": "credit_note_estimate",
+            "line_items": [{
+                "date_from": 1457948150,
+                "date_to": 1459749232,
+                "unit_amount": 605,
+                "quantity": 2,
+                "is_taxed": false,
+                "tax_amount": 0,
+                "object": "line_item",
+                "amount": 1210,
+                "description": "No Trial - Prorated Credits for 14-Mar-2016 - 04-Apr-2016",
+                "entity_type": "plan",
+                "entity_id": "no-trial",
+                "discount_amount": 0,
+                "item_level_discount_amount": 0
+            }],
+            "taxes": []
+        },
+        {
+            "reference_invoice_id": "__demo_inv__28",
+            "type": "refundable",
+            "price_type": "tax_exclusive",
+            "sub_total": 134,
+            "total": 134,
+            "amount_allocated": 0,
+            "amount_available": 134,
+            "object": "credit_note_estimate",
+            "line_items": [{
+                "date_from": 1457948150,
+                "date_to": 1459749232,
+                "unit_amount": 67,
+                "quantity": 2,
+                "is_taxed": false,
+                "tax_amount": 0,
+                "object": "line_item",
+                "amount": 134,
+                "description": "SMS Credits - Prorated Credits for 14-Mar-2016 - 04-Apr-2016",
+                "entity_type": "addon",
+                "entity_id": "sms-credits",
+                "discount_amount": 0,
+                "item_level_discount_amount": 0
+            }],
+            "taxes": []
+        }
+    ]
+}}

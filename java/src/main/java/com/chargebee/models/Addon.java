@@ -116,6 +116,10 @@ public class Addon extends Resource<Addon> {
         return optBoolean("taxable");
     }
 
+    public JSONObject metaData() {
+        return optJSONObject("meta_data");
+    }
+
     // Operations
     //===========
 
@@ -129,10 +133,9 @@ public class Addon extends Resource<Addon> {
         return new UpdateRequest(Method.POST, uri);
     }
 
-    public static ListRequestBase list() throws IOException {
+    public static AddonListRequest list() throws IOException {
         String uri = uri("addons");
-//        return new ListRequestBase(uri);
-        return null;
+        return new AddonListRequest(uri);
     }
 
     public static Request retrieve(String id) throws IOException {
@@ -233,6 +236,12 @@ public class Addon extends Resource<Addon> {
         }
 
 
+        public CreateRequest metaData(JSONObject metaData) {
+            params.addOpt("meta_data", metaData);
+            return this;
+        }
+
+
         @Override
         public Params params() {
             return params;
@@ -319,6 +328,70 @@ public class Addon extends Resource<Addon> {
 
         public UpdateRequest invoiceNotes(String invoiceNotes) {
             params.addOpt("invoice_notes", invoiceNotes);
+            return this;
+        }
+
+
+        public UpdateRequest metaData(JSONObject metaData) {
+            params.addOpt("meta_data", metaData);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class AddonListRequest extends ListRequest<AddonListRequest> {
+
+        private AddonListRequest(String uri) {
+            super(uri);
+        }
+    
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
+        }
+
+
+        public StringFilter<String> name() {
+            return new StringFilter<String>("name",uri,this);
+        }
+
+
+        public EnumFilter<Type> type() {
+            return new EnumFilter<Type>("type",uri,this);
+        }
+
+
+        public EnumFilter<ChargeType> chargeType() {
+            return new EnumFilter<ChargeType>("charge_type",uri,this);
+        }
+
+
+        public NumberFilter<Integer> price() {
+            return new NumberFilter<Integer>("price",uri,this);
+        }
+
+
+        public NumberFilter<Integer> period() {
+            return new NumberFilter<Integer>("period",uri,this);
+        }
+
+
+        public EnumFilter<Status> status() {
+            return new EnumFilter<Status>("status",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> archivedAt() {
+            return new TimestampFilter<Timestamp>("archived_at",uri,this);
+        }
+
+
+        public ListRequest sortByArchivedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","archived_at");
             return this;
         }
 

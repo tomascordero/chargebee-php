@@ -123,33 +123,29 @@ public class Comment extends Resource<Comment> {
         }
     }
 
-    public static class CommentListRequest extends ListRequestBase<CommentListRequest> {
+    public static class CommentListRequest extends ListRequest<CommentListRequest> {
 
         private CommentListRequest(String uri) {
-//            super(uri);
+            super(uri);
         }
     
-        public CommentListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
+        public EnumFilter<EntityType> entityType() {
+            return new EnumFilter<EntityType>("entity_type",uri,this);
         }
 
 
-        public CommentListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
+        public StringFilter<String> entityId() {
+            return new StringFilter<String>("entity_id",uri,this);
         }
 
 
-        public CommentListRequest entityType(EntityType entityType) {
-            params.addOpt("entity_type", entityType);
-            return this;
+        public TimestampFilter<Timestamp> createdAt() {
+            return new TimestampFilter<Timestamp>("created_at",uri,this);
         }
 
 
-        public CommentListRequest entityId(String entityId) {
-            params.addOpt("entity_id", entityId);
-            return this;
+        public EnumFilter<Type> type() {
+            return new EnumFilter<Type>("type",uri,this);
         }
 
 

@@ -49,6 +49,10 @@ namespace ChargeBee.Internal
         {
             get {  return GetResource<Invoice>("invoice"); }
         }
+        public CreditNote CreditNote
+        {
+            get {  return GetResource<CreditNote>("credit_note"); }
+        }
         public Order Order
         {
             get {  return GetResource<Order>("order"); }
@@ -100,6 +104,19 @@ namespace ChargeBee.Internal
         public PortalSession PortalSession
         {
             get {  return GetResource<PortalSession>("portal_session"); }
+        }
+
+        public List<CreditNote> CreditNotes
+        {
+            get {  return (List<CreditNote>)GetResourceList<CreditNote>("credit_notes", "credit_note"); }
+        }
+
+
+        private List<T> GetResourceList<T>(string property, string propertySingularName) where T : Resource, new() 
+        {
+            var jObj = JToken.Parse(m_jobj.ToString());
+            List<T> list = jObj.ToObject<List<T>>();
+            return list;
         }
 
         private T GetResource<T>(string property) where T : Resource, new()

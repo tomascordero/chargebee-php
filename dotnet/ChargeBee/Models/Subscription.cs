@@ -88,6 +88,11 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "charge_addon_at_term_end");
             return new ChargeAddonAtTermEndRequest(url, HttpMethod.POST);
         }
+        public static EntityRequest<Type> Delete(string id)
+        {
+            string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "delete");
+            return new EntityRequest<Type>(url, HttpMethod.POST);
+        }
         #endregion
         
         #region Properties
@@ -163,6 +168,10 @@ namespace ChargeBee.Models
         {
             get { return GetValue<string>("created_from_ip", false); }
         }
+        public bool HasScheduledChanges 
+        {
+            get { return GetValue<bool>("has_scheduled_changes", true); }
+        }
         public int? DueInvoicesCount 
         {
             get { return GetValue<int?>("due_invoices_count", false); }
@@ -192,13 +201,13 @@ namespace ChargeBee.Models
         {
             get { return GetSubResource<SubscriptionShippingAddress>("shipping_address"); }
         }
-        public bool? HasScheduledChanges 
-        {
-            get { return GetValue<bool?>("has_scheduled_changes", false); }
-        }
         public string InvoiceNotes 
         {
             get { return GetValue<string>("invoice_notes", false); }
+        }
+        public JToken MetaData 
+        {
+            get { return GetJToken("meta_data", false); }
         }
         
         #endregion
@@ -264,6 +273,11 @@ namespace ChargeBee.Models
             public CreateRequest InvoiceNotes(string invoiceNotes) 
             {
                 m_params.AddOpt("invoice_notes", invoiceNotes);
+                return this;
+            }
+            public CreateRequest MetaData(JToken metaData) 
+            {
+                m_params.AddOpt("meta_data", metaData);
                 return this;
             }
             public CreateRequest CustomerId(string customerId) 
@@ -604,6 +618,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("invoice_notes", invoiceNotes);
                 return this;
             }
+            public CreateForCustomerRequest MetaData(JToken metaData) 
+            {
+                m_params.AddOpt("meta_data", metaData);
+                return this;
+            }
             public CreateForCustomerRequest ShippingAddressFirstName(string shippingAddressFirstName) 
             {
                 m_params.AddOpt("shipping_address[first_name]", shippingAddressFirstName);
@@ -753,6 +772,11 @@ namespace ChargeBee.Models
             public UpdateRequest InvoiceNotes(string invoiceNotes) 
             {
                 m_params.AddOpt("invoice_notes", invoiceNotes);
+                return this;
+            }
+            public UpdateRequest MetaData(JToken metaData) 
+            {
+                m_params.AddOpt("meta_data", metaData);
                 return this;
             }
             public UpdateRequest CardGateway(GatewayEnum cardGateway) 

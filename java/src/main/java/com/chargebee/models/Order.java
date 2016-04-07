@@ -97,16 +97,14 @@ public class Order extends Resource<Order> {
         return new Request(Method.GET, uri);
     }
 
-    public static ListRequestBase list() throws IOException {
+    public static OrderListRequest list() throws IOException {
         String uri = uri("orders");
-//        return new ListRequestBase(uri,null);
-        return null;
+        return new OrderListRequest(uri);
     }
 
-    public static ListRequestBase ordersForInvoice(String id) throws IOException {
+    public static ListRequest ordersForInvoice(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "orders");
-        return null;
-//        return new ListRequestBase(uri,null);
+        return new ListRequest(uri);
     }
 
 
@@ -212,6 +210,48 @@ public class Order extends Resource<Order> {
         public UpdateRequest batchId(String batchId) {
             params.addOpt("batch_id", batchId);
             return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class OrderListRequest extends ListRequest<OrderListRequest> {
+
+        private OrderListRequest(String uri) {
+            super(uri);
+        }
+    
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
+        }
+
+
+        public NumberFilter<String> invoiceId() {
+            return new NumberFilter<String>("invoice_id",uri,this);
+        }
+
+
+        public EnumFilter<Status> status() {
+            return new EnumFilter<Status>("status",uri,this);
+        }
+
+
+        public StringFilter<String> fulfillmentStatus() {
+            return new StringFilter<String>("fulfillment_status",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> createdAt() {
+            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> statusUpdateAt() {
+            return new TimestampFilter<Timestamp>("status_update_at",uri,this);
         }
 
 

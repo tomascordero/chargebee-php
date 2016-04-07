@@ -26,7 +26,7 @@ public class Event extends Resource<Event> {
 
     public static class Webhook extends Resource<Webhook> {
         public enum WebhookStatus {
-             NOT_CONFIGURED,SCHEDULED,SUCCEEDED,RE_SCHEDULED,FAILED,SKIPPED,
+             NOT_CONFIGURED,SCHEDULED,SUCCEEDED,RE_SCHEDULED,FAILED,SKIPPED,NOT_APPLICABLE,
             _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
             java-client version incompatibility. We suggest you to upgrade to the latest version */ 
         }
@@ -50,18 +50,22 @@ public class Event extends Resource<Event> {
 
     public Event(InputStream is) throws IOException {
         super(is);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(BufferedReader rd) throws IOException {
         super(rd);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(String jsonStr) {
         super(jsonStr);
+        apiVersionCheck(jsonObj);
     }
 
     public Event(JSONObject jsonObj) {
         super(jsonObj);
+        apiVersionCheck(jsonObj);
     }
 
     // Fields
@@ -101,6 +105,10 @@ public class Event extends Resource<Event> {
         return optEnum("event_type", EventType.class);
     }
 
+    public ApiVersion apiVersion() {
+        return optEnum("api_version", ApiVersion.class);
+    }
+
     // Operations
     //===========
 
@@ -128,44 +136,35 @@ public class Event extends Resource<Event> {
     // Operation Request Classes
     //==========================
 
-    public static class EventListRequest extends ListRequestBase<EventListRequest> {
+    public static class EventListRequest extends ListRequest<EventListRequest> {
 
         private EventListRequest(String uri) {
-//            super(uri,null);
+            super(uri);
         }
     
-        public EventListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public EventListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
-        public EventListRequest startTime(Timestamp startTime) {
-            params.addOpt("start_time", startTime);
-            return this;
-        }
-
-
-        public EventListRequest endTime(Timestamp endTime) {
-            params.addOpt("end_time", endTime);
-            return this;
-        }
-
-
-        public EventListRequest webhookStatus(WebhookStatus webhookStatus) {
-            params.addOpt("webhook_status", webhookStatus);
-            return this;
-        }
-
-
         public EventListRequest eventType(EventType eventType) {
             params.addOpt("event_type", eventType);
+            return this;
+        }
+
+
+        public TimestampFilter<Timestamp> occurredAt() {
+            return new TimestampFilter<Timestamp>("occurred_at",uri,this);
+        }
+
+
+        public EnumFilter<Source> source() {
+            return new EnumFilter<Source>("source",uri,this);
+        }
+
+
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
+        }
+
+
+        public ListRequest sortByOccurredAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","occurred_at");
             return this;
         }
 

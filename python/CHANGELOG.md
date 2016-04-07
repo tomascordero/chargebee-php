@@ -1,3 +1,35 @@
+### v1.6.1 (2016-03-16)
+* * *
+
+** Dependency issue fixed**:
+
+Namespace collision for 'http' with Python dependency setuptools is fixed. See pull request: https://github.com/chargebee/chargebee-python/pull/9
+
+### v1.6.0 (2016-03-10)
+* * *
+
+** APIs updated**:
+
+Support to keep the card in gateway while deleting customer. Delete a customer API accepts "delete_payment_method" parameter. See: https://apidocs.chargebee.com/docs/api/customers#delete_a_customer
+
+### v1.5.9 (2016-02-25)
+* * *
+
+** APIs added**:
+
+Support to delete a subscription. See: https://www.chargebee.com/docs/subscriptions.html#deleting-a-subscription
+New api endpoint to delete 'Subscription' is added to Subscription resources. See delete subscription API here:
+https://apidocs.chargebee.com/docs/api/subscriptions#delete_a_subscription
+
+Support to delete a customer. See: https://www.chargebee.com/docs/customers.html#deleting-a-customer
+New api endpoint to delete 'Customer' is added to Customer resources. See delete customer API here:
+https://apidocs.chargebee.com/docs/api/customers#delete_a_customer
+
+
+** APIs updated**:
+
+Now, events "subscription_deleted" & "customer_deleted" can be fetched via API. See : https://apidocs.chargebee.com/docs/api/events#event_types.
+
 ### v1.5.8 (2016-02-08)
 * * *
 

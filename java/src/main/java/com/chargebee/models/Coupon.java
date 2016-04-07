@@ -179,6 +179,10 @@ public class Coupon extends Resource<Coupon> {
         return optString("invoice_notes");
     }
 
+    public JSONObject metaData() {
+        return optJSONObject("meta_data");
+    }
+
     // Operations
     //===========
 
@@ -187,10 +191,9 @@ public class Coupon extends Resource<Coupon> {
         return new CreateRequest(Method.POST, uri);
     }
 
-    public static ListRequestBase list() throws IOException {
+    public static CouponListRequest list() throws IOException {
         String uri = uri("coupons");
-//        return new ListRequestBase(uri); 
-        return null;
+        return new CouponListRequest(uri);
     }
 
     public static Request retrieve(String id) throws IOException {
@@ -315,6 +318,74 @@ public class Coupon extends Resource<Coupon> {
 
         public CreateRequest invoiceNotes(String invoiceNotes) {
             params.addOpt("invoice_notes", invoiceNotes);
+            return this;
+        }
+
+
+        public CreateRequest metaData(JSONObject metaData) {
+            params.addOpt("meta_data", metaData);
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
+    public static class CouponListRequest extends ListRequest<CouponListRequest> {
+
+        private CouponListRequest(String uri) {
+            super(uri);
+        }
+    
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
+        }
+
+
+        public StringFilter<String> name() {
+            return new StringFilter<String>("name",uri,this);
+        }
+
+
+        public EnumFilter<DiscountType> discountType() {
+            return new EnumFilter<DiscountType>("discount_type",uri,this);
+        }
+
+
+        public NumberFilter<Double> discountPercentage() {
+            return new NumberFilter<Double>("discount_percentage",uri,this);
+        }
+
+
+        public EnumFilter<DurationType> durationType() {
+            return new EnumFilter<DurationType>("duration_type",uri,this);
+        }
+
+
+        public EnumFilter<Status> status() {
+            return new EnumFilter<Status>("status",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> createdAt() {
+            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> archivedAt() {
+            return new TimestampFilter<Timestamp>("archived_at",uri,this);
+        }
+
+
+        public ListRequest sortByCreatedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
+            return this;
+        }
+        public ListRequest sortByArchivedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","archived_at");
             return this;
         }
 

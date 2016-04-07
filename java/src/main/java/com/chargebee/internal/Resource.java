@@ -1,5 +1,6 @@
 package com.chargebee.internal;
 
+import com.chargebee.Environment;
 import com.chargebee.gdata.PercentEscaper;
 import java.io.*;
 import java.sql.Timestamp;
@@ -64,7 +65,7 @@ public class Resource<T> {
     }
 
     public Boolean reqBoolean(String key) {
-        return assertReqProp(key, optional(key, Boolean.class));
+        return assertReqProp(key, optBoolean(key));
     }
 
     public Boolean optBoolean(String key) {
@@ -85,7 +86,7 @@ public class Resource<T> {
     }
 
     public Double reqDouble(String key) {
-        return assertReqProp(key, reqDouble( key));
+        return assertReqProp(key, optDouble(key));
     }
 
     public Double optDouble(String key) {
@@ -270,5 +271,15 @@ public class Resource<T> {
         return strBuf.toString();
     }   
     
+    protected static void apiVersionCheck(JSONObject jsonObj) {
+        if (!jsonObj.has("api_version")) {
+            return;
+        }
+        String apiVersion = jsonObj.optString("api_version");
+        if (apiVersion != null && !jsonObj.optString("api_version").equalsIgnoreCase(Environment.API_VERSION)) {
+            throw new RuntimeException("API version [" + apiVersion.toUpperCase() + "] in response does not match "
+                    + "with client library API version [" + Environment.API_VERSION.toUpperCase() + "]");
+        }
+    }
 
 }

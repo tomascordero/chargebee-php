@@ -39,6 +39,17 @@ namespace ChargeBee.Internal
 			if (ts == null) return null;
 			return ApiUtil.ConvertFromTimestamp((long)ts);
 		}
+
+		public JToken GetJToken(string key, bool required = true)
+		{
+			if (required)
+				ThrowIfKeyMissed (key);
+
+			if (m_jobj [key] == null)
+				return null;
+
+			return JToken.Parse(m_jobj[key].ToString());
+		}
 		
 		public T GetEnum<T>(string key, bool required = true)
 		{
@@ -131,6 +142,18 @@ namespace ChargeBee.Internal
 			t.JObj = jobj;
 			return t;
 		}
+
+		protected static void apiVersionCheck(JToken jObj){
+			if (jObj ["api_version"] == null) {
+				return;
+			}
+			string apiVersion =  jObj ["api_version"].ToString ().ToUpper();
+			if(!apiVersion.Equals(ApiConfig.API_VERSION, StringComparison.OrdinalIgnoreCase)) {
+				throw new ArgumentException ("API version [" + apiVersion + "] in response does not match "
+					+ "with client library API version [" + ApiConfig.API_VERSION.ToUpper() + "]");
+			}
+		}
+
 	}
 }
 

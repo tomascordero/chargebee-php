@@ -97,6 +97,13 @@ var _endpoints = {
       "/subscriptions",
       "/charge_addon_at_term_end",
       true
+    ],
+    [
+      "delete",
+      "POST",
+      "/subscriptions",
+      "/delete",
+      true
     ]
   ],
   "customer": [
@@ -164,24 +171,31 @@ var _endpoints = {
       true
     ],
     [
-      "add_account_credits",
+      "add_promotional_credits",
       "POST",
       "/customers",
-      "/add_account_credits",
+      "/add_promotional_credits",
       true
     ],
     [
-      "deduct_account_credits",
+      "deduct_promotional_credits",
       "POST",
       "/customers",
-      "/deduct_account_credits",
+      "/deduct_promotional_credits",
       true
     ],
     [
-      "set_account_credits",
+      "set_promotional_credits",
       "POST",
       "/customers",
-      "/set_account_credits",
+      "/set_promotional_credits",
+      true
+    ],
+    [
+      "delete",
+      "POST",
+      "/customers",
+      "/delete",
       true
     ]
   ],
@@ -198,6 +212,13 @@ var _endpoints = {
       "POST",
       "/customers",
       "/credit_card",
+      true
+    ],
+    [
+      "switch_gateway_for_customer",
+      "POST",
+      "/customers",
+      "/switch_gateway",
       true
     ],
     [
@@ -287,10 +308,10 @@ var _endpoints = {
       true
     ],
     [
-      "collect",
+      "close",
       "POST",
       "/invoices",
-      "/collect",
+      "/close",
       true
     ],
     [
@@ -298,6 +319,13 @@ var _endpoints = {
       "POST",
       "/invoices",
       "/collect_payment",
+      true
+    ],
+    [
+      "record_payment",
+      "POST",
+      "/invoices",
+      "/record_payment",
       true
     ],
     [
@@ -326,6 +354,29 @@ var _endpoints = {
       "POST",
       "/invoices",
       "/delete",
+      true
+    ]
+  ],
+  "credit_note": [
+    [
+      "retrieve",
+      "GET",
+      "/credit_notes",
+      null,
+      true
+    ],
+    [
+      "list",
+      "GET",
+      "/credit_notes",
+      null,
+      false
+    ],
+    [
+      "credit_notes_for_customer",
+      "GET",
+      "/customers",
+      "/credit_notes",
       true
     ]
   ],
@@ -389,10 +440,10 @@ var _endpoints = {
       true
     ],
     [
-      "transactions_for_invoice",
+      "payments_for_invoice",
       "GET",
       "/invoices",
-      "/transactions",
+      "/payments",
       true
     ],
     [
@@ -400,13 +451,6 @@ var _endpoints = {
       "GET",
       "/transactions",
       null,
-      true
-    ],
-    [
-      "record_payment",
-      "POST",
-      "/invoices",
-      "/record_payment",
       true
     ]
   ],
@@ -437,20 +481,6 @@ var _endpoints = {
       "POST",
       "/hosted_pages",
       "/update_payment_method",
-      false
-    ],
-    [
-      "checkout_onetime_charge",
-      "POST",
-      "/hosted_pages",
-      "/checkout_onetime_charge",
-      false
-    ],
-    [
-      "checkout_onetime_addons",
-      "POST",
-      "/hosted_pages",
-      "/checkout_onetime_addons",
       false
     ],
     [

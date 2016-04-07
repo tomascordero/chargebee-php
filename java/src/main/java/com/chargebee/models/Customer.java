@@ -241,8 +241,8 @@ public class Customer extends Resource<Customer> {
         return optString("invoice_notes");
     }
 
-    public Integer accountCredits() {
-        return reqInteger("account_credits");
+    public Integer promotionalCredits() {
+        return reqInteger("promotional_credits");
     }
 
     public Integer refundableCredits() {
@@ -253,6 +253,10 @@ public class Customer extends Resource<Customer> {
         return reqInteger("excess_payments");
     }
 
+    public JSONObject metaData() {
+        return optJSONObject("meta_data");
+    }
+
     // Operations
     //===========
 
@@ -261,9 +265,9 @@ public class Customer extends Resource<Customer> {
         return new CreateRequest(Method.POST, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static CustomerListRequest list() throws IOException {
         String uri = uri("customers");
-        return new ListRequest(uri);
+        return new CustomerListRequest(uri);
     }
 
     public static Request retrieve(String id) throws IOException {
@@ -301,19 +305,24 @@ public class Customer extends Resource<Customer> {
         return new DeleteContactRequest(Method.POST, uri);
     }
 
-    public static AddAccountCreditsRequest addAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "add_account_credits");
-        return new AddAccountCreditsRequest(Method.POST, uri);
+    public static AddPromotionalCreditsRequest addPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "add_promotional_credits");
+        return new AddPromotionalCreditsRequest(Method.POST, uri);
     }
 
-    public static DeductAccountCreditsRequest deductAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "deduct_account_credits");
-        return new DeductAccountCreditsRequest(Method.POST, uri);
+    public static DeductPromotionalCreditsRequest deductPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "deduct_promotional_credits");
+        return new DeductPromotionalCreditsRequest(Method.POST, uri);
     }
 
-    public static SetAccountCreditsRequest setAccountCredits(String id) throws IOException {
-        String uri = uri("customers", nullCheck(id), "set_account_credits");
-        return new SetAccountCreditsRequest(Method.POST, uri);
+    public static SetPromotionalCreditsRequest setPromotionalCredits(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "set_promotional_credits");
+        return new SetPromotionalCreditsRequest(Method.POST, uri);
+    }
+
+    public static DeleteRequest delete(String id) throws IOException {
+        String uri = uri("customers", nullCheck(id), "delete");
+        return new DeleteRequest(Method.POST, uri);
     }
 
 
@@ -382,6 +391,12 @@ public class Customer extends Resource<Customer> {
 
         public CreateRequest taxability(Taxability taxability) {
             params.addOpt("taxability", taxability);
+            return this;
+        }
+
+
+        public CreateRequest metaData(JSONObject metaData) {
+            params.addOpt("meta_data", metaData);
             return this;
         }
 
@@ -564,6 +579,62 @@ public class Customer extends Resource<Customer> {
         }
     }
 
+    public static class CustomerListRequest extends ListRequest<CustomerListRequest> {
+
+        private CustomerListRequest(String uri) {
+            super(uri);
+        }
+    
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
+        }
+
+
+        public StringFilter<String> firstName() {
+            return new StringFilter<String>("first_name",uri,this);
+        }
+
+
+        public StringFilter<String> lastName() {
+            return new StringFilter<String>("last_name",uri,this);
+        }
+
+
+        public StringFilter<String> email() {
+            return new StringFilter<String>("email",uri,this);
+        }
+
+
+        public EnumFilter<AutoCollection> autoCollection() {
+            return new EnumFilter<AutoCollection>("auto_collection",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> createdAt() {
+            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        }
+
+
+        public ListRequest sortByCreatedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
+            return this;
+        }
+
+
+        public <Status> EnumFilter paymentMethodStatus() {
+            return new EnumFilter<Status>("payment_method[status]",uri,this);
+        }
+
+        public <Type> EnumFilter paymentMethodType() {
+            return new EnumFilter<Type>("payment_method[type]",uri,this);
+        }
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
+
     public static class UpdateRequest extends Request<UpdateRequest> {
 
         private UpdateRequest(Method httpMeth, String uri) {
@@ -620,6 +691,12 @@ public class Customer extends Resource<Customer> {
 
         public UpdateRequest invoiceNotes(String invoiceNotes) {
             params.addOpt("invoice_notes", invoiceNotes);
+            return this;
+        }
+
+
+        public UpdateRequest metaData(JSONObject metaData) {
+            params.addOpt("meta_data", metaData);
             return this;
         }
 
@@ -871,19 +948,19 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class AddAccountCreditsRequest extends Request<AddAccountCreditsRequest> {
+    public static class AddPromotionalCreditsRequest extends Request<AddPromotionalCreditsRequest> {
 
-        private AddAccountCreditsRequest(Method httpMeth, String uri) {
+        private AddPromotionalCreditsRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public AddAccountCreditsRequest amount(Integer amount) {
+        public AddPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public AddAccountCreditsRequest description(String description) {
+        public AddPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }
@@ -895,19 +972,19 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class DeductAccountCreditsRequest extends Request<DeductAccountCreditsRequest> {
+    public static class DeductPromotionalCreditsRequest extends Request<DeductPromotionalCreditsRequest> {
 
-        private DeductAccountCreditsRequest(Method httpMeth, String uri) {
+        private DeductPromotionalCreditsRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public DeductAccountCreditsRequest amount(Integer amount) {
+        public DeductPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public DeductAccountCreditsRequest description(String description) {
+        public DeductPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }
@@ -919,19 +996,19 @@ public class Customer extends Resource<Customer> {
         }
     }
 
-    public static class SetAccountCreditsRequest extends Request<SetAccountCreditsRequest> {
+    public static class SetPromotionalCreditsRequest extends Request<SetPromotionalCreditsRequest> {
 
-        private SetAccountCreditsRequest(Method httpMeth, String uri) {
+        private SetPromotionalCreditsRequest(Method httpMeth, String uri) {
             super(httpMeth, uri);
         }
     
-        public SetAccountCreditsRequest amount(Integer amount) {
+        public SetPromotionalCreditsRequest amount(Integer amount) {
             params.add("amount", amount);
             return this;
         }
 
 
-        public SetAccountCreditsRequest description(String description) {
+        public SetPromotionalCreditsRequest description(String description) {
             params.add("description", description);
             return this;
         }
@@ -942,32 +1019,23 @@ public class Customer extends Resource<Customer> {
             return params;
         }
     }
-    
-     public static class ListRequest extends ListRequestBase{
 
-        public ListRequest(String uri) {
-            this.uri = uri;
-        }   
-        
-        public TextNode<ListRequest> firstName() {
-            return textNode("first_name",uri);  
+    public static class DeleteRequest extends Request<DeleteRequest> {
+
+        private DeleteRequest(Method httpMeth, String uri) {
+            super(httpMeth, uri);
         }
-        
-         public TextNode<ListRequest> lastName() {
-            return textNode("last_name",uri);  
+    
+        public DeleteRequest deletePaymentMethod(Boolean deletePaymentMethod) {
+            params.addOpt("delete_payment_method", deletePaymentMethod);
+            return this;
         }
-            
+
 
         @Override
         public Params params() {
             return params;
         }
-        
-         public TextNode<ListRequest> textNode(String fieldName, String uri) {
-             return new TextNode<ListRequest>(fieldName, uri, this);
-
-         }
-
     }
 
 }

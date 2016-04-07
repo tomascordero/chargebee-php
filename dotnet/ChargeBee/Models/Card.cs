@@ -28,6 +28,11 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "credit_card");
             return new UpdateCardForCustomerRequest(url, HttpMethod.POST);
         }
+        public static SwitchGatewayForCustomerRequest SwitchGatewayForCustomer(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "switch_gateway");
+            return new SwitchGatewayForCustomerRequest(url, HttpMethod.POST);
+        }
         public static EntityRequest<Type> DeleteCardForCustomer(string id)
         {
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_card");
@@ -207,6 +212,19 @@ namespace ChargeBee.Models
             public UpdateCardForCustomerRequest CustomerVatNumber(string customerVatNumber) 
             {
                 m_params.AddOpt("customer[vat_number]", customerVatNumber);
+                return this;
+            }
+        }
+        public class SwitchGatewayForCustomerRequest : EntityRequest<SwitchGatewayForCustomerRequest> 
+        {
+            public SwitchGatewayForCustomerRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public SwitchGatewayForCustomerRequest Gateway(GatewayEnum gateway) 
+            {
+                m_params.Add("gateway", gateway);
                 return this;
             }
         }

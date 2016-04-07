@@ -3,6 +3,7 @@ package com.chargebee.internal;
 import java.sql.Timestamp;
 import java.util.*;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Params {
 
@@ -67,14 +68,15 @@ public class Params {
             }
             return l;            
         }else if(value instanceof JSONArray){
-            JSONArray origList = (JSONArray)value;
-            return origList.toString();            
+            return value.toString();            
         } else if(value instanceof HashMap){
             HashMap origList = (HashMap) value;
             Map.Entry entry = (Map.Entry) origList.entrySet().iterator().next();          
             HashMap m = new HashMap();
             m.put((String)toValStr(entry.getKey()), (String)toValStr(entry.getValue()));
             return m;            
+        } else if(value instanceof JSONObject) {
+            return value.toString();
         } else {
             throw new RuntimeException("Type [" + c.getName() + "] not handled");
         }
