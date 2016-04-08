@@ -11,7 +11,8 @@ This library is for our <b>API version V2</b>. The library for V1 can be found i
 
 Install the latest version of the gem with the following command...
 
-	$ sudo gem install chargebee -v '~>2'
+    $ sudo gem install chargebee -v '~>2'
+	
 
 == Documentation
 
@@ -21,13 +22,13 @@ For API reference see {here}[https://apidocs.chargebee.com/docs/api?lang=ruby]
 
 To create a new subscription:
 
-	ChargeBee.configure({:api_key => "your_api_key"}, {:site => "your_site"})
-	result = ChargeBee::Subscription.create({
-		:id => "sub_KyVqDh__dev__NTn4VZZ1", 
-		:plan_id => "basic", 
-	})
-	subscription = result.subscription
-	puts "created subscription is #{subscription}"
+    ChargeBee.configure({:api_key => "your_api_key"}, {:site => "your_site"})
+    result = ChargeBee::Subscription.create({
+    	:id => "sub_KyVqDh__dev__NTn4VZZ1", 
+    	:plan_id => "basic", 
+    })
+    subscription = result.subscription
+    puts "created subscription is #{subscription}"
 
 == License
 
