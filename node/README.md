@@ -7,6 +7,10 @@ Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/doc
 This library is for our <b>API version V2</b>. The library for V1 can be found in [chargebee-v1 branch](https://github.com/chargebee/chargebee-node/tree/chargebee-v1). 
 
 
+### Processing Webhooks - API Version Check
+
+An attribute, <b>api_version</b>, is added to the [Event](https://apidocs.chargebee.com/docs/api/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this _api_version_ is the same as the [API version](https://apidocs.chargebee.com/docs/api#versions) used by your webhook server's client library.
+
 ## Installation
 
 Install the latest version 2.x.x of the library with the following commands:
