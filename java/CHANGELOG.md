@@ -1,4 +1,4 @@
-### v2.0.0 (2016-04-01)
+### v2.0.0 (2016-04-11)
 * * *
 
 #### Attributes and Operations Removed/Renamed in V2
@@ -8,7 +8,7 @@ V2 has been released to accommodate certain backwards-incompatible changes. Refe
 
 #### Incremental Changes in V2
 
-* *api_version* attribute is added to [Event](https://apidocs.chargebee.com/docs/api/events) resource. More details [here](#v1176-2016-04-01).
+* *api_version* attribute is added to [Event](https://apidocs.chargebee.com/docs/api/events) resource. More details [here](#v1176-2016-04-06).
 * Credit Notes resource is introduced. More details here: https://apidocs.chargebee.com/docs/api/credit_notes
 * Operations [Update Subscription](https://apidocs.chargebee.com/docs/api/subscriptions#update_a_subscription) and [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) additionally returns list of Credit Notes now (if applicable).  
 * Operations [Refund an Invoice](https://apidocs.chargebee.com/docs/api/invoices#refund_an_invoice) and [Record Refund for an Invoice](https://apidocs.chargebee.com/docs/api/invoices#record_refund_for_an_invoice) additionally returns a Credit Note if the operation succeeds. Besides, following *input params* are added to these operations - *credit_note[reason_code]* and *customer_notes*.

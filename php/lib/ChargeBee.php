@@ -92,7 +92,6 @@ require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteEstimateLineItem.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteEstimateTax.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteLineItem.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteLinkedRefund.php');
-require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteLinkedTransaction.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/CreditNoteTax.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/InvoiceAdjustmentCreditNote.php');
 require(dirname(__FILE__) . '/ChargeBee/Models/InvoiceAppliedCredit.php');
