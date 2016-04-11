@@ -14,5 +14,5 @@ namespace ChargeBee.Api
 
         public HttpStatusCode StatusCode { get; private set; }
 
-	}
+    }
 }
