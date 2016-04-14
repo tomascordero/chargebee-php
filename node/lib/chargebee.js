@@ -189,6 +189,8 @@ ChargeBee._core = (function() {
                         }
                     }
                 }
+            } else if(key === "meta_data") {
+                serialized.push(encodeURIComponent(key) + "=" + encodeURIComponent(typeof value === 'string' || value instanceof String ? ChargeBee._util.trim(value) : JSON.stringify(value)));    
             } else if (typeof value === 'object' && !ChargeBee._util.isArray(value)) {
                 encodeParams(value, serialized, key);
             } else {
