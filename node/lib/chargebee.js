@@ -190,7 +190,11 @@ ChargeBee._core = (function() {
                     }
                 }
             } else if(key === "meta_data") {
-                serialized.push(encodeURIComponent(key) + "=" + encodeURIComponent(typeof value === 'string' || value instanceof String ? ChargeBee._util.trim(value) : JSON.stringify(value)));    
+                var attrVal="";
+                if(value !== null) {
+                    attrVal = encodeURIComponent(Object.prototype.toString.call(value) === "[object String]" ? ChargeBee._util.trim(value) : JSON.stringify(value));
+                }
+                serialized.push(encodeURIComponent(key) + "=" + attrVal);    
             } else if (typeof value === 'object' && !ChargeBee._util.isArray(value)) {
                 encodeParams(value, serialized, key);
             } else {
