@@ -1,3 +1,10 @@
+### v2.0.1 (2016-04-16)
+* * *
+
+#### Issue Fixed
+
+KeyError for "credit_note_estimates" under Estimate resource is fixed. Now, retrieveing Estimate from Result object does not throw exception.
+
 ### v2.0.0 (2016-04-11)
 * * *
 
