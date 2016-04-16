@@ -1,3 +1,11 @@
+### v2.0.1 (2016-04-16)
+* * *
+
+#### Issue Fixed
+
+The "meta_data" attribute in Subscription, Customer, Plan, Addon, Coupon create and update operations now accepts String and Json object.
+
+
 ### v2.0.0 (2016-04-11)
 * * *
 
