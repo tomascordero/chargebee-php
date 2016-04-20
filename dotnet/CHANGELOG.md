@@ -1,3 +1,7 @@
+### v2.0.1 (2016-04-20)
+* * *
+NPE fix on create subscription event in credit notes object.
+
 ### v2.0.0 (2016-04-11)
 * * *
 
