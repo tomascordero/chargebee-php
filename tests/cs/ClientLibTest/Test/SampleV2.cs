@@ -101,16 +101,19 @@ namespace Examples
 		}
 
 
-		public void TestCreateSubscription()
-		{
-			string planId = "enterprise_half_yearly";
+		public static void TestCreateSubscription() {
+			string planId = "silver";
 
 			EntityResult result = Subscription.Create()
 				.PlanId(planId)
 				.CustomerEmail("john@user.com")
 				.CustomerFirstName("Ronald")
 				.CustomerLastName("Simpson")
-				.AddonId(1, "on_call_support")
+				.CustomerAutoCollection(AutoCollectionEnum.Off)
+//				.AddonId(1, "on_call_support")
+				.CustomerTaxability(TaxabilityEnum.Taxable)
+//				.CustomerEntityCode(EntityCodeEnum.A)
+//				.CustomerExemptNumber("EXEMPT003")
 				//				.CreatedFromIp("354.8.9.0")
 				//				.CardGateway(GatewayEnum.Chargebee)
 				//				.CardNumber("4111111111111111")
@@ -496,7 +499,7 @@ namespace Examples
 			Console.WriteLine ( result1.Plan.InvoiceNotes);
 		}
 
-		public static void addonNotes() {
+		public static void testCreateAddon() {
 			EntityResult result = Addon.Create()
 				.Id("sms_pack")
 				.Name("Sms Pack")
@@ -504,13 +507,17 @@ namespace Examples
 				.ChargeType(Addon.ChargeTypeEnum.Recurring)
 				.Price(200)
 				.Period(1)
+//				.TaxCode("TEST CODE")
 				.PeriodUnit(Addon.PeriodUnitEnum.Month)
 				.InvoiceNotes("Invoice Notes for addon")
 				.Type(Addon.TypeEnum.OnOff).Request();
 
+			printFields (result.Addon, typeof(Addon));
+
 			EntityResult result1 = Addon.Retrieve("sms_pack").Request();
-			Console.WriteLine (result1.Addon.Id);
-			Console.WriteLine (result1.Addon.InvoiceNotes);
+			printFields (result1.Addon, typeof(Addon));
+//			Console.WriteLine (result1.Addon.Id);
+//			Console.WriteLine (result1.Addon.InvoiceNotes);
 		}
 
 		public static void createInvoiceForCharge() {
@@ -575,17 +582,33 @@ namespace Examples
 			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType());
 		}
 
-		public static void paymentMethodCreateCustomer() {
+		public static void testCreateCustomer() {
 			EntityResult result = Customer.Create ()
 				.FirstName ("John")
-				.PaymentMethodReferenceId ("49288584")
-				.PaymentMethodType (TypeEnum.Card)
-				.PaymentMethodGateway (GatewayEnum.Braintree)
+//				.PaymentMethodReferenceId ("49288584")
+//				.PaymentMethodType (TypeEnum.Card)
+//				.PaymentMethodGateway (GatewayEnum.Braintree)
+				.Taxability(TaxabilityEnum.Exempt)
+//				.EntityCode(EntityCodeEnum.A)
+				.ExemptNumber("EXEMPT001")
 				.Request ();
+			printFields (result.Customer, typeof(Customer));
 
-			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType ());
-			Console.WriteLine (result.Customer.PaymentMethod.ReferenceId ());
+//			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType ());
+//			Console.WriteLine (result.Customer.PaymentMethod.ReferenceId ());
+		}
 
+		public static void updateCustomer() {
+			EntityResult result = Customer.Update ("__dev__3Nl8EckPjkpn3V3")
+				.FirstName ("John")
+				.Taxability(TaxabilityEnum.Exempt)
+				.EntityCode(EntityCodeEnum.N)
+//				.ExemptNumber("EXEPT001")
+				.Request ();
+			printFields (result.Customer, typeof(Customer));
+
+			//			Console.WriteLine (result.Customer.PaymentMethod.PaymentMethodType ());
+			//			Console.WriteLine (result.Customer.PaymentMethod.ReferenceId ());
 		}
 
 
@@ -604,18 +627,23 @@ namespace Examples
 //			printInvoice (invoice);
 //		}
 
-		public void testCreatePlan() {
+		public static void testCreatePlan() {
 			EntityResult result = Plan.Create()
 				.Id("silver")
 				.Name("Silver")
 				.InvoiceName("sample plan")
 				.Price(5000)
 				//				.DowngradePenalty(12.5D)
-				.InvoiceNotes("This is the invoice notes for the plan")
+				.TaxCode("Test Code")
+//				.InvoiceNotes("This is the invoice notes for the plan")
 				.Request();
+			
+			Console.WriteLine ("RESULT => \n");
+			printFields (result.Plan, typeof(Plan));
 
 			EntityResult result1 = Plan.Retrieve ("silver").Request ();
-			Console.WriteLine ( result1.Plan.InvoiceNotes);
+			printFields (result1.Plan, typeof(Plan));
+//			Console.WriteLine ( result1.Plan.InvoiceNotes);
 		}
 
 		public void testUpdatePlan() {
@@ -651,7 +679,7 @@ namespace Examples
 			//paymentMethodPayPalCreateSub ();
 			//paymentMethodAmzCreateSub ();
 			//paymentMethodPayPalUpdateSub ();
-			//paymentMethodCreateCustomer ();
+			//testCreateCustomer ();
 			collectPayement ();
 		}
 
@@ -817,13 +845,33 @@ namespace Examples
 
 		public static void createEstimate() {
 			EntityResult result = Estimate.CreateSubscription()
-				.SubscriptionPlanId("no-trial")
-				.AddonId(1,"small-recurring-addon").Request();
+				.SubscriptionPlanId("silver")
+//				.AddonId(1,"small-recurring-addon")
+				.BillingAddressLine1("340")
+				.BillingAddressLine2("S Lemon Ave")
+				.BillingAddressLine3("#1537")
+				.BillingAddressCity("Walnut")
+				.BillingAddressStateCode("CA")
+				.BillingAddressCountry("US")
+				.BillingAddressZip("91789")
+				.CustomerTaxability(TaxabilityEnum.Taxable)
+				.CustomerEntityCode(EntityCodeEnum.A)
+				.CustomerExemptNumber("EXEMPT003")
+//				.ShippingAddressLine1("s1")
+//				.ShippingAddressLine2("s2")
+//				.ShippingAddressLine3("s3")
+				.Request();
 			Estimate estimate = result.Estimate;
 			printFields (estimate.SubscriptionEstimate, typeof(SubscriptionEstimate));
 			printFields (estimate.InvoiceEstimate, typeof(InvoiceEstimate));
-			for (int i = 0; i < estimate.CreditNoteEstimates.Count; i++) {
-				printFields (estimate.CreditNoteEstimates[i], typeof(Estimate.CreateSubscriptionRequest));
+			for (int i = 0; i < estimate.InvoiceEstimate.Taxes.Count; i++) {
+				printFields (estimate.InvoiceEstimate.Taxes [i], typeof(InvoiceEstimate.InvoiceEstimateTax));
+			}
+
+			if (estimate.CreditNoteEstimates != null) {
+				for (int i = 0; i < estimate.CreditNoteEstimates.Count; i++) {
+					printFields (estimate.CreditNoteEstimates [i], typeof(Estimate.CreateSubscriptionRequest));
+				}
 			}
 		}
 
@@ -883,10 +931,10 @@ namespace Examples
 
 		public static void Main(string[] args) 
 		{
-			ApiConfig.Proto = "https";
-			ApiConfig.DomainSuffix = "devcb.in";
-			ApiConfig.Configure("bc-comics-test", "test_Q1WGp6sFacdzEsbS92qeTLJd3na7f2KRm");
-
+			ApiConfig.Proto = "http";
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__X8OYbpwncsDcxYN7qokGoMAJsayf3xS1");
+			createEstimate ();
 			//creatCustomer ();
 			//addContactToCustomer ();
 			//updateContactToCustomer ();
@@ -895,7 +943,7 @@ namespace Examples
 			//renewalEstimate ();
 			//retrieveInvoice1 ();
 			//collectInvoice1 ();
-			comments ();
+//			comments ();
 			//testEnabledInPortalInPlan ();
 			//			testUpdateEnabledInPortalAddon ();
 			//			testEnabledInPortalCreateAddon ();
