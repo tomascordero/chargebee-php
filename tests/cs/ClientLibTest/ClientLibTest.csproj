@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ClientLibTest</RootNamespace>
     <AssemblyName>ClientLibTest</AssemblyName>
-    <StartupObject>Examples.Sample</StartupObject>
+    <StartupObject>Examples.SampleV2</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,9 +33,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test\ErrorTest.cs" />
-    <Compile Include="Test\Sample.cs" />
     <Compile Include="Test\WebhookParser.cs" />
     <Compile Include="Test\TestPaymentMethod.cs" />
+    <Compile Include="Test\SampleV2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

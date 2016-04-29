@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -16,15 +16,13 @@ using Newtonsoft.Json;
 
 namespace Examples
 {
-
-	public class Sample
+	public class SampleV2
 	{
-
 		public void Configure()
 		{
 			ApiConfig.Proto = "http";
-			ApiConfig.DomainSuffix = "chargebee.com";
-			ApiConfig.Configure("vaibhav-1-test", "test_5edlkZPTuthqWqNFEpJePjvtpcuTAIpBo");
+			ApiConfig.DomainSuffix = "localcb.in:8080";
+			ApiConfig.Configure("mannar-test", "test___dev__X8OYbpwncsDcxYN7qokGoMAJsayf3xS1");
 		}
 
 		public void TestSerializeEvent()
@@ -84,7 +82,7 @@ namespace Examples
 				//Console.WriteLine(subs);
 			}
 		}
-		
+
 		private ListResult FetchEventsList(string _offset)
 		{
 			Event.EventListRequest _listReq =  Event.List().Limit(10);
@@ -94,7 +92,7 @@ namespace Examples
 			}
 			return _listReq.Request();
 		}
-		
+
 		public static void TestRetrieveEvent()
 		{
 			Event evt = Event.Retrieve("ev_2uENY2zlPNZvoit1NBq").Request().Event;
@@ -106,20 +104,20 @@ namespace Examples
 		public void TestCreateSubscription()
 		{
 			string planId = "enterprise_half_yearly";
-			
+
 			EntityResult result = Subscription.Create()
 				.PlanId(planId)
-					.CustomerEmail("john@user.com")
-					.CustomerFirstName("Ronald")
-					.CustomerLastName("Simpson")
-					.AddonId(1, "on_call_support")
-//				.CreatedFromIp("354.8.9.0")
-//				.CardGateway(GatewayEnum.Chargebee)
-//				.CardNumber("4111111111111111")
-//				.CardCvv("123")
-//				.CardExpiryMonth(9)
-//				.CardExpiryYear(2018)
-//				.CardIpAddress("182.67.9.9")
+				.CustomerEmail("john@user.com")
+				.CustomerFirstName("Ronald")
+				.CustomerLastName("Simpson")
+				.AddonId(1, "on_call_support")
+				//				.CreatedFromIp("354.8.9.0")
+				//				.CardGateway(GatewayEnum.Chargebee)
+				//				.CardNumber("4111111111111111")
+				//				.CardCvv("123")
+				//				.CardExpiryMonth(9)
+				//				.CardExpiryYear(2018)
+				//				.CardIpAddress("182.67.9.9")
 				.Request();
 			printFields (result.Customer, typeof(Customer));
 			printFields (result.Card, typeof(Card));
@@ -135,7 +133,7 @@ namespace Examples
 				Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}", subs.Id, subs.CreatedAt, subs.ActivatedAt, subs.CancelledAt);
 			}
 		}
-		
+
 		public void TestRetrieveSubscriptions()
 		{
 			/*EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
@@ -155,12 +153,12 @@ namespace Examples
 			Invoice invoice = result.Invoice;
 			foreach(var li in invoice.LineItems)
 			{
-				Console.WriteLine("{0}\t{1}\t{2}\t{3}",li.UnitAmount(), li.EntityType(), li.LineItemType(), li.EntityId());
+				Console.WriteLine("{0}\t{1}\t{2}\t{3}",li.UnitAmount(), li.EntityType(), li.EntityId());
 
 				//Console.WriteLine(item.EntityId);
 				//Console.WriteLine(item.EntityType);
 				//Console.WriteLine(item.LineItemType);
-//				Console.WriteLine(li.UnitAmount);
+				//				Console.WriteLine(li.UnitAmount);
 				Console.WriteLine (li);
 			}
 		}
@@ -172,20 +170,20 @@ namespace Examples
 
 			Subscription.UpdateRequest r = Subscription.Update(subs1.Id).
 				PlanId("basic").
-					AddonId(1, "on_call_support").
-					CardGateway(GatewayEnum.PaypalPro);
+				AddonId(1, "on_call_support").
+				CardGateway(GatewayEnum.PaypalPro);
 			result = r.Request();
-			
+
 			Subscription subs2 = result.Subscription;
 		}
-		
+
 		public void TestCancelSubscription()
 		{
 			EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
 			Subscription subs1 = result.Subscription;
 
 			result = Subscription.Cancel(subs1.Id).Request();
-			
+
 			Subscription subs2 = result.Subscription;
 		}
 
@@ -201,9 +199,9 @@ namespace Examples
 			Subscription.CreateRequest cReq = Subscription.Create().PlanId("basic").CustomerFirstName("Petr").CustomerLastName("Šrámek");
 			EntityResult result = cReq.Request();
 			Subscription subs1 = result.Subscription;
-			
+
 			result = Subscription.Cancel(subs1.Id).Request();
-			
+
 			Subscription subs2 = result.Subscription;
 		}
 
@@ -272,7 +270,7 @@ namespace Examples
 
 		public static void addAccountCredits()
 		{  				
-			EntityResult result =  Customer.AddAccountCredits("cbdemo_KyVqezP94gGB31")
+			EntityResult result =  Customer.AddPromotionalCredits("cbdemo_KyVqezP94gGB31")
 				.Amount(500)
 				.Description("Loyalty credits").Request();
 			Customer customer = result.Customer;
@@ -281,7 +279,7 @@ namespace Examples
 
 		public static void deductAccountCredits()
 		{
-			EntityResult result = Customer.DeductAccountCredits("8avVGOkx8U1MX")
+			EntityResult result = Customer.DeductPromotionalCredits("8avVGOkx8U1MX")
 				.Amount(200)
 				.Description("Correcting credits given by mistake").Request();
 			Customer customer = result.Customer;
@@ -290,7 +288,7 @@ namespace Examples
 
 		public static void setAccountCredit()
 		{
-			EntityResult result = Customer.SetAccountCredits("cbdemo_KyVqezP94gGB31")
+			EntityResult result = Customer.SetPromotionalCredits("cbdemo_KyVqezP94gGB31")
 				.Amount(1200)
 				.Description("Correcting credits given by mistake").Request();
 			Customer customer = result.Customer;
@@ -382,22 +380,22 @@ namespace Examples
 			foreach(Invoice.InvoiceLineItem li in inv.LineItems){
 				printFields (li, typeof(Invoice.InvoiceLineItem));
 			}
-//			foreach(Invoice.InvoiceDiscount dis in inv.Discounts){
-//				printFields (dis, typeof(Invoice.InvoiceDiscount));
-//			}
+			//			foreach(Invoice.InvoiceDiscount dis in inv.Discounts){
+			//				printFields (dis, typeof(Invoice.InvoiceDiscount));
+			//			}
 			if (inv.Taxes != null) {
 				foreach (Invoice.InvoiceTax tax in inv.Taxes) {
 					printFields (tax, typeof(Invoice.InvoiceTax));
 				}
 			}
-			foreach(Invoice.InvoiceLinkedTransaction txn in inv.LinkedTransactions){
-				printFields (txn, typeof(Invoice.InvoiceLinkedTransaction));
+			foreach(Invoice.InvoiceLinkedPayment txn in inv.LinkedPayments){
+				printFields (txn, typeof(Invoice.InvoiceLinkedPayment));
 			}
-//			foreach(Invoice.InvoiceLinkedOrder ord in inv.LinkedOrders){
-//				printFields (ord, typeof(Invoice.InvoiceLinkedOrder));
-//			}
-//			printFields (inv.BillingAddress, typeof(Invoice.InvoiceBillingAddress));
-//			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
+			//			foreach(Invoice.InvoiceLinkedOrder ord in inv.LinkedOrders){
+			//				printFields (ord, typeof(Invoice.InvoiceLinkedOrder));
+			//			}
+			//			printFields (inv.BillingAddress, typeof(Invoice.InvoiceBillingAddress));
+			//			printFields (inv.ShippingAddress, typeof(Invoice.InvoiceShippingAddress));
 		}
 
 		public static void printFields(object obj, Type type){
@@ -423,7 +421,7 @@ namespace Examples
 				.PoNumber("23232")
 				.InvoiceNotes("Invoice notes")
 				.CustomerEmail ("email@email.com").Request();
-				
+
 			Console.WriteLine (result.Subscription.Id);
 			Console.WriteLine (result.Subscription.InvoiceNotes);
 			Console.WriteLine (result.Subscription.PoNumber);
@@ -477,7 +475,7 @@ namespace Examples
 
 		public static void updateCardRedirectNCancelUrl() {
 			EntityResult result = HostedPage.UpdateCard ()
-								.CustomerId ("__dev__KyVpYtP9kcEQfR")
+				.CustomerId ("__dev__KyVpYtP9kcEQfR")
 				.RedirectUrl("http://www.asdsc.com")
 				.CancelUrl("http://asds.com")
 				.Request ();
@@ -514,7 +512,7 @@ namespace Examples
 			Console.WriteLine (result1.Addon.Id);
 			Console.WriteLine (result1.Addon.InvoiceNotes);
 		}
-			
+
 		public static void createInvoiceForCharge() {
 			EntityResult result = Invoice.Create()
 				.CustomerId("__dev__KyVpYtP9kcEQfR")
@@ -544,7 +542,9 @@ namespace Examples
 			EntityResult result = Invoice.Retrieve("__demo_inv__19").Request();
 			Invoice invoice = result.Invoice;
 			Console.WriteLine (invoice.AmountDue);
-			Console.WriteLine (invoice.Amount);
+			Console.WriteLine (invoice.AmountPaid);
+			Console.WriteLine (invoice.AmountAdjusted);
+			Console.WriteLine (invoice.WriteOffAmount);
 		}
 
 		public static void paymentMethodPayPalCreateSub(){
@@ -555,16 +555,16 @@ namespace Examples
 				.PaymentMethodType(TypeEnum.PaypalExpressCheckout)
 				.Request();
 			Console.WriteLine (result.Subscription.Id);
-		
-				
+
+
 		}
 
 		public static void  paymentMethodAmzCreateSub() {
-						EntityResult result1 = Subscription.Create()
-							.PlanId("no-trial")
-							.PaymentMethodReferenceId("B-2W525066JC884990M")
-							.PaymentMethodType(TypeEnum.AmazonPayments)
-							.Request();
+			EntityResult result1 = Subscription.Create()
+				.PlanId("no-trial")
+				.PaymentMethodReferenceId("B-2W525066JC884990M")
+				.PaymentMethodType(TypeEnum.AmazonPayments)
+				.Request();
 		}
 
 		public static void paymentMethodPayPalUpdateSub(){
@@ -577,7 +577,7 @@ namespace Examples
 
 		public static void paymentMethodCreateCustomer() {
 			EntityResult result = Customer.Create ()
-								.FirstName ("John")
+				.FirstName ("John")
 				.PaymentMethodReferenceId ("49288584")
 				.PaymentMethodType (TypeEnum.Card)
 				.PaymentMethodGateway (GatewayEnum.Braintree)
@@ -594,15 +594,15 @@ namespace Examples
 			Console.WriteLine (result.Invoice.Status);
 		}
 
-		public void recordPartialPayment(String invId, int amount){
-			EntityResult result = Transaction.RecordPayment(invId)
-				.PaymentMethod(PaymentMethodEnum.BankTransfer)
-				.Amount(amount)
-				.PaidAt(1394532759).Request();
-			Transaction transaction = result.Transaction;
-			Invoice invoice = result.Invoice;
-			printInvoice (invoice);
-		}
+//		public void recordPartialPayment(String invId, int amount){
+//			EntityResult result = Transaction.RecordPayment(invId)
+//				.PaymentMethod(PaymentMethodEnum.BankTransfer)
+//				.Amount(amount)
+//				.PaidAt(1394532759).Request();
+//			Transaction transaction = result.Transaction;
+//			Invoice invoice = result.Invoice;
+//			printInvoice (invoice);
+//		}
 
 		public void testCreatePlan() {
 			EntityResult result = Plan.Create()
@@ -610,7 +610,7 @@ namespace Examples
 				.Name("Silver")
 				.InvoiceName("sample plan")
 				.Price(5000)
-//				.DowngradePenalty(12.5D)
+				//				.DowngradePenalty(12.5D)
 				.InvoiceNotes("This is the invoice notes for the plan")
 				.Request();
 
@@ -657,8 +657,8 @@ namespace Examples
 
 		public static void recordRefund(){
 			EntityResult result = Invoice.RecordRefund("85")
-				.Memo("Refunding as customer canceled the order.")
-//				.TransactionAmount(800)
+				.Comment("Refunding as customer canceled the order.")
+				//				.TransactionAmount(800)
 				.TransactionPaymentMethod(PaymentMethodEnum.BankTransfer)
 				.TransactionDate(1435777328)
 				.TransactionReferenceNumber("876876")
@@ -699,17 +699,15 @@ namespace Examples
 		public static void retrieveInvoice(){
 			EntityResult result = Invoice.Retrieve("154").Request();
 			Invoice invoice = result.Invoice;
-			Console.WriteLine (invoice.LinkedTransactions [0].AppliedAt());
-			Console.WriteLine (invoice.LinkedTransactions [0].TxnAmount());
-			Console.WriteLine (invoice.LinkedTransactions [0].TxnId());
-			Console.WriteLine (invoice.LinkedTransactions [0].TxnStatus());
-			Console.WriteLine (invoice.LinkedTransactions [0].TxnType());
+			Console.WriteLine (invoice.LinkedPayments [0].AppliedAt());
+			Console.WriteLine (invoice.LinkedPayments [0].TxnAmount());
+			Console.WriteLine (invoice.LinkedPayments [0].TxnId());
+			Console.WriteLine (invoice.LinkedPayments [0].TxnStatus());
 
-			Console.WriteLine (invoice.LinkedTransactions [1].AppliedAt());
-			Console.WriteLine (invoice.LinkedTransactions [1].TxnAmount());
-			Console.WriteLine (invoice.LinkedTransactions [1].TxnId());
-			Console.WriteLine (invoice.LinkedTransactions [1].TxnStatus());
-			Console.WriteLine (invoice.LinkedTransactions [1].TxnType());
+			Console.WriteLine (invoice.LinkedPayments [1].AppliedAt());
+			Console.WriteLine (invoice.LinkedPayments [1].TxnAmount());
+			Console.WriteLine (invoice.LinkedPayments [1].TxnId());
+			Console.WriteLine (invoice.LinkedPayments [1].TxnStatus());
 		}
 
 
@@ -762,7 +760,7 @@ namespace Examples
 			Console.WriteLine (plan.EnabledInPortal);
 
 		}
-			
+
 		public static void testEnabledInPortalCreateAddon() {
 			String id="addon2";
 			Addon addon = Addon.Create ().Id (id).Name (id).EnabledInPortal (true)
@@ -822,9 +820,11 @@ namespace Examples
 				.SubscriptionPlanId("no-trial")
 				.AddonId(1,"small-recurring-addon").Request();
 			Estimate estimate = result.Estimate;
-			Console.WriteLine (estimate.CreditsApplied);
-			Console.WriteLine (estimate.AmountDue);
-			Console.WriteLine (estimate.Amount);
+			printFields (estimate.SubscriptionEstimate, typeof(SubscriptionEstimate));
+			printFields (estimate.InvoiceEstimate, typeof(InvoiceEstimate));
+			for (int i = 0; i < estimate.CreditNoteEstimates.Count; i++) {
+				printFields (estimate.CreditNoteEstimates[i], typeof(Estimate.CreateSubscriptionRequest));
+			}
 		}
 
 		public static void updateEstimate() {
@@ -834,17 +834,22 @@ namespace Examples
 				//.AddonId(1,"small-recurring-addon")
 				.Request();
 			Estimate estimate = result.Estimate;
-			Console.WriteLine (estimate.CreditsApplied);
-			Console.WriteLine (estimate.AmountDue);
-			Console.WriteLine (estimate.Amount);
+			printFields (estimate.SubscriptionEstimate, typeof(SubscriptionEstimate));
+			printFields (estimate.InvoiceEstimate, typeof(InvoiceEstimate));
+			for (int i = 0; i < estimate.CreditNoteEstimates.Count; i++) {
+				printFields (estimate.CreditNoteEstimates[i], typeof(Estimate.CreateSubscriptionRequest));
+			}
+
 		}
 
 		public static void renewalEstimate() {
 			EntityResult result = Estimate.RenewalEstimate("2tE9Ty4aPbSYzdO433").Request();
 			Estimate estimate = result.Estimate;
-			Console.WriteLine (estimate.CreditsApplied);
-			Console.WriteLine (estimate.AmountDue);
-			Console.WriteLine (estimate.Amount);
+			printFields (estimate.SubscriptionEstimate, typeof(SubscriptionEstimate));
+			printFields (estimate.InvoiceEstimate, typeof(InvoiceEstimate));
+			for (int i = 0; i < estimate.CreditNoteEstimates.Count; i++) {
+				printFields (estimate.CreditNoteEstimates[i], typeof(Estimate.CreateSubscriptionRequest));
+			}
 		}
 
 		public static void retrieveInvoice1() {
@@ -892,8 +897,8 @@ namespace Examples
 			//collectInvoice1 ();
 			comments ();
 			//testEnabledInPortalInPlan ();
-//			testUpdateEnabledInPortalAddon ();
-//			testEnabledInPortalCreateAddon ();
+			//			testUpdateEnabledInPortalAddon ();
+			//			testEnabledInPortalCreateAddon ();
 			//testEnabledInPortalCreatePlan ();
 			//testEnabledInPortalInCreatePlan ();
 			//createCustomer ();
@@ -901,28 +906,28 @@ namespace Examples
 			//retrieveInvoice ();
 			//retrieveTxn ();
 
-//			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
-//
-//			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
-//			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
-//			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
-//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
-//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
-//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
+			//			Customer cust = Customer.Retrieve("2uENY2zlPNZvoiq1NBp").Request().Customer;
+			//
+			//			Console.WriteLine (cust.GetValue<String> ("cf_admin_email", false));
+			//			Console.WriteLine (cust.GetValue<String> ("cf_date_of_birth"));
+			//			Console.WriteLine (evt.Content.Customer.GetValue<String>("id", false));
+			//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_date_of_birth", false));
+			//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_flavor_choice_1", false));
+			//			Console.WriteLine (evt.Content.Customer.GetValue<String>("cf_admin_email"));
 
-//			try{
-				//_main();
+			//			try{
+			//_main();
 			//TestRetrieveEvent();
-//			}catch(ApiException e) {
-//				Console.WriteLine (e.ApiErrorCode);
-//				Console.WriteLine (e.Param);
-//				Console.WriteLine (e.HttpStatusCode);
-//			}
+			//			}catch(ApiException e) {
+			//				Console.WriteLine (e.ApiErrorCode);
+			//				Console.WriteLine (e.Param);
+			//				Console.WriteLine (e.HttpStatusCode);
+			//			}
 
 
-//			Sample s = new Sample();
-//			s.Configure ();
-//			s.testUpdatePlan ();
+			//			Sample s = new Sample();
+			//			s.Configure ();
+			//			s.testUpdatePlan ();
 			//			s.TestRetrieveSubscriptions();
 			//			s.TestRetrieveInvoice();
 			//			s.TestCustomFields();
@@ -964,8 +969,7 @@ namespace Examples
 			//			Console.WriteLine ((dt.ToUniversalTime() - m_unixTime).TotalSeconds);
 			//Console.WriteLine (ApiUtil.ConvertToTimestamp (dt).ToString());
 		}
-		 
+
 
 	}
 }
-	
