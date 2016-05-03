@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chargebee.internal;
+package com.chargebee.filter;
+
+import com.chargebee.internal.HttpUtil;
 
 /**
  *
@@ -32,6 +34,11 @@ public class StringFilter<T> extends ListRequest {
 
     public ListRequest startsWith(T value) {
         req.params.addOpt(paramName + "[starts_with]", value);
+        return req;
+    }
+    
+    public ListRequest isPresent(T value) {
+        req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }
 }

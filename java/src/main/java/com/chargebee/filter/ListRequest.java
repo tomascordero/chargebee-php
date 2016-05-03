@@ -1,17 +1,16 @@
-package com.chargebee.internal;
+package com.chargebee.filter;
 
 import com.chargebee.Environment;
 import com.chargebee.ListResult;
+import com.chargebee.internal.HttpUtil;
+import com.chargebee.internal.Params;
 import com.chargebee.internal.Resource.Order;
 import com.chargebee.models.Customer;
 import java.io.IOException;
 
 public class ListRequest<U extends ListRequest> extends RequestBase<U> {
 
-     public enum sortOrder{
-            ASC,
-            DESC,
-    }
+    
         
     public ListRequest(String uri) {
         this.uri = uri;

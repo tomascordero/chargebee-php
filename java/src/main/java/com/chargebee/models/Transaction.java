@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -268,18 +269,30 @@ public class Transaction extends Resource<Transaction> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public TransactionListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
         }
 
 
-        public NumberFilter<String> customerId() {
-            return new NumberFilter<String>("customer_id",uri,this);
+        public TransactionListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
         }
 
 
-        public NumberFilter<String> subscriptionId() {
-            return new NumberFilter<String>("subscription_id",uri,this);
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> customerId() {
+            return new EnumeratedStringFilter<String>("customer_id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> subscriptionId() {
+            return new EnumeratedStringFilter<String>("subscription_id",uri,this);
         }
 
 
@@ -290,6 +303,11 @@ public class Transaction extends Resource<Transaction> {
 
         public EnumFilter<Gateway> gateway() {
             return new EnumFilter<Gateway>("gateway",uri,this);
+        }
+
+
+        public StringFilter<String> referenceNumber() {
+            return new StringFilter<String>("reference_number",uri,this);
         }
 
 

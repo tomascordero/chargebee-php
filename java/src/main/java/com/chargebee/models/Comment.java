@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -129,13 +130,31 @@ public class Comment extends Resource<Comment> {
             super(uri);
         }
     
+        public CommentListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
+        }
+
+
+        public CommentListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
         public EnumFilter<EntityType> entityType() {
             return new EnumFilter<EntityType>("entity_type",uri,this);
         }
 
 
-        public StringFilter<String> entityId() {
-            return new StringFilter<String>("entity_id",uri,this);
+        public CommentListRequest entityId(String entityId) {
+            params.addOpt("entity_id", entityId);
+            return this;
+        }
+
+
+        public StringFilter<String> id() {
+            return new StringFilter<String>("id",uri,this);
         }
 
 
@@ -144,8 +163,9 @@ public class Comment extends Resource<Comment> {
         }
 
 
-        public EnumFilter<Type> type() {
-            return new EnumFilter<Type>("type",uri,this);
+        public ListRequest sortByCreatedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
+            return this;
         }
 
 

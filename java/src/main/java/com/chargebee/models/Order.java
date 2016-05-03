@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -225,13 +226,25 @@ public class Order extends Resource<Order> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public OrderListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
         }
 
 
-        public NumberFilter<String> invoiceId() {
-            return new NumberFilter<String>("invoice_id",uri,this);
+        public OrderListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> invoiceId() {
+            return new EnumeratedStringFilter<String>("invoice_id",uri,this);
         }
 
 
@@ -240,18 +253,14 @@ public class Order extends Resource<Order> {
         }
 
 
-        public StringFilter<String> fulfillmentStatus() {
-            return new StringFilter<String>("fulfillment_status",uri,this);
-        }
-
-
         public TimestampFilter<Timestamp> createdAt() {
             return new TimestampFilter<Timestamp>("created_at",uri,this);
         }
 
 
-        public TimestampFilter<Timestamp> statusUpdateAt() {
-            return new TimestampFilter<Timestamp>("status_update_at",uri,this);
+        public ListRequest sortByCreatedAt(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
+            return this;
         }
 
 

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chargebee.internal;
+package com.chargebee.filter;
 
+import com.chargebee.internal.HttpUtil;
 import org.json.JSONArray;
 
 /**
@@ -20,7 +21,6 @@ public class NumberFilter<T> extends ListRequest {
 
     public NumberFilter(String paramName, String uri,ListRequest req) {
         super(uri);
-        this.uri = uri;
         this.paramName = paramName;
         this.req = req;
     }
@@ -57,6 +57,11 @@ public class NumberFilter<T> extends ListRequest {
     
     public ListRequest isNot(T value) {
         req.params.addOpt(paramName+"[is_not]" , value);
+        return req;
+    }
+    
+    public ListRequest isPresent(T value) {
+        req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }
 

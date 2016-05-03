@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -142,8 +143,14 @@ public class Event extends Resource<Event> {
             super(uri);
         }
     
-        public EventListRequest eventType(EventType eventType) {
-            params.addOpt("event_type", eventType);
+        public EventListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
+        }
+
+
+        public EventListRequest offset(String offset) {
+            params.addOpt("offset", offset);
             return this;
         }
 
@@ -158,8 +165,8 @@ public class Event extends Resource<Event> {
         }
 
 
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
         }
 
 

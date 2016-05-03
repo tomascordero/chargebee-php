@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chargebee.internal;
+package com.chargebee.filter;
 
+import com.chargebee.internal.HttpUtil;
 import java.util.Arrays;
 import org.json.JSONArray;
 
@@ -16,12 +17,10 @@ import org.json.JSONArray;
 public class EnumFilter<T> extends ListRequest {
 
     ListRequest req;
-    String uri;
     String paramName;
 
     public EnumFilter(String paramName, String uri, ListRequest req) {
         super(uri);
-        this.uri = uri;
         this.paramName = paramName;
         this.req = req;
     }
@@ -31,7 +30,7 @@ public class EnumFilter<T> extends ListRequest {
         return req;
     }
     
-     public ListRequest isNot(T value) {
+    public ListRequest isNot(T value) {
         req.params.addOpt(paramName + "[is_not]",value);
         return req;
     }
@@ -43,6 +42,11 @@ public class EnumFilter<T> extends ListRequest {
 
     public ListRequest notIn(T... value) {
         req.params.addOpt(paramName + "[not_in]",new JSONArray(Arrays.asList(value)));
+        return req;
+    }
+    
+     public ListRequest isPresent(T value) {
+        req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }
 

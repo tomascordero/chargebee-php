@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -350,13 +351,25 @@ public class Addon extends Resource<Addon> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public AddonListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
         }
 
 
-        public StringFilter<String> name() {
-            return new StringFilter<String>("name",uri,this);
+        public AddonListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> name() {
+            return new EnumeratedStringFilter<String>("name",uri,this);
         }
 
 

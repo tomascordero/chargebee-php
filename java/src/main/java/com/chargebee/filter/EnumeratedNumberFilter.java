@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chargebee.internal;
+package com.chargebee.filter;
 
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -13,9 +13,9 @@ import org.json.JSONArray;
  * @author sangeetha
  * @param <T>
  */
-public class StringFilterMul<T> extends StringFilter  {
+public class EnumeratedNumberFilter<T> extends NumberFilter<T>{
 
-    public StringFilterMul(String paramName, String uri, ListRequest req) {
+    public EnumeratedNumberFilter(String paramName, String uri, ListRequest req) {
         super(paramName, uri, req);
     }
 
@@ -28,5 +28,5 @@ public class StringFilterMul<T> extends StringFilter  {
         req.params.addOpt(paramName + "[not_in]", new JSONArray(Arrays.asList(value)));
         return req;
     }
-
+    
 }

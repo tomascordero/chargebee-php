@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -448,13 +449,25 @@ public class Plan extends Resource<Plan> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public PlanListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
         }
 
 
-        public StringFilter<String> name() {
-            return new StringFilter<String>("name",uri,this);
+        public PlanListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> name() {
+            return new EnumeratedStringFilter<String>("name",uri,this);
         }
 
 
@@ -468,8 +481,18 @@ public class Plan extends Resource<Plan> {
         }
 
 
+        public EnumFilter<PeriodUnit> periodUnit() {
+            return new EnumFilter<PeriodUnit>("period_unit",uri,this);
+        }
+
+
         public NumberFilter<Integer> trialPeriod() {
             return new NumberFilter<Integer>("trial_period",uri,this);
+        }
+
+
+        public EnumFilter<TrialPeriodUnit> trialPeriodUnit() {
+            return new EnumFilter<TrialPeriodUnit>("trial_period_unit",uri,this);
         }
 
 
@@ -480,11 +503,6 @@ public class Plan extends Resource<Plan> {
 
         public EnumFilter<Status> status() {
             return new EnumFilter<Status>("status",uri,this);
-        }
-
-
-        public TimestampFilter<Timestamp> archivedAt() {
-            return new TimestampFilter<Timestamp>("archived_at",uri,this);
         }
 
 

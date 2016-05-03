@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chargebee.internal;
+package com.chargebee.filter;
 
-import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.HttpUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -42,6 +42,11 @@ public class TimestampFilter<T> extends ListRequest {
 
     public ListRequest between(T value1,T value2) {
         req.params.addOpt(paramName + "[between]", new JSONArray().put(value1).put(value2));
+        return req;
+    }
+    
+    public ListRequest isPresent(T value) {
+        req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }
 }

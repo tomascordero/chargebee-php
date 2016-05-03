@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -340,23 +341,30 @@ public class Coupon extends Resource<Coupon> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public CouponListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
         }
 
 
-        public StringFilter<String> name() {
-            return new StringFilter<String>("name",uri,this);
+        public CouponListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
+        }
+
+
+        public EnumeratedStringFilter<String> name() {
+            return new EnumeratedStringFilter<String>("name",uri,this);
         }
 
 
         public EnumFilter<DiscountType> discountType() {
             return new EnumFilter<DiscountType>("discount_type",uri,this);
-        }
-
-
-        public NumberFilter<Double> discountPercentage() {
-            return new NumberFilter<Double>("discount_percentage",uri,this);
         }
 
 
@@ -370,22 +378,18 @@ public class Coupon extends Resource<Coupon> {
         }
 
 
+        public EnumFilter<ApplyOn> applyOn() {
+            return new EnumFilter<ApplyOn>("apply_on",uri,this);
+        }
+
+
         public TimestampFilter<Timestamp> createdAt() {
             return new TimestampFilter<Timestamp>("created_at",uri,this);
         }
 
 
-        public TimestampFilter<Timestamp> archivedAt() {
-            return new TimestampFilter<Timestamp>("archived_at",uri,this);
-        }
-
-
         public ListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
-            return this;
-        }
-        public ListRequest sortByArchivedAt(SortOrder order) {
-            params.addOpt("sort_by["+order.name().toLowerCase()+"]","archived_at");
             return this;
         }
 

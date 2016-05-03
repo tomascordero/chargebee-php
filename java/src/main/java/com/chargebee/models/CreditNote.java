@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -314,9 +315,9 @@ public class CreditNote extends Resource<CreditNote> {
         return new Request(Method.GET, uri);
     }
 
-    public static ListRequest list() throws IOException {
+    public static CreditNoteListRequest list() throws IOException {
         String uri = uri("credit_notes");
-        return new ListRequest(uri);
+        return new CreditNoteListRequest(uri);
     }
 
     public static ListRequest creditNotesForCustomer(String id) throws IOException {
@@ -324,5 +325,93 @@ public class CreditNote extends Resource<CreditNote> {
         return new ListRequest(uri);
     }
 
+
+    // Operation Request Classes
+    //==========================
+
+    public static class CreditNoteListRequest extends ListRequest<CreditNoteListRequest> {
+
+        private CreditNoteListRequest(String uri) {
+            super(uri);
+        }
+    
+        public CreditNoteListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
+        }
+
+
+        public CreditNoteListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public StringFilter<String> customerId() {
+            return new StringFilter<String>("customer_id",uri,this);
+        }
+
+
+        public StringFilter<String> subscriptionId() {
+            return new StringFilter<String>("subscription_id",uri,this);
+        }
+
+
+        public StringFilter<String> referenceInvoiceId() {
+            return new StringFilter<String>("reference_invoice_id",uri,this);
+        }
+
+
+        public EnumFilter<Type> type() {
+            return new EnumFilter<Type>("type",uri,this);
+        }
+
+
+        public EnumFilter<ReasonCode> reasonCode() {
+            return new EnumFilter<ReasonCode>("reason_code",uri,this);
+        }
+
+
+        public EnumFilter<Status> status() {
+            return new EnumFilter<Status>("status",uri,this);
+        }
+
+
+        public TimestampFilter<Timestamp> date() {
+            return new TimestampFilter<Timestamp>("date",uri,this);
+        }
+
+
+        public EnumFilter<PriceType> priceType() {
+            return new EnumFilter<PriceType>("price_type",uri,this);
+        }
+
+
+        public NumberFilter<Integer> amountAllocated() {
+            return new NumberFilter<Integer>("amount_allocated",uri,this);
+        }
+
+
+        public NumberFilter<Integer> amountRefunded() {
+            return new NumberFilter<Integer>("amount_refunded",uri,this);
+        }
+
+
+        public NumberFilter<Integer> amountAvailable() {
+            return new NumberFilter<Integer>("amount_available",uri,this);
+        }
+
+
+        public ListRequest sortByDate(SortOrder order) {
+            params.addOpt("sort_by["+order.name().toLowerCase()+"]","date");
+            return this;
+        }
+
+
+        @Override
+        public Params params() {
+            return params;
+        }
+    }
 
 }

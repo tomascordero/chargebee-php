@@ -2,6 +2,7 @@ package com.chargebee.models;
 
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -585,8 +586,20 @@ public class Customer extends Resource<Customer> {
             super(uri);
         }
     
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public CustomerListRequest limit(Integer limit) {
+            params.addOpt("limit", limit);
+            return this;
+        }
+
+
+        public CustomerListRequest offset(String offset) {
+            params.addOpt("offset", offset);
+            return this;
+        }
+
+
+        public EnumeratedStringFilter<String> id() {
+            return new EnumeratedStringFilter<String>("id",uri,this);
         }
 
 
@@ -605,8 +618,18 @@ public class Customer extends Resource<Customer> {
         }
 
 
+        public StringFilter<String> company() {
+            return new StringFilter<String>("company",uri,this);
+        }
+
+
         public EnumFilter<AutoCollection> autoCollection() {
             return new EnumFilter<AutoCollection>("auto_collection",uri,this);
+        }
+
+
+        public EnumFilter<Taxability> taxability() {
+            return new EnumFilter<Taxability>("taxability",uri,this);
         }
 
 
@@ -620,14 +643,6 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-
-        public <Status> EnumFilter paymentMethodStatus() {
-            return new EnumFilter<Status>("payment_method[status]",uri,this);
-        }
-
-        public <Type> EnumFilter paymentMethodType() {
-            return new EnumFilter<Type>("payment_method[type]",uri,this);
-        }
 
         @Override
         public Params params() {

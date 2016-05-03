@@ -3,8 +3,9 @@
  * All Rights Reserved.
  */
 
-package com.chargebee.internal;
+package com.chargebee.filter;
 
+import com.chargebee.internal.Params;
 import java.util.*;
 
 
@@ -13,6 +14,11 @@ public class RequestBase<U extends RequestBase> {
     protected String uri;
     protected Params params = new Params();   
     protected Map<String,String> headers = new HashMap();
+    
+    public enum sortOrder{
+            ASC,
+            DESC,
+    }
 
     protected Params params() {
         return params;
