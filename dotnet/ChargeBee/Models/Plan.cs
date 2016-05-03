@@ -28,10 +28,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("plans", CheckNull(id));
             return new UpdateRequest(url, HttpMethod.POST);
         }
-        public static ListRequest List()
+        public static PlanListRequest List()
         {
             string url = ApiUtil.BuildUrl("plans");
-            return new ListRequest(url);
+            return new PlanListRequest(url);
         }
         public static EntityRequest<Type> Retrieve(string id)
         {
@@ -122,6 +122,10 @@ namespace ChargeBee.Models
         public bool EnabledInPortal 
         {
             get { return GetValue<bool>("enabled_in_portal", true); }
+        }
+        public string TaxCode 
+        {
+            get { return GetValue<string>("tax_code", false); }
         }
         public string InvoiceNotes 
         {
@@ -237,6 +241,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("taxable", taxable);
                 return this;
             }
+            public CreateRequest TaxCode(string taxCode) 
+            {
+                m_params.AddOpt("tax_code", taxCode);
+                return this;
+            }
             public CreateRequest InvoiceNotes(string invoiceNotes) 
             {
                 m_params.AddOpt("invoice_notes", invoiceNotes);
@@ -346,6 +355,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("taxable", taxable);
                 return this;
             }
+            public UpdateRequest TaxCode(string taxCode) 
+            {
+                m_params.AddOpt("tax_code", taxCode);
+                return this;
+            }
             public UpdateRequest InvoiceNotes(string invoiceNotes) 
             {
                 m_params.AddOpt("invoice_notes", invoiceNotes);
@@ -354,6 +368,74 @@ namespace ChargeBee.Models
             public UpdateRequest MetaData(JToken metaData) 
             {
                 m_params.AddOpt("meta_data", metaData);
+                return this;
+            }
+        }
+        public class PlanListRequest : ListRequest 
+        {
+            public PlanListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public PlanListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public PlanListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public PlanListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public PlanListRequest Name(string name) 
+            {
+                m_params.AddOpt("name", name);
+                return this;
+            }
+            public PlanListRequest Price(int price) 
+            {
+                m_params.AddOpt("price", price);
+                return this;
+            }
+            public PlanListRequest Period(int period) 
+            {
+                m_params.AddOpt("period", period);
+                return this;
+            }
+            public PlanListRequest PeriodUnit(PeriodUnitEnum periodUnit) 
+            {
+                m_params.AddOpt("period_unit", periodUnit);
+                return this;
+            }
+            public PlanListRequest TrialPeriod(int trialPeriod) 
+            {
+                m_params.AddOpt("trial_period", trialPeriod);
+                return this;
+            }
+            public PlanListRequest TrialPeriodUnit(TrialPeriodUnitEnum trialPeriodUnit) 
+            {
+                m_params.AddOpt("trial_period_unit", trialPeriodUnit);
+                return this;
+            }
+            public PlanListRequest ChargeModel(ChargeModelEnum chargeModel) 
+            {
+                m_params.AddOpt("charge_model", chargeModel);
+                return this;
+            }
+            public PlanListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public PlanListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
         }

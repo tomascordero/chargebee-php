@@ -23,10 +23,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers");
             return new CreateRequest(url, HttpMethod.POST);
         }
-        public static ListRequest List()
+        public static CustomerListRequest List()
         {
             string url = ApiUtil.BuildUrl("customers");
-            return new ListRequest(url);
+            return new CustomerListRequest(url);
         }
         public static EntityRequest<Type> Retrieve(string id)
         {
@@ -134,6 +134,14 @@ namespace ChargeBee.Models
         {
             get { return GetEnum<TaxabilityEnum>("taxability", false); }
         }
+        public EntityCodeEnum? EntityCode 
+        {
+            get { return GetEnum<EntityCodeEnum>("entity_code", false); }
+        }
+        public string ExemptNumber 
+        {
+            get { return GetValue<string>("exempt_number", false); }
+        }
         [Obsolete]
         public CardStatusEnum? CardStatus 
         {
@@ -230,6 +238,16 @@ namespace ChargeBee.Models
             public CreateRequest Taxability(TaxabilityEnum taxability) 
             {
                 m_params.AddOpt("taxability", taxability);
+                return this;
+            }
+            public CreateRequest EntityCode(EntityCodeEnum entityCode) 
+            {
+                m_params.AddOpt("entity_code", entityCode);
+                return this;
+            }
+            public CreateRequest ExemptNumber(string exemptNumber) 
+            {
+                m_params.AddOpt("exempt_number", exemptNumber);
                 return this;
             }
             public CreateRequest MetaData(JToken metaData) 
@@ -408,6 +426,69 @@ namespace ChargeBee.Models
                 return this;
             }
         }
+        public class CustomerListRequest : ListRequest 
+        {
+            public CustomerListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public CustomerListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public CustomerListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public CustomerListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public CustomerListRequest FirstName(string firstName) 
+            {
+                m_params.AddOpt("first_name", firstName);
+                return this;
+            }
+            public CustomerListRequest LastName(string lastName) 
+            {
+                m_params.AddOpt("last_name", lastName);
+                return this;
+            }
+            public CustomerListRequest Email(string email) 
+            {
+                m_params.AddOpt("email", email);
+                return this;
+            }
+            public CustomerListRequest Company(string company) 
+            {
+                m_params.AddOpt("company", company);
+                return this;
+            }
+            public CustomerListRequest AutoCollection(AutoCollectionEnum autoCollection) 
+            {
+                m_params.AddOpt("auto_collection", autoCollection);
+                return this;
+            }
+            public CustomerListRequest Taxability(TaxabilityEnum taxability) 
+            {
+                m_params.AddOpt("taxability", taxability);
+                return this;
+            }
+            public CustomerListRequest CreatedAt(long createdAt) 
+            {
+                m_params.AddOpt("created_at", createdAt);
+                return this;
+            }
+            public CustomerListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
+                return this;
+            }
+        }
         public class UpdateRequest : EntityRequest<UpdateRequest> 
         {
             public UpdateRequest(string url, HttpMethod method) 
@@ -453,6 +534,16 @@ namespace ChargeBee.Models
             public UpdateRequest Taxability(TaxabilityEnum taxability) 
             {
                 m_params.AddOpt("taxability", taxability);
+                return this;
+            }
+            public UpdateRequest EntityCode(EntityCodeEnum entityCode) 
+            {
+                m_params.AddOpt("entity_code", entityCode);
+                return this;
+            }
+            public UpdateRequest ExemptNumber(string exemptNumber) 
+            {
+                m_params.AddOpt("exempt_number", exemptNumber);
                 return this;
             }
             public UpdateRequest InvoiceNotes(string invoiceNotes) 

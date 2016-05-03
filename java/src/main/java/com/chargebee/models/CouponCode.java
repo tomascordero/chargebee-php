@@ -12,6 +12,14 @@ import java.util.*;
 
 public class CouponCode extends Resource<CouponCode> {
 
+    public enum Status {
+        NOT_REDEEMED,
+        REDEEMED,
+        ARCHIVED,
+        _UNKNOWN; /*Indicates unexpected value for this enum. You can get this when there is a
+        java-client version incompatibility. We suggest you to upgrade to the latest version */
+    }
+
     //Constructors
     //============
 
@@ -28,6 +36,10 @@ public class CouponCode extends Resource<CouponCode> {
 
     public String code() {
         return reqString("code");
+    }
+
+    public Status status() {
+        return reqEnum("status", Status.class);
     }
 
     public String couponId() {
@@ -49,6 +61,11 @@ public class CouponCode extends Resource<CouponCode> {
     public static Request retrieve(String id) throws IOException {
         String uri = uri("coupon_codes", nullCheck(id));
         return new Request(Method.GET, uri);
+    }
+
+    public static Request archive(String id) throws IOException {
+        String uri = uri("coupon_codes", nullCheck(id), "archive");
+        return new Request(Method.POST, uri);
     }
 
 

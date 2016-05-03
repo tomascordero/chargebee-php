@@ -448,9 +448,79 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public InvoiceListRequest PaidOnAfter(long paidOnAfter) 
+            public InvoiceListRequest Id(string id) 
             {
-                m_params.AddOpt("paid_on_after", paidOnAfter);
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public InvoiceListRequest SubscriptionId(string subscriptionId) 
+            {
+                m_params.AddOpt("subscription_id", subscriptionId);
+                return this;
+            }
+            public InvoiceListRequest CustomerId(string customerId) 
+            {
+                m_params.AddOpt("customer_id", customerId);
+                return this;
+            }
+            public InvoiceListRequest Recurring(bool recurring) 
+            {
+                m_params.AddOpt("recurring", recurring);
+                return this;
+            }
+            public InvoiceListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public InvoiceListRequest PriceType(PriceTypeEnum priceType) 
+            {
+                m_params.AddOpt("price_type", priceType);
+                return this;
+            }
+            public InvoiceListRequest Date(long date) 
+            {
+                m_params.AddOpt("date", date);
+                return this;
+            }
+            public InvoiceListRequest Total(int total) 
+            {
+                m_params.AddOpt("total", total);
+                return this;
+            }
+            public InvoiceListRequest AmountPaid(int amountPaid) 
+            {
+                m_params.AddOpt("amount_paid", amountPaid);
+                return this;
+            }
+            public InvoiceListRequest AmountAdjusted(int amountAdjusted) 
+            {
+                m_params.AddOpt("amount_adjusted", amountAdjusted);
+                return this;
+            }
+            public InvoiceListRequest CreditsApplied(int creditsApplied) 
+            {
+                m_params.AddOpt("credits_applied", creditsApplied);
+                return this;
+            }
+            public InvoiceListRequest AmountDue(int amountDue) 
+            {
+                m_params.AddOpt("amount_due", amountDue);
+                return this;
+            }
+            public InvoiceListRequest DunningStatus(DunningStatusEnum dunningStatus) 
+            {
+                m_params.AddOpt("dunning_status", dunningStatus);
+                return this;
+            }
+            public InvoiceListRequest FirstInvoice(bool firstInvoice) 
+            {
+                m_params.AddOpt("first_invoice", firstInvoice);
+                return this;
+            }
+            public InvoiceListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
         }

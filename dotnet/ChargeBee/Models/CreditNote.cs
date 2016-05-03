@@ -23,10 +23,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("credit_notes", CheckNull(id));
             return new EntityRequest<Type>(url, HttpMethod.GET);
         }
-        public static ListRequest List()
+        public static CreditNoteListRequest List()
         {
             string url = ApiUtil.BuildUrl("credit_notes");
-            return new ListRequest(url);
+            return new CreditNoteListRequest(url);
         }
         public static ListRequest CreditNotesForCustomer(string id)
         {
@@ -123,6 +123,86 @@ namespace ChargeBee.Models
         
         #endregion
         
+        #region Requests
+        public class CreditNoteListRequest : ListRequest 
+        {
+            public CreditNoteListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public CreditNoteListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public CreditNoteListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public CreditNoteListRequest CustomerId(string customerId) 
+            {
+                m_params.AddOpt("customer_id", customerId);
+                return this;
+            }
+            public CreditNoteListRequest SubscriptionId(string subscriptionId) 
+            {
+                m_params.AddOpt("subscription_id", subscriptionId);
+                return this;
+            }
+            public CreditNoteListRequest ReferenceInvoiceId(string referenceInvoiceId) 
+            {
+                m_params.AddOpt("reference_invoice_id", referenceInvoiceId);
+                return this;
+            }
+            public CreditNoteListRequest Type(TypeEnum type) 
+            {
+                m_params.AddOpt("type", type);
+                return this;
+            }
+            public CreditNoteListRequest ReasonCode(ReasonCodeEnum reasonCode) 
+            {
+                m_params.AddOpt("reason_code", reasonCode);
+                return this;
+            }
+            public CreditNoteListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public CreditNoteListRequest Date(long date) 
+            {
+                m_params.AddOpt("date", date);
+                return this;
+            }
+            public CreditNoteListRequest PriceType(PriceTypeEnum priceType) 
+            {
+                m_params.AddOpt("price_type", priceType);
+                return this;
+            }
+            public CreditNoteListRequest AmountAllocated(int amountAllocated) 
+            {
+                m_params.AddOpt("amount_allocated", amountAllocated);
+                return this;
+            }
+            public CreditNoteListRequest AmountRefunded(int amountRefunded) 
+            {
+                m_params.AddOpt("amount_refunded", amountRefunded);
+                return this;
+            }
+            public CreditNoteListRequest AmountAvailable(int amountAvailable) 
+            {
+                m_params.AddOpt("amount_available", amountAvailable);
+                return this;
+            }
+            public CreditNoteListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
+                return this;
+            }
+        }
+        #endregion
 
         public enum TypeEnum
         {

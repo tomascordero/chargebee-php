@@ -33,10 +33,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("orders", CheckNull(id));
             return new EntityRequest<Type>(url, HttpMethod.GET);
         }
-        public static ListRequest List()
+        public static OrderListRequest List()
         {
             string url = ApiUtil.BuildUrl("orders");
-            return new ListRequest(url);
+            return new OrderListRequest(url);
         }
         public static ListRequest OrdersForInvoice(string id)
         {
@@ -177,6 +177,49 @@ namespace ChargeBee.Models
             public UpdateRequest BatchId(string batchId) 
             {
                 m_params.AddOpt("batch_id", batchId);
+                return this;
+            }
+        }
+        public class OrderListRequest : ListRequest 
+        {
+            public OrderListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public OrderListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public OrderListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public OrderListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public OrderListRequest InvoiceId(string invoiceId) 
+            {
+                m_params.AddOpt("invoice_id", invoiceId);
+                return this;
+            }
+            public OrderListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public OrderListRequest CreatedAt(long createdAt) 
+            {
+                m_params.AddOpt("created_at", createdAt);
+                return this;
+            }
+            public OrderListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
         }

@@ -28,10 +28,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
             return new CreateForCustomerRequest(url, HttpMethod.POST);
         }
-        public static ListRequest List()
+        public static SubscriptionListRequest List()
         {
             string url = ApiUtil.BuildUrl("subscriptions");
-            return new ListRequest(url);
+            return new SubscriptionListRequest(url);
         }
         public static ListRequest SubscriptionsForCustomer(string id)
         {
@@ -308,6 +308,16 @@ namespace ChargeBee.Models
             public CreateRequest CustomerTaxability(TaxabilityEnum customerTaxability) 
             {
                 m_params.AddOpt("customer[taxability]", customerTaxability);
+                return this;
+            }
+            public CreateRequest CustomerEntityCode(EntityCodeEnum customerEntityCode) 
+            {
+                m_params.AddOpt("customer[entity_code]", customerEntityCode);
+                return this;
+            }
+            public CreateRequest CustomerExemptNumber(string customerExemptNumber) 
+            {
+                m_params.AddOpt("customer[exempt_number]", customerExemptNumber);
                 return this;
             }
             public CreateRequest CustomerPhone(string customerPhone) 
@@ -696,6 +706,64 @@ namespace ChargeBee.Models
             public CreateForCustomerRequest AddonQuantity(int index, int addonQuantity) 
             {
                 m_params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+                return this;
+            }
+        }
+        public class SubscriptionListRequest : ListRequest 
+        {
+            public SubscriptionListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public SubscriptionListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public SubscriptionListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public SubscriptionListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public SubscriptionListRequest PlanId(string planId) 
+            {
+                m_params.AddOpt("plan_id", planId);
+                return this;
+            }
+            public SubscriptionListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public SubscriptionListRequest CancelReason(CancelReasonEnum cancelReason) 
+            {
+                m_params.AddOpt("cancel_reason", cancelReason);
+                return this;
+            }
+            public SubscriptionListRequest CreatedAt(long createdAt) 
+            {
+                m_params.AddOpt("created_at", createdAt);
+                return this;
+            }
+            public SubscriptionListRequest HasScheduledChanges(bool hasScheduledChanges) 
+            {
+                m_params.AddOpt("has_scheduled_changes", hasScheduledChanges);
+                return this;
+            }
+            public SubscriptionListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
+                return this;
+            }
+            public SubscriptionListRequest CustomerEmail(string customerEmail) 
+            {
+                m_params.AddOpt("customer[email]", customerEmail);
                 return this;
             }
         }
@@ -1138,6 +1206,8 @@ namespace ChargeBee.Models
             FraudReviewFailed,
             [Description("non_compliant_eu_customer")]
             NonCompliantEuCustomer,
+            [Description("tax_calculation_failed")]
+            TaxCalculationFailed,
 
         }
 

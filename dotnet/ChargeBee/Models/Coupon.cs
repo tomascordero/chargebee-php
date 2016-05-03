@@ -23,10 +23,10 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("coupons");
             return new CreateRequest(url, HttpMethod.POST);
         }
-        public static ListRequest List()
+        public static CouponListRequest List()
         {
             string url = ApiUtil.BuildUrl("coupons");
-            return new ListRequest(url);
+            return new CouponListRequest(url);
         }
         public static EntityRequest<Type> Retrieve(string id)
         {
@@ -230,6 +230,64 @@ namespace ChargeBee.Models
             public CreateRequest MetaData(JToken metaData) 
             {
                 m_params.AddOpt("meta_data", metaData);
+                return this;
+            }
+        }
+        public class CouponListRequest : ListRequest 
+        {
+            public CouponListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public CouponListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public CouponListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public CouponListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public CouponListRequest Name(string name) 
+            {
+                m_params.AddOpt("name", name);
+                return this;
+            }
+            public CouponListRequest DiscountType(DiscountTypeEnum discountType) 
+            {
+                m_params.AddOpt("discount_type", discountType);
+                return this;
+            }
+            public CouponListRequest DurationType(DurationTypeEnum durationType) 
+            {
+                m_params.AddOpt("duration_type", durationType);
+                return this;
+            }
+            public CouponListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public CouponListRequest ApplyOn(ApplyOnEnum applyOn) 
+            {
+                m_params.AddOpt("apply_on", applyOn);
+                return this;
+            }
+            public CouponListRequest CreatedAt(long createdAt) 
+            {
+                m_params.AddOpt("created_at", createdAt);
+                return this;
+            }
+            public CouponListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
         }

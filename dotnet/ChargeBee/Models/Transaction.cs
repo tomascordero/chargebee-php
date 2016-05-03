@@ -18,10 +18,10 @@ namespace ChargeBee.Models
     
 
         #region Methods
-        public static ListRequest List()
+        public static TransactionListRequest List()
         {
             string url = ApiUtil.BuildUrl("transactions");
-            return new ListRequest(url);
+            return new TransactionListRequest(url);
         }
         public static ListRequest TransactionsForCustomer(string id)
         {
@@ -141,6 +141,81 @@ namespace ChargeBee.Models
         
         #endregion
         
+        #region Requests
+        public class TransactionListRequest : ListRequest 
+        {
+            public TransactionListRequest(string url) 
+                    : base(url)
+            {
+            }
+
+            public TransactionListRequest Limit(int limit) 
+            {
+                m_params.AddOpt("limit", limit);
+                return this;
+            }
+            public TransactionListRequest Offset(string offset) 
+            {
+                m_params.AddOpt("offset", offset);
+                return this;
+            }
+            public TransactionListRequest Id(string id) 
+            {
+                m_params.AddOpt("id", id);
+                return this;
+            }
+            public TransactionListRequest CustomerId(string customerId) 
+            {
+                m_params.AddOpt("customer_id", customerId);
+                return this;
+            }
+            public TransactionListRequest SubscriptionId(string subscriptionId) 
+            {
+                m_params.AddOpt("subscription_id", subscriptionId);
+                return this;
+            }
+            public TransactionListRequest PaymentMethod(PaymentMethodEnum paymentMethod) 
+            {
+                m_params.AddOpt("payment_method", paymentMethod);
+                return this;
+            }
+            public TransactionListRequest Gateway(GatewayEnum gateway) 
+            {
+                m_params.AddOpt("gateway", gateway);
+                return this;
+            }
+            public TransactionListRequest ReferenceNumber(string referenceNumber) 
+            {
+                m_params.AddOpt("reference_number", referenceNumber);
+                return this;
+            }
+            public TransactionListRequest Type(TypeEnum type) 
+            {
+                m_params.AddOpt("type", type);
+                return this;
+            }
+            public TransactionListRequest Date(long date) 
+            {
+                m_params.AddOpt("date", date);
+                return this;
+            }
+            public TransactionListRequest Amount(int amount) 
+            {
+                m_params.AddOpt("amount", amount);
+                return this;
+            }
+            public TransactionListRequest Status(StatusEnum status) 
+            {
+                m_params.AddOpt("status", status);
+                return this;
+            }
+            public TransactionListRequest SortBy(string sortBy) 
+            {
+                m_params.AddOpt("sort_by", sortBy);
+                return this;
+            }
+        }
+        #endregion
 
         public enum TypeEnum
         {

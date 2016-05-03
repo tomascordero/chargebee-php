@@ -221,6 +221,14 @@ public class Customer extends Resource<Customer> {
         return optEnum("taxability", Taxability.class);
     }
 
+    public EntityCode entityCode() {
+        return optEnum("entity_code", EntityCode.class);
+    }
+
+    public String exemptNumber() {
+        return optString("exempt_number");
+    }
+
     @Deprecated
     public CardStatus cardStatus() {
         return optEnum("card_status", CardStatus.class);
@@ -396,10 +404,24 @@ public class Customer extends Resource<Customer> {
         }
 
 
+        public CreateRequest entityCode(EntityCode entityCode) {
+            params.addOpt("entity_code", entityCode);
+            return this;
+        }
+
+
+        public CreateRequest exemptNumber(String exemptNumber) {
+            params.addOpt("exempt_number", exemptNumber);
+            return this;
+        }
+
+
         public CreateRequest metaData(JSONObject metaData) {
             params.addOpt("meta_data", metaData);
             return this;
         }
+
+
 
 
         public CreateRequest createdFromIp(String createdFromIp) {
@@ -700,6 +722,18 @@ public class Customer extends Resource<Customer> {
 
         public UpdateRequest taxability(Taxability taxability) {
             params.addOpt("taxability", taxability);
+            return this;
+        }
+
+
+        public UpdateRequest entityCode(EntityCode entityCode) {
+            params.addOpt("entity_code", entityCode);
+            return this;
+        }
+
+
+        public UpdateRequest exemptNumber(String exemptNumber) {
+            params.addOpt("exempt_number", exemptNumber);
             return this;
         }
 
