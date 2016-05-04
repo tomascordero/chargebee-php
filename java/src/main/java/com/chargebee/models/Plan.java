@@ -477,48 +477,48 @@ public class Plan extends Resource<Plan> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,PlanListRequest> id() {
+            return new EnumeratedStringFilter<String,PlanListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> name() {
-            return new EnumeratedStringFilter<String>("name",uri,this);
+        public EnumeratedStringFilter<String,PlanListRequest> name() {
+            return new EnumeratedStringFilter<String,PlanListRequest>("name",this);
         }
 
 
-        public NumberFilter<Integer> price() {
-            return new NumberFilter<Integer>("price",uri,this);
+        public NumberFilter<Integer,PlanListRequest> price() {
+            return new NumberFilter<Integer,PlanListRequest>("price",this);
         }
 
 
-        public NumberFilter<Integer> period() {
-            return new NumberFilter<Integer>("period",uri,this);
+        public NumberFilter<Integer,PlanListRequest> period() {
+            return new NumberFilter<Integer,PlanListRequest>("period",this);
         }
 
 
-        public EnumFilter<PeriodUnit> periodUnit() {
-            return new EnumFilter<PeriodUnit>("period_unit",uri,this);
+        public EnumFilter<PeriodUnit,PlanListRequest> periodUnit() {
+            return new EnumFilter<PeriodUnit,PlanListRequest>("period_unit",this);
         }
 
 
-        public NumberFilter<Integer> trialPeriod() {
-            return new NumberFilter<Integer>("trial_period",uri,this);
+        public NumberFilter<Integer,PlanListRequest> trialPeriod() {
+            return new NumberFilter<Integer,PlanListRequest>("trial_period",this);
         }
 
 
-        public EnumFilter<TrialPeriodUnit> trialPeriodUnit() {
-            return new EnumFilter<TrialPeriodUnit>("trial_period_unit",uri,this);
+        public EnumFilter<TrialPeriodUnit,PlanListRequest> trialPeriodUnit() {
+            return new EnumFilter<TrialPeriodUnit,PlanListRequest>("trial_period_unit",this);
         }
 
 
-        public EnumFilter<ChargeModel> chargeModel() {
-            return new EnumFilter<ChargeModel>("charge_model",uri,this);
+        public EnumFilter<ChargeModel,PlanListRequest> chargeModel() {
+            return new EnumFilter<ChargeModel,PlanListRequest>("charge_model",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,PlanListRequest> status() {
+            return new EnumFilter<Status,PlanListRequest>("status",this);
         }
 
 

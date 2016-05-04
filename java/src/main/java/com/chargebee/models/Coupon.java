@@ -353,38 +353,38 @@ public class Coupon extends Resource<Coupon> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,CouponListRequest> id() {
+            return new EnumeratedStringFilter<String,CouponListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> name() {
-            return new EnumeratedStringFilter<String>("name",uri,this);
+        public EnumeratedStringFilter<String,CouponListRequest> name() {
+            return new EnumeratedStringFilter<String,CouponListRequest>("name",this);
         }
 
 
-        public EnumFilter<DiscountType> discountType() {
-            return new EnumFilter<DiscountType>("discount_type",uri,this);
+        public EnumFilter<DiscountType,CouponListRequest> discountType() {
+            return new EnumFilter<DiscountType,CouponListRequest>("discount_type",this);
         }
 
 
-        public EnumFilter<DurationType> durationType() {
-            return new EnumFilter<DurationType>("duration_type",uri,this);
+        public EnumFilter<DurationType,CouponListRequest> durationType() {
+            return new EnumFilter<DurationType,CouponListRequest>("duration_type",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,CouponListRequest> status() {
+            return new EnumFilter<Status,CouponListRequest>("status",this);
         }
 
 
-        public EnumFilter<ApplyOn> applyOn() {
-            return new EnumFilter<ApplyOn>("apply_on",uri,this);
+        public EnumFilter<ApplyOn,CouponListRequest> applyOn() {
+            return new EnumFilter<ApplyOn,CouponListRequest>("apply_on",this);
         }
 
 
-        public TimestampFilter<Timestamp> createdAt() {
-            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        public TimestampFilter<Timestamp,CouponListRequest> createdAt() {
+            return new TimestampFilter<Timestamp,CouponListRequest>("created_at",this);
         }
 
 

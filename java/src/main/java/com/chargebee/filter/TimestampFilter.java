@@ -5,47 +5,45 @@
  */
 package com.chargebee.filter;
 
-import com.chargebee.internal.HttpUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.json.JSONArray;
 
 /**
  *
  * @author sangeetha
+ * @param <T>
+ * @param <U>
  */
-public class TimestampFilter<T> extends ListRequest {
+public class TimestampFilter<T,U extends ListRequest> {
 
-    ListRequest req;
+    U req;
     String paramName;
 
-    public TimestampFilter(String paramName, String uri, ListRequest req) {
-        super(uri);
+    public TimestampFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public ListRequest before(T value) {
+    public U before(T value) {
         req.params.addOpt(paramName + "[before]",value);
         return req;
     }
 
-    public ListRequest after(T value) {
+    public U after(T value) {
         req.params.addOpt(paramName + "[after]",value);
         return req;
     }
     
-    public ListRequest on(T value) {
+    public U on(T value) {
         req.params.addOpt(paramName + "[on]",value);
         return req;
     }
 
-    public ListRequest between(T value1,T value2) {
+    public U between(T value1,T value2) {
         req.params.addOpt(paramName + "[between]", new JSONArray().put(value1).put(value2));
         return req;
     }
     
-    public ListRequest isPresent(T value) {
+    public U isPresent(T value) {
         req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }

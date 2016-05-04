@@ -281,53 +281,53 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,TransactionListRequest> id() {
+            return new EnumeratedStringFilter<String,TransactionListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> customerId() {
-            return new EnumeratedStringFilter<String>("customer_id",uri,this);
+        public EnumeratedStringFilter<String,TransactionListRequest> customerId() {
+            return new EnumeratedStringFilter<String,TransactionListRequest>("customer_id",this);
         }
 
 
-        public EnumeratedStringFilter<String> subscriptionId() {
-            return new EnumeratedStringFilter<String>("subscription_id",uri,this);
+        public EnumeratedStringFilter<String,TransactionListRequest> subscriptionId() {
+            return new EnumeratedStringFilter<String,TransactionListRequest>("subscription_id",this);
         }
 
 
-        public EnumFilter<PaymentMethod> paymentMethod() {
-            return new EnumFilter<PaymentMethod>("payment_method",uri,this);
+        public EnumFilter<PaymentMethod,TransactionListRequest> paymentMethod() {
+            return new EnumFilter<PaymentMethod,TransactionListRequest>("payment_method",this);
         }
 
 
-        public EnumFilter<Gateway> gateway() {
-            return new EnumFilter<Gateway>("gateway",uri,this);
+        public EnumFilter<Gateway,TransactionListRequest> gateway() {
+            return new EnumFilter<Gateway,TransactionListRequest>("gateway",this);
         }
 
 
-        public StringFilter<String> referenceNumber() {
-            return new StringFilter<String>("reference_number",uri,this);
+        public StringFilter<String,TransactionListRequest> referenceNumber() {
+            return new StringFilter<String,TransactionListRequest>("reference_number",this);
         }
 
 
-        public EnumFilter<Type> type() {
-            return new EnumFilter<Type>("type",uri,this);
+        public EnumFilter<Type,TransactionListRequest> type() {
+            return new EnumFilter<Type,TransactionListRequest>("type",this);
         }
 
 
-        public TimestampFilter<Timestamp> date() {
-            return new TimestampFilter<Timestamp>("date",uri,this);
+        public TimestampFilter<Timestamp,TransactionListRequest> date() {
+            return new TimestampFilter<Timestamp,TransactionListRequest>("date",this);
         }
 
 
-        public NumberFilter<Integer> amount() {
-            return new NumberFilter<Integer>("amount",uri,this);
+        public NumberFilter<Integer,TransactionListRequest> amount() {
+            return new NumberFilter<Integer,TransactionListRequest>("amount",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,TransactionListRequest> status() {
+            return new EnumFilter<Status,TransactionListRequest>("status",this);
         }
 
 

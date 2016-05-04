@@ -238,23 +238,23 @@ public class Order extends Resource<Order> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,OrderListRequest> id() {
+            return new EnumeratedStringFilter<String,OrderListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> invoiceId() {
-            return new EnumeratedStringFilter<String>("invoice_id",uri,this);
+        public EnumeratedStringFilter<String,OrderListRequest> invoiceId() {
+            return new EnumeratedStringFilter<String,OrderListRequest>("invoice_id",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,OrderListRequest> status() {
+            return new EnumFilter<Status,OrderListRequest>("status",this);
         }
 
 
-        public TimestampFilter<Timestamp> createdAt() {
-            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        public TimestampFilter<Timestamp,OrderListRequest> createdAt() {
+            return new TimestampFilter<Timestamp,OrderListRequest>("created_at",this);
         }
 
 

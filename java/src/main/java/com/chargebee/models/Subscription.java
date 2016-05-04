@@ -886,33 +886,33 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,SubscriptionListRequest> id() {
+            return new EnumeratedStringFilter<String,SubscriptionListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> planId() {
-            return new EnumeratedStringFilter<String>("plan_id",uri,this);
+        public EnumeratedStringFilter<String,SubscriptionListRequest> planId() {
+            return new EnumeratedStringFilter<String,SubscriptionListRequest>("plan_id",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,SubscriptionListRequest> status() {
+            return new EnumFilter<Status,SubscriptionListRequest>("status",this);
         }
 
 
-        public EnumFilter<CancelReason> cancelReason() {
-            return new EnumFilter<CancelReason>("cancel_reason",uri,this);
+        public EnumFilter<CancelReason,SubscriptionListRequest> cancelReason() {
+            return new EnumFilter<CancelReason,SubscriptionListRequest>("cancel_reason",this);
         }
 
 
-        public TimestampFilter<Timestamp> createdAt() {
-            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        public TimestampFilter<Timestamp,SubscriptionListRequest> createdAt() {
+            return new TimestampFilter<Timestamp,SubscriptionListRequest>("created_at",this);
         }
 
 
-        public BooleanFilter<Boolean> hasScheduledChanges() {
-            return new BooleanFilter<Boolean>("has_scheduled_changes",uri,this);
+        public BooleanFilter<Boolean,SubscriptionListRequest> hasScheduledChanges() {
+            return new BooleanFilter<Boolean,SubscriptionListRequest>("has_scheduled_changes",this);
         }
 
 
@@ -921,10 +921,6 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
-
-        public <String> StringFilter customerEmail() {
-            return new StringFilter<String>("customer[email]",uri,this);
-        }
 
         @Override
         public Params params() {

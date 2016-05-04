@@ -5,62 +5,60 @@
  */
 package com.chargebee.filter;
 
-import com.chargebee.internal.HttpUtil;
 import org.json.JSONArray;
 
 /**
  *
  * @author sangeetha
  * @param <T>
+ * @param <U>
  */
-public class NumberFilter<T> extends ListRequest {
+public class NumberFilter<T,U extends ListRequest> {
 
-    ListRequest req;
-    String uri;
+    U req;
     String paramName;
 
-    public NumberFilter(String paramName, String uri,ListRequest req) {
-        super(uri);
+    public NumberFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public ListRequest greaterThan(T value) {
+    public U greaterThan(T value) {
         req.params.addOpt(paramName+"[gt]" , value);
         return req;
     }
     
-    public ListRequest lessThan(T value) {
+    public U lessThan(T value) {
         req.params.addOpt(paramName+"[lt]" , value);
         return req;
     }
     
-    public ListRequest greaterThanOrEquals(T value) {
+    public U greaterThanOrEquals(T value) {
         req.params.addOpt(paramName+"[gte]" , value);
         return req;
     }
     
-    public ListRequest lessThanOrEquals(T value) {
+    public U lessThanOrEquals(T value) {
         req.params.addOpt(paramName+"[lte]" , value);
         return req;
     }
     
-    public ListRequest between(T val1, T val2){
+    public U between(T val1, T val2){
         req.params.addOpt(paramName+"[between]" , new JSONArray().put(val1).put(val2));
         return req;
     }
     
-    public ListRequest is(T value) {
+    public U is(T value) {
         req.params.addOpt(paramName+"[is]" , value);
         return req;
     }
     
-    public ListRequest isNot(T value) {
+    public U isNot(T value) {
         req.params.addOpt(paramName+"[is_not]" , value);
         return req;
     }
     
-    public ListRequest isPresent(T value) {
+    public U isPresent(T value) {
         req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }

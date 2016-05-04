@@ -142,8 +142,8 @@ public class Comment extends Resource<Comment> {
         }
 
 
-        public EnumFilter<EntityType> entityType() {
-            return new EnumFilter<EntityType>("entity_type",uri,this);
+        public EnumFilter<EntityType,CommentListRequest> entityType() {
+            return new EnumFilter<EntityType,CommentListRequest>("entity_type",this);
         }
 
 
@@ -153,13 +153,13 @@ public class Comment extends Resource<Comment> {
         }
 
 
-        public StringFilter<String> id() {
-            return new StringFilter<String>("id",uri,this);
+        public StringFilter<String,CommentListRequest> id() {
+            return new StringFilter<String,CommentListRequest>("id",this);
         }
 
 
-        public TimestampFilter<Timestamp> createdAt() {
-            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        public TimestampFilter<Timestamp,CommentListRequest> createdAt() {
+            return new TimestampFilter<Timestamp,CommentListRequest>("created_at",this);
         }
 
 

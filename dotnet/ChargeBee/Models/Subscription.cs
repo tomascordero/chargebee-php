@@ -761,11 +761,6 @@ namespace ChargeBee.Models
                 m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
-            public SubscriptionListRequest CustomerEmail(string customerEmail) 
-            {
-                m_params.AddOpt("customer[email]", customerEmail);
-                return this;
-            }
         }
         public class RemoveScheduledCancellationRequest : EntityRequest<RemoveScheduledCancellationRequest> 
         {

@@ -155,18 +155,18 @@ public class Event extends Resource<Event> {
         }
 
 
-        public TimestampFilter<Timestamp> occurredAt() {
-            return new TimestampFilter<Timestamp>("occurred_at",uri,this);
+        public TimestampFilter<Timestamp,EventListRequest> occurredAt() {
+            return new TimestampFilter<Timestamp,EventListRequest>("occurred_at",this);
         }
 
 
-        public EnumFilter<Source> source() {
-            return new EnumFilter<Source>("source",uri,this);
+        public EnumFilter<Source,EventListRequest> source() {
+            return new EnumFilter<Source,EventListRequest>("source",this);
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,EventListRequest> id() {
+            return new EnumeratedStringFilter<String,EventListRequest>("id",this);
         }
 
 

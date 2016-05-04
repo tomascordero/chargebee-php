@@ -5,31 +5,29 @@
  */
 package com.chargebee.filter;
 
-import com.chargebee.internal.HttpUtil;
-
 /**
  *
  * @author sangeetha
  * @param <T>
+ * @param <U>
  */
-public class BooleanFilter<T> extends ListRequest {
+public class BooleanFilter<T,U extends ListRequest> {
 
-    ListRequest req;
+    U req;
     String paramName;
 
-    public BooleanFilter(String paramName, String uri, ListRequest req) {
-        super(uri);
+    public BooleanFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public ListRequest is(T value) {
+    public U is(T value) {
         req.params.addOpt(paramName + "[is]", value);
-        return (ListRequest) req;
+        return req;
     }
     
-    public ListRequest isPresent(T value) {
+    public U isPresent(T value) {
         req.params.addOpt(paramName + "[is_present]", value);
-        return (ListRequest) req;
+        return req;
     }
 }

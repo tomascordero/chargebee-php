@@ -5,7 +5,6 @@
  */
 package com.chargebee.filter;
 
-import com.chargebee.internal.HttpUtil;
 import java.util.Arrays;
 import org.json.JSONArray;
 
@@ -13,39 +12,39 @@ import org.json.JSONArray;
  *
  * @author sangeetha
  * @param <T>
+ * @param <U>
  */
-public class EnumFilter<T> extends ListRequest {
+public class EnumFilter<T,U extends ListRequest> {
 
-    ListRequest req;
+    U req;
     String paramName;
 
-    public EnumFilter(String paramName, String uri, ListRequest req) {
-        super(uri);
+    public EnumFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public ListRequest is(T value) {
+    public U is(T value) {
         req.params.addOpt(paramName + "[is]",value);
         return req;
     }
     
-    public ListRequest isNot(T value) {
+    public U isNot(T value) {
         req.params.addOpt(paramName + "[is_not]",value);
         return req;
     }
      
-    public ListRequest in(T... value) {
+    public U in(T... value) {
         req.params.addOpt(paramName + "[in]",new JSONArray(Arrays.asList(value)));
         return req;
     } 
 
-    public ListRequest notIn(T... value) {
+    public U notIn(T... value) {
         req.params.addOpt(paramName + "[not_in]",new JSONArray(Arrays.asList(value)));
         return req;
     }
     
-     public ListRequest isPresent(T value) {
+     public U isPresent(T value) {
         req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }

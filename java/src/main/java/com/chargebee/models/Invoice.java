@@ -908,73 +908,73 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,InvoiceListRequest> id() {
+            return new EnumeratedStringFilter<String,InvoiceListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> subscriptionId() {
-            return new EnumeratedStringFilter<String>("subscription_id",uri,this);
+        public EnumeratedStringFilter<String,InvoiceListRequest> subscriptionId() {
+            return new EnumeratedStringFilter<String,InvoiceListRequest>("subscription_id",this);
         }
 
 
-        public EnumeratedStringFilter<String> customerId() {
-            return new EnumeratedStringFilter<String>("customer_id",uri,this);
+        public EnumeratedStringFilter<String,InvoiceListRequest> customerId() {
+            return new EnumeratedStringFilter<String,InvoiceListRequest>("customer_id",this);
         }
 
 
-        public BooleanFilter<Boolean> recurring() {
-            return new BooleanFilter<Boolean>("recurring",uri,this);
+        public BooleanFilter<Boolean,InvoiceListRequest> recurring() {
+            return new BooleanFilter<Boolean,InvoiceListRequest>("recurring",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,InvoiceListRequest> status() {
+            return new EnumFilter<Status,InvoiceListRequest>("status",this);
         }
 
 
-        public EnumFilter<PriceType> priceType() {
-            return new EnumFilter<PriceType>("price_type",uri,this);
+        public EnumFilter<PriceType,InvoiceListRequest> priceType() {
+            return new EnumFilter<PriceType,InvoiceListRequest>("price_type",this);
         }
 
 
-        public TimestampFilter<Timestamp> date() {
-            return new TimestampFilter<Timestamp>("date",uri,this);
+        public TimestampFilter<Timestamp,InvoiceListRequest> date() {
+            return new TimestampFilter<Timestamp,InvoiceListRequest>("date",this);
         }
 
 
-        public NumberFilter<Integer> total() {
-            return new NumberFilter<Integer>("total",uri,this);
+        public NumberFilter<Integer,InvoiceListRequest> total() {
+            return new NumberFilter<Integer,InvoiceListRequest>("total",this);
         }
 
 
-        public NumberFilter<Integer> amountPaid() {
-            return new NumberFilter<Integer>("amount_paid",uri,this);
+        public NumberFilter<Integer,InvoiceListRequest> amountPaid() {
+            return new NumberFilter<Integer,InvoiceListRequest>("amount_paid",this);
         }
 
 
-        public NumberFilter<Integer> amountAdjusted() {
-            return new NumberFilter<Integer>("amount_adjusted",uri,this);
+        public NumberFilter<Integer,InvoiceListRequest> amountAdjusted() {
+            return new NumberFilter<Integer,InvoiceListRequest>("amount_adjusted",this);
         }
 
 
-        public NumberFilter<Integer> creditsApplied() {
-            return new NumberFilter<Integer>("credits_applied",uri,this);
+        public NumberFilter<Integer,InvoiceListRequest> creditsApplied() {
+            return new NumberFilter<Integer,InvoiceListRequest>("credits_applied",this);
         }
 
 
-        public NumberFilter<Integer> amountDue() {
-            return new NumberFilter<Integer>("amount_due",uri,this);
+        public NumberFilter<Integer,InvoiceListRequest> amountDue() {
+            return new NumberFilter<Integer,InvoiceListRequest>("amount_due",this);
         }
 
 
-        public EnumFilter<DunningStatus> dunningStatus() {
-            return new EnumFilter<DunningStatus>("dunning_status",uri,this);
+        public EnumFilter<DunningStatus,InvoiceListRequest> dunningStatus() {
+            return new EnumFilter<DunningStatus,InvoiceListRequest>("dunning_status",this);
         }
 
 
-        public BooleanFilter<Boolean> firstInvoice() {
-            return new BooleanFilter<Boolean>("first_invoice",uri,this);
+        public BooleanFilter<Boolean,InvoiceListRequest> firstInvoice() {
+            return new BooleanFilter<Boolean,InvoiceListRequest>("first_invoice",this);
         }
 
 

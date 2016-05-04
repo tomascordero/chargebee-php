@@ -379,43 +379,43 @@ public class Addon extends Resource<Addon> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,AddonListRequest> id() {
+            return new EnumeratedStringFilter<String,AddonListRequest>("id",this);
         }
 
 
-        public EnumeratedStringFilter<String> name() {
-            return new EnumeratedStringFilter<String>("name",uri,this);
+        public EnumeratedStringFilter<String,AddonListRequest> name() {
+            return new EnumeratedStringFilter<String,AddonListRequest>("name",this);
         }
 
 
-        public EnumFilter<Type> type() {
-            return new EnumFilter<Type>("type",uri,this);
+        public EnumFilter<Type,AddonListRequest> type() {
+            return new EnumFilter<Type,AddonListRequest>("type",this);
         }
 
 
-        public EnumFilter<ChargeType> chargeType() {
-            return new EnumFilter<ChargeType>("charge_type",uri,this);
+        public EnumFilter<ChargeType,AddonListRequest> chargeType() {
+            return new EnumFilter<ChargeType,AddonListRequest>("charge_type",this);
         }
 
 
-        public NumberFilter<Integer> price() {
-            return new NumberFilter<Integer>("price",uri,this);
+        public NumberFilter<Integer,AddonListRequest> price() {
+            return new NumberFilter<Integer,AddonListRequest>("price",this);
         }
 
 
-        public NumberFilter<Integer> period() {
-            return new NumberFilter<Integer>("period",uri,this);
+        public NumberFilter<Integer,AddonListRequest> period() {
+            return new NumberFilter<Integer,AddonListRequest>("period",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,AddonListRequest> status() {
+            return new EnumFilter<Status,AddonListRequest>("status",this);
         }
 
 
-        public TimestampFilter<Timestamp> archivedAt() {
-            return new TimestampFilter<Timestamp>("archived_at",uri,this);
+        public TimestampFilter<Timestamp,AddonListRequest> archivedAt() {
+            return new TimestampFilter<Timestamp,AddonListRequest>("archived_at",this);
         }
 
 

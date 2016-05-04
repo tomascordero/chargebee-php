@@ -347,58 +347,58 @@ public class CreditNote extends Resource<CreditNote> {
         }
 
 
-        public StringFilter<String> customerId() {
-            return new StringFilter<String>("customer_id",uri,this);
+        public StringFilter<String,CreditNoteListRequest> customerId() {
+            return new StringFilter<String,CreditNoteListRequest>("customer_id",this);
         }
 
 
-        public StringFilter<String> subscriptionId() {
-            return new StringFilter<String>("subscription_id",uri,this);
+        public StringFilter<String,CreditNoteListRequest> subscriptionId() {
+            return new StringFilter<String,CreditNoteListRequest>("subscription_id",this);
         }
 
 
-        public StringFilter<String> referenceInvoiceId() {
-            return new StringFilter<String>("reference_invoice_id",uri,this);
+        public StringFilter<String,CreditNoteListRequest> referenceInvoiceId() {
+            return new StringFilter<String,CreditNoteListRequest>("reference_invoice_id",this);
         }
 
 
-        public EnumFilter<Type> type() {
-            return new EnumFilter<Type>("type",uri,this);
+        public EnumFilter<Type,CreditNoteListRequest> type() {
+            return new EnumFilter<Type,CreditNoteListRequest>("type",this);
         }
 
 
-        public EnumFilter<ReasonCode> reasonCode() {
-            return new EnumFilter<ReasonCode>("reason_code",uri,this);
+        public EnumFilter<ReasonCode,CreditNoteListRequest> reasonCode() {
+            return new EnumFilter<ReasonCode,CreditNoteListRequest>("reason_code",this);
         }
 
 
-        public EnumFilter<Status> status() {
-            return new EnumFilter<Status>("status",uri,this);
+        public EnumFilter<Status,CreditNoteListRequest> status() {
+            return new EnumFilter<Status,CreditNoteListRequest>("status",this);
         }
 
 
-        public TimestampFilter<Timestamp> date() {
-            return new TimestampFilter<Timestamp>("date",uri,this);
+        public TimestampFilter<Timestamp,CreditNoteListRequest> date() {
+            return new TimestampFilter<Timestamp,CreditNoteListRequest>("date",this);
         }
 
 
-        public EnumFilter<PriceType> priceType() {
-            return new EnumFilter<PriceType>("price_type",uri,this);
+        public EnumFilter<PriceType,CreditNoteListRequest> priceType() {
+            return new EnumFilter<PriceType,CreditNoteListRequest>("price_type",this);
         }
 
 
-        public NumberFilter<Integer> amountAllocated() {
-            return new NumberFilter<Integer>("amount_allocated",uri,this);
+        public NumberFilter<Integer,CreditNoteListRequest> amountAllocated() {
+            return new NumberFilter<Integer,CreditNoteListRequest>("amount_allocated",this);
         }
 
 
-        public NumberFilter<Integer> amountRefunded() {
-            return new NumberFilter<Integer>("amount_refunded",uri,this);
+        public NumberFilter<Integer,CreditNoteListRequest> amountRefunded() {
+            return new NumberFilter<Integer,CreditNoteListRequest>("amount_refunded",this);
         }
 
 
-        public NumberFilter<Integer> amountAvailable() {
-            return new NumberFilter<Integer>("amount_available",uri,this);
+        public NumberFilter<Integer,CreditNoteListRequest> amountAvailable() {
+            return new NumberFilter<Integer,CreditNoteListRequest>("amount_available",this);
         }
 
 

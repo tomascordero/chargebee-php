@@ -620,43 +620,43 @@ public class Customer extends Resource<Customer> {
         }
 
 
-        public EnumeratedStringFilter<String> id() {
-            return new EnumeratedStringFilter<String>("id",uri,this);
+        public EnumeratedStringFilter<String,CustomerListRequest> id() {
+            return new EnumeratedStringFilter<String,CustomerListRequest>("id",this);
         }
 
 
-        public StringFilter<String> firstName() {
-            return new StringFilter<String>("first_name",uri,this);
+        public StringFilter<String,CustomerListRequest> firstName() {
+            return new StringFilter<String,CustomerListRequest>("first_name",this);
         }
 
 
-        public StringFilter<String> lastName() {
-            return new StringFilter<String>("last_name",uri,this);
+        public StringFilter<String,CustomerListRequest> lastName() {
+            return new StringFilter<String,CustomerListRequest>("last_name",this);
         }
 
 
-        public StringFilter<String> email() {
-            return new StringFilter<String>("email",uri,this);
+        public StringFilter<String,CustomerListRequest> email() {
+            return new StringFilter<String,CustomerListRequest>("email",this);
         }
 
 
-        public StringFilter<String> company() {
-            return new StringFilter<String>("company",uri,this);
+        public StringFilter<String,CustomerListRequest> company() {
+            return new StringFilter<String,CustomerListRequest>("company",this);
         }
 
 
-        public EnumFilter<AutoCollection> autoCollection() {
-            return new EnumFilter<AutoCollection>("auto_collection",uri,this);
+        public EnumFilter<AutoCollection,CustomerListRequest> autoCollection() {
+            return new EnumFilter<AutoCollection,CustomerListRequest>("auto_collection",this);
         }
 
 
-        public EnumFilter<Taxability> taxability() {
-            return new EnumFilter<Taxability>("taxability",uri,this);
+        public EnumFilter<Taxability,CustomerListRequest> taxability() {
+            return new EnumFilter<Taxability,CustomerListRequest>("taxability",this);
         }
 
 
-        public TimestampFilter<Timestamp> createdAt() {
-            return new TimestampFilter<Timestamp>("created_at",uri,this);
+        public TimestampFilter<Timestamp,CustomerListRequest> createdAt() {
+            return new TimestampFilter<Timestamp,CustomerListRequest>("created_at",this);
         }
 
 

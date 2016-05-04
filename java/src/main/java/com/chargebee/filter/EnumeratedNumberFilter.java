@@ -12,19 +12,20 @@ import org.json.JSONArray;
  *
  * @author sangeetha
  * @param <T>
+ * @param <U>
  */
-public class EnumeratedNumberFilter<T> extends NumberFilter<T>{
+public class EnumeratedNumberFilter<T,U extends ListRequest> extends NumberFilter<T, U>{
 
-    public EnumeratedNumberFilter(String paramName, String uri, ListRequest req) {
-        super(paramName, uri, req);
+    public EnumeratedNumberFilter(String paramName, U req) {
+        super(paramName, req);
     }
 
-    public ListRequest in(T... value) {
+    public U in(T... value) {
         req.params.addOpt(paramName + "[in]", new JSONArray(Arrays.asList(value)));
         return req;
     }
 
-    public ListRequest notIn(T... value) {
+    public U notIn(T... value) {
         req.params.addOpt(paramName + "[not_in]", new JSONArray(Arrays.asList(value)));
         return req;
     }

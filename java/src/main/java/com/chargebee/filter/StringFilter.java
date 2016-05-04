@@ -5,39 +5,38 @@
  */
 package com.chargebee.filter;
 
-import com.chargebee.internal.HttpUtil;
-
 /**
  *
  * @author sangeetha
+ * @param <T>
+ * @param <U>
  */
-public class StringFilter<T> extends ListRequest {
+public class StringFilter<T,U extends ListRequest> {
 
-    ListRequest req;
+    U req;
     String paramName;
 
-    public StringFilter(String paramName, String uri, ListRequest req) {
-        super(uri);
+    public StringFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public ListRequest is(T value) {
+    public U is(T value) {
         req.params.addOpt(paramName + "[is]",value);
         return req;
     }
 
-    public ListRequest isNot(T value) {
+    public U isNot(T value) {
         req.params.addOpt(paramName + "[is_not]",value);
         return req;
     }
 
-    public ListRequest startsWith(T value) {
+    public U startsWith(T value) {
         req.params.addOpt(paramName + "[starts_with]", value);
         return req;
     }
     
-    public ListRequest isPresent(T value) {
+    public U isPresent(T value) {
         req.params.addOpt(paramName + "[is_present]", value);
         return req;
     }
