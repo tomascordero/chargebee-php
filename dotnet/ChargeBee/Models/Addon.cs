@@ -331,19 +331,14 @@ namespace ChargeBee.Models
                 m_params.AddOpt("period", period);
                 return this;
             }
+            public AddonListRequest PeriodUnit(PeriodUnitEnum periodUnit) 
+            {
+                m_params.AddOpt("period_unit", periodUnit);
+                return this;
+            }
             public AddonListRequest Status(StatusEnum status) 
             {
                 m_params.AddOpt("status", status);
-                return this;
-            }
-            public AddonListRequest ArchivedAt(long archivedAt) 
-            {
-                m_params.AddOpt("archived_at", archivedAt);
-                return this;
-            }
-            public AddonListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
                 return this;
             }
         }

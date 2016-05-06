@@ -320,6 +320,7 @@ public class CreditNote extends Resource<CreditNote> {
         return new CreditNoteListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest creditNotesForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "credit_notes");
         return new ListRequest(uri);
@@ -379,6 +380,11 @@ public class CreditNote extends Resource<CreditNote> {
 
         public TimestampFilter<Timestamp,CreditNoteListRequest> date() {
             return new TimestampFilter<Timestamp,CreditNoteListRequest>("date",this);
+        }
+
+
+        public NumberFilter<Integer,CreditNoteListRequest> total() {
+            return new NumberFilter<Integer,CreditNoteListRequest>("total",this);
         }
 
 

@@ -128,11 +128,6 @@ namespace ChargeBee.Models
                 m_params.AddOpt("entity_id", entityId);
                 return this;
             }
-            public CommentListRequest Id(string id) 
-            {
-                m_params.AddOpt("id", id);
-                return this;
-            }
             public CommentListRequest CreatedAt(long createdAt) 
             {
                 m_params.AddOpt("created_at", createdAt);

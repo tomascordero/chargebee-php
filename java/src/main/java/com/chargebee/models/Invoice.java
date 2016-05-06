@@ -610,11 +610,13 @@ public class Invoice extends Resource<Invoice> {
         return new InvoiceListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest invoicesForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "invoices");
         return new ListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest invoicesForSubscription(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id), "invoices");
         return new ListRequest(uri);
@@ -908,6 +910,12 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
+        public InvoiceListRequest paidOnAfter(Timestamp paidOnAfter) {
+            params.addOpt("paid_on_after", paidOnAfter);
+            return this;
+        }
+
+
         public EnumeratedStringFilter<String,InvoiceListRequest> id() {
             return new EnumeratedStringFilter<String,InvoiceListRequest>("id",this);
         }
@@ -970,11 +978,6 @@ public class Invoice extends Resource<Invoice> {
 
         public EnumFilter<DunningStatus,InvoiceListRequest> dunningStatus() {
             return new EnumFilter<DunningStatus,InvoiceListRequest>("dunning_status",this);
-        }
-
-
-        public BooleanFilter<Boolean,InvoiceListRequest> firstInvoice() {
-            return new BooleanFilter<Boolean,InvoiceListRequest>("first_invoice",this);
         }
 
 

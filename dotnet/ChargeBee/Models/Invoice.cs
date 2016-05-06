@@ -43,11 +43,13 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("invoices");
             return new InvoiceListRequest(url);
         }
+        [Obsolete]
         public static ListRequest InvoicesForCustomer(string id)
         {
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "invoices");
             return new ListRequest(url);
         }
+        [Obsolete]
         public static ListRequest InvoicesForSubscription(string id)
         {
             string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "invoices");
@@ -448,6 +450,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
+            public InvoiceListRequest PaidOnAfter(long paidOnAfter) 
+            {
+                m_params.AddOpt("paid_on_after", paidOnAfter);
+                return this;
+            }
             public InvoiceListRequest Id(string id) 
             {
                 m_params.AddOpt("id", id);
@@ -511,11 +518,6 @@ namespace ChargeBee.Models
             public InvoiceListRequest DunningStatus(DunningStatusEnum dunningStatus) 
             {
                 m_params.AddOpt("dunning_status", dunningStatus);
-                return this;
-            }
-            public InvoiceListRequest FirstInvoice(bool firstInvoice) 
-            {
-                m_params.AddOpt("first_invoice", firstInvoice);
                 return this;
             }
             public InvoiceListRequest SortBy(string sortBy) 
@@ -628,7 +630,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("customer_notes", customerNotes);
                 return this;
             }
-            public RefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
+            public RefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
@@ -671,7 +673,7 @@ namespace ChargeBee.Models
                 m_params.Add("transaction[date]", transactionDate);
                 return this;
             }
-			public RecordRefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
+            public RecordRefundRequest CreditNoteReasonCode(ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;

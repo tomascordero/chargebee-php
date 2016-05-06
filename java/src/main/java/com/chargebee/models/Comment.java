@@ -142,19 +142,15 @@ public class Comment extends Resource<Comment> {
         }
 
 
-        public EnumFilter<EntityType,CommentListRequest> entityType() {
-            return new EnumFilter<EntityType,CommentListRequest>("entity_type",this);
+        public CommentListRequest entityType(EntityType entityType) {
+            params.addOpt("entity_type", entityType);
+            return this;
         }
 
 
         public CommentListRequest entityId(String entityId) {
             params.addOpt("entity_id", entityId);
             return this;
-        }
-
-
-        public StringFilter<String,CommentListRequest> id() {
-            return new StringFilter<String,CommentListRequest>("id",this);
         }
 
 

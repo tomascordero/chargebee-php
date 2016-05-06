@@ -746,6 +746,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("cancel_reason", cancelReason);
                 return this;
             }
+            public SubscriptionListRequest RemainingBillingCycles(int remainingBillingCycles) 
+            {
+                m_params.AddOpt("remaining_billing_cycles", remainingBillingCycles);
+                return this;
+            }
             public SubscriptionListRequest CreatedAt(long createdAt) 
             {
                 m_params.AddOpt("created_at", createdAt);

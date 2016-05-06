@@ -103,6 +103,7 @@ public class Order extends Resource<Order> {
         return new OrderListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest ordersForInvoice(String id) throws IOException {
         String uri = uri("invoices", nullCheck(id), "orders");
         return new ListRequest(uri);

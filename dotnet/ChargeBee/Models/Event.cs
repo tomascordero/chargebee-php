@@ -115,19 +115,34 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public EventListRequest OccurredAt(long occurredAt) 
+            public EventListRequest StartTime(long startTime) 
             {
-                m_params.AddOpt("occurred_at", occurredAt);
+                m_params.AddOpt("start_time", startTime);
                 return this;
             }
-            public EventListRequest Source(SourceEnum source) 
+            public EventListRequest EndTime(long endTime) 
             {
-                m_params.AddOpt("source", source);
+                m_params.AddOpt("end_time", endTime);
+                return this;
+            }
+            public EventListRequest WebhookStatus(WebhookStatusEnum webhookStatus) 
+            {
+                m_params.AddOpt("webhook_status", webhookStatus);
+                return this;
+            }
+            public EventListRequest EventType(EventTypeEnum eventType) 
+            {
+                m_params.AddOpt("event_type", eventType);
                 return this;
             }
             public EventListRequest Id(string id) 
             {
                 m_params.AddOpt("id", id);
+                return this;
+            }
+            public EventListRequest Source(SourceEnum source) 
+            {
+                m_params.AddOpt("source", source);
                 return this;
             }
             public EventListRequest SortBy(string sortBy) 

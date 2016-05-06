@@ -433,11 +433,6 @@ namespace ChargeBee.Models
                 m_params.AddOpt("status", status);
                 return this;
             }
-            public PlanListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
-                return this;
-            }
         }
         #endregion
 

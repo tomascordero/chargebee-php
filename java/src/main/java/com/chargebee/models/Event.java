@@ -155,18 +155,37 @@ public class Event extends Resource<Event> {
         }
 
 
-        public TimestampFilter<Timestamp,EventListRequest> occurredAt() {
-            return new TimestampFilter<Timestamp,EventListRequest>("occurred_at",this);
+        public EventListRequest startTime(Timestamp startTime) {
+            params.addOpt("start_time", startTime);
+            return this;
         }
 
 
-        public EnumFilter<Source,EventListRequest> source() {
-            return new EnumFilter<Source,EventListRequest>("source",this);
+        public EventListRequest endTime(Timestamp endTime) {
+            params.addOpt("end_time", endTime);
+            return this;
+        }
+
+
+        public EventListRequest webhookStatus(WebhookStatus webhookStatus) {
+            params.addOpt("webhook_status", webhookStatus);
+            return this;
+        }
+
+
+        public EventListRequest eventType(EventType eventType) {
+            params.addOpt("event_type", eventType);
+            return this;
         }
 
 
         public EnumeratedStringFilter<String,EventListRequest> id() {
             return new EnumeratedStringFilter<String,EventListRequest>("id",this);
+        }
+
+
+        public EnumFilter<Source,EventListRequest> source() {
+            return new EnumFilter<Source,EventListRequest>("source",this);
         }
 
 

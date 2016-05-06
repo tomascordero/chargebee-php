@@ -28,6 +28,7 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("credit_notes");
             return new CreditNoteListRequest(url);
         }
+        [Obsolete]
         public static ListRequest CreditNotesForCustomer(string id)
         {
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "credit_notes");
@@ -174,6 +175,11 @@ namespace ChargeBee.Models
             public CreditNoteListRequest Date(long date) 
             {
                 m_params.AddOpt("date", date);
+                return this;
+            }
+            public CreditNoteListRequest Total(int total) 
+            {
+                m_params.AddOpt("total", total);
                 return this;
             }
             public CreditNoteListRequest PriceType(PriceTypeEnum priceType) 

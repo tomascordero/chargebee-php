@@ -906,6 +906,11 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
+        public NumberFilter<Integer,SubscriptionListRequest> remainingBillingCycles() {
+            return new NumberFilter<Integer,SubscriptionListRequest>("remaining_billing_cycles",this);
+        }
+
+
         public TimestampFilter<Timestamp,SubscriptionListRequest> createdAt() {
             return new TimestampFilter<Timestamp,SubscriptionListRequest>("created_at",this);
         }

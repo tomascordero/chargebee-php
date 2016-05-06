@@ -409,19 +409,13 @@ public class Addon extends Resource<Addon> {
         }
 
 
+        public EnumFilter<PeriodUnit,AddonListRequest> periodUnit() {
+            return new EnumFilter<PeriodUnit,AddonListRequest>("period_unit",this);
+        }
+
+
         public EnumFilter<Status,AddonListRequest> status() {
             return new EnumFilter<Status,AddonListRequest>("status",this);
-        }
-
-
-        public TimestampFilter<Timestamp,AddonListRequest> archivedAt() {
-            return new TimestampFilter<Timestamp,AddonListRequest>("archived_at",this);
-        }
-
-
-        public ListRequest sortByArchivedAt(SortOrder order) {
-            params.addOpt("sort_by["+order.name().toLowerCase()+"]","archived_at");
-            return this;
         }
 
 

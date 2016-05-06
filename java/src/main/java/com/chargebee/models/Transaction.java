@@ -239,11 +239,13 @@ public class Transaction extends Resource<Transaction> {
         return new TransactionListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest transactionsForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "transactions");
         return new ListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest transactionsForSubscription(String id) throws IOException {
         String uri = uri("subscriptions", nullCheck(id), "transactions");
         return new ListRequest(uri);

@@ -522,12 +522,6 @@ public class Plan extends Resource<Plan> {
         }
 
 
-        public ListRequest sortByArchivedAt(SortOrder order) {
-            params.addOpt("sort_by["+order.name().toLowerCase()+"]","archived_at");
-            return this;
-        }
-
-
         @Override
         public Params params() {
             return params;

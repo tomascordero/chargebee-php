@@ -38,6 +38,7 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("orders");
             return new OrderListRequest(url);
         }
+        [Obsolete]
         public static ListRequest OrdersForInvoice(string id)
         {
             string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "orders");
