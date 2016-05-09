@@ -1,6 +1,6 @@
-package com.chargebee.filter;
+package com.chargebee.internal;
 
-import com.chargebee.filter.RequestBase;
+import com.chargebee.internal.RequestBase;
 import com.chargebee.*;
 import com.chargebee.internal.HttpUtil;
 import com.chargebee.internal.HttpUtil.Method;

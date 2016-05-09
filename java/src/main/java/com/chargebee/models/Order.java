@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -239,13 +241,13 @@ public class Order extends Resource<Order> {
         }
 
 
-        public EnumeratedStringFilter<String,OrderListRequest> id() {
-            return new EnumeratedStringFilter<String,OrderListRequest>("id",this);
+        public StringFilter<OrderListRequest> id() {
+            return new StringFilter<OrderListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,OrderListRequest> invoiceId() {
-            return new EnumeratedStringFilter<String,OrderListRequest>("invoice_id",this);
+        public StringFilter<OrderListRequest> invoiceId() {
+            return new StringFilter<OrderListRequest>("invoice_id",this).supportsMultiOperators(true);
         }
 
 
@@ -254,8 +256,8 @@ public class Order extends Resource<Order> {
         }
 
 
-        public TimestampFilter<Timestamp,OrderListRequest> createdAt() {
-            return new TimestampFilter<Timestamp,OrderListRequest>("created_at",this);
+        public TimestampFilter<OrderListRequest> createdAt() {
+            return new TimestampFilter<OrderListRequest>("created_at",this);
         }
 
 

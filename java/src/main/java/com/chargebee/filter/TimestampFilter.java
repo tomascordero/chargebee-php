@@ -5,6 +5,8 @@
  */
 package com.chargebee.filter;
 
+import com.chargebee.internal.ListRequest;
+import java.sql.Timestamp;
 import org.json.JSONArray;
 
 /**
@@ -13,38 +15,47 @@ import org.json.JSONArray;
  * @param <T>
  * @param <U>
  */
-public class TimestampFilter<T,U extends ListRequest> {
+public class TimestampFilter<U extends ListRequest> {
 
-    U req;
-    String paramName;
+    private U req;
+    private String paramName;
+    private boolean supportsPresenceOperator;
 
     public TimestampFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
-
-    public U before(T value) {
-        req.params.addOpt(paramName + "[before]",value);
+    
+    public TimestampFilter<U> supportsPresenceOperator(boolean supportsPresenceOperator) {
+        this.supportsPresenceOperator = supportsPresenceOperator;
+        return this;
+    }
+    
+    public U on(Timestamp value) {
+        req.params().addOpt(paramName + "[on]",value);
         return req;
     }
 
-    public U after(T value) {
-        req.params.addOpt(paramName + "[after]",value);
+    public U before(Timestamp value) {
+        req.params().addOpt(paramName + "[before]",value);
+        return req;
+    }
+
+    public U after(Timestamp value) {
+        req.params().addOpt(paramName + "[after]",value);
         return req;
     }
     
-    public U on(T value) {
-        req.params.addOpt(paramName + "[on]",value);
-        return req;
-    }
-
-    public U between(T value1,T value2) {
-        req.params.addOpt(paramName + "[between]", new JSONArray().put(value1).put(value2));
+    public U between(Timestamp value1, Timestamp value2) {
+        req.params().addOpt(paramName + "[between]", new JSONArray().put(value1).put(value2));
         return req;
     }
     
-    public U isPresent(T value) {
-        req.params.addOpt(paramName + "[is_present]", value);
+    public U isPresent(boolean value) {
+        if(!supportsPresenceOperator) {
+            throw new UnsupportedOperationException("operator '[is_present]' is not supported for this filter-parameter");
+        }
+        req.params().addOpt(paramName + "[is_present]", value);
         return req;
-    }
+    }    
 }

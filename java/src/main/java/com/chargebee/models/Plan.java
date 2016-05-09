@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -477,13 +479,13 @@ public class Plan extends Resource<Plan> {
         }
 
 
-        public EnumeratedStringFilter<String,PlanListRequest> id() {
-            return new EnumeratedStringFilter<String,PlanListRequest>("id",this);
+        public StringFilter<PlanListRequest> id() {
+            return new StringFilter<PlanListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,PlanListRequest> name() {
-            return new EnumeratedStringFilter<String,PlanListRequest>("name",this);
+        public StringFilter<PlanListRequest> name() {
+            return new StringFilter<PlanListRequest>("name",this).supportsMultiOperators(true);
         }
 
 

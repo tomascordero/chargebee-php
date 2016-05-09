@@ -22,11 +22,6 @@ public class Resource<T> {
 
     private static final String unknown = "_UNKNOWN";
     
-    public enum Order {
-        ASC,
-        DESC
-    }
-
     public Resource(JSONObject jsonObj){
         this.jsonObj = jsonObj;
     }

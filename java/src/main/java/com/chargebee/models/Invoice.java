@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -916,23 +918,23 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public EnumeratedStringFilter<String,InvoiceListRequest> id() {
-            return new EnumeratedStringFilter<String,InvoiceListRequest>("id",this);
+        public StringFilter<InvoiceListRequest> id() {
+            return new StringFilter<InvoiceListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,InvoiceListRequest> subscriptionId() {
-            return new EnumeratedStringFilter<String,InvoiceListRequest>("subscription_id",this);
+        public StringFilter<InvoiceListRequest> subscriptionId() {
+            return new StringFilter<InvoiceListRequest>("subscription_id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,InvoiceListRequest> customerId() {
-            return new EnumeratedStringFilter<String,InvoiceListRequest>("customer_id",this);
+        public StringFilter<InvoiceListRequest> customerId() {
+            return new StringFilter<InvoiceListRequest>("customer_id",this).supportsMultiOperators(true);
         }
 
 
-        public BooleanFilter<Boolean,InvoiceListRequest> recurring() {
-            return new BooleanFilter<Boolean,InvoiceListRequest>("recurring",this);
+        public BooleanFilter<InvoiceListRequest> recurring() {
+            return new BooleanFilter<InvoiceListRequest>("recurring",this);
         }
 
 
@@ -946,8 +948,8 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public TimestampFilter<Timestamp,InvoiceListRequest> date() {
-            return new TimestampFilter<Timestamp,InvoiceListRequest>("date",this);
+        public TimestampFilter<InvoiceListRequest> date() {
+            return new TimestampFilter<InvoiceListRequest>("date",this);
         }
 
 

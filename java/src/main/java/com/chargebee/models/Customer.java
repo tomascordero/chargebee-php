@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -608,40 +610,28 @@ public class Customer extends Resource<Customer> {
             super(uri);
         }
     
-        public CustomerListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
+        public StringFilter<CustomerListRequest> id() {
+            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public CustomerListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
+        public StringFilter<CustomerListRequest> firstName() {
+            return new StringFilter<CustomerListRequest>("first_name",this);
         }
 
 
-        public EnumeratedStringFilter<String,CustomerListRequest> id() {
-            return new EnumeratedStringFilter<String,CustomerListRequest>("id",this);
+        public StringFilter<CustomerListRequest> lastName() {
+            return new StringFilter<CustomerListRequest>("last_name",this);
         }
 
 
-        public StringFilter<String,CustomerListRequest> firstName() {
-            return new StringFilter<String,CustomerListRequest>("first_name",this);
+        public StringFilter<CustomerListRequest> email() {
+            return new StringFilter<CustomerListRequest>("email",this);
         }
 
 
-        public StringFilter<String,CustomerListRequest> lastName() {
-            return new StringFilter<String,CustomerListRequest>("last_name",this);
-        }
-
-
-        public StringFilter<String,CustomerListRequest> email() {
-            return new StringFilter<String,CustomerListRequest>("email",this);
-        }
-
-
-        public StringFilter<String,CustomerListRequest> company() {
-            return new StringFilter<String,CustomerListRequest>("company",this);
+        public StringFilter<CustomerListRequest> company() {
+            return new StringFilter<CustomerListRequest>("company",this);
         }
 
 
@@ -655,8 +645,8 @@ public class Customer extends Resource<Customer> {
         }
 
 
-        public TimestampFilter<Timestamp,CustomerListRequest> createdAt() {
-            return new TimestampFilter<Timestamp,CustomerListRequest>("created_at",this);
+        public TimestampFilter<CustomerListRequest> createdAt() {
+            return new TimestampFilter<CustomerListRequest>("created_at",this);
         }
 
 

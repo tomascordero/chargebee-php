@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -886,13 +888,13 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
-        public EnumeratedStringFilter<String,SubscriptionListRequest> id() {
-            return new EnumeratedStringFilter<String,SubscriptionListRequest>("id",this);
+        public StringFilter<SubscriptionListRequest> id() {
+            return new StringFilter<SubscriptionListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,SubscriptionListRequest> planId() {
-            return new EnumeratedStringFilter<String,SubscriptionListRequest>("plan_id",this);
+        public StringFilter<SubscriptionListRequest> planId() {
+            return new StringFilter<SubscriptionListRequest>("plan_id",this).supportsMultiOperators(true);
         }
 
 
@@ -911,13 +913,13 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
-        public TimestampFilter<Timestamp,SubscriptionListRequest> createdAt() {
-            return new TimestampFilter<Timestamp,SubscriptionListRequest>("created_at",this);
+        public TimestampFilter<SubscriptionListRequest> createdAt() {
+            return new TimestampFilter<SubscriptionListRequest>("created_at",this);
         }
 
 
-        public BooleanFilter<Boolean,SubscriptionListRequest> hasScheduledChanges() {
-            return new BooleanFilter<Boolean,SubscriptionListRequest>("has_scheduled_changes",this);
+        public BooleanFilter<SubscriptionListRequest> hasScheduledChanges() {
+            return new BooleanFilter<SubscriptionListRequest>("has_scheduled_changes",this);
         }
 
 

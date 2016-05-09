@@ -1,11 +1,10 @@
-package com.chargebee.filter;
+package com.chargebee.internal;
 
+import com.chargebee.internal.RequestBase;
 import com.chargebee.Environment;
 import com.chargebee.ListResult;
 import com.chargebee.internal.HttpUtil;
 import com.chargebee.internal.Params;
-import com.chargebee.internal.Resource.Order;
-import com.chargebee.models.Customer;
 import java.io.IOException;
 
 public class ListRequest<U extends ListRequest> extends RequestBase<U> {

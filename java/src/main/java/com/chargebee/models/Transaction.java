@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -283,18 +285,18 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
-        public EnumeratedStringFilter<String,TransactionListRequest> id() {
-            return new EnumeratedStringFilter<String,TransactionListRequest>("id",this);
+        public StringFilter<TransactionListRequest> id() {
+            return new StringFilter<TransactionListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,TransactionListRequest> customerId() {
-            return new EnumeratedStringFilter<String,TransactionListRequest>("customer_id",this);
+        public StringFilter<TransactionListRequest> customerId() {
+            return new StringFilter<TransactionListRequest>("customer_id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,TransactionListRequest> subscriptionId() {
-            return new EnumeratedStringFilter<String,TransactionListRequest>("subscription_id",this);
+        public StringFilter<TransactionListRequest> subscriptionId() {
+            return new StringFilter<TransactionListRequest>("subscription_id",this).supportsMultiOperators(true);
         }
 
 
@@ -308,8 +310,8 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
-        public StringFilter<String,TransactionListRequest> referenceNumber() {
-            return new StringFilter<String,TransactionListRequest>("reference_number",this);
+        public StringFilter<TransactionListRequest> referenceNumber() {
+            return new StringFilter<TransactionListRequest>("reference_number",this);
         }
 
 
@@ -318,8 +320,8 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
-        public TimestampFilter<Timestamp,TransactionListRequest> date() {
-            return new TimestampFilter<Timestamp,TransactionListRequest>("date",this);
+        public TimestampFilter<TransactionListRequest> date() {
+            return new TimestampFilter<TransactionListRequest>("date",this);
         }
 
 

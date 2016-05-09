@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -348,18 +350,18 @@ public class CreditNote extends Resource<CreditNote> {
         }
 
 
-        public StringFilter<String,CreditNoteListRequest> customerId() {
-            return new StringFilter<String,CreditNoteListRequest>("customer_id",this);
+        public StringFilter<CreditNoteListRequest> customerId() {
+            return new StringFilter<CreditNoteListRequest>("customer_id",this);
         }
 
 
-        public StringFilter<String,CreditNoteListRequest> subscriptionId() {
-            return new StringFilter<String,CreditNoteListRequest>("subscription_id",this);
+        public StringFilter<CreditNoteListRequest> subscriptionId() {
+            return new StringFilter<CreditNoteListRequest>("subscription_id",this);
         }
 
 
-        public StringFilter<String,CreditNoteListRequest> referenceInvoiceId() {
-            return new StringFilter<String,CreditNoteListRequest>("reference_invoice_id",this);
+        public StringFilter<CreditNoteListRequest> referenceInvoiceId() {
+            return new StringFilter<CreditNoteListRequest>("reference_invoice_id",this);
         }
 
 
@@ -378,8 +380,8 @@ public class CreditNote extends Resource<CreditNote> {
         }
 
 
-        public TimestampFilter<Timestamp,CreditNoteListRequest> date() {
-            return new TimestampFilter<Timestamp,CreditNoteListRequest>("date",this);
+        public TimestampFilter<CreditNoteListRequest> date() {
+            return new TimestampFilter<CreditNoteListRequest>("date",this);
         }
 
 

@@ -1,5 +1,7 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -379,13 +381,13 @@ public class Addon extends Resource<Addon> {
         }
 
 
-        public EnumeratedStringFilter<String,AddonListRequest> id() {
-            return new EnumeratedStringFilter<String,AddonListRequest>("id",this);
+        public StringFilter<AddonListRequest> id() {
+            return new StringFilter<AddonListRequest>("id",this).supportsMultiOperators(true);
         }
 
 
-        public EnumeratedStringFilter<String,AddonListRequest> name() {
-            return new EnumeratedStringFilter<String,AddonListRequest>("name",this);
+        public StringFilter<AddonListRequest> name() {
+            return new StringFilter<AddonListRequest>("name",this).supportsMultiOperators(true);
         }
 
 

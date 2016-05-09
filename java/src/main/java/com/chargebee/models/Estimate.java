@@ -1,5 +1,6 @@
 package com.chargebee.models;
 
+import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
