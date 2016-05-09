@@ -422,8 +422,6 @@ public class Customer extends Resource<Customer> {
         }
 
 
-
-
         public CreateRequest createdFromIp(String createdFromIp) {
             params.addOpt("created_from_ip", createdFromIp);
             return this;
