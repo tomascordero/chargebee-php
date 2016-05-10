@@ -22,5 +22,5 @@ public class BooleanFilter<U extends ListRequest> {
         req.params().addOpt(paramName + "[is]", value);
         return req;
     }
-    
+
 }

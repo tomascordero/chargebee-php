@@ -898,18 +898,6 @@ public class Invoice extends Resource<Invoice> {
             super(uri);
         }
     
-        public InvoiceListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public InvoiceListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public InvoiceListRequest paidOnAfter(Timestamp paidOnAfter) {
             params.addOpt("paid_on_after", paidOnAfter);
             return this;

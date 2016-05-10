@@ -130,18 +130,6 @@ public class Comment extends Resource<Comment> {
             super(uri);
         }
     
-        public CommentListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public CommentListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public CommentListRequest entityType(EntityType entityType) {
             params.addOpt("entity_type", entityType);
             return this;

@@ -67,8 +67,6 @@ public class Params {
                 l.add((String)toValStr(item));                
             }
             return l;            
-        }else if(value instanceof JSONArray){
-            return value.toString();            
         } else if(value instanceof JSONObject) {
             return value.toString();
         } else {

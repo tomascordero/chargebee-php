@@ -271,18 +271,6 @@ public class Transaction extends Resource<Transaction> {
             super(uri);
         }
     
-        public TransactionListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public TransactionListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<TransactionListRequest> id() {
             return new StringFilter<TransactionListRequest>("id",this).supportsMultiOperators(true);        
         }

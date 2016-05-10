@@ -608,18 +608,6 @@ public class Customer extends Resource<Customer> {
             super(uri);
         }
     
-        public CustomerListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public CustomerListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<CustomerListRequest> id() {
             return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }

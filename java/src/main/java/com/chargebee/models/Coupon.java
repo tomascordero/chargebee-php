@@ -341,18 +341,6 @@ public class Coupon extends Resource<Coupon> {
             super(uri);
         }
     
-        public CouponListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public CouponListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<CouponListRequest> id() {
             return new StringFilter<CouponListRequest>("id",this).supportsMultiOperators(true);        
         }

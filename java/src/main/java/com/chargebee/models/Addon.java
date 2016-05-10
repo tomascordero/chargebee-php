@@ -367,18 +367,6 @@ public class Addon extends Resource<Addon> {
             super(uri);
         }
     
-        public AddonListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public AddonListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<AddonListRequest> id() {
             return new StringFilter<AddonListRequest>("id",this).supportsMultiOperators(true);        
         }

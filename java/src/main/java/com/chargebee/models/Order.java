@@ -227,18 +227,6 @@ public class Order extends Resource<Order> {
             super(uri);
         }
     
-        public OrderListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public OrderListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<OrderListRequest> id() {
             return new StringFilter<OrderListRequest>("id",this).supportsMultiOperators(true);        
         }

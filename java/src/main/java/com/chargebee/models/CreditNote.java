@@ -336,18 +336,6 @@ public class CreditNote extends Resource<CreditNote> {
             super(uri);
         }
     
-        public CreditNoteListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public CreditNoteListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<CreditNoteListRequest> id() {
             return new StringFilter<CreditNoteListRequest>("id",this);        
         }

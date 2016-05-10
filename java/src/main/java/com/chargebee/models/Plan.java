@@ -465,18 +465,6 @@ public class Plan extends Resource<Plan> {
             super(uri);
         }
     
-        public PlanListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public PlanListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<PlanListRequest> id() {
             return new StringFilter<PlanListRequest>("id",this).supportsMultiOperators(true);        
         }

@@ -143,18 +143,6 @@ public class Event extends Resource<Event> {
             super(uri);
         }
     
-        public EventListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public EventListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public EventListRequest startTime(Timestamp startTime) {
             params.addOpt("start_time", startTime);
             return this;

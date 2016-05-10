@@ -878,18 +878,6 @@ public class Subscription extends Resource<Subscription> {
             super(uri);
         }
     
-        public SubscriptionListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public SubscriptionListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<SubscriptionListRequest> id() {
             return new StringFilter<SubscriptionListRequest>("id",this).supportsMultiOperators(true);        
         }

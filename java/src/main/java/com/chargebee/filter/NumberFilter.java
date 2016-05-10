@@ -1,7 +1,6 @@
 package com.chargebee.filter;
 
 import com.chargebee.internal.ListRequest;
-import org.json.JSONArray;
 
 /**
  *
@@ -46,7 +45,7 @@ public class NumberFilter<T,U extends ListRequest> {
     }
     
     public U between(T val1, T val2){
-        req.params().addOpt(paramName+"[between]" , new JSONArray().put(val1).put(val2));
+        req.params().addOpt(paramName + "[between]", (T[])new Object[]{val1, val2});
         return req;
     }
     
