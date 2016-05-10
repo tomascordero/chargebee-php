@@ -8,7 +8,7 @@ Environment.protocol = "http"
 chargebee.ChargeBee.verify_ca_certs=False
 
 ##Copy code from api docs
-chargebee.configure("test___dev__2BgdqjK9jMcXc9pzFlunAhcd9vcd2irK5W","mannar-test")
+chargebee.configure("test___dev__DE7eWnebw1blOYhk3uQaLtURj7z12lhP","mannar-test")
 
 
 def customer_retrieve():
@@ -148,10 +148,37 @@ def delete_customer():
     print result.billing_address
     print result.payment_method
 
+def update_estimate():
+    result = chargebee.Estimate.update_subscription({
+        "subscription" : {
+            "id" : "active_direct", 
+            "plan_id" : "basic",
+            "plan_quantity" : "2"
+        }, 
+        "addons" : [{
+            "id" : "sms-credits",
+            "quantity" : "2"
+        }]
+    })
+    print result.estimate.__dict__
+    print result.estimate
+
+def retrieve_hosted_pages():
+    result = chargebee.HostedPage.retrieve("__dev__WNoZTtL3d8l8DWv6KrMcu2JIkcbFcuTzl")
+    hosted_page = result.hosted_page
+    print hosted_page.content.credit_notes[0].__dict__
+
 # list_events()
 # delete_subscription()
 # delete_customer()
 retrieve_events()
+
+# update_estimate()
+# retrieve_hosted_pages()
+# list_events()
+# delete_subscription()
+# delete_customer()
+# retrieve_events()
 #collect_invoice()
 #create_customer()
 #create_subscription()

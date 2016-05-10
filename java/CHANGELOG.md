@@ -1,4 +1,38 @@
-### v2.0.0 (2016-04-01)
+### v2.0.2 (2016-05-02)
+* * *
+** APIs added**:
+
+Support to archive a coupon code. See archive Coupon code API here: https://apidocs.chargebee.com/docs/api/coupon_codes#archive_a_coupon_code
+
+** APIs updated**:
+
+The attribute for "status" is returned as part of Coupon Code resource. See : https://apidocs.chargebee.com/docs/api/coupon_codes#coupon_code_attributes
+
+### v2.0.1 (2016-04-29)
+* * *
+
+** APIs updated**
+
+Support to specify Avalara "tax_code" attribute in Plan and Addon resource. Now, create and update plan, create & update addon accept "tax_code" parameter. See create plan API here : https://apidocs.chargebee.com/docs/api/plans#create_a_plan
+
+Support to specify the exemption category or exempt number for a customer by adding "entity_code" or "exempt_number" in customer resource. You can pass "entity_code" and "exempt_number" in create, update customer, create subscription and create subscription estimate APIs. See create customer API here : https://apidocs.chargebee.com/docs/api/customers#create_a_customer
+
+The attribute "entity_code" or "exempt_number" is returned as part of Customer resource for Avalara. 
+See: https://apidocs.chargebee.com/docs/api/customers#customer_attributes
+
+The attribute "tax_code" is returned as part of Plan & Addon resources for Avalara. 
+See : https://apidocs.chargebee.com/docs/api/plans#plan_attributes
+
+Support for address parameters in estimate APIs that is used to calculate tax. Now, create & update subscription estimate APIs accept line1, line2, line3 and city. See : https://apidocs.chargebee.com/docs/api/estimates#estimate_attributes
+
+The new Cancel reason type "tax_calculation_failed" for subscription resource is added. See subscription attributes
+See : https://apidocs.chargebee.com/docs/api/subscriptions#subscription_attributes
+
+** APIs deprecated**:
+
+The attribute "taxability" for customer has been deprecated in the Update Subscription Estimate API.
+
+### v2.0.0 (2016-04-11)
 * * *
 
 #### Attributes and Operations Removed/Renamed in V2
@@ -8,7 +42,11 @@ V2 has been released to accommodate certain backwards-incompatible changes. Refe
 
 #### Incremental Changes in V2
 
+<<<<<<< HEAD
 * *api_version* attribute is added to [Event](https://apidocs.chargebee.com/docs/api/events) resource. More details [here](#v1176-2016-04-01).
+=======
+* *api_version* attribute is added to [Event](https://apidocs.chargebee.com/docs/api/events) resource. More details [here](#v1176-2016-04-06).
+>>>>>>> master
 * Credit Notes resource is introduced. More details here: https://apidocs.chargebee.com/docs/api/credit_notes
 * Operations [Update Subscription](https://apidocs.chargebee.com/docs/api/subscriptions#update_a_subscription) and [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) additionally returns list of Credit Notes now (if applicable).  
 * Operations [Refund an Invoice](https://apidocs.chargebee.com/docs/api/invoices#refund_an_invoice) and [Record Refund for an Invoice](https://apidocs.chargebee.com/docs/api/invoices#record_refund_for_an_invoice) additionally returns a Credit Note if the operation succeeds. Besides, following *input params* are added to these operations - *credit_note[reason_code]* and *customer_notes*.
@@ -28,7 +66,11 @@ V2 has been released to accommodate certain backwards-incompatible changes. Refe
 * Further [discounts[].entity_type](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) will have two types for coupon -  *item_level_coupon* and *document_level_coupon*. 
 * Input Param *use_existing_balances* is added to the operations - [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) and [Subscription Renewal Estimate](https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate)
 
+<<<<<<< HEAD
 ### v1.1.76 (2016-04-01)
+=======
+### v1.1.76 (2016-04-06)
+>>>>>>> master
 * * *
 
 *api_version* attribute is added to the Event resource. 
@@ -42,19 +84,33 @@ https://apidocs.chargebee.com/docs/api/events
 ** APIs updated**:
 
 Support to specify additional information as "meta_data" in json format for Customer, Subscription, Plan, Addon & Coupon resources.
+<<<<<<< HEAD
 Now, create & update customer, subscription, create subscription for customer, create & update plan, addon and create coupon APIs accept the "meta_data"" parameter in json format. See create customer API here : https://apidocs.chargebee.com/docs/api/v1/customers#create_a_customer
 
 New attribute for "meta_data" is returned as part of Customer, Subscription, Plan, Addon and Coupon resources. See customer attributes here: https://apidocs.chargebee.com/docs/api/v1/customers#customer_attributes
+=======
+Now, create & update customer, subscription, create subscription for customer, create & update plan, addon and create coupon APIs accept the "meta_data"" parameter in json format. See create customer API here : https://apidocs.chargebee.com/docs/api/customers#create_a_customer
+
+New attribute for "meta_data" is returned as part of Customer, Subscription, Plan, Addon and Coupon resources. See customer attributes here: https://apidocs.chargebee.com/docs/api/customers#customer_attributes
+>>>>>>> master
 
 
 ** APIs added**:
 
+<<<<<<< HEAD
 Support to change card gateway for a customer. New api endpoint to switch gateway for a customer is added to Card resources. See: https://apidocs.chargebee.com/docs/api/v1/cards#switch_gateway
+=======
+Support to change card gateway for a customer. New api endpoint to switch gateway for a customer is added to Card resources. See: https://apidocs.chargebee.com/docs/api/cards#switch_gateway
+>>>>>>> master
 
 
 ** Issue Fixed**:
 
+<<<<<<< HEAD
 Wrong keys in json response is now fixed for 'linked_transactions', 'linked_orders' & 'notes' in Invoice resource and for 'linked_invoices' & 'linked_refunds' in Transaction resource. See: invoice attributes here: https://apidocs.chargebee.com/docs/api/v1/invoices
+=======
+Wrong keys in json response is now fixed for 'linked_transactions', 'linked_orders' & 'notes' in Invoice resource and for 'linked_invoices' & 'linked_refunds' in Transaction resource. See: invoice attributes here: https://apidocs.chargebee.com/docs/api/invoices
+>>>>>>> master
 
 
 ### v1.1.74 (2016-03-10)
