@@ -428,8 +428,7 @@ namespace ChargeBee.Models
         }
         public class CustomerListRequest : ListRequest 
         {
-            public CustomerListRequest(string url) 
-                    : base(url)
+            public CustomerListRequest(string url) : base(url)
             {
             }
 
@@ -448,7 +447,12 @@ namespace ChargeBee.Models
                 m_params.AddOpt("id", id);
                 return this;
             }
-            public CustomerListRequest FirstName(string firstName) 
+
+			public StringFilter<CustomerListRequest> FirstName() {
+				return new StringFilter<CustomerListRequest>("first_name",this);
+			}
+
+			public CustomerListRequest FirstName(string firstName) 
             {
                 m_params.AddOpt("first_name", firstName);
                 return this;
@@ -468,6 +472,12 @@ namespace ChargeBee.Models
                 m_params.AddOpt("company", company);
                 return this;
             }
+
+
+			public EnumFilter<AutoCollectionEnum,CustomerListRequest> AutoCollection() {
+				return new EnumFilter<AutoCollectionEnum,CustomerListRequest> ("auto_collection", this);
+			}
+
             public CustomerListRequest AutoCollection(AutoCollectionEnum autoCollection) 
             {
                 m_params.AddOpt("auto_collection", autoCollection);

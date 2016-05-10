@@ -40,5 +40,10 @@ namespace ChargeBee.Api
         {
             return Request(ApiConfig.Instance);
         }
+
+		public Params Params() {
+			return m_params;
+		}
+			
     }
 }
