@@ -70,13 +70,7 @@ public class HttpUtil {
                     String keyValPair = enc(entry.getKey() + "[" + i + "]") + "=" + enc(val != null?val:"");
                     buf.add(keyValPair);
                 }
-            }else if(value instanceof HashMap){
-               Map<String,String> m = (Map<String,String>)value;
-               Map.Entry mapEntry = m.entrySet().iterator().next();
-               String val = (String) mapEntry.getValue();
-               String keyValPair = enc(entry.getKey() + "[" + mapEntry.getKey() + "]") + "=" + enc(val != null?val:"");
-               buf.add(keyValPair);
-            } else{
+            }else{
                String keyValPair = enc(entry.getKey()) + "=" + enc((String)value);                
                buf.add(keyValPair);
             }

@@ -1,8 +1,6 @@
 package com.chargebee.internal;
 
-import com.chargebee.internal.RequestBase;
 import com.chargebee.*;
-import com.chargebee.internal.HttpUtil;
 import com.chargebee.internal.HttpUtil.Method;
 import java.io.*;
 import java.util.*;
