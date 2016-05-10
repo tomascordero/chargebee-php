@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.chargebee.filter;
 
 import com.chargebee.internal.ListRequest;
-import java.util.Arrays;
-import org.json.JSONArray;
 
 /**
  *
@@ -26,24 +19,24 @@ public class StringFilter<U extends ListRequest> {
         this.req = req;
         this.supportsPresenceOperator = true;
     }
-    
+
     public StringFilter<U> supportsPresenceOperator(boolean supportsPresenceOperator) {
         this.supportsPresenceOperator = supportsPresenceOperator;
         return this;
     }
-    
+
     public StringFilter<U> supportsMultiOperators(boolean supportsMultiOperators) {
         this.supportsMultiOperators = supportsMultiOperators;
         return this;
     }
 
     public U is(String value) {
-        req.params().addOpt(paramName + "[is]",value);
+        req.params().addOpt(paramName + "[is]", value);
         return req;
     }
 
     public U isNot(String value) {
-        req.params().addOpt(paramName + "[is_not]",value);
+        req.params().addOpt(paramName + "[is_not]", value);
         return req;
     }
 
@@ -51,30 +44,30 @@ public class StringFilter<U extends ListRequest> {
         req.params().addOpt(paramName + "[starts_with]", value);
         return req;
     }
-    
+
     public U isPresent(boolean value) {
-        if(!supportsPresenceOperator) {
+        if (!supportsPresenceOperator) {
             throw new UnsupportedOperationException("operator '[is_present]' is not supported for this filter-parameter");
         }
         req.params().addOpt(paramName + "[is_present]", value);
         return req;
     }
-    
-    public U in(String ... value) {
-        if(!supportsMultiOperators) {
+
+    public U in(String... value) {
+        if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[in]' is not supported for this filter-parameter");
         }
-        
-        req.params().addOpt(paramName + "[in]", new JSONArray(Arrays.asList(value)));
+
+        req.params().addOpt(paramName + "[in]", value);
         return req;
     }
 
-    public U notIn(String ... value) {
-        if(!supportsMultiOperators) {
+    public U notIn(String... value) {
+        if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[not_in]' is not supported for this filter-parameter");
         }
-        req.params().addOpt(paramName + "[not_in]", new JSONArray(Arrays.asList(value)));
+        req.params().addOpt(paramName + "[not_in]", value);
         return req;
     }
-    
+
 }

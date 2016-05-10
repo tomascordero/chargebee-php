@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -273,65 +271,53 @@ public class Transaction extends Resource<Transaction> {
             super(uri);
         }
     
-        public TransactionListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public TransactionListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public StringFilter<TransactionListRequest> id() {
-            return new StringFilter<TransactionListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<TransactionListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<TransactionListRequest> customerId() {
-            return new StringFilter<TransactionListRequest>("customer_id",this).supportsMultiOperators(true);
+            return new StringFilter<TransactionListRequest>("customer_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<TransactionListRequest> subscriptionId() {
-            return new StringFilter<TransactionListRequest>("subscription_id",this).supportsMultiOperators(true);
+            return new StringFilter<TransactionListRequest>("subscription_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
-        public EnumFilter<PaymentMethod,TransactionListRequest> paymentMethod() {
-            return new EnumFilter<PaymentMethod,TransactionListRequest>("payment_method",this);
+        public EnumFilter<PaymentMethod, TransactionListRequest> paymentMethod() {
+            return new EnumFilter<PaymentMethod, TransactionListRequest>("payment_method",this);        
         }
 
 
-        public EnumFilter<Gateway,TransactionListRequest> gateway() {
-            return new EnumFilter<Gateway,TransactionListRequest>("gateway",this);
+        public EnumFilter<Gateway, TransactionListRequest> gateway() {
+            return new EnumFilter<Gateway, TransactionListRequest>("gateway",this);        
         }
 
 
         public StringFilter<TransactionListRequest> referenceNumber() {
-            return new StringFilter<TransactionListRequest>("reference_number",this);
+            return new StringFilter<TransactionListRequest>("reference_number",this).supportsPresenceOperator(true);        
         }
 
 
-        public EnumFilter<Type,TransactionListRequest> type() {
-            return new EnumFilter<Type,TransactionListRequest>("type",this);
+        public EnumFilter<Type, TransactionListRequest> type() {
+            return new EnumFilter<Type, TransactionListRequest>("type",this);        
         }
 
 
         public TimestampFilter<TransactionListRequest> date() {
-            return new TimestampFilter<TransactionListRequest>("date",this);
+            return new TimestampFilter<TransactionListRequest>("date",this);        
         }
 
 
-        public NumberFilter<Integer,TransactionListRequest> amount() {
-            return new NumberFilter<Integer,TransactionListRequest>("amount",this);
+        public NumberFilter<Integer, TransactionListRequest> amount() {
+            return new NumberFilter<Integer, TransactionListRequest>("amount",this);        
         }
 
 
-        public EnumFilter<Status,TransactionListRequest> status() {
-            return new EnumFilter<Status,TransactionListRequest>("status",this);
+        public EnumFilter<Status, TransactionListRequest> status() {
+            return new EnumFilter<Status, TransactionListRequest>("status",this);        
         }
 
 

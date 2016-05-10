@@ -21,7 +21,7 @@ public class Resource<T> {
     public final JSONObject jsonObj;
 
     private static final String unknown = "_UNKNOWN";
-    
+
     public Resource(JSONObject jsonObj){
         this.jsonObj = jsonObj;
     }

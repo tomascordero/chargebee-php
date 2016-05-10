@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -424,6 +422,8 @@ public class Customer extends Resource<Customer> {
         }
 
 
+
+
         public CreateRequest createdFromIp(String createdFromIp) {
             params.addOpt("created_from_ip", createdFromIp);
             return this;
@@ -609,42 +609,42 @@ public class Customer extends Resource<Customer> {
         }
     
         public StringFilter<CustomerListRequest> id() {
-            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> firstName() {
-            return new StringFilter<CustomerListRequest>("first_name",this);
+            return new StringFilter<CustomerListRequest>("first_name",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> lastName() {
-            return new StringFilter<CustomerListRequest>("last_name",this);
+            return new StringFilter<CustomerListRequest>("last_name",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> email() {
-            return new StringFilter<CustomerListRequest>("email",this);
+            return new StringFilter<CustomerListRequest>("email",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> company() {
-            return new StringFilter<CustomerListRequest>("company",this);
+            return new StringFilter<CustomerListRequest>("company",this).supportsPresenceOperator(true);        
         }
 
 
-        public EnumFilter<AutoCollection,CustomerListRequest> autoCollection() {
-            return new EnumFilter<AutoCollection,CustomerListRequest>("auto_collection",this);
+        public EnumFilter<AutoCollection, CustomerListRequest> autoCollection() {
+            return new EnumFilter<AutoCollection, CustomerListRequest>("auto_collection",this);        
         }
 
 
-        public EnumFilter<Taxability,CustomerListRequest> taxability() {
-            return new EnumFilter<Taxability,CustomerListRequest>("taxability",this);
+        public EnumFilter<Taxability, CustomerListRequest> taxability() {
+            return new EnumFilter<Taxability, CustomerListRequest>("taxability",this);        
         }
 
 
         public TimestampFilter<CustomerListRequest> createdAt() {
-            return new TimestampFilter<CustomerListRequest>("created_at",this);
+            return new TimestampFilter<CustomerListRequest>("created_at",this);        
         }
 
 

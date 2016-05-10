@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -132,18 +130,6 @@ public class Comment extends Resource<Comment> {
             super(uri);
         }
     
-        public CommentListRequest limit(Integer limit) {
-            params.addOpt("limit", limit);
-            return this;
-        }
-
-
-        public CommentListRequest offset(String offset) {
-            params.addOpt("offset", offset);
-            return this;
-        }
-
-
         public CommentListRequest entityType(EntityType entityType) {
             params.addOpt("entity_type", entityType);
             return this;
@@ -157,7 +143,7 @@ public class Comment extends Resource<Comment> {
 
 
         public TimestampFilter<CommentListRequest> createdAt() {
-            return new TimestampFilter<CommentListRequest>("created_at",this);
+            return new TimestampFilter<CommentListRequest>("created_at",this);        
         }
 
 
