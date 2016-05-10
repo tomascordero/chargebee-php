@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -356,37 +354,37 @@ public class Coupon extends Resource<Coupon> {
 
 
         public StringFilter<CouponListRequest> id() {
-            return new StringFilter<CouponListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<CouponListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<CouponListRequest> name() {
-            return new StringFilter<CouponListRequest>("name",this).supportsMultiOperators(true);
+            return new StringFilter<CouponListRequest>("name",this).supportsMultiOperators(true);        
         }
 
 
-        public EnumFilter<DiscountType,CouponListRequest> discountType() {
-            return new EnumFilter<DiscountType,CouponListRequest>("discount_type",this);
+        public EnumFilter<DiscountType, CouponListRequest> discountType() {
+            return new EnumFilter<DiscountType, CouponListRequest>("discount_type",this);        
         }
 
 
-        public EnumFilter<DurationType,CouponListRequest> durationType() {
-            return new EnumFilter<DurationType,CouponListRequest>("duration_type",this);
+        public EnumFilter<DurationType, CouponListRequest> durationType() {
+            return new EnumFilter<DurationType, CouponListRequest>("duration_type",this);        
         }
 
 
-        public EnumFilter<Status,CouponListRequest> status() {
-            return new EnumFilter<Status,CouponListRequest>("status",this);
+        public EnumFilter<Status, CouponListRequest> status() {
+            return new EnumFilter<Status, CouponListRequest>("status",this);        
         }
 
 
-        public EnumFilter<ApplyOn,CouponListRequest> applyOn() {
-            return new EnumFilter<ApplyOn,CouponListRequest>("apply_on",this);
+        public EnumFilter<ApplyOn, CouponListRequest> applyOn() {
+            return new EnumFilter<ApplyOn, CouponListRequest>("apply_on",this);        
         }
 
 
         public TimestampFilter<CouponListRequest> createdAt() {
-            return new TimestampFilter<CouponListRequest>("created_at",this);
+            return new TimestampFilter<CouponListRequest>("created_at",this);        
         }
 
 

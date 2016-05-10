@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -350,63 +348,68 @@ public class CreditNote extends Resource<CreditNote> {
         }
 
 
+        public StringFilter<CreditNoteListRequest> id() {
+            return new StringFilter<CreditNoteListRequest>("id",this);        
+        }
+
+
         public StringFilter<CreditNoteListRequest> customerId() {
-            return new StringFilter<CreditNoteListRequest>("customer_id",this);
+            return new StringFilter<CreditNoteListRequest>("customer_id",this);        
         }
 
 
         public StringFilter<CreditNoteListRequest> subscriptionId() {
-            return new StringFilter<CreditNoteListRequest>("subscription_id",this);
+            return new StringFilter<CreditNoteListRequest>("subscription_id",this);        
         }
 
 
         public StringFilter<CreditNoteListRequest> referenceInvoiceId() {
-            return new StringFilter<CreditNoteListRequest>("reference_invoice_id",this);
+            return new StringFilter<CreditNoteListRequest>("reference_invoice_id",this);        
         }
 
 
-        public EnumFilter<Type,CreditNoteListRequest> type() {
-            return new EnumFilter<Type,CreditNoteListRequest>("type",this);
+        public EnumFilter<Type, CreditNoteListRequest> type() {
+            return new EnumFilter<Type, CreditNoteListRequest>("type",this);        
         }
 
 
-        public EnumFilter<ReasonCode,CreditNoteListRequest> reasonCode() {
-            return new EnumFilter<ReasonCode,CreditNoteListRequest>("reason_code",this);
+        public EnumFilter<ReasonCode, CreditNoteListRequest> reasonCode() {
+            return new EnumFilter<ReasonCode, CreditNoteListRequest>("reason_code",this);        
         }
 
 
-        public EnumFilter<Status,CreditNoteListRequest> status() {
-            return new EnumFilter<Status,CreditNoteListRequest>("status",this);
+        public EnumFilter<Status, CreditNoteListRequest> status() {
+            return new EnumFilter<Status, CreditNoteListRequest>("status",this);        
         }
 
 
         public TimestampFilter<CreditNoteListRequest> date() {
-            return new TimestampFilter<CreditNoteListRequest>("date",this);
+            return new TimestampFilter<CreditNoteListRequest>("date",this);        
         }
 
 
-        public NumberFilter<Integer,CreditNoteListRequest> total() {
-            return new NumberFilter<Integer,CreditNoteListRequest>("total",this);
+        public NumberFilter<Integer, CreditNoteListRequest> total() {
+            return new NumberFilter<Integer, CreditNoteListRequest>("total",this);        
         }
 
 
-        public EnumFilter<PriceType,CreditNoteListRequest> priceType() {
-            return new EnumFilter<PriceType,CreditNoteListRequest>("price_type",this);
+        public EnumFilter<PriceType, CreditNoteListRequest> priceType() {
+            return new EnumFilter<PriceType, CreditNoteListRequest>("price_type",this);        
         }
 
 
-        public NumberFilter<Integer,CreditNoteListRequest> amountAllocated() {
-            return new NumberFilter<Integer,CreditNoteListRequest>("amount_allocated",this);
+        public NumberFilter<Integer, CreditNoteListRequest> amountAllocated() {
+            return new NumberFilter<Integer, CreditNoteListRequest>("amount_allocated",this);        
         }
 
 
-        public NumberFilter<Integer,CreditNoteListRequest> amountRefunded() {
-            return new NumberFilter<Integer,CreditNoteListRequest>("amount_refunded",this);
+        public NumberFilter<Integer, CreditNoteListRequest> amountRefunded() {
+            return new NumberFilter<Integer, CreditNoteListRequest>("amount_refunded",this);        
         }
 
 
-        public NumberFilter<Integer,CreditNoteListRequest> amountAvailable() {
-            return new NumberFilter<Integer,CreditNoteListRequest>("amount_available",this);
+        public NumberFilter<Integer, CreditNoteListRequest> amountAvailable() {
+            return new NumberFilter<Integer, CreditNoteListRequest>("amount_available",this);        
         }
 
 

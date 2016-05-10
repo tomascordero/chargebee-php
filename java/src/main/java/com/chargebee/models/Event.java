@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -182,12 +180,12 @@ public class Event extends Resource<Event> {
 
 
         public StringFilter<EventListRequest> id() {
-            return new StringFilter<EventListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<EventListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
-        public EnumFilter<Source,EventListRequest> source() {
-            return new EnumFilter<Source,EventListRequest>("source",this);
+        public EnumFilter<Source, EventListRequest> source() {
+            return new EnumFilter<Source, EventListRequest>("source",this);        
         }
 
 

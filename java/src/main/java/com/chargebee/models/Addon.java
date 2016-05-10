@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -382,42 +380,42 @@ public class Addon extends Resource<Addon> {
 
 
         public StringFilter<AddonListRequest> id() {
-            return new StringFilter<AddonListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<AddonListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<AddonListRequest> name() {
-            return new StringFilter<AddonListRequest>("name",this).supportsMultiOperators(true);
+            return new StringFilter<AddonListRequest>("name",this).supportsMultiOperators(true);        
         }
 
 
-        public EnumFilter<Type,AddonListRequest> type() {
-            return new EnumFilter<Type,AddonListRequest>("type",this);
+        public EnumFilter<Type, AddonListRequest> type() {
+            return new EnumFilter<Type, AddonListRequest>("type",this);        
         }
 
 
-        public EnumFilter<ChargeType,AddonListRequest> chargeType() {
-            return new EnumFilter<ChargeType,AddonListRequest>("charge_type",this);
+        public EnumFilter<ChargeType, AddonListRequest> chargeType() {
+            return new EnumFilter<ChargeType, AddonListRequest>("charge_type",this);        
         }
 
 
-        public NumberFilter<Integer,AddonListRequest> price() {
-            return new NumberFilter<Integer,AddonListRequest>("price",this);
+        public NumberFilter<Integer, AddonListRequest> price() {
+            return new NumberFilter<Integer, AddonListRequest>("price",this);        
         }
 
 
-        public NumberFilter<Integer,AddonListRequest> period() {
-            return new NumberFilter<Integer,AddonListRequest>("period",this);
+        public NumberFilter<Integer, AddonListRequest> period() {
+            return new NumberFilter<Integer, AddonListRequest>("period",this);        
         }
 
 
-        public EnumFilter<PeriodUnit,AddonListRequest> periodUnit() {
-            return new EnumFilter<PeriodUnit,AddonListRequest>("period_unit",this);
+        public EnumFilter<PeriodUnit, AddonListRequest> periodUnit() {
+            return new EnumFilter<PeriodUnit, AddonListRequest>("period_unit",this);        
         }
 
 
-        public EnumFilter<Status,AddonListRequest> status() {
-            return new EnumFilter<Status,AddonListRequest>("status",this);
+        public EnumFilter<Status, AddonListRequest> status() {
+            return new EnumFilter<Status, AddonListRequest>("status",this);        
         }
 
 

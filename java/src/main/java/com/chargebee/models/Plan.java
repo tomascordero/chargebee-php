@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -480,47 +478,47 @@ public class Plan extends Resource<Plan> {
 
 
         public StringFilter<PlanListRequest> id() {
-            return new StringFilter<PlanListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<PlanListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<PlanListRequest> name() {
-            return new StringFilter<PlanListRequest>("name",this).supportsMultiOperators(true);
+            return new StringFilter<PlanListRequest>("name",this).supportsMultiOperators(true);        
         }
 
 
-        public NumberFilter<Integer,PlanListRequest> price() {
-            return new NumberFilter<Integer,PlanListRequest>("price",this);
+        public NumberFilter<Integer, PlanListRequest> price() {
+            return new NumberFilter<Integer, PlanListRequest>("price",this);        
         }
 
 
-        public NumberFilter<Integer,PlanListRequest> period() {
-            return new NumberFilter<Integer,PlanListRequest>("period",this);
+        public NumberFilter<Integer, PlanListRequest> period() {
+            return new NumberFilter<Integer, PlanListRequest>("period",this);        
         }
 
 
-        public EnumFilter<PeriodUnit,PlanListRequest> periodUnit() {
-            return new EnumFilter<PeriodUnit,PlanListRequest>("period_unit",this);
+        public EnumFilter<PeriodUnit, PlanListRequest> periodUnit() {
+            return new EnumFilter<PeriodUnit, PlanListRequest>("period_unit",this);        
         }
 
 
-        public NumberFilter<Integer,PlanListRequest> trialPeriod() {
-            return new NumberFilter<Integer,PlanListRequest>("trial_period",this);
+        public NumberFilter<Integer, PlanListRequest> trialPeriod() {
+            return new NumberFilter<Integer, PlanListRequest>("trial_period",this);        
         }
 
 
-        public EnumFilter<TrialPeriodUnit,PlanListRequest> trialPeriodUnit() {
-            return new EnumFilter<TrialPeriodUnit,PlanListRequest>("trial_period_unit",this);
+        public EnumFilter<TrialPeriodUnit, PlanListRequest> trialPeriodUnit() {
+            return new EnumFilter<TrialPeriodUnit, PlanListRequest>("trial_period_unit",this);        
         }
 
 
-        public EnumFilter<ChargeModel,PlanListRequest> chargeModel() {
-            return new EnumFilter<ChargeModel,PlanListRequest>("charge_model",this);
+        public EnumFilter<ChargeModel, PlanListRequest> chargeModel() {
+            return new EnumFilter<ChargeModel, PlanListRequest>("charge_model",this);        
         }
 
 
-        public EnumFilter<Status,PlanListRequest> status() {
-            return new EnumFilter<Status,PlanListRequest>("status",this);
+        public EnumFilter<Status, PlanListRequest> status() {
+            return new EnumFilter<Status, PlanListRequest>("status",this);        
         }
 
 

@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -157,7 +155,7 @@ public class Comment extends Resource<Comment> {
 
 
         public TimestampFilter<CommentListRequest> createdAt() {
-            return new TimestampFilter<CommentListRequest>("created_at",this);
+            return new TimestampFilter<CommentListRequest>("created_at",this);        
         }
 
 

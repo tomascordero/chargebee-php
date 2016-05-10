@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -919,67 +917,67 @@ public class Invoice extends Resource<Invoice> {
 
 
         public StringFilter<InvoiceListRequest> id() {
-            return new StringFilter<InvoiceListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<InvoiceListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<InvoiceListRequest> subscriptionId() {
-            return new StringFilter<InvoiceListRequest>("subscription_id",this).supportsMultiOperators(true);
+            return new StringFilter<InvoiceListRequest>("subscription_id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<InvoiceListRequest> customerId() {
-            return new StringFilter<InvoiceListRequest>("customer_id",this).supportsMultiOperators(true);
+            return new StringFilter<InvoiceListRequest>("customer_id",this).supportsMultiOperators(true);        
         }
 
 
         public BooleanFilter<InvoiceListRequest> recurring() {
-            return new BooleanFilter<InvoiceListRequest>("recurring",this);
+            return new BooleanFilter<InvoiceListRequest>("recurring",this);        
         }
 
 
-        public EnumFilter<Status,InvoiceListRequest> status() {
-            return new EnumFilter<Status,InvoiceListRequest>("status",this);
+        public EnumFilter<Status, InvoiceListRequest> status() {
+            return new EnumFilter<Status, InvoiceListRequest>("status",this);        
         }
 
 
-        public EnumFilter<PriceType,InvoiceListRequest> priceType() {
-            return new EnumFilter<PriceType,InvoiceListRequest>("price_type",this);
+        public EnumFilter<PriceType, InvoiceListRequest> priceType() {
+            return new EnumFilter<PriceType, InvoiceListRequest>("price_type",this);        
         }
 
 
         public TimestampFilter<InvoiceListRequest> date() {
-            return new TimestampFilter<InvoiceListRequest>("date",this);
+            return new TimestampFilter<InvoiceListRequest>("date",this);        
         }
 
 
-        public NumberFilter<Integer,InvoiceListRequest> total() {
-            return new NumberFilter<Integer,InvoiceListRequest>("total",this);
+        public NumberFilter<Integer, InvoiceListRequest> total() {
+            return new NumberFilter<Integer, InvoiceListRequest>("total",this);        
         }
 
 
-        public NumberFilter<Integer,InvoiceListRequest> amountPaid() {
-            return new NumberFilter<Integer,InvoiceListRequest>("amount_paid",this);
+        public NumberFilter<Integer, InvoiceListRequest> amountPaid() {
+            return new NumberFilter<Integer, InvoiceListRequest>("amount_paid",this);        
         }
 
 
-        public NumberFilter<Integer,InvoiceListRequest> amountAdjusted() {
-            return new NumberFilter<Integer,InvoiceListRequest>("amount_adjusted",this);
+        public NumberFilter<Integer, InvoiceListRequest> amountAdjusted() {
+            return new NumberFilter<Integer, InvoiceListRequest>("amount_adjusted",this);        
         }
 
 
-        public NumberFilter<Integer,InvoiceListRequest> creditsApplied() {
-            return new NumberFilter<Integer,InvoiceListRequest>("credits_applied",this);
+        public NumberFilter<Integer, InvoiceListRequest> creditsApplied() {
+            return new NumberFilter<Integer, InvoiceListRequest>("credits_applied",this);        
         }
 
 
-        public NumberFilter<Integer,InvoiceListRequest> amountDue() {
-            return new NumberFilter<Integer,InvoiceListRequest>("amount_due",this);
+        public NumberFilter<Integer, InvoiceListRequest> amountDue() {
+            return new NumberFilter<Integer, InvoiceListRequest>("amount_due",this);        
         }
 
 
-        public EnumFilter<DunningStatus,InvoiceListRequest> dunningStatus() {
-            return new EnumFilter<DunningStatus,InvoiceListRequest>("dunning_status",this);
+        public EnumFilter<DunningStatus, InvoiceListRequest> dunningStatus() {
+            return new EnumFilter<DunningStatus, InvoiceListRequest>("dunning_status",this);        
         }
 
 

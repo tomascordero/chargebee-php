@@ -1,7 +1,5 @@
 package com.chargebee.models;
 
-import com.chargebee.internal.ListRequest;
-import com.chargebee.internal.Request;
 import com.chargebee.*;
 import com.chargebee.internal.*;
 import com.chargebee.filter.*;
@@ -147,6 +145,10 @@ public class Subscription extends Resource<Subscription> {
 
     public String id() {
         return reqString("id");
+    }
+
+    public String customerId() {
+        return reqString("customer_id");
     }
 
     public String planId() {
@@ -889,37 +891,42 @@ public class Subscription extends Resource<Subscription> {
 
 
         public StringFilter<SubscriptionListRequest> id() {
-            return new StringFilter<SubscriptionListRequest>("id",this).supportsMultiOperators(true);
+            return new StringFilter<SubscriptionListRequest>("id",this).supportsMultiOperators(true);        
+        }
+
+
+        public StringFilter<SubscriptionListRequest> customerId() {
+            return new StringFilter<SubscriptionListRequest>("customer_id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<SubscriptionListRequest> planId() {
-            return new StringFilter<SubscriptionListRequest>("plan_id",this).supportsMultiOperators(true);
+            return new StringFilter<SubscriptionListRequest>("plan_id",this).supportsMultiOperators(true);        
         }
 
 
-        public EnumFilter<Status,SubscriptionListRequest> status() {
-            return new EnumFilter<Status,SubscriptionListRequest>("status",this);
+        public EnumFilter<Status, SubscriptionListRequest> status() {
+            return new EnumFilter<Status, SubscriptionListRequest>("status",this);        
         }
 
 
-        public EnumFilter<CancelReason,SubscriptionListRequest> cancelReason() {
-            return new EnumFilter<CancelReason,SubscriptionListRequest>("cancel_reason",this);
+        public EnumFilter<CancelReason, SubscriptionListRequest> cancelReason() {
+            return new EnumFilter<CancelReason, SubscriptionListRequest>("cancel_reason",this);        
         }
 
 
-        public NumberFilter<Integer,SubscriptionListRequest> remainingBillingCycles() {
-            return new NumberFilter<Integer,SubscriptionListRequest>("remaining_billing_cycles",this);
+        public NumberFilter<Integer, SubscriptionListRequest> remainingBillingCycles() {
+            return new NumberFilter<Integer, SubscriptionListRequest>("remaining_billing_cycles",this);        
         }
 
 
         public TimestampFilter<SubscriptionListRequest> createdAt() {
-            return new TimestampFilter<SubscriptionListRequest>("created_at",this);
+            return new TimestampFilter<SubscriptionListRequest>("created_at",this);        
         }
 
 
         public BooleanFilter<SubscriptionListRequest> hasScheduledChanges() {
-            return new BooleanFilter<SubscriptionListRequest>("has_scheduled_changes",this);
+            return new BooleanFilter<SubscriptionListRequest>("has_scheduled_changes",this);        
         }
 
 
