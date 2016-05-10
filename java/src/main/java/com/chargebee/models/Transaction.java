@@ -289,12 +289,12 @@ public class Transaction extends Resource<Transaction> {
 
 
         public StringFilter<TransactionListRequest> customerId() {
-            return new StringFilter<TransactionListRequest>("customer_id",this).supportsMultiOperators(true);        
+            return new StringFilter<TransactionListRequest>("customer_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<TransactionListRequest> subscriptionId() {
-            return new StringFilter<TransactionListRequest>("subscription_id",this).supportsMultiOperators(true);        
+            return new StringFilter<TransactionListRequest>("subscription_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
@@ -309,7 +309,7 @@ public class Transaction extends Resource<Transaction> {
 
 
         public StringFilter<TransactionListRequest> referenceNumber() {
-            return new StringFilter<TransactionListRequest>("reference_number",this);        
+            return new StringFilter<TransactionListRequest>("reference_number",this).supportsPresenceOperator(true);        
         }
 
 

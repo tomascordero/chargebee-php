@@ -503,7 +503,7 @@ public class Plan extends Resource<Plan> {
 
 
         public NumberFilter<Integer, PlanListRequest> trialPeriod() {
-            return new NumberFilter<Integer, PlanListRequest>("trial_period",this);        
+            return new NumberFilter<Integer, PlanListRequest>("trial_period",this).supportsPresenceOperator(true);        
         }
 
 

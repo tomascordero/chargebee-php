@@ -911,12 +911,12 @@ public class Subscription extends Resource<Subscription> {
 
 
         public EnumFilter<CancelReason, SubscriptionListRequest> cancelReason() {
-            return new EnumFilter<CancelReason, SubscriptionListRequest>("cancel_reason",this);        
+            return new EnumFilter<CancelReason, SubscriptionListRequest>("cancel_reason",this).supportsPresenceOperator(true);        
         }
 
 
         public NumberFilter<Integer, SubscriptionListRequest> remainingBillingCycles() {
-            return new NumberFilter<Integer, SubscriptionListRequest>("remaining_billing_cycles",this);        
+            return new NumberFilter<Integer, SubscriptionListRequest>("remaining_billing_cycles",this).supportsPresenceOperator(true);        
         }
 
 

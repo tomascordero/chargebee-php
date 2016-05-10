@@ -359,7 +359,7 @@ public class CreditNote extends Resource<CreditNote> {
 
 
         public StringFilter<CreditNoteListRequest> subscriptionId() {
-            return new StringFilter<CreditNoteListRequest>("subscription_id",this);        
+            return new StringFilter<CreditNoteListRequest>("subscription_id",this).supportsPresenceOperator(true);        
         }
 
 

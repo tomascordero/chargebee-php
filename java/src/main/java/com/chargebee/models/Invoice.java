@@ -922,7 +922,7 @@ public class Invoice extends Resource<Invoice> {
 
 
         public StringFilter<InvoiceListRequest> subscriptionId() {
-            return new StringFilter<InvoiceListRequest>("subscription_id",this).supportsMultiOperators(true);        
+            return new StringFilter<InvoiceListRequest>("subscription_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
@@ -977,7 +977,7 @@ public class Invoice extends Resource<Invoice> {
 
 
         public EnumFilter<DunningStatus, InvoiceListRequest> dunningStatus() {
-            return new EnumFilter<DunningStatus, InvoiceListRequest>("dunning_status",this);        
+            return new EnumFilter<DunningStatus, InvoiceListRequest>("dunning_status",this).supportsPresenceOperator(true);        
         }
 
 

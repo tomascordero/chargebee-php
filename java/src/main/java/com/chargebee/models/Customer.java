@@ -621,27 +621,27 @@ public class Customer extends Resource<Customer> {
 
 
         public StringFilter<CustomerListRequest> id() {
-            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true);        
+            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> firstName() {
-            return new StringFilter<CustomerListRequest>("first_name",this);        
+            return new StringFilter<CustomerListRequest>("first_name",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> lastName() {
-            return new StringFilter<CustomerListRequest>("last_name",this);        
+            return new StringFilter<CustomerListRequest>("last_name",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> email() {
-            return new StringFilter<CustomerListRequest>("email",this);        
+            return new StringFilter<CustomerListRequest>("email",this).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CustomerListRequest> company() {
-            return new StringFilter<CustomerListRequest>("company",this);        
+            return new StringFilter<CustomerListRequest>("company",this).supportsPresenceOperator(true);        
         }
 
 
