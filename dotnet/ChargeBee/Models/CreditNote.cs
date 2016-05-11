@@ -129,7 +129,7 @@ namespace ChargeBee.Models
         #endregion
         
         #region Requests
-        public class CreditNoteListRequest : ListRequest<CreditNoteListRequest> 
+        public class CreditNoteListRequest : ListRequestBase<CreditNoteListRequest> 
         {
             public CreditNoteListRequest(string url) 
                     : base(url)

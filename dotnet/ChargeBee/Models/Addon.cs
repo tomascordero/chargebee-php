@@ -284,7 +284,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class AddonListRequest : ListRequest<AddonListRequest> 
+        public class AddonListRequest : ListRequestBase<AddonListRequest> 
         {
             public AddonListRequest(string url) 
                     : base(url)

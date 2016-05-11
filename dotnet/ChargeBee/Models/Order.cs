@@ -181,7 +181,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class OrderListRequest : ListRequest<OrderListRequest> 
+        public class OrderListRequest : ListRequestBase<OrderListRequest> 
         {
             public OrderListRequest(string url) 
                     : base(url)

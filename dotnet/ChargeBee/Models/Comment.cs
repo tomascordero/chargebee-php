@@ -101,7 +101,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class CommentListRequest : ListRequest<CommentListRequest> 
+        public class CommentListRequest : ListRequestBase<CommentListRequest> 
         {
             public CommentListRequest(string url) 
                     : base(url)

@@ -714,7 +714,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class SubscriptionListRequest : ListRequest<SubscriptionListRequest> 
+        public class SubscriptionListRequest : ListRequestBase<SubscriptionListRequest> 
         {
             public SubscriptionListRequest(string url) 
                     : base(url)

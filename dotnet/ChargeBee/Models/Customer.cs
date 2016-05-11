@@ -426,7 +426,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class CustomerListRequest : ListRequest<CustomerListRequest> 
+        public class CustomerListRequest : ListRequestBase<CustomerListRequest> 
         {
             public CustomerListRequest(string url) 
                     : base(url)
