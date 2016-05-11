@@ -2,7 +2,6 @@ package com.chargebee.internal;
 
 import java.sql.Timestamp;
 import java.util.*;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Params {
@@ -14,15 +13,6 @@ public class Params {
             throw new RuntimeException("The param {" + paramName + "} cannot be null");
         }
         m.put(paramName, toValStr(value));
-    }
-    
-    public void addFilter(String paramName,String filterParam, Object value) {
-        if(value == null) {
-            throw new RuntimeException("The param {" + paramName + "} cannot be null");
-        }
-        HashMap map = new HashMap();
-        map.put(filterParam, value);
-        m.put(paramName, toValStr(map));
     }
 
     public void addOpt(String paramName, Object value) {

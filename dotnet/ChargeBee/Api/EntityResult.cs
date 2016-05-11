@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using ChargeBee.Internal;
 
 namespace ChargeBee.Api
@@ -14,5 +14,5 @@ namespace ChargeBee.Api
 
         public HttpStatusCode StatusCode { get; private set; }
 
-	}
+    }
 }
