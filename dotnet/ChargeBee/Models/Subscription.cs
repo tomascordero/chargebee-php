@@ -763,7 +763,7 @@ namespace ChargeBee.Models
             {
                 return new BooleanFilter<SubscriptionListRequest>("has_scheduled_changes", this);        
             }
-            public ListRequest sortByCreatedAt(SortOrderEnum order) {
+            public ListRequest SortByCreatedAt(SortOrderEnum order) {
                 m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }

@@ -205,7 +205,7 @@ namespace ChargeBee.Models
             {
                 return new EnumFilter<StatusEnum, TransactionListRequest>("status", this);        
             }
-            public ListRequest sortByDate(SortOrderEnum order) {
+            public ListRequest SortByDate(SortOrderEnum order) {
                 m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","date");
                 return this;
             }
