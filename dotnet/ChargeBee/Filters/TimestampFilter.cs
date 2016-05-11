@@ -3,7 +3,7 @@ using ChargeBee.Api;
 
 namespace ChargeBee
 {
-	public class TimestampFilter<U> where U : ListRequest {
+	public class TimestampFilter<U> where U : ListRequest<U> {
 		
 		private U req;
 		private String paramName;

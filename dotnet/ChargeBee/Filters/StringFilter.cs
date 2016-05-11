@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ChargeBee
 {
-	public class StringFilter<U> where U : ListRequest
+	public class StringFilter<U> where U : ListRequest<U>
 	{
 		private U req;
 		private String paramName;

@@ -3,7 +3,7 @@ using ChargeBee.Api;
 
 namespace ChargeBee
 {
-	public class EnumFilter<T, U> where U : ListRequest
+	public class EnumFilter<T, U> where U : ListRequest<U>
 	{
 
 		private U req;
