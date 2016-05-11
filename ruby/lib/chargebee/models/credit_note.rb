@@ -2,7 +2,7 @@ module ChargeBee
   class CreditNote < Model
 
     class LineItem < Model
-      attr_accessor :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :amount, :discount_amount, :item_level_discount_amount, :description, :entity_type, :entity_id
+      attr_accessor :id, :date_from, :date_to, :unit_amount, :quantity, :is_taxed, :tax_amount, :tax_rate, :amount, :discount_amount, :item_level_discount_amount, :description, :entity_type, :entity_id
     end
 
     class Discount < Model
@@ -10,7 +10,11 @@ module ChargeBee
     end
 
     class Tax < Model
-      attr_accessor :amount, :description
+      attr_accessor :name, :amount, :description
+    end
+
+    class LineItemTax < Model
+      attr_accessor :line_item_id, :tax_name, :tax_rate, :tax_amount, :tax_juris_type, :tax_juris_name, :tax_juris_code
     end
 
     class LinkedRefund < Model
@@ -23,7 +27,8 @@ module ChargeBee
 
   attr_accessor :id, :customer_id, :subscription_id, :reference_invoice_id, :type, :reason_code,
   :status, :vat_number, :date, :price_type, :total, :amount_allocated, :amount_refunded, :amount_available,
-  :refunded_at, :sub_total, :line_items, :discounts, :taxes, :linked_refunds, :allocations
+  :refunded_at, :sub_total, :line_items, :discounts, :taxes, :line_item_taxes, :linked_refunds,
+  :allocations
 
   # OPERATIONS
   #-----------
