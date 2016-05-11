@@ -1,13 +1,9 @@
 package com.chargebee.models;
 
-import com.chargebee.filters.BooleanFilter;
-import com.chargebee.filters.StringFilter;
-import com.chargebee.filters.TimestampFilter;
-import com.chargebee.filters.EnumFilter;
-import com.chargebee.filters.NumberFilter;
-import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filters.*;
+import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -283,6 +279,7 @@ public class Subscription extends Resource<Subscription> {
         return new SubscriptionListRequest(uri);
     }
 
+    @Deprecated
     public static ListRequest subscriptionsForCustomer(String id) throws IOException {
         String uri = uri("customers", nullCheck(id), "subscriptions");
         return new ListRequest(uri);

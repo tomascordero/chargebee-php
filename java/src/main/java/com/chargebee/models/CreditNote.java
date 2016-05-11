@@ -1,12 +1,9 @@
 package com.chargebee.models;
 
-import com.chargebee.filters.StringFilter;
-import com.chargebee.filters.TimestampFilter;
-import com.chargebee.filters.EnumFilter;
-import com.chargebee.filters.NumberFilter;
-import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.*;
 import com.chargebee.internal.*;
+import com.chargebee.filters.*;
+import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -55,6 +52,10 @@ public class CreditNote extends Resource<CreditNote> {
 
         public LineItem(JSONObject jsonObj) {
             super(jsonObj);
+        }
+
+        public String id() {
+            return optString("id");
         }
 
         public Timestamp dateFrom() {
@@ -145,12 +146,51 @@ public class CreditNote extends Resource<CreditNote> {
             super(jsonObj);
         }
 
+        public String name() {
+            return reqString("name");
+        }
+
         public Integer amount() {
             return reqInteger("amount");
         }
 
         public String description() {
             return optString("description");
+        }
+
+    }
+
+    public static class LineItemTax extends Resource<LineItemTax> {
+        public LineItemTax(JSONObject jsonObj) {
+            super(jsonObj);
+        }
+
+        public String lineItemId() {
+            return optString("line_item_id");
+        }
+
+        public String taxName() {
+            return reqString("tax_name");
+        }
+
+        public Double taxRate() {
+            return reqDouble("tax_rate");
+        }
+
+        public Integer taxAmount() {
+            return reqInteger("tax_amount");
+        }
+
+        public TaxJurisType taxJurisType() {
+            return optEnum("tax_juris_type", TaxJurisType.class);
+        }
+
+        public String taxJurisName() {
+            return optString("tax_juris_name");
+        }
+
+        public String taxJurisCode() {
+            return optString("tax_juris_code");
         }
 
     }
@@ -301,6 +341,10 @@ public class CreditNote extends Resource<CreditNote> {
 
     public List<CreditNote.Tax> taxes() {
         return optList("taxes", CreditNote.Tax.class);
+    }
+
+    public List<CreditNote.LineItemTax> lineItemTaxes() {
+        return optList("line_item_taxes", CreditNote.LineItemTax.class);
     }
 
     public List<CreditNote.LinkedRefund> linkedRefunds() {
