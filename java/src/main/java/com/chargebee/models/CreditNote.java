@@ -385,22 +385,22 @@ public class CreditNote extends Resource<CreditNote> {
         }
     
         public StringFilter<CreditNoteListRequest> id() {
-            return new StringFilter<CreditNoteListRequest>("id",this);        
+            return new StringFilter<CreditNoteListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<CreditNoteListRequest> customerId() {
-            return new StringFilter<CreditNoteListRequest>("customer_id",this);        
+            return new StringFilter<CreditNoteListRequest>("customer_id",this).supportsMultiOperators(true);        
         }
 
 
         public StringFilter<CreditNoteListRequest> subscriptionId() {
-            return new StringFilter<CreditNoteListRequest>("subscription_id",this).supportsPresenceOperator(true);        
+            return new StringFilter<CreditNoteListRequest>("subscription_id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
         }
 
 
         public StringFilter<CreditNoteListRequest> referenceInvoiceId() {
-            return new StringFilter<CreditNoteListRequest>("reference_invoice_id",this);        
+            return new StringFilter<CreditNoteListRequest>("reference_invoice_id",this).supportsMultiOperators(true);        
         }
 
 

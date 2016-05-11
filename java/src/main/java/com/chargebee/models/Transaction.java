@@ -297,6 +297,11 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
+        public StringFilter<TransactionListRequest> idAtGateway() {
+            return new StringFilter<TransactionListRequest>("id_at_gateway",this);        
+        }
+
+
         public StringFilter<TransactionListRequest> referenceNumber() {
             return new StringFilter<TransactionListRequest>("reference_number",this).supportsPresenceOperator(true);        
         }
