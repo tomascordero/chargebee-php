@@ -88,6 +88,13 @@
     <Compile Include="Models\Enums\PriceTypeEnum.cs" />
     <Compile Include="Models\Enums\ApiVersionEnum.cs" />
     <Compile Include="Models\Enums\EntityCodeEnum.cs" />
+    <Compile Include="Filters\BooleanFilter.cs" />
+    <Compile Include="Filters\EnumFilter.cs" />
+    <Compile Include="Filters\NumberFilter.cs" />
+    <Compile Include="Filters\SortOrderEnum.cs" />
+    <Compile Include="Filters\StringFilter.cs" />
+    <Compile Include="Filters\TimestampFilter.cs" />
+    <Compile Include="Filters\enums\SortOrderEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
