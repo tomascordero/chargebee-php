@@ -248,7 +248,7 @@ public class Order extends Resource<Order> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public OrderListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

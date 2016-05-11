@@ -377,7 +377,7 @@ public class Coupon extends Resource<Coupon> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public CouponListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

@@ -148,7 +148,7 @@ public class Comment extends Resource<Comment> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public CommentListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

@@ -178,7 +178,7 @@ public class Event extends Resource<Event> {
         }
 
 
-        public ListRequest sortByOccurredAt(SortOrder order) {
+        public EventListRequest sortByOccurredAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","occurred_at");
             return this;
         }

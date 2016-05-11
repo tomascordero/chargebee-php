@@ -1017,7 +1017,7 @@ public class Invoice extends Resource<Invoice> {
         }
 
 
-        public ListRequest sortByDate(SortOrder order) {
+        public InvoiceListRequest sortByDate(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","date");
             return this;
         }

@@ -327,7 +327,7 @@ public class Transaction extends Resource<Transaction> {
         }
 
 
-        public ListRequest sortByDate(SortOrder order) {
+        public TransactionListRequest sortByDate(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","date");
             return this;
         }

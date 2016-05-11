@@ -143,7 +143,7 @@ namespace ChargeBee.Models
             {
                 return new EnumFilter<SourceEnum, EventListRequest>("source", this);        
             }
-            public ListRequest SortByOccurredAt(SortOrderEnum order) {
+            public EventListRequest SortByOccurredAt(SortOrderEnum order) {
                 m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","occurred_at");
                 return this;
             }

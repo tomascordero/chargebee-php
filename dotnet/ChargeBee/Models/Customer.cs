@@ -475,7 +475,7 @@ namespace ChargeBee.Models
             {
                 return new TimestampFilter<CustomerListRequest>("created_at", this);        
             }
-            public ListRequest SortByCreatedAt(SortOrderEnum order) {
+            public CustomerListRequest SortByCreatedAt(SortOrderEnum order) {
                 m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }

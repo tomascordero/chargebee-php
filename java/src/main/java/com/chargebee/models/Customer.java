@@ -649,7 +649,7 @@ public class Customer extends Resource<Customer> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public CustomerListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

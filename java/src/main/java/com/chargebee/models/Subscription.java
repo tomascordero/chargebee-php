@@ -920,7 +920,7 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public SubscriptionListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

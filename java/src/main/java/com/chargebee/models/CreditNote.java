@@ -449,7 +449,7 @@ public class CreditNote extends Resource<CreditNote> {
         }
 
 
-        public ListRequest sortByDate(SortOrder order) {
+        public CreditNoteListRequest sortByDate(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","date");
             return this;
         }
