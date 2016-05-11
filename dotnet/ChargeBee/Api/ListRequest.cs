@@ -2,7 +2,7 @@
 
 namespace ChargeBee.Api
 {
-    public class ListRequest
+	public class ListRequest<U>
     {
         string m_url;
 		protected HttpMethod m_method = HttpMethod.GET;
@@ -14,21 +14,21 @@ namespace ChargeBee.Api
             m_url = url;
         }
 
-        public ListRequest Limit(int limit)
+        public U Limit(int limit)
         {
             m_params.AddOpt("limit", limit);
-            return this;
+			return (U)this;
         }
 
-        public ListRequest Offset(string offset)
+        public U Offset(string offset)
         {
             m_params.AddOpt("offset", offset);
-            return this;
+			return (U)this;
         }
 
-		public ListRequest Header(string headerName, string headerValue){
+		public U Header(string headerName, string headerValue){
 			headers.Add (headerName, headerValue);
-			return this;
+			return (U)this;
 		}
 
         public ListResult Request(ApiConfig env)

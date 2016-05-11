@@ -371,7 +371,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class PlanListRequest : ListRequest 
+        public class PlanListRequest : ListRequest<PlanListRequest> 
         {
             public PlanListRequest(string url) 
                     : base(url)

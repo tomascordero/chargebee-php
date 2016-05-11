@@ -437,7 +437,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class InvoiceListRequest : ListRequest 
+        public class InvoiceListRequest : ListRequest<InvoiceListRequest> 
         {
             public InvoiceListRequest(string url) 
                     : base(url)

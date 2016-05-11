@@ -233,7 +233,7 @@ namespace ChargeBee.Models
                 return this;
             }
         }
-        public class CouponListRequest : ListRequest 
+        public class CouponListRequest : ListRequest<CouponListRequest> 
         {
             public CouponListRequest(string url) 
                     : base(url)

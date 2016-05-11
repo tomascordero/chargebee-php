@@ -144,7 +144,7 @@ namespace ChargeBee.Models
         #endregion
         
         #region Requests
-        public class TransactionListRequest : ListRequest 
+        public class TransactionListRequest : ListRequest<TransactionListRequest> 
         {
             public TransactionListRequest(string url) 
                     : base(url)

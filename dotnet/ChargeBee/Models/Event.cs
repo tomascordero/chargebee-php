@@ -98,7 +98,7 @@ namespace ChargeBee.Models
         #endregion
         
         #region Requests
-        public class EventListRequest : ListRequest 
+        public class EventListRequest : ListRequest<EventListRequest> 
         {
             public EventListRequest(string url) 
                     : base(url)
