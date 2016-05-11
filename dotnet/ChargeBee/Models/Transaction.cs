@@ -151,16 +151,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public TransactionListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public TransactionListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<TransactionListRequest> Id() 
             {
                 return new StringFilter<TransactionListRequest>("id", this).SupportsMultiOperators(true);        

@@ -108,16 +108,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public CommentListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public CommentListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public CommentListRequest EntityType(EntityTypeEnum entityType) 
             {
                 m_params.AddOpt("entity_type", entityType);

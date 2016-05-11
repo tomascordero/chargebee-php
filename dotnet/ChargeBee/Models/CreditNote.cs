@@ -136,16 +136,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public CreditNoteListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public CreditNoteListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<CreditNoteListRequest> Id() 
             {
                 return new StringFilter<CreditNoteListRequest>("id", this).SupportsMultiOperators(true);        

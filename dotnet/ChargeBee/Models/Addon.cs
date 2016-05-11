@@ -291,16 +291,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public AddonListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public AddonListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<AddonListRequest> Id() 
             {
                 return new StringFilter<AddonListRequest>("id", this).SupportsMultiOperators(true);        

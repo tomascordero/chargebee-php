@@ -433,16 +433,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public CustomerListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public CustomerListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<CustomerListRequest> Id() 
             {
                 return new StringFilter<CustomerListRequest>("id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        

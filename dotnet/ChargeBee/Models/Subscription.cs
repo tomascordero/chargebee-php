@@ -721,16 +721,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public SubscriptionListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public SubscriptionListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<SubscriptionListRequest> Id() 
             {
                 return new StringFilter<SubscriptionListRequest>("id", this).SupportsMultiOperators(true);        

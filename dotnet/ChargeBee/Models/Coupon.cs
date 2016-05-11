@@ -240,16 +240,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public CouponListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public CouponListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<CouponListRequest> Id() 
             {
                 return new StringFilter<CouponListRequest>("id", this).SupportsMultiOperators(true);        

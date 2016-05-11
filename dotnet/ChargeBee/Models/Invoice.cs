@@ -444,16 +444,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public InvoiceListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public InvoiceListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public InvoiceListRequest PaidOnAfter(long paidOnAfter) 
             {
                 m_params.AddOpt("paid_on_after", paidOnAfter);

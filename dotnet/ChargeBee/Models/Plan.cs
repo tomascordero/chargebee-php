@@ -378,16 +378,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public PlanListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public PlanListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public StringFilter<PlanListRequest> Id() 
             {
                 return new StringFilter<PlanListRequest>("id", this).SupportsMultiOperators(true);        

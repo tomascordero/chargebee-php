@@ -105,16 +105,6 @@ namespace ChargeBee.Models
             {
             }
 
-            public EventListRequest Limit(int limit) 
-            {
-                m_params.AddOpt("limit", limit);
-                return this;
-            }
-            public EventListRequest Offset(string offset) 
-            {
-                m_params.AddOpt("offset", offset);
-                return this;
-            }
             public EventListRequest StartTime(long startTime) 
             {
                 m_params.AddOpt("start_time", startTime);
