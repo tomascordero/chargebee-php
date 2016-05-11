@@ -428,7 +428,8 @@ namespace ChargeBee.Models
         }
         public class CustomerListRequest : ListRequest 
         {
-            public CustomerListRequest(string url) : base(url)
+            public CustomerListRequest(string url) 
+                    : base(url)
             {
             }
 
@@ -442,60 +443,40 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public CustomerListRequest Id(string id) 
+            public StringFilter<CustomerListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<CustomerListRequest>("id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
             }
-
-			public StringFilter<CustomerListRequest> FirstName() {
-				return new StringFilter<CustomerListRequest>("first_name",this);
-			}
-
-			public CustomerListRequest FirstName(string firstName) 
+            public StringFilter<CustomerListRequest> FirstName() 
             {
-                m_params.AddOpt("first_name", firstName);
-                return this;
+                return new StringFilter<CustomerListRequest>("first_name", this).SupportsPresenceOperator(true);        
             }
-            public CustomerListRequest LastName(string lastName) 
+            public StringFilter<CustomerListRequest> LastName() 
             {
-                m_params.AddOpt("last_name", lastName);
-                return this;
+                return new StringFilter<CustomerListRequest>("last_name", this).SupportsPresenceOperator(true);        
             }
-            public CustomerListRequest Email(string email) 
+            public StringFilter<CustomerListRequest> Email() 
             {
-                m_params.AddOpt("email", email);
-                return this;
+                return new StringFilter<CustomerListRequest>("email", this).SupportsPresenceOperator(true);        
             }
-            public CustomerListRequest Company(string company) 
+            public StringFilter<CustomerListRequest> Company() 
             {
-                m_params.AddOpt("company", company);
-                return this;
+                return new StringFilter<CustomerListRequest>("company", this).SupportsPresenceOperator(true);        
             }
-
-
-			public EnumFilter<AutoCollectionEnum,CustomerListRequest> AutoCollection() {
-				return new EnumFilter<AutoCollectionEnum,CustomerListRequest> ("auto_collection", this);
-			}
-
-            public CustomerListRequest AutoCollection(AutoCollectionEnum autoCollection) 
+            public EnumFilter<AutoCollectionEnum, CustomerListRequest> AutoCollection() 
             {
-                m_params.AddOpt("auto_collection", autoCollection);
-                return this;
+                return new EnumFilter<AutoCollectionEnum, CustomerListRequest>("auto_collection", this);        
             }
-            public CustomerListRequest Taxability(TaxabilityEnum taxability) 
+            public EnumFilter<TaxabilityEnum, CustomerListRequest> Taxability() 
             {
-                m_params.AddOpt("taxability", taxability);
-                return this;
+                return new EnumFilter<TaxabilityEnum, CustomerListRequest>("taxability", this);        
             }
-            public CustomerListRequest CreatedAt(long createdAt) 
+            public TimestampFilter<CustomerListRequest> CreatedAt() 
             {
-                m_params.AddOpt("created_at", createdAt);
-                return this;
+                return new TimestampFilter<CustomerListRequest>("created_at", this);        
             }
-            public CustomerListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
+            public ListRequest sortByCreatedAt(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }
         }

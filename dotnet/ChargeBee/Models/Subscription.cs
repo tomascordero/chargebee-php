@@ -33,6 +33,7 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("subscriptions");
             return new SubscriptionListRequest(url);
         }
+        [Obsolete]
         public static ListRequest SubscriptionsForCustomer(string id)
         {
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
@@ -99,6 +100,10 @@ namespace ChargeBee.Models
         public string Id 
         {
             get { return GetValue<string>("id", true); }
+        }
+        public string CustomerId 
+        {
+            get { return GetValue<string>("customer_id", true); }
         }
         public string PlanId 
         {
@@ -726,44 +731,40 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public SubscriptionListRequest Id(string id) 
+            public StringFilter<SubscriptionListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<SubscriptionListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public SubscriptionListRequest PlanId(string planId) 
+            public StringFilter<SubscriptionListRequest> CustomerId() 
             {
-                m_params.AddOpt("plan_id", planId);
-                return this;
+                return new StringFilter<SubscriptionListRequest>("customer_id", this).SupportsMultiOperators(true);        
             }
-            public SubscriptionListRequest Status(StatusEnum status) 
+            public StringFilter<SubscriptionListRequest> PlanId() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new StringFilter<SubscriptionListRequest>("plan_id", this).SupportsMultiOperators(true);        
             }
-            public SubscriptionListRequest CancelReason(CancelReasonEnum cancelReason) 
+            public EnumFilter<StatusEnum, SubscriptionListRequest> Status() 
             {
-                m_params.AddOpt("cancel_reason", cancelReason);
-                return this;
+                return new EnumFilter<StatusEnum, SubscriptionListRequest>("status", this);        
             }
-            public SubscriptionListRequest RemainingBillingCycles(int remainingBillingCycles) 
+            public EnumFilter<CancelReasonEnum, SubscriptionListRequest> CancelReason() 
             {
-                m_params.AddOpt("remaining_billing_cycles", remainingBillingCycles);
-                return this;
+                return new EnumFilter<CancelReasonEnum, SubscriptionListRequest>("cancel_reason", this).SupportsPresenceOperator(true);        
             }
-            public SubscriptionListRequest CreatedAt(long createdAt) 
+            public NumberFilter<int, SubscriptionListRequest> RemainingBillingCycles() 
             {
-                m_params.AddOpt("created_at", createdAt);
-                return this;
+                return new NumberFilter<int, SubscriptionListRequest>("remaining_billing_cycles", this).SupportsPresenceOperator(true);        
             }
-            public SubscriptionListRequest HasScheduledChanges(bool hasScheduledChanges) 
+            public TimestampFilter<SubscriptionListRequest> CreatedAt() 
             {
-                m_params.AddOpt("has_scheduled_changes", hasScheduledChanges);
-                return this;
+                return new TimestampFilter<SubscriptionListRequest>("created_at", this);        
             }
-            public SubscriptionListRequest SortBy(string sortBy) 
+            public BooleanFilter<SubscriptionListRequest> HasScheduledChanges() 
             {
-                m_params.AddOpt("sort_by", sortBy);
+                return new BooleanFilter<SubscriptionListRequest>("has_scheduled_changes", this);        
+            }
+            public ListRequest sortByCreatedAt(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }
         }

@@ -301,45 +301,37 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public AddonListRequest Id(string id) 
+            public StringFilter<AddonListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<AddonListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public AddonListRequest Name(string name) 
+            public StringFilter<AddonListRequest> Name() 
             {
-                m_params.AddOpt("name", name);
-                return this;
+                return new StringFilter<AddonListRequest>("name", this).SupportsMultiOperators(true);        
             }
-            public AddonListRequest Type(TypeEnum type) 
+            public EnumFilter<TypeEnum, AddonListRequest> Type() 
             {
-                m_params.AddOpt("type", type);
-                return this;
+                return new EnumFilter<TypeEnum, AddonListRequest>("type", this);        
             }
-            public AddonListRequest ChargeType(ChargeTypeEnum chargeType) 
+            public EnumFilter<ChargeTypeEnum, AddonListRequest> ChargeType() 
             {
-                m_params.AddOpt("charge_type", chargeType);
-                return this;
+                return new EnumFilter<ChargeTypeEnum, AddonListRequest>("charge_type", this);        
             }
-            public AddonListRequest Price(int price) 
+            public NumberFilter<int, AddonListRequest> Price() 
             {
-                m_params.AddOpt("price", price);
-                return this;
+                return new NumberFilter<int, AddonListRequest>("price", this);        
             }
-            public AddonListRequest Period(int period) 
+            public NumberFilter<int, AddonListRequest> Period() 
             {
-                m_params.AddOpt("period", period);
-                return this;
+                return new NumberFilter<int, AddonListRequest>("period", this);        
             }
-            public AddonListRequest PeriodUnit(PeriodUnitEnum periodUnit) 
+            public EnumFilter<PeriodUnitEnum, AddonListRequest> PeriodUnit() 
             {
-                m_params.AddOpt("period_unit", periodUnit);
-                return this;
+                return new EnumFilter<PeriodUnitEnum, AddonListRequest>("period_unit", this);        
             }
-            public AddonListRequest Status(StatusEnum status) 
+            public EnumFilter<StatusEnum, AddonListRequest> Status() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new EnumFilter<StatusEnum, AddonListRequest>("status", this);        
             }
         }
         #endregion

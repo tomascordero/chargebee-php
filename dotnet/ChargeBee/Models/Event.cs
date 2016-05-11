@@ -135,19 +135,16 @@ namespace ChargeBee.Models
                 m_params.AddOpt("event_type", eventType);
                 return this;
             }
-            public EventListRequest Id(string id) 
+            public StringFilter<EventListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<EventListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public EventListRequest Source(SourceEnum source) 
+            public EnumFilter<SourceEnum, EventListRequest> Source() 
             {
-                m_params.AddOpt("source", source);
-                return this;
+                return new EnumFilter<SourceEnum, EventListRequest>("source", this);        
             }
-            public EventListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
+            public ListRequest sortByOccurredAt(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","occurred_at");
                 return this;
             }
         }

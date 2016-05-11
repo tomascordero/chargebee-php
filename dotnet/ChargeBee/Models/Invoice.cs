@@ -213,6 +213,10 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<InvoiceTax>("taxes"); }
         }
+        public List<InvoiceLineItemTax> LineItemTaxes 
+        {
+            get { return GetResourceList<InvoiceLineItemTax>("line_item_taxes"); }
+        }
         public List<InvoiceLinkedPayment> LinkedPayments 
         {
             get { return GetResourceList<InvoiceLinkedPayment>("linked_payments"); }
@@ -455,74 +459,60 @@ namespace ChargeBee.Models
                 m_params.AddOpt("paid_on_after", paidOnAfter);
                 return this;
             }
-            public InvoiceListRequest Id(string id) 
+            public StringFilter<InvoiceListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<InvoiceListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public InvoiceListRequest SubscriptionId(string subscriptionId) 
+            public StringFilter<InvoiceListRequest> SubscriptionId() 
             {
-                m_params.AddOpt("subscription_id", subscriptionId);
-                return this;
+                return new StringFilter<InvoiceListRequest>("subscription_id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
             }
-            public InvoiceListRequest CustomerId(string customerId) 
+            public StringFilter<InvoiceListRequest> CustomerId() 
             {
-                m_params.AddOpt("customer_id", customerId);
-                return this;
+                return new StringFilter<InvoiceListRequest>("customer_id", this).SupportsMultiOperators(true);        
             }
-            public InvoiceListRequest Recurring(bool recurring) 
+            public BooleanFilter<InvoiceListRequest> Recurring() 
             {
-                m_params.AddOpt("recurring", recurring);
-                return this;
+                return new BooleanFilter<InvoiceListRequest>("recurring", this);        
             }
-            public InvoiceListRequest Status(StatusEnum status) 
+            public EnumFilter<StatusEnum, InvoiceListRequest> Status() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new EnumFilter<StatusEnum, InvoiceListRequest>("status", this);        
             }
-            public InvoiceListRequest PriceType(PriceTypeEnum priceType) 
+            public EnumFilter<PriceTypeEnum, InvoiceListRequest> PriceType() 
             {
-                m_params.AddOpt("price_type", priceType);
-                return this;
+                return new EnumFilter<PriceTypeEnum, InvoiceListRequest>("price_type", this);        
             }
-            public InvoiceListRequest Date(long date) 
+            public TimestampFilter<InvoiceListRequest> Date() 
             {
-                m_params.AddOpt("date", date);
-                return this;
+                return new TimestampFilter<InvoiceListRequest>("date", this);        
             }
-            public InvoiceListRequest Total(int total) 
+            public NumberFilter<int, InvoiceListRequest> Total() 
             {
-                m_params.AddOpt("total", total);
-                return this;
+                return new NumberFilter<int, InvoiceListRequest>("total", this);        
             }
-            public InvoiceListRequest AmountPaid(int amountPaid) 
+            public NumberFilter<int, InvoiceListRequest> AmountPaid() 
             {
-                m_params.AddOpt("amount_paid", amountPaid);
-                return this;
+                return new NumberFilter<int, InvoiceListRequest>("amount_paid", this);        
             }
-            public InvoiceListRequest AmountAdjusted(int amountAdjusted) 
+            public NumberFilter<int, InvoiceListRequest> AmountAdjusted() 
             {
-                m_params.AddOpt("amount_adjusted", amountAdjusted);
-                return this;
+                return new NumberFilter<int, InvoiceListRequest>("amount_adjusted", this);        
             }
-            public InvoiceListRequest CreditsApplied(int creditsApplied) 
+            public NumberFilter<int, InvoiceListRequest> CreditsApplied() 
             {
-                m_params.AddOpt("credits_applied", creditsApplied);
-                return this;
+                return new NumberFilter<int, InvoiceListRequest>("credits_applied", this);        
             }
-            public InvoiceListRequest AmountDue(int amountDue) 
+            public NumberFilter<int, InvoiceListRequest> AmountDue() 
             {
-                m_params.AddOpt("amount_due", amountDue);
-                return this;
+                return new NumberFilter<int, InvoiceListRequest>("amount_due", this);        
             }
-            public InvoiceListRequest DunningStatus(DunningStatusEnum dunningStatus) 
+            public EnumFilter<DunningStatusEnum, InvoiceListRequest> DunningStatus() 
             {
-                m_params.AddOpt("dunning_status", dunningStatus);
-                return this;
+                return new EnumFilter<DunningStatusEnum, InvoiceListRequest>("dunning_status", this).SupportsPresenceOperator(true);        
             }
-            public InvoiceListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
+            public ListRequest sortByDate(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","date");
                 return this;
             }
         }
@@ -630,7 +620,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("customer_notes", customerNotes);
                 return this;
             }
-            public RefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
+			public RefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) 
             {
                 m_params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
                 return this;
@@ -757,6 +747,10 @@ namespace ChargeBee.Models
                 Adhoc,
             }
 
+            public string Id() {
+                return GetValue<string>("id", false);
+            }
+
             public DateTime DateFrom() {
                 return (DateTime)GetDateTime("date_from", true);
             }
@@ -846,12 +840,48 @@ namespace ChargeBee.Models
         public class InvoiceTax : Resource
         {
 
+            public string Name() {
+                return GetValue<string>("name", true);
+            }
+
             public int Amount() {
                 return GetValue<int>("amount", true);
             }
 
             public string Description() {
                 return GetValue<string>("description", false);
+            }
+
+        }
+        public class InvoiceLineItemTax : Resource
+        {
+
+            public string LineItemId() {
+                return GetValue<string>("line_item_id", false);
+            }
+
+            public string TaxName() {
+                return GetValue<string>("tax_name", true);
+            }
+
+            public double TaxRate() {
+                return GetValue<double>("tax_rate", true);
+            }
+
+            public int TaxAmount() {
+                return GetValue<int>("tax_amount", true);
+            }
+
+            public TaxJurisTypeEnum? TaxJurisType() {
+                return GetEnum<TaxJurisTypeEnum>("tax_juris_type", false);
+            }
+
+            public string TaxJurisName() {
+                return GetValue<string>("tax_juris_name", false);
+            }
+
+            public string TaxJurisCode() {
+                return GetValue<string>("tax_juris_code", false);
             }
 
         }

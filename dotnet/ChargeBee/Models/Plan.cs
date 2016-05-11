@@ -388,50 +388,41 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public PlanListRequest Id(string id) 
+            public StringFilter<PlanListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<PlanListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public PlanListRequest Name(string name) 
+            public StringFilter<PlanListRequest> Name() 
             {
-                m_params.AddOpt("name", name);
-                return this;
+                return new StringFilter<PlanListRequest>("name", this).SupportsMultiOperators(true);        
             }
-            public PlanListRequest Price(int price) 
+            public NumberFilter<int, PlanListRequest> Price() 
             {
-                m_params.AddOpt("price", price);
-                return this;
+                return new NumberFilter<int, PlanListRequest>("price", this);        
             }
-            public PlanListRequest Period(int period) 
+            public NumberFilter<int, PlanListRequest> Period() 
             {
-                m_params.AddOpt("period", period);
-                return this;
+                return new NumberFilter<int, PlanListRequest>("period", this);        
             }
-            public PlanListRequest PeriodUnit(PeriodUnitEnum periodUnit) 
+            public EnumFilter<PeriodUnitEnum, PlanListRequest> PeriodUnit() 
             {
-                m_params.AddOpt("period_unit", periodUnit);
-                return this;
+                return new EnumFilter<PeriodUnitEnum, PlanListRequest>("period_unit", this);        
             }
-            public PlanListRequest TrialPeriod(int trialPeriod) 
+            public NumberFilter<int, PlanListRequest> TrialPeriod() 
             {
-                m_params.AddOpt("trial_period", trialPeriod);
-                return this;
+                return new NumberFilter<int, PlanListRequest>("trial_period", this).SupportsPresenceOperator(true);        
             }
-            public PlanListRequest TrialPeriodUnit(TrialPeriodUnitEnum trialPeriodUnit) 
+            public EnumFilter<TrialPeriodUnitEnum, PlanListRequest> TrialPeriodUnit() 
             {
-                m_params.AddOpt("trial_period_unit", trialPeriodUnit);
-                return this;
+                return new EnumFilter<TrialPeriodUnitEnum, PlanListRequest>("trial_period_unit", this);        
             }
-            public PlanListRequest ChargeModel(ChargeModelEnum chargeModel) 
+            public EnumFilter<ChargeModelEnum, PlanListRequest> ChargeModel() 
             {
-                m_params.AddOpt("charge_model", chargeModel);
-                return this;
+                return new EnumFilter<ChargeModelEnum, PlanListRequest>("charge_model", this);        
             }
-            public PlanListRequest Status(StatusEnum status) 
+            public EnumFilter<StatusEnum, PlanListRequest> Status() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new EnumFilter<StatusEnum, PlanListRequest>("status", this);        
             }
         }
         #endregion

@@ -161,59 +161,52 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public TransactionListRequest Id(string id) 
+            public StringFilter<TransactionListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<TransactionListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public TransactionListRequest CustomerId(string customerId) 
+            public StringFilter<TransactionListRequest> CustomerId() 
             {
-                m_params.AddOpt("customer_id", customerId);
-                return this;
+                return new StringFilter<TransactionListRequest>("customer_id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
             }
-            public TransactionListRequest SubscriptionId(string subscriptionId) 
+            public StringFilter<TransactionListRequest> SubscriptionId() 
             {
-                m_params.AddOpt("subscription_id", subscriptionId);
-                return this;
+                return new StringFilter<TransactionListRequest>("subscription_id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
             }
-            public TransactionListRequest PaymentMethod(PaymentMethodEnum paymentMethod) 
+            public EnumFilter<PaymentMethodEnum, TransactionListRequest> PaymentMethod() 
             {
-                m_params.AddOpt("payment_method", paymentMethod);
-                return this;
+                return new EnumFilter<PaymentMethodEnum, TransactionListRequest>("payment_method", this);        
             }
-            public TransactionListRequest Gateway(GatewayEnum gateway) 
+            public EnumFilter<GatewayEnum, TransactionListRequest> Gateway() 
             {
-                m_params.AddOpt("gateway", gateway);
-                return this;
+                return new EnumFilter<GatewayEnum, TransactionListRequest>("gateway", this);        
             }
-            public TransactionListRequest ReferenceNumber(string referenceNumber) 
+            public StringFilter<TransactionListRequest> IdAtGateway() 
             {
-                m_params.AddOpt("reference_number", referenceNumber);
-                return this;
+                return new StringFilter<TransactionListRequest>("id_at_gateway", this);        
             }
-            public TransactionListRequest Type(TypeEnum type) 
+            public StringFilter<TransactionListRequest> ReferenceNumber() 
             {
-                m_params.AddOpt("type", type);
-                return this;
+                return new StringFilter<TransactionListRequest>("reference_number", this).SupportsPresenceOperator(true);        
             }
-            public TransactionListRequest Date(long date) 
+            public EnumFilter<TypeEnum, TransactionListRequest> Type() 
             {
-                m_params.AddOpt("date", date);
-                return this;
+                return new EnumFilter<TypeEnum, TransactionListRequest>("type", this);        
             }
-            public TransactionListRequest Amount(int amount) 
+            public TimestampFilter<TransactionListRequest> Date() 
             {
-                m_params.AddOpt("amount", amount);
-                return this;
+                return new TimestampFilter<TransactionListRequest>("date", this);        
             }
-            public TransactionListRequest Status(StatusEnum status) 
+            public NumberFilter<int, TransactionListRequest> Amount() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new NumberFilter<int, TransactionListRequest>("amount", this);        
             }
-            public TransactionListRequest SortBy(string sortBy) 
+            public EnumFilter<StatusEnum, TransactionListRequest> Status() 
             {
-                m_params.AddOpt("sort_by", sortBy);
+                return new EnumFilter<StatusEnum, TransactionListRequest>("status", this);        
+            }
+            public ListRequest sortByDate(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","date");
                 return this;
             }
         }

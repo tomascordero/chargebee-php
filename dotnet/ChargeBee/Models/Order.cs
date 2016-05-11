@@ -198,29 +198,24 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public OrderListRequest Id(string id) 
+            public StringFilter<OrderListRequest> Id() 
             {
-                m_params.AddOpt("id", id);
-                return this;
+                return new StringFilter<OrderListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public OrderListRequest InvoiceId(string invoiceId) 
+            public StringFilter<OrderListRequest> InvoiceId() 
             {
-                m_params.AddOpt("invoice_id", invoiceId);
-                return this;
+                return new StringFilter<OrderListRequest>("invoice_id", this).SupportsMultiOperators(true);        
             }
-            public OrderListRequest Status(StatusEnum status) 
+            public EnumFilter<StatusEnum, OrderListRequest> Status() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new EnumFilter<StatusEnum, OrderListRequest>("status", this);        
             }
-            public OrderListRequest CreatedAt(long createdAt) 
+            public TimestampFilter<OrderListRequest> CreatedAt() 
             {
-                m_params.AddOpt("created_at", createdAt);
-                return this;
+                return new TimestampFilter<OrderListRequest>("created_at", this);        
             }
-            public OrderListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
+            public ListRequest sortByCreatedAt(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }
         }

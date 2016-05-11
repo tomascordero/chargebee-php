@@ -17,7 +17,7 @@ namespace ChargeBee
 			this.supportsPresenceOperator = true;
 		}
 
-		public StringFilter<U> SupportsPresenceOperators(bool supportsPresenceOperators) {
+		public StringFilter<U> SupportsPresenceOperator(bool supportsPresenceOperators) {
 			this.supportsPresenceOperator = supportsPresenceOperators;
 			return this;
 		}

@@ -128,14 +128,12 @@ namespace ChargeBee.Models
                 m_params.AddOpt("entity_id", entityId);
                 return this;
             }
-            public CommentListRequest CreatedAt(long createdAt) 
+            public TimestampFilter<CommentListRequest> CreatedAt() 
             {
-                m_params.AddOpt("created_at", createdAt);
-                return this;
+                return new TimestampFilter<CommentListRequest>("created_at", this);        
             }
-            public CommentListRequest SortBy(string sortBy) 
-            {
-                m_params.AddOpt("sort_by", sortBy);
+            public ListRequest sortByCreatedAt(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","created_at");
                 return this;
             }
         }

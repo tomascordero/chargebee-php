@@ -95,6 +95,7 @@
     <Compile Include="Filters\StringFilter.cs" />
     <Compile Include="Filters\TimestampFilter.cs" />
     <Compile Include="Filters\enums\SortOrderEnum.cs" />
+    <Compile Include="Models\Enums\TaxJurisTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

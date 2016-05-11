@@ -33,6 +33,11 @@ namespace ChargeBee.Models
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "switch_gateway");
             return new SwitchGatewayForCustomerRequest(url, HttpMethod.POST);
         }
+        public static CopyCardForCustomerRequest CopyCardForCustomer(string id)
+        {
+            string url = ApiUtil.BuildUrl("customers", CheckNull(id), "copy_card");
+            return new CopyCardForCustomerRequest(url, HttpMethod.POST);
+        }
         public static EntityRequest<Type> DeleteCardForCustomer(string id)
         {
             string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_card");
@@ -223,6 +228,19 @@ namespace ChargeBee.Models
             }
 
             public SwitchGatewayForCustomerRequest Gateway(GatewayEnum gateway) 
+            {
+                m_params.Add("gateway", gateway);
+                return this;
+            }
+        }
+        public class CopyCardForCustomerRequest : EntityRequest<CopyCardForCustomerRequest> 
+        {
+            public CopyCardForCustomerRequest(string url, HttpMethod method) 
+                    : base(url, method)
+            {
+            }
+
+            public CopyCardForCustomerRequest Gateway(GatewayEnum gateway) 
             {
                 m_params.Add("gateway", gateway);
                 return this;

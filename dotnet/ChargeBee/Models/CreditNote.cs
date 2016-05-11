@@ -113,6 +113,10 @@ namespace ChargeBee.Models
         {
             get { return GetResourceList<CreditNoteTax>("taxes"); }
         }
+        public List<CreditNoteLineItemTax> LineItemTaxes 
+        {
+            get { return GetResourceList<CreditNoteLineItemTax>("line_item_taxes"); }
+        }
         public List<CreditNoteLinkedRefund> LinkedRefunds 
         {
             get { return GetResourceList<CreditNoteLinkedRefund>("linked_refunds"); }
@@ -142,69 +146,60 @@ namespace ChargeBee.Models
                 m_params.AddOpt("offset", offset);
                 return this;
             }
-            public CreditNoteListRequest CustomerId(string customerId) 
+            public StringFilter<CreditNoteListRequest> Id() 
             {
-                m_params.AddOpt("customer_id", customerId);
-                return this;
+                return new StringFilter<CreditNoteListRequest>("id", this).SupportsMultiOperators(true);        
             }
-            public CreditNoteListRequest SubscriptionId(string subscriptionId) 
+            public StringFilter<CreditNoteListRequest> CustomerId() 
             {
-                m_params.AddOpt("subscription_id", subscriptionId);
-                return this;
+                return new StringFilter<CreditNoteListRequest>("customer_id", this).SupportsMultiOperators(true);        
             }
-            public CreditNoteListRequest ReferenceInvoiceId(string referenceInvoiceId) 
+            public StringFilter<CreditNoteListRequest> SubscriptionId() 
             {
-                m_params.AddOpt("reference_invoice_id", referenceInvoiceId);
-                return this;
+                return new StringFilter<CreditNoteListRequest>("subscription_id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
             }
-            public CreditNoteListRequest Type(TypeEnum type) 
+            public StringFilter<CreditNoteListRequest> ReferenceInvoiceId() 
             {
-                m_params.AddOpt("type", type);
-                return this;
+                return new StringFilter<CreditNoteListRequest>("reference_invoice_id", this).SupportsMultiOperators(true);        
             }
-            public CreditNoteListRequest ReasonCode(ReasonCodeEnum reasonCode) 
+            public EnumFilter<TypeEnum, CreditNoteListRequest> Type() 
             {
-                m_params.AddOpt("reason_code", reasonCode);
-                return this;
+                return new EnumFilter<TypeEnum, CreditNoteListRequest>("type", this);        
             }
-            public CreditNoteListRequest Status(StatusEnum status) 
+            public EnumFilter<ReasonCodeEnum, CreditNoteListRequest> ReasonCode() 
             {
-                m_params.AddOpt("status", status);
-                return this;
+                return new EnumFilter<ReasonCodeEnum, CreditNoteListRequest>("reason_code", this);        
             }
-            public CreditNoteListRequest Date(long date) 
+            public EnumFilter<StatusEnum, CreditNoteListRequest> Status() 
             {
-                m_params.AddOpt("date", date);
-                return this;
+                return new EnumFilter<StatusEnum, CreditNoteListRequest>("status", this);        
             }
-            public CreditNoteListRequest Total(int total) 
+            public TimestampFilter<CreditNoteListRequest> Date() 
             {
-                m_params.AddOpt("total", total);
-                return this;
+                return new TimestampFilter<CreditNoteListRequest>("date", this);        
             }
-            public CreditNoteListRequest PriceType(PriceTypeEnum priceType) 
+            public NumberFilter<int, CreditNoteListRequest> Total() 
             {
-                m_params.AddOpt("price_type", priceType);
-                return this;
+                return new NumberFilter<int, CreditNoteListRequest>("total", this);        
             }
-            public CreditNoteListRequest AmountAllocated(int amountAllocated) 
+            public EnumFilter<PriceTypeEnum, CreditNoteListRequest> PriceType() 
             {
-                m_params.AddOpt("amount_allocated", amountAllocated);
-                return this;
+                return new EnumFilter<PriceTypeEnum, CreditNoteListRequest>("price_type", this);        
             }
-            public CreditNoteListRequest AmountRefunded(int amountRefunded) 
+            public NumberFilter<int, CreditNoteListRequest> AmountAllocated() 
             {
-                m_params.AddOpt("amount_refunded", amountRefunded);
-                return this;
+                return new NumberFilter<int, CreditNoteListRequest>("amount_allocated", this);        
             }
-            public CreditNoteListRequest AmountAvailable(int amountAvailable) 
+            public NumberFilter<int, CreditNoteListRequest> AmountRefunded() 
             {
-                m_params.AddOpt("amount_available", amountAvailable);
-                return this;
+                return new NumberFilter<int, CreditNoteListRequest>("amount_refunded", this);        
             }
-            public CreditNoteListRequest SortBy(string sortBy) 
+            public NumberFilter<int, CreditNoteListRequest> AmountAvailable() 
             {
-                m_params.AddOpt("sort_by", sortBy);
+                return new NumberFilter<int, CreditNoteListRequest>("amount_available", this);        
+            }
+            public ListRequest sortByDate(SortOrderEnum order) {
+                m_params.AddOpt("sort_by["+order.ToString().ToLower()+"]","date");
                 return this;
             }
         }
@@ -277,6 +272,10 @@ namespace ChargeBee.Models
                 Addon,
                 [Description("adhoc")]
                 Adhoc,
+            }
+
+            public string Id() {
+                return GetValue<string>("id", false);
             }
 
             public DateTime DateFrom() {
@@ -368,12 +367,48 @@ namespace ChargeBee.Models
         public class CreditNoteTax : Resource
         {
 
+            public string Name() {
+                return GetValue<string>("name", true);
+            }
+
             public int Amount() {
                 return GetValue<int>("amount", true);
             }
 
             public string Description() {
                 return GetValue<string>("description", false);
+            }
+
+        }
+        public class CreditNoteLineItemTax : Resource
+        {
+
+            public string LineItemId() {
+                return GetValue<string>("line_item_id", false);
+            }
+
+            public string TaxName() {
+                return GetValue<string>("tax_name", true);
+            }
+
+            public double TaxRate() {
+                return GetValue<double>("tax_rate", true);
+            }
+
+            public int TaxAmount() {
+                return GetValue<int>("tax_amount", true);
+            }
+
+            public TaxJurisTypeEnum? TaxJurisType() {
+                return GetEnum<TaxJurisTypeEnum>("tax_juris_type", false);
+            }
+
+            public string TaxJurisName() {
+                return GetValue<string>("tax_juris_name", false);
+            }
+
+            public string TaxJurisCode() {
+                return GetValue<string>("tax_juris_code", false);
             }
 
         }
