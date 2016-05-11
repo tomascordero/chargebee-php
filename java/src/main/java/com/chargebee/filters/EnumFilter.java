@@ -1,47 +1,46 @@
-package com.chargebee.filter;
+package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
-import java.sql.Timestamp;
 
 /**
  *
  * @author sangeetha
- * @param <T>
+ * @param <T> The enum type
  * @param <U>
  */
-public class TimestampFilter<U extends ListRequest> {
+public class EnumFilter<T, U extends ListRequest> {
 
     private U req;
     private String paramName;
     private boolean supportsPresenceOperator;
 
-    public TimestampFilter(String paramName, U req) {
+    public EnumFilter(String paramName, U req) {
         this.paramName = paramName;
         this.req = req;
     }
 
-    public TimestampFilter<U> supportsPresenceOperator(boolean supportsPresenceOperator) {
+    public EnumFilter<T, U> supportsPresenceOperator(boolean supportsPresenceOperator) {
         this.supportsPresenceOperator = supportsPresenceOperator;
         return this;
     }
 
-    public U on(Timestamp value) {
-        req.params().addOpt(paramName + "[on]", value);
+    public U is(T value) {
+        req.params().addOpt(paramName + "[is]", value);
         return req;
     }
 
-    public U before(Timestamp value) {
-        req.params().addOpt(paramName + "[before]", value);
+    public U isNot(T value) {
+        req.params().addOpt(paramName + "[is_not]", value);
         return req;
     }
 
-    public U after(Timestamp value) {
-        req.params().addOpt(paramName + "[after]", value);
+    public U in(T... value) {
+        req.params().addOpt(paramName + "[in]", value);
         return req;
     }
 
-    public U between(Timestamp value1, Timestamp value2) {
-        req.params().addOpt(paramName + "[between]", new Timestamp[]{value1, value2});
+    public U notIn(T... value) {
+        req.params().addOpt(paramName + "[not_in]", value);
         return req;
     }
 
@@ -52,4 +51,5 @@ public class TimestampFilter<U extends ListRequest> {
         req.params().addOpt(paramName + "[is_present]", value);
         return req;
     }
+
 }

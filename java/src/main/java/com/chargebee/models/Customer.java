@@ -1,8 +1,11 @@
 package com.chargebee.models;
 
+import com.chargebee.filters.StringFilter;
+import com.chargebee.filters.TimestampFilter;
+import com.chargebee.filters.EnumFilter;
+import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.*;
 import com.chargebee.internal.*;
-import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;
@@ -648,7 +651,7 @@ public class Customer extends Resource<Customer> {
         }
 
 
-        public ListRequest sortByCreatedAt(SortOrder order) {
+        public CustomerListRequest sortByCreatedAt(SortOrder order) {
             params.addOpt("sort_by["+order.name().toLowerCase()+"]","created_at");
             return this;
         }

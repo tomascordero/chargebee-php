@@ -1,8 +1,13 @@
 package com.chargebee.models;
 
+import com.chargebee.filters.BooleanFilter;
+import com.chargebee.filters.StringFilter;
+import com.chargebee.filters.TimestampFilter;
+import com.chargebee.filters.EnumFilter;
+import com.chargebee.filters.NumberFilter;
+import com.chargebee.filters.enums.SortOrder;
 import com.chargebee.*;
 import com.chargebee.internal.*;
-import com.chargebee.filter.*;
 import com.chargebee.internal.HttpUtil.Method;
 import com.chargebee.models.enums.*;
 import org.json.*;

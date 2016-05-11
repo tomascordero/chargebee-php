@@ -1,4 +1,4 @@
-package com.chargebee.filter;
+package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
 
