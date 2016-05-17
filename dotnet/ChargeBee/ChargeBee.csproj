@@ -93,9 +93,9 @@
     <Compile Include="Filters\NumberFilter.cs" />
     <Compile Include="Filters\StringFilter.cs" />
     <Compile Include="Filters\TimestampFilter.cs" />
-    <Compile Include="Filters\enums\SortOrderEnum.cs" />
     <Compile Include="Models\Enums\TaxJurisTypeEnum.cs" />
     <Compile Include="Api\ListRequestBase.cs" />
+    <Compile Include="Filters\Enums\SortOrderEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

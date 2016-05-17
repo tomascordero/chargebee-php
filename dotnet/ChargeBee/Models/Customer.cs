@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using ChargeBee.Internal;
 using ChargeBee.Api;
 using ChargeBee.Models.Enums;
+using ChargeBee.Filters.Enums;
 
 namespace ChargeBee.Models
 {
@@ -435,7 +436,7 @@ namespace ChargeBee.Models
 
             public StringFilter<CustomerListRequest> Id() 
             {
-                return new StringFilter<CustomerListRequest>("id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);        
+                return new StringFilter<CustomerListRequest>("id", this).SupportsMultiOperators(true);        
             }
             public StringFilter<CustomerListRequest> FirstName() 
             {

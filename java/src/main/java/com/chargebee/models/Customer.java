@@ -610,7 +610,7 @@ public class Customer extends Resource<Customer> {
         }
     
         public StringFilter<CustomerListRequest> id() {
-            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true).supportsPresenceOperator(true);        
+            return new StringFilter<CustomerListRequest>("id",this).supportsMultiOperators(true);        
         }
 
 
