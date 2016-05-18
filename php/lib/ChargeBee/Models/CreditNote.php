@@ -18,7 +18,7 @@ class ChargeBee_CreditNote extends ChargeBee_Model
 
   public static function all($params = array(), $env = null, $headers = array())
   {
-    return ChargeBee_Request::send(ChargeBee_Request::GET, ChargeBee_Util::encodeURIPath("credit_notes"), $params, $env, $headers);
+    return ChargeBee_Request::sendList(ChargeBee_Request::GET, ChargeBee_Util::encodeURIPath("credit_notes"), $params, $env, $headers);
   }
 
   public static function creditNotesForCustomer($id, $params = array(), $env = null, $headers = array())
