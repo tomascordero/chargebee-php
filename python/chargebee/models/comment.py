@@ -18,7 +18,7 @@ class Comment(Model):
 
     @staticmethod
     def list(params=None, env=None, headers=None):
-        return request.send('get', request.uri_path("comments"), params, env, headers)
+        return request.get_list('get', request.uri_path("comments"), params, env, headers)
 
     @staticmethod
     def delete(id, env=None, headers=None):

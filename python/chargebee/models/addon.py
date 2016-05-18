@@ -20,7 +20,7 @@ class Addon(Model):
 
     @staticmethod
     def list(params=None, env=None, headers=None):
-        return request.send('get', request.uri_path("addons"), params, env, headers)
+        return request.get_list('get', request.uri_path("addons"), params, env, headers)
 
     @staticmethod
     def retrieve(id, env=None, headers=None):

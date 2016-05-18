@@ -2,6 +2,15 @@ import urllib
 from chargebee import util, http_request
 from chargebee.main import ChargeBee
 from chargebee import compat
+import json
+
+def get_list(method, url, params=None, env=None, headers=None):
+    serialized = {}
+    for k, v in list(params.items()):
+	if isinstance(v, (dict, list, tuple)):
+		v = json.dumps(v)
+    	serialized.update({k:v})
+    return send(method,url,serialized,env,headers)
 
 def send(method, url, params=None, env=None, headers=None):
     if params is None:

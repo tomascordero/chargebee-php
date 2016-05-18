@@ -31,7 +31,7 @@ class Subscription(Model):
 
     @staticmethod
     def list(params=None, env=None, headers=None):
-        return request.send('get', request.uri_path("subscriptions"), params, env, headers)
+        return request.get_list('get', request.uri_path("subscriptions"), params, env, headers)
 
     @staticmethod
     def subscriptions_for_customer(id, params=None, env=None, headers=None):

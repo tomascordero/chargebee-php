@@ -23,7 +23,7 @@ class ChargeBee_Subscription extends ChargeBee_Model
 
   public static function all($params = array(), $env = null, $headers = array())
   {
-    return ChargeBee_Request::sendList(ChargeBee_Request::GET, ChargeBee_Util::encodeURIPath("subscriptions"), $params, $env, $headers);
+    return ChargeBee_Request::getList(ChargeBee_Request::GET, ChargeBee_Util::encodeURIPath("subscriptions"), $params, $env, $headers);
   }
 
   public static function subscriptionsForCustomer($id, $params = array(), $env = null, $headers = array())

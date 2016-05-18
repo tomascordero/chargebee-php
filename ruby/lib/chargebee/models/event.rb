@@ -35,7 +35,7 @@ module ChargeBee
   #-----------
 
   def self.list(params={}, env=nil, headers={})
-    Request.send('get', uri_path("events"), params, env, headers)
+    Request.get_list('get', uri_path("events"), params, env, headers)
   end
 
   def self.retrieve(id, env=nil, headers={})
