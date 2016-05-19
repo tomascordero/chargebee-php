@@ -38,10 +38,11 @@ namespace ChargeBee.Api
 
             foreach (var pair in m_dict)
             {
-				if (pair.Value is IList && IsList) {
-					pairs.Add (String.Format ("{0}={1}", HttpUtility.UrlEncode (pair.Key), HttpUtility.UrlEncode (JsonConvert.SerializeObject(pair.Value))));
-				}
-				else if (pair.Value is IList) {
+				if (pair.Value is IList) {
+					if (IsList) {
+						pairs.Add (String.Format ("{0}={1}", HttpUtility.UrlEncode (pair.Key), HttpUtility.UrlEncode (JsonConvert.SerializeObject(pair.Value))));
+						continue;
+					}
 					int idx = 0;
 					foreach (object item in (IList)pair.Value) {
 						pairs.Add (String.Format ("{0}[{1}]={2}",
