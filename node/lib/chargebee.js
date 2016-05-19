@@ -60,7 +60,7 @@ RequestWrapper.prototype.request = function(callBack, envOptions) {
             deferred.resolve(response);
         }
     };
-    ChargeBee._core.makeApiRequest(env, callBackWrapper, this.apiCall.httpMethod, this.apiCall.urlPrefix, this.apiCall.urlSuffix, urlIdParam, params, this.httpHeaders);
+    ChargeBee._core.makeApiRequest(env, callBackWrapper, this.apiCall.httpMethod, this.apiCall.urlPrefix, this.apiCall.urlSuffix, urlIdParam, params, this.httpHeaders, this.apiCall.isListReq);
     return deferred.promise;
 };
 
@@ -117,16 +117,16 @@ ChargeBee._core = (function() {
         };
     };
 
-    coreRef.makeApiRequest = function(env, callBack, httpMethod, urlPrefix, urlSuffix, urlIdParam, params, headers) {
+    coreRef.makeApiRequest = function(env, callBack, httpMethod, urlPrefix, urlSuffix, urlIdParam, params, headers, isListReq) {
         var path = getApiURL(env, urlPrefix, urlSuffix, urlIdParam);
         if (typeof params === 'undefined' || params === null) {
             params = {};
         }
         if (httpMethod === 'GET') {
-            path += "?" + encodeParams(params);
+            var queryParam = isListReq ? encodeListParams(params) : encodeParams(params);
+            path += "?" + queryParam;
             params = {};
-        }
-        var data = encodeParams(params);
+        }        var data = encodeParams(params);
         var protocol = (env.protocol === 'http' ? http : https);
         ChargeBee._util.extend(true, headers, {
             'Authorization': 'Basic ' + new Buffer(env.api_key + ':').toString('base64'),
@@ -164,6 +164,18 @@ ChargeBee._core = (function() {
         return env.site + env.hostSuffix;
     }
 
+    var encodeListParams = function(paramObj, serialized, scope, index) {
+        var key, value;
+        for (key in paramObj) {
+            value = paramObj[key];
+            if(typeof value !== 'undefined' && value !== null && ChargeBee._util.isArray(value)){
+                paramObj[key] = JSON.stringify(value);
+            }else{
+                paramObj[key] = value;
+            }
+        }
+        return encodeParams(paramObj);
+    }
 
     var encodeParams = function(paramObj, serialized, scope, index) {
         var key, value;
@@ -346,7 +358,8 @@ ChargeBee._util = (function() {
                 "httpMethod": metaArr[1],
                 "urlPrefix": metaArr[2],
                 "urlSuffix": metaArr[3],
-                "hasIdInUrl": metaArr[4]};
+                "hasIdInUrl": metaArr[4],
+                "isListReq" : metaArr[0]==="list"};
             module.exports[res][apiCall.methodName] = createApiFunc(apiCall);
         }
     }
