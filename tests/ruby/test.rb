@@ -360,7 +360,71 @@ def retrieve_hosted_page
   puts result.hosted_page.content.credit_notes[0].line_items[0].inspect
 end
 
-retrieve_hosted_page
+def filter_sub_list
+  begin
+    require 'time'
+    list = ChargeBee::Subscription.list({
+      # "sort_by[asc]"=>"created_at",
+      "created_at[after]" => Time.parse('2016-03-24 12:09:13').to_i.to_s,
+      "has_scheduled_changes[is]"=>true,
+      :limit => 80
+      # :offset => "[\"1460968745000\", \"91000000002\"]"
+    })
+ rescue Exception => e
+     puts e
+     throw e;
+ end
+ i=0
+  list.each do |entry|
+    i+=1
+    puts Time.at(entry.subscription.created_at)
+    puts entry.subscription.id
+    # puts entry.subscription.inspect
+    # puts entry.customer.inspect
+    # puts entry.card.inspect
+  end
+  puts list.next_offset
+  puts i
+end  
+
+def filter_plan_list
+  list = ChargeBee::Plan.list({
+    :limit => 5,
+    "price[between]" => "[900,1200]"
+  })
+  i=0
+  list.each do |entry|
+    i+=1;
+    puts entry.plan.inspect
+  end
+  puts i
+end
+
+
+def create_cpn
+  begin
+    result = ChargeBee::Coupon.create({
+      :id => "sample_offer1", 
+      :name => "Sample Offer1", 
+      :discount_type => "fixed_amount", 
+      :discount_amount => 500, 
+      :apply_on => "each_specified_item", 
+      :duration_type => "forever",
+      :plan_constraint => "specific",
+      :plan_ids => ["enterprise_half_yearly","enterprise"],
+      :addon_constraint => "none"
+    })
+    coupon = result.coupon
+  rescue Exception => e
+     puts e
+     throw e;
+ end
+  puts result
+end  
+
+create_cpn
+# filter_plan_list
+# retrieve_hosted_page
 # update_cust
 #retrieve_txn
 #retrieve_event

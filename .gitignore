@@ -6,3 +6,4 @@ review/
 /tests/cs/ClientLibTest/obj/
 *.*~
 .DS_Store
+/tests/java/ClientLibsTest/build/
