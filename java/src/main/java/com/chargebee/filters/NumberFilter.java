@@ -24,22 +24,22 @@ public class NumberFilter<T,U extends ListRequest> {
         return this;
     }
     
-    public U greaterThan(T value) {
+    public U gt(T value) {
         req.params().addOpt(paramName+"[gt]" , value);
         return req;
     }
     
-    public U lessThan(T value) {
+    public U lt(T value) {
         req.params().addOpt(paramName+"[lt]" , value);
         return req;
     }
     
-    public U greaterThanOrEquals(T value) {
+    public U gte(T value) {
         req.params().addOpt(paramName+"[gte]" , value);
         return req;
     }
     
-    public U lessThanOrEquals(T value) {
+    public U lte(T value) {
         req.params().addOpt(paramName+"[lte]" , value);
         return req;
     }
