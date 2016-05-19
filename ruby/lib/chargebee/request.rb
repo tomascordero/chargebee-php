@@ -7,7 +7,7 @@ module ChargeBee
         if(v.kind_of? Array)
           v = v.to_json
         end
-        serialized[k.to_s] = v
+        serialized["@#{k}"] = v
       end 
       self.send(method, url, serialized, env, headers) 
     end

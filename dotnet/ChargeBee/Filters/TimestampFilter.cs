@@ -19,23 +19,23 @@ namespace ChargeBee
 			return this;
 		}
 
-		public U On(long value) {
+		public U On(DateTime value) {
 			req.Params().AddOpt(paramName + "[on]",value);
 			return req;
 		}
 
-		public U Before(long value) {
+		public U Before(DateTime value) {
 			req.Params().AddOpt(paramName + "[before]",value);
 			return req;
 		}
 
-		public U After(long value) {
+		public U After(DateTime value) {
 			req.Params().AddOpt(paramName + "[after]",value);
 			return req;
 		}
 
-		public U Between(long value1, long value2) {
-			req.Params().AddOpt(paramName + "[between]", new long[]{value1,value2});
+		public U Between(DateTime value1, DateTime value2) {
+			req.Params().AddOpt(paramName + "[between]", new DateTime[]{value1,value2});
 			return req;
 		}
 

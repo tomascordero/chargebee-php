@@ -72,16 +72,19 @@ namespace ChargeBee.Api
 					throw new ArgumentException ("Enum fields must be decorated with DescriptionAttribute!");
 				}
 				return attrs [0].Description;
-			}else if(value is JToken) {	
+			} else if (value is JToken) {	
 				return value.ToString ();
-			}else if(value is IList) {
+			} else if (value is IList) {
 				IList origList = (IList)value;
-				List<string> l = new List<string>();
+				List<string> l = new List<string> ();
 				foreach (object item in origList) {
-					l.Add((string)ConvertValue(item));
+					l.Add ((string)ConvertValue (item));
 				}
 				return l;
-			} else {
+			} else if (value is DateTime) {
+				return ApiUtil.ConvertToTimestamp((DateTime)value).ToString();
+			}
+			else {
 				throw new SystemException("Type [" + value.GetType().ToString() + "] not handled");
 			}
     	}
