@@ -7,7 +7,7 @@ ChargeBee.verify_ca_certs=(false)
 
 #Code from apidocs
 ChargeBee.configure(:site => "mannar-test", 
-  :api_key => "test___dev__qIOf7uXcI3vsR3DNNOelTWmF70W1yIUR")
+  :api_key => "test___dev__Pd7d8acdhoLnJkF0pLGDlJPN7cdcumOEhis")
 
 def checkout_new
  result = ChargeBee::HostedPage.checkout_new({
@@ -400,7 +400,6 @@ def filter_plan_list
   puts i
 end
 
-
 def create_cpn
   begin
     result = ChargeBee::Coupon.create({
@@ -422,8 +421,28 @@ def create_cpn
   puts result
 end  
 
-create_cpn
-# filter_plan_list
+def filter_invoice_list
+  begin
+        require 'time'
+  list = ChargeBee::Invoice.list({
+    :limit => 100, 
+    "date[between]" => [Time.parse('2016-05-14 12:03:26').to_i,Time.parse('2016-05-08 12:03:22').to_i],
+    "sort_by[asc]" => "date"
+  })
+  rescue Exception => e
+    puts e
+    throw e;
+  end  
+  i=0
+  list.each do |entry|
+    i+=1;
+    # puts entry.invoice.id
+    puts Time.at(entry.invoice.date)
+  end
+  puts i
+end
+
+filter_invoice_list
 # retrieve_hosted_page
 # update_cust
 #retrieve_txn
