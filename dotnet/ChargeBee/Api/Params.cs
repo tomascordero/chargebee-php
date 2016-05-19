@@ -27,18 +27,21 @@ namespace ChargeBee.Api
 			m_dict.Add(key, value == null ? String.Empty : ConvertValue(value));
         }
 
-        public string GetQuery()
+		public string GetQuery(bool IsList)
         {
-            return String.Join("&", GetPairs());
+			return String.Join("&", GetPairs(IsList));
         }
 
-        private string[] GetPairs()
+		private string[] GetPairs(bool IsList)
         {
             List<string> pairs = new List<string>(m_dict.Keys.Count);
 
             foreach (var pair in m_dict)
             {
-				if (pair.Value is IList) {
+				if (pair.Value is IList && IsList) {
+					pairs.Add (String.Format ("{0}={1}", HttpUtility.UrlEncode (pair.Key), HttpUtility.UrlEncode (JsonConvert.SerializeObject(pair.Value))));
+				}
+				else if (pair.Value is IList) {
 					int idx = 0;
 					foreach (object item in (IList)pair.Value) {
 						pairs.Add (String.Format ("{0}[{1}]={2}",

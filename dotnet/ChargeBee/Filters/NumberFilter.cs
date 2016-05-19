@@ -19,22 +19,22 @@ namespace ChargeBee
 			return this;
 		}
 
-		public U GreaterThan(T value) {
+		public U Gt(T value) {
 			req.Params().AddOpt(paramName+"[gt]" , value);
 			return req;
 		}
 
-		public U LessThan(T value) {
+		public U Lt(T value) {
 			req.Params().AddOpt(paramName+"[lt]" , value);
 			return req;
 		}
 
-		public U GreaterThanOrEquals(T value) {
+		public U Gte(T value) {
 			req.Params().AddOpt(paramName+"[gte]" , value);
 			return req;
 		}
 
-		public U LessThanOrEquals(T value) {
+		public U Lte(T value) {
 			req.Params().AddOpt(paramName+"[lte]" , value);
 			return req;
 		}
