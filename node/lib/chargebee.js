@@ -126,7 +126,8 @@ ChargeBee._core = (function() {
             var queryParam = isListReq ? encodeListParams(params) : encodeParams(params);
             path += "?" + queryParam;
             params = {};
-        }        var data = encodeParams(params);
+        }
+        var data = encodeParams(params);
         var protocol = (env.protocol === 'http' ? http : https);
         ChargeBee._util.extend(true, headers, {
             'Authorization': 'Basic ' + new Buffer(env.api_key + ':').toString('base64'),
@@ -164,7 +165,7 @@ ChargeBee._core = (function() {
         return env.site + env.hostSuffix;
     }
 
-    var encodeListParams = function(paramObj, serialized, scope, index) {
+    var encodeListParams = function(paramObj) {
         var key, value;
         for (key in paramObj) {
             value = paramObj[key];
