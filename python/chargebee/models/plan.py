@@ -21,7 +21,7 @@ class Plan(Model):
 
     @staticmethod
     def list(params=None, env=None, headers=None):
-        return request.send('get', request.uri_path("plans"), params, env, headers)
+        return request.send_list_request('get', request.uri_path("plans"), params, env, headers)
 
     @staticmethod
     def retrieve(id, env=None, headers=None):

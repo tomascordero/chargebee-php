@@ -168,8 +168,13 @@ def retrieve_hosted_pages():
     hosted_page = result.hosted_page
     print hosted_page.content.credit_notes[0].__dict__
 
+# list_events()
+# delete_subscription()
+# delete_customer()
+retrieve_events()
+
 # update_estimate()
-retrieve_hosted_pages()
+# retrieve_hosted_pages()
 # list_events()
 # delete_subscription()
 # delete_customer()

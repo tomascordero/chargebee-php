@@ -1,6 +1,17 @@
 module ChargeBee
   class Request    
 
+    def self.send_list_request(method, url, params={}, env=nil, headers={})
+      serialized = {}
+      params.each do |k, v|
+        if(v.kind_of? Array)
+          v = v.to_json
+        end
+        serialized["#{k}"] = v
+      end 
+      self.send(method, url, serialized, env, headers) 
+    end
+
     def self.send(method, url, params={}, env=nil, headers={})
       env ||= ChargeBee.default_env
       ser_params = Util.serialize(params)
