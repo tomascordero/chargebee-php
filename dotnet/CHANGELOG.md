@@ -1,7 +1,7 @@
 ### v2.0.4 (2016-05-20)
 * * *
 
-## Filtering Resources using List API
+#### Filtering Resources using List API
 
 Chargebee supports bulk fetching of resources via 'List' API methods. (List invoices, List subscriptions etc..). In the List methods, filtering of resources can be performed using filter parameters. Also in the List methods, the sort_by parameter is provided for sorting the result in the desired order. 
 See : https://apidocs.chargebee.com/docs/api#pagination_and_filtering
