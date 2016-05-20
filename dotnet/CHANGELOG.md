@@ -1,3 +1,39 @@
+### v2.0.4 (2016-05-20)
+* * *
+
+## Filtering Resources using List API
+
+Chargebee supports bulk fetching of resources via 'List' API methods. (List invoices, List subscriptions etc..). In the List methods, filtering of resources can be performed using filter parameters. Also in the List methods, the sort_by parameter is provided for sorting the result in the desired order. 
+See : https://apidocs.chargebee.com/docs/api#pagination_and_filtering
+
+** APIs deprecated**:
+
+The Following API's are deprecated since these operations can be achieved through List API's
+* List Subscriptions for a Customer
+* List Invoices for a Customer
+* List Invoices for a Subscription
+* List Credit Note for a Customer
+* List Credit Note for a Subscription
+* List Transactions for a Customer
+* List Transations for a Subscription 
+
+** APIs added**:
+
+Support to copy card to gateway for a customer. New api endpoint to copy card for a customer is added to Card resources. 
+See: https://apidocs.chargebee.com/docs/api/cards#copy_card
+
+** APIs updated**:
+
+New attribute "id" is returned as part of Line Items subresource of Invoice and Credit Note resource.
+See: https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+New attribute "name" is returned as part of Taxes subresource of Invoice and Credit Note resource.
+See: https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+
+A new sub-resource "line_item_taxes" is returned as part of the Invoice and Credit Note resource attributes.
+See : https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
 ### v2.0.3 (2016-05-02)
 * * *
 ** APIs added**:
