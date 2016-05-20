@@ -75,7 +75,7 @@ module ChargeBee
   end
 
   def self.list(params={}, env=nil, headers={})
-    Request.get_list('get', uri_path("invoices"), params, env, headers)
+    Request.send_list_request('get', uri_path("invoices"), params, env, headers)
   end
 
   def self.invoices_for_customer(id, params={}, env=nil, headers={})

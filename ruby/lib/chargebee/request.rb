@@ -1,13 +1,13 @@
 module ChargeBee
   class Request    
 
-    def self.get_list(method, url, params={}, env=nil, headers={})
+    def self.send_list_request(method, url, params={}, env=nil, headers={})
       serialized = {}
       params.each do |k, v|
         if(v.kind_of? Array)
           v = v.to_json
         end
-        serialized["@#{k}"] = v
+        serialized["#{k}"] = v
       end 
       self.send(method, url, serialized, env, headers) 
     end

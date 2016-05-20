@@ -7,7 +7,7 @@ class ChargeBee_Request
 	
 	const POST = "post";
 
-	public static function getList($method, $url, $params = array(), $env = null, $headers = array())
+	public static function sendListRequest($method, $url, $params = array(), $env = null, $headers = array())
 	{
 		$serialized = array();
 		foreach ($params as $k => $v)

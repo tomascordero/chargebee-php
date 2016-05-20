@@ -35,7 +35,7 @@ class CreditNote(Model):
 
     @staticmethod
     def list(params=None, env=None, headers=None):
-        return request.get_list('get', request.uri_path("credit_notes"), params, env, headers)
+        return request.send_list_request('get', request.uri_path("credit_notes"), params, env, headers)
 
     @staticmethod
     def credit_notes_for_customer(id, params=None, env=None, headers=None):
