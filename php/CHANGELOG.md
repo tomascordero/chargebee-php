@@ -61,7 +61,7 @@ V2 has been released to accommodate certain backwards-incompatible changes. Refe
   * *item_level_discount_amount* - only the item-level-discount amount component.
 * Further [discounts[].entity_type](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) will have two types for coupon -  *item_level_coupon* and *document_level_coupon*. 
 * Input Param *use_existing_balances* is added to the operations - [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) and [Subscription Renewal Estimate](https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate)
-* The API's *checkout_onetime_addons* and *checkout_onetime_charge* are removed in V2.
+* The API's *checkout_onetime_addons* and *checkout_onetime_charge* in Hosted Page resource are removed in V2.
 
 
 ### v1.7.2 (2016-04-06)
