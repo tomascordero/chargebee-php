@@ -133,7 +133,14 @@ class ChargeBee_Result
         array('linked_customers' => 'ChargeBee_PortalSessionLinkedCustomer'));
         return $portal_session;
     }
-
+       
+    function referenceId() {
+        return $this->_response["reference_id"];
+    }
+  
+    function destinationGateway() {
+    	return $this->_response["destination_gateway"];
+    }
 
     function creditNotes() 
     {
