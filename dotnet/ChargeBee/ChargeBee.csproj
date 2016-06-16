@@ -118,6 +118,7 @@
   -->
   <ItemGroup>
     <Folder Include="lib\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
