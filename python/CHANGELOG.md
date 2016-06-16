@@ -1,3 +1,10 @@
+### v2.0.8 (2016-06-16)
+* * *
+
+** APIs updated**:
+New subresource "next_invoice_estimate" is returned as part of Estimate resource.
+See : https://apidocs.chargebee.com/docs/api/estimates#estimate_attributes
+
 ### v2.0.7 (2016-05-25)
 * * *
 
