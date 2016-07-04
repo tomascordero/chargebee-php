@@ -78,7 +78,7 @@ public class Plan extends Resource<Plan> {
     }
 
     public String currencyCode() {
-        return optString("currency_code");
+        return reqString("currency_code");
     }
 
     public Integer period() {

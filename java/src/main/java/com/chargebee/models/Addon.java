@@ -87,7 +87,7 @@ public class Addon extends Resource<Addon> {
     }
 
     public String currencyCode() {
-        return optString("currency_code");
+        return reqString("currency_code");
     }
 
     public Integer period() {

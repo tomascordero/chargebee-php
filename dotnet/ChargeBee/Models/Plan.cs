@@ -69,7 +69,7 @@ namespace ChargeBee.Models
         }
         public string CurrencyCode 
         {
-            get { return GetValue<string>("currency_code", false); }
+            get { return GetValue<string>("currency_code", true); }
         }
         public int Period 
         {
