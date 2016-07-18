@@ -859,7 +859,7 @@ namespace ChargeBee.Models
             {
                 m_params.Add("transaction[date]", transactionDate);
                 return this;
-            
+            }
             public RecordExcessPaymentRequest TransactionPaymentMethod(ChargeBee.Models.Enums.PaymentMethodEnum transactionPaymentMethod) 
             {
                 m_params.Add("transaction[payment_method]", transactionPaymentMethod);
