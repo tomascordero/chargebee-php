@@ -431,6 +431,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_address[country]", billingAddressCountry);
                 return this;
             }
+            public CreateRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) 
+            {
+                m_params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
+                return this;
+            }
         }
         public class CustomerListRequest : ListRequestBase<CustomerListRequest> 
         {
@@ -642,6 +647,11 @@ namespace ChargeBee.Models
             public UpdateBillingInfoRequest BillingAddressCountry(string billingAddressCountry) 
             {
                 m_params.AddOpt("billing_address[country]", billingAddressCountry);
+                return this;
+            }
+            public UpdateBillingInfoRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) 
+            {
+                m_params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
                 return this;
             }
         }
@@ -957,6 +967,10 @@ namespace ChargeBee.Models
 
             public string Zip() {
                 return GetValue<string>("zip", false);
+            }
+
+            public ValidationStatusEnum? ValidationStatus() {
+                return GetEnum<ValidationStatusEnum>("validation_status", false);
             }
 
         }

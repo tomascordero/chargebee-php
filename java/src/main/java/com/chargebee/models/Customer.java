@@ -80,6 +80,10 @@ public class Customer extends Resource<Customer> {
             return optString("zip");
         }
 
+        public ValidationStatus validationStatus() {
+            return optEnum("validation_status", ValidationStatus.class);
+        }
+
     }
 
     public static class Contact extends Resource<Contact> {
@@ -602,6 +606,11 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
+        public CreateRequest billingAddressValidationStatus(ValidationStatus billingAddressValidationStatus) {
+            params.addOpt("billing_address[validation_status]", billingAddressValidationStatus);
+            return this;
+        }
+
         @Override
         public Params params() {
             return params;
@@ -851,6 +860,11 @@ public class Customer extends Resource<Customer> {
 
         public UpdateBillingInfoRequest billingAddressCountry(String billingAddressCountry) {
             params.addOpt("billing_address[country]", billingAddressCountry);
+            return this;
+        }
+
+        public UpdateBillingInfoRequest billingAddressValidationStatus(ValidationStatus billingAddressValidationStatus) {
+            params.addOpt("billing_address[validation_status]", billingAddressValidationStatus);
             return this;
         }
 

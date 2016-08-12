@@ -129,6 +129,10 @@ public class Subscription extends Resource<Subscription> {
             return optString("zip");
         }
 
+        public ValidationStatus validationStatus() {
+            return optEnum("validation_status", ValidationStatus.class);
+        }
+
     }
 
     //Constructors
@@ -651,6 +655,11 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
+        public CreateRequest billingAddressValidationStatus(ValidationStatus billingAddressValidationStatus) {
+            params.addOpt("billing_address[validation_status]", billingAddressValidationStatus);
+            return this;
+        }
+
         public CreateRequest shippingAddressFirstName(String shippingAddressFirstName) {
             params.addOpt("shipping_address[first_name]", shippingAddressFirstName);
             return this;
@@ -713,6 +722,11 @@ public class Subscription extends Resource<Subscription> {
 
         public CreateRequest shippingAddressCountry(String shippingAddressCountry) {
             params.addOpt("shipping_address[country]", shippingAddressCountry);
+            return this;
+        }
+
+        public CreateRequest shippingAddressValidationStatus(ValidationStatus shippingAddressValidationStatus) {
+            params.addOpt("shipping_address[validation_status]", shippingAddressValidationStatus);
             return this;
         }
 
@@ -865,6 +879,11 @@ public class Subscription extends Resource<Subscription> {
 
         public CreateForCustomerRequest shippingAddressCountry(String shippingAddressCountry) {
             params.addOpt("shipping_address[country]", shippingAddressCountry);
+            return this;
+        }
+
+        public CreateForCustomerRequest shippingAddressValidationStatus(ValidationStatus shippingAddressValidationStatus) {
+            params.addOpt("shipping_address[validation_status]", shippingAddressValidationStatus);
             return this;
         }
 
@@ -1224,6 +1243,11 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
+        public UpdateRequest billingAddressValidationStatus(ValidationStatus billingAddressValidationStatus) {
+            params.addOpt("billing_address[validation_status]", billingAddressValidationStatus);
+            return this;
+        }
+
         public UpdateRequest shippingAddressFirstName(String shippingAddressFirstName) {
             params.addOpt("shipping_address[first_name]", shippingAddressFirstName);
             return this;
@@ -1286,6 +1310,11 @@ public class Subscription extends Resource<Subscription> {
 
         public UpdateRequest shippingAddressCountry(String shippingAddressCountry) {
             params.addOpt("shipping_address[country]", shippingAddressCountry);
+            return this;
+        }
+
+        public UpdateRequest shippingAddressValidationStatus(ValidationStatus shippingAddressValidationStatus) {
+            params.addOpt("shipping_address[validation_status]", shippingAddressValidationStatus);
             return this;
         }
 
