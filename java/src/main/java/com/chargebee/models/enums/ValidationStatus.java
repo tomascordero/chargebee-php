@@ -1,7 +1,7 @@
 package com.chargebee.models.enums;
 
 public enum ValidationStatus {
-    UNKNOWN,
+    NOT_VALIDATED,
     VALID,
     PARTIALLY_VALID,
     INVALID,

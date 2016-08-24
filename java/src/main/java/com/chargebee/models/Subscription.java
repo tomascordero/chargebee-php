@@ -422,6 +422,7 @@ public class Subscription extends Resource<Subscription> {
         }
 
 
+        @Deprecated
         public CreateRequest createdFromIp(String createdFromIp) {
             params.addOpt("created_from_ip", createdFromIp);
             return this;
@@ -585,6 +586,7 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
+        @Deprecated
         public CreateRequest cardIpAddress(String cardIpAddress) {
             params.addOpt("card[ip_address]", cardIpAddress);
             return this;
@@ -1108,6 +1110,11 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
+        public UpdateRequest paymentMethodTmpToken(String paymentMethodTmpToken) {
+            params.addOpt("payment_method[tmp_token]", paymentMethodTmpToken);
+            return this;
+        }
+
         public UpdateRequest cardFirstName(String cardFirstName) {
             params.addOpt("card[first_name]", cardFirstName);
             return this;
@@ -1173,6 +1180,7 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
+        @Deprecated
         public UpdateRequest cardIpAddress(String cardIpAddress) {
             params.addOpt("card[ip_address]", cardIpAddress);
             return this;

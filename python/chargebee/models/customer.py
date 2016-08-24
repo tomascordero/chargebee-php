@@ -16,8 +16,8 @@ class Customer(Model):
 
     fields = ["id", "first_name", "last_name", "email", "phone", "company", "vat_number", "auto_collection", \
     "allow_direct_debit", "created_at", "created_from_ip", "taxability", "entity_code", "exempt_number", \
-    "card_status", "billing_address", "contacts", "payment_method", "invoice_notes", "promotional_credits", \
-    "refundable_credits", "excess_payments", "meta_data"]
+    "card_status", "fraud_flag", "billing_address", "contacts", "payment_method", "invoice_notes", \
+    "promotional_credits", "refundable_credits", "excess_payments", "meta_data"]
 
 
     @staticmethod

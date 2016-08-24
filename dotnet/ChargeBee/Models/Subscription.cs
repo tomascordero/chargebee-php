@@ -280,6 +280,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("affiliate_token", affiliateToken);
                 return this;
             }
+            [Obsolete]
             public CreateRequest CreatedFromIp(string createdFromIp) 
             {
                 m_params.AddOpt("created_from_ip", createdFromIp);
@@ -440,6 +441,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("card[billing_country]", cardBillingCountry);
                 return this;
             }
+            [Obsolete]
             public CreateRequest CardIpAddress(string cardIpAddress) 
             {
                 m_params.AddOpt("card[ip_address]", cardIpAddress);
@@ -901,6 +903,11 @@ namespace ChargeBee.Models
                 m_params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
                 return this;
             }
+            public UpdateRequest PaymentMethodTmpToken(string paymentMethodTmpToken) 
+            {
+                m_params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
+                return this;
+            }
             public UpdateRequest CardFirstName(string cardFirstName) 
             {
                 m_params.AddOpt("card[first_name]", cardFirstName);
@@ -966,6 +973,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("card[billing_country]", cardBillingCountry);
                 return this;
             }
+            [Obsolete]
             public UpdateRequest CardIpAddress(string cardIpAddress) 
             {
                 m_params.AddOpt("card[ip_address]", cardIpAddress);
