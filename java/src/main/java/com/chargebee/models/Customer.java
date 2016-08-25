@@ -1146,7 +1146,7 @@ public class Customer extends Resource<Customer> {
             return this;
         }
 
-        public RecordExcessPaymentRequest transactionPaymentMethod(com.chargebee.models.enums.PaymentMethod.PaymentMethod transactionPaymentMethod) {
+        public RecordExcessPaymentRequest transactionPaymentMethod(com.chargebee.models.enums.PaymentMethod transactionPaymentMethod) {
             params.add("transaction[payment_method]", transactionPaymentMethod);
             return this;
         }
