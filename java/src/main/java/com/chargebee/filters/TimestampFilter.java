@@ -2,6 +2,9 @@ package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import org.json.JSONArray;
 
 /**
  *
@@ -41,7 +44,8 @@ public class TimestampFilter<U extends ListRequest> {
     }
 
     public U between(Timestamp value1, Timestamp value2) {
-        req.params().addOpt(paramName + "[between]", new Timestamp[]{value1, value2});
+        JSONArray jArr = serialize(new ArrayList<Timestamp>(Arrays.asList(value1,value2)));
+        req.params().addOpt(paramName + "[between]", jArr);
         return req;
     }
 
@@ -51,5 +55,13 @@ public class TimestampFilter<U extends ListRequest> {
         }
         req.params().addOpt(paramName + "[is_present]", value);
         return req;
+    }
+    
+    private JSONArray serialize(ArrayList<Timestamp> list){
+        JSONArray jArr = new JSONArray();
+        for(Timestamp timestamp : list){
+            jArr.put(timestamp.getTime() / 1000);
+        }
+        return jArr;
     }
 }

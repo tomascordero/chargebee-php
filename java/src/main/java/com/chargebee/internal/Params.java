@@ -2,6 +2,8 @@ package com.chargebee.internal;
 
 import java.sql.Timestamp;
 import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Params {
@@ -58,6 +60,8 @@ public class Params {
             }
             return l;            
         } else if(value instanceof JSONObject) {
+            return value.toString();
+        } else if(value instanceof JSONArray) {
             return value.toString();
         } else {
             throw new RuntimeException("Type [" + c.getName() + "] not handled");
