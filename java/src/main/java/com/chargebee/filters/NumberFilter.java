@@ -48,7 +48,7 @@ public class NumberFilter<T,U extends ListRequest> {
     }
     
     public U between(T val1, T val2){
-        JSONArray jArr = serialize(new ArrayList<T>(Arrays.asList(val1,val2)));
+        JSONArray jArr = new JSONArray(new ArrayList<T>(Arrays.asList(val1,val2)));
         req.params().addOpt(paramName + "[between]", jArr);
         return req;
     }
@@ -71,13 +71,4 @@ public class NumberFilter<T,U extends ListRequest> {
         req.params().addOpt(paramName + "[is_present]", value);
         return req;
     }
-    
-    private JSONArray serialize(ArrayList<T> list) {
-        JSONArray jArr = new JSONArray();
-        for (T val : list) {
-            jArr.put(String.valueOf(val));
-        }
-        return jArr;
-    }
-
 }

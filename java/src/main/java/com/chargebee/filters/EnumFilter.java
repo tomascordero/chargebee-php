@@ -1,6 +1,7 @@
 package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
+import com.chargebee.internal.Params;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -60,7 +61,7 @@ public class EnumFilter<T, U extends ListRequest> {
     private JSONArray serialize(ArrayList<T> list) {
         JSONArray jArr = new JSONArray();
         for (T val : list) {
-            jArr.put(val.toString().toLowerCase());
+            jArr.put(Params.toValStr(val));
         }
         return jArr;
     }

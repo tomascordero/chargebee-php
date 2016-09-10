@@ -60,7 +60,7 @@ public class StringFilter<U extends ListRequest> {
         if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[in]' is not supported for this filter-parameter");
         }
-        JSONArray jArr = serialize(new ArrayList<String>(Arrays.asList(value)));
+        JSONArray jArr = new JSONArray(new ArrayList<String>(Arrays.asList(value)));
         req.params().addOpt(paramName + "[in]", jArr);
         return req;
     }
@@ -69,16 +69,8 @@ public class StringFilter<U extends ListRequest> {
         if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[not_in]' is not supported for this filter-parameter");
         }
-        JSONArray jArr = serialize(new ArrayList<String>(Arrays.asList(value)));
+        JSONArray jArr = new JSONArray(new ArrayList<String>(Arrays.asList(value)));
         req.params().addOpt(paramName + "[not_in]", jArr);
         return req;
-    }
-    
-    private JSONArray serialize(ArrayList<String> list) {
-        JSONArray jArr = new JSONArray();
-        for (String str : list) {
-            jArr.put(String.valueOf(str));
-        }
-        return jArr;
     }
 }
