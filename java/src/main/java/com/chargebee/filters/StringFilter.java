@@ -1,7 +1,6 @@
 package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
-import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
 
@@ -60,7 +59,7 @@ public class StringFilter<U extends ListRequest> {
         if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[in]' is not supported for this filter-parameter");
         }
-        JSONArray jArr = new JSONArray(new ArrayList<String>(Arrays.asList(value)));
+        JSONArray jArr = new JSONArray(Arrays.asList(value));
         req.params().addOpt(paramName + "[in]", jArr);
         return req;
     }
@@ -69,7 +68,7 @@ public class StringFilter<U extends ListRequest> {
         if (!supportsMultiOperators) {
             throw new UnsupportedOperationException("operator '[not_in]' is not supported for this filter-parameter");
         }
-        JSONArray jArr = new JSONArray(new ArrayList<String>(Arrays.asList(value)));
+        JSONArray jArr = new JSONArray(Arrays.asList(value));
         req.params().addOpt(paramName + "[not_in]", jArr);
         return req;
     }

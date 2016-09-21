@@ -2,8 +2,8 @@ package com.chargebee.filters;
 
 import com.chargebee.internal.ListRequest;
 import com.chargebee.internal.Params;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.json.JSONArray;
 
 /**
@@ -39,13 +39,13 @@ public class EnumFilter<T, U extends ListRequest> {
     }
 
     public U in(T... value) {
-        JSONArray jArr = serialize(new ArrayList<T>(Arrays.asList(value)));
+        JSONArray jArr = serialize(Arrays.asList(value));
         req.params().addOpt(paramName + "[in]", jArr);
         return req;
     }
 
     public U notIn(T... value) {
-        JSONArray jArr = serialize(new ArrayList<T>(Arrays.asList(value)));
+        JSONArray jArr = serialize(Arrays.asList(value));
         req.params().addOpt(paramName + "[not_in]", jArr);
         return req;
     }
@@ -58,7 +58,7 @@ public class EnumFilter<T, U extends ListRequest> {
         return req;
     }
     
-    private JSONArray serialize(ArrayList<T> list) {
+    private JSONArray serialize(List<T> list) {
         JSONArray jArr = new JSONArray();
         for (T val : list) {
             jArr.put(Params.toValStr(val));
