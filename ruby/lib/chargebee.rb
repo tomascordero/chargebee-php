@@ -38,6 +38,7 @@ module ChargeBee
   @@default_env = nil
   @@verify_ca_certs = true
   @@ca_cert_path = File.join(File.dirname(__FILE__), '/ssl/ca-certs.crt')
+  @@source_info = nil
 
   def self.configure(options)
     @@default_env = Environment.new(options)
@@ -57,6 +58,15 @@ module ChargeBee
 
   def self.ca_cert_path
     @@ca_cert_path
+  end
+
+
+  def self.source(source)
+    @@source_info = source
+  end
+
+  def self.source_info
+    @@source_info
   end
 
 end
