@@ -38,7 +38,7 @@ module ChargeBee
   @@default_env = nil
   @@verify_ca_certs = true
   @@ca_cert_path = File.join(File.dirname(__FILE__), '/ssl/ca-certs.crt')
-  @@source_info = nil
+  @@user_agent = "Chargebee-Ruby-Client v#{self::VERSION}"
 
   def self.configure(options)
     @@default_env = Environment.new(options)
@@ -62,11 +62,11 @@ module ChargeBee
 
 
   def self.source(source)
-    @@source_info = source
+    @@user_agent = @@user_agent + ' ' + source unless source.nil?
   end
 
-  def self.source_info
-    @@source_info
+  def self.user_agent
+    @@user_agent
   end
 
 end

@@ -25,11 +25,7 @@ module ChargeBee
       else
         payload = params
       end
-      if (ChargeBee.source_info == nil)
-        user_agent = "Chargebee-Ruby-Client v#{ChargeBee::VERSION}"
-      else
-        user_agent = "Chargebee-Ruby-Client v#{ChargeBee::VERSION} " + ChargeBee.source_info 
-      end
+        user_agent = ChargeBee.user_agent 
       
       headers = { 
         "User-Agent" => user_agent,
