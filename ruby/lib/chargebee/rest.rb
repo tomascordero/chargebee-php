@@ -25,8 +25,8 @@ module ChargeBee
       else
         payload = params
       end
-        user_agent = ChargeBee.user_agent 
-      
+        
+      user_agent = ChargeBee.user_agent 
       headers = { 
         "User-Agent" => user_agent,
         :accept => :json 
