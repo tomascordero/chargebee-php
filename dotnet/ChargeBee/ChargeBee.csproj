@@ -104,6 +104,8 @@
     <Compile Include="Filters\Enums\SortOrderEnum.cs" />
     <Compile Include="Models\ThirdPartyPaymentMethod.cs" />
     <Compile Include="Models\Enums\ValidationStatusEnum.cs" />
+    <Compile Include="Models\Enums\TaxOverrideReasonEnum.cs" />
+    <Compile Include="Models\Enums\JurisTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cb-Dotnet.snk" />
