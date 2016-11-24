@@ -1587,14 +1587,6 @@ public class Subscription extends Resource<Subscription> {
             return this;
         }
 
-
-        @Deprecated
-        public ImportSubscriptionRequest coupon(String coupon) {
-            params.addOpt("coupon", coupon);
-            return this;
-        }
-
-
         public ImportSubscriptionRequest poNumber(String poNumber) {
             params.addOpt("po_number", poNumber);
             return this;
@@ -1655,14 +1647,6 @@ public class Subscription extends Resource<Subscription> {
             params.addOpt("affiliate_token", affiliateToken);
             return this;
         }
-
-
-        @Deprecated
-        public ImportSubscriptionRequest createdFromIp(String createdFromIp) {
-            params.addOpt("created_from_ip", createdFromIp);
-            return this;
-        }
-
 
         public ImportSubscriptionRequest invoiceNotes(String invoiceNotes) {
             params.addOpt("invoice_notes", invoiceNotes);
@@ -1823,12 +1807,6 @@ public class Subscription extends Resource<Subscription> {
 
         public ImportSubscriptionRequest cardBillingCountry(String cardBillingCountry) {
             params.addOpt("card[billing_country]", cardBillingCountry);
-            return this;
-        }
-
-        @Deprecated
-        public ImportSubscriptionRequest cardIpAddress(String cardIpAddress) {
-            params.addOpt("card[ip_address]", cardIpAddress);
             return this;
         }
 
@@ -2031,13 +2009,6 @@ public class Subscription extends Resource<Subscription> {
 
         public ImportForCustomerRequest billingCycles(Integer billingCycles) {
             params.addOpt("billing_cycles", billingCycles);
-            return this;
-        }
-
-
-        @Deprecated
-        public ImportForCustomerRequest coupon(String coupon) {
-            params.addOpt("coupon", coupon);
             return this;
         }
 

@@ -1322,12 +1322,6 @@ namespace ChargeBee.Models
                 m_params.AddOpt("billing_cycles", billingCycles);
                 return this;
             }
-            [Obsolete]
-            public ImportSubscriptionRequest Coupon(string coupon) 
-            {
-                m_params.AddOpt("coupon", coupon);
-                return this;
-            }
             public ImportSubscriptionRequest PoNumber(string poNumber) 
             {
                 m_params.AddOpt("po_number", poNumber);
@@ -1371,12 +1365,6 @@ namespace ChargeBee.Models
             public ImportSubscriptionRequest AffiliateToken(string affiliateToken) 
             {
                 m_params.AddOpt("affiliate_token", affiliateToken);
-                return this;
-            }
-            [Obsolete]
-            public ImportSubscriptionRequest CreatedFromIp(string createdFromIp) 
-            {
-                m_params.AddOpt("created_from_ip", createdFromIp);
                 return this;
             }
             public ImportSubscriptionRequest InvoiceNotes(string invoiceNotes) 
@@ -1537,12 +1525,6 @@ namespace ChargeBee.Models
             public ImportSubscriptionRequest CardBillingCountry(string cardBillingCountry) 
             {
                 m_params.AddOpt("card[billing_country]", cardBillingCountry);
-                return this;
-            }
-            [Obsolete]
-            public ImportSubscriptionRequest CardIpAddress(string cardIpAddress) 
-            {
-                m_params.AddOpt("card[ip_address]", cardIpAddress);
                 return this;
             }
             public ImportSubscriptionRequest BillingAddressFirstName(string billingAddressFirstName) 
@@ -1736,12 +1718,6 @@ namespace ChargeBee.Models
             public ImportForCustomerRequest BillingCycles(int billingCycles) 
             {
                 m_params.AddOpt("billing_cycles", billingCycles);
-                return this;
-            }
-            [Obsolete]
-            public ImportForCustomerRequest Coupon(string coupon) 
-            {
-                m_params.AddOpt("coupon", coupon);
                 return this;
             }
             public ImportForCustomerRequest PoNumber(string poNumber) 
