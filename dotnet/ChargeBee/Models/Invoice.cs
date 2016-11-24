@@ -845,7 +845,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("taxes[description][" + index + "]", taxDescription);
                 return this;
             }
-			public ImportInvoiceRequest TaxJurisType(int index, JurisTypeEnum taxJurisType) 
+            public ImportInvoiceRequest TaxJurisType(int index, TaxJurisTypeEnum taxJurisType) 
             {
                 m_params.AddOpt("taxes[juris_type][" + index + "]", taxJurisType);
                 return this;
@@ -865,7 +865,7 @@ namespace ChargeBee.Models
                 m_params.Add("payments[amount][" + index + "]", paymentAmount);
                 return this;
             }
-			public ImportInvoiceRequest PaymentPaymentMethod(int index, PaymentMethodEnum paymentPaymentMethod) 
+            public ImportInvoiceRequest PaymentPaymentMethod(int index, PaymentMethodEnum paymentPaymentMethod) 
             {
                 m_params.Add("payments[payment_method][" + index + "]", paymentPaymentMethod);
                 return this;

@@ -1372,7 +1372,7 @@ public class Invoice extends Resource<Invoice> {
             return this;
         }
 
-        public ImportInvoiceRequest taxJurisType(int index, JurisType taxJurisType) {
+        public ImportInvoiceRequest taxJurisType(int index, TaxJurisType taxJurisType) {
             params.addOpt("taxes[juris_type][" + index + "]", taxJurisType);
             return this;
         }
