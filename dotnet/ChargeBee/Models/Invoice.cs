@@ -1068,7 +1068,7 @@ namespace ChargeBee.Models
                 m_params.AddOpt("transaction[id_at_gateway]", transactionIdAtGateway);
                 return this;
             }
-            public RecordPaymentRequest TransactionStatus(StatusEnum transactionStatus) 
+			public RecordPaymentRequest TransactionStatus(Transaction.StatusEnum transactionStatus) 
             {
                 m_params.AddOpt("transaction[status]", transactionStatus);
                 return this;

@@ -1641,7 +1641,7 @@ public class Invoice extends Resource<Invoice> {
             return this;
         }
 
-        public RecordPaymentRequest transactionStatus(Status transactionStatus) {
+        public RecordPaymentRequest transactionStatus(Transaction.Status transactionStatus) {
             params.addOpt("transaction[status]", transactionStatus);
             return this;
         }
